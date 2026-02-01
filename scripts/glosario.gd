@@ -25,6 +25,7 @@ func _ready():
 			$General/ScrollContainerMaldiciones/Maldiciones/Reves/TextureRect.modulate = Color()
 			$General/ScrollContainerMaldiciones/Maldiciones/Reves/Label.text = "???"
 			$General/ScrollContainerMaldiciones/Maldiciones/Reves/Button.disabled = true
+			$General/ScrollContainerMaldiciones/Maldiciones/Reves/Button.set_block_signals(1)
 		if progreso.get_value("Jefes","espina") == 0:
 			ocultar("Espina")
 		if progreso.get_value("Jefes","serpico") == 0:
@@ -43,12 +44,8 @@ func ocultar(nombre):
 	$General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/TextureRect").modulate = Color()
 	$General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/Label").text = "???"
 	$General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/Button").disabled = true
+	$General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/Button").set_block_signals(1)
 
-func _on_hover() -> void:
-	if hover_sound.playing:
-		hover_sound.stop()
-	hover_sound.play()
-	
 
 func _on_atras_pressed() -> void:
 	if $Detalle.visible:
@@ -60,6 +57,8 @@ func _on_atras_pressed() -> void:
 
 
 func _on_button_mouse_entered() -> void:
+	if hover_sound.playing == true:
+		hover_sound.stop()
 	hover_sound.play()
 
 
@@ -115,8 +114,11 @@ func _on_button_pressed(id) -> void:
 
 func _on_descripcion_pressed() -> void:
 	$Detalle/Descripcion.disabled = true
+	$Detalle/Descripcion.set_block_signals(1)
 	$Detalle/Religion.disabled = false
+	$Detalle/Religion.set_block_signals(0)
 	$Detalle/Alma.disabled = false
+	$Detalle/Alma.set_block_signals(0)
 	if glosarioid == "Caelius":
 		match progreso.get_value("Caelius","tipo"):
 			"ego":
@@ -132,16 +134,22 @@ func _on_descripcion_pressed() -> void:
 
 func _on_religion_pressed() -> void:
 	$Detalle/Religion.disabled = true
+	$Detalle/Religion.set_block_signals(1)
 	$Detalle/Descripcion.disabled = false
+	$Detalle/Descripcion.set_block_signals(0)
 	$Detalle/Alma.disabled = false
+	$Detalle/Alma.set_block_signals(0)
 	$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"religion")
 	$Detalle/Imagen/TextureRect.texture = $General/ScrollContainerPersonajes/Personajes.get_node(glosarioid + "/TextureRect").texture
 
 
 func _on_alma_pressed() -> void:
 	$Detalle/Alma.disabled = true
+	$Detalle/Alma.set_block_signals(1)
 	$Detalle/Descripcion.disabled = false
+	$Detalle/Descripcion.set_block_signals(0)
 	$Detalle/Religion.disabled = false
+	$Detalle/Religion.set_block_signals(0)
 	if glosarioid == "Caelius":
 		match progreso.get_value("Caelius","tipo"):
 			"ego":
