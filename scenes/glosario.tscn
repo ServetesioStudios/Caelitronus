@@ -1,23 +1,26 @@
-[gd_scene load_steps=34 format=3 uid="uid://dq5wr8hrd5emr"]
+[gd_scene load_steps=37 format=3 uid="uid://dq5wr8hrd5emr"]
 
-[ext_resource type="Script" uid="uid://ck3kn16siydqo" path="res://scripts/glosario.gd" id="1_7wj5c"]
+[ext_resource type="Script" uid="uid://dba8kh4oyc4bs" path="res://scripts/glosario.gd" id="1_7wj5c"]
 [ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://assets/BckGrnd/Nivel.png" id="2_k4k2e"]
 [ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://assets/Fonts/Seagram_tfb.ttf" id="3_mg7aj"]
 [ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://assets/BckGrnd/paperallborder.png" id="4_0g5od"]
 [ext_resource type="Texture2D" uid="uid://c03f2guura5ub" path="res://assets/ChArt/caelius de ira.png" id="5_8w1dr"]
-[ext_resource type="Texture2D" uid="uid://b5pig8s5tbryk" path="res://assets/ChArt/el papa.png" id="6_3pcg7"]
-[ext_resource type="Texture2D" uid="uid://bge6cdd2b4qqj" path="res://assets/ChArt/la monja.png" id="7_lfoln"]
-[ext_resource type="Texture2D" uid="uid://p5kuatt7i836" path="res://assets/ChArt/los monaquillo.png" id="8_dyuab"]
-[ext_resource type="Texture2D" uid="uid://bwifvvcioxl2n" path="res://assets/ChArt/padre espina.png" id="9_dg7pb"]
-[ext_resource type="Texture2D" uid="uid://b66cin22eybq6" path="res://assets/ChArt/Obispo Serpico.png" id="10_64hlh"]
+[ext_resource type="Texture2D" uid="uid://cf6c3r3bns6yo" path="res://assets/ChArt/el papa.png" id="6_3pcg7"]
+[ext_resource type="Texture2D" uid="uid://bhihwen6uod2m" path="res://assets/ChArt/la monja.png" id="7_lfoln"]
+[ext_resource type="Texture2D" uid="uid://b0haia2rg2ey1" path="res://assets/ChArt/los monaquillo.png" id="8_dyuab"]
+[ext_resource type="Texture2D" uid="uid://0vctymefvq5k" path="res://assets/ChArt/padre espina.png" id="9_dg7pb"]
+[ext_resource type="Texture2D" uid="uid://davjajidu876c" path="res://assets/ChArt/Obispo Serpico.png" id="10_64hlh"]
 [ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="10_y736b"]
 [ext_resource type="Texture2D" uid="uid://ca0af7od2a11l" path="res://assets/ChArt/tere.png" id="11_f222x"]
-[ext_resource type="Texture2D" uid="uid://n7lptelqr1bv" path="res://assets/ChArt/Fray Corvus.png" id="12_v8i3o"]
-[ext_resource type="Texture2D" uid="uid://12h547fjdvgq" path="res://assets/ChArt/galaad.png" id="13_8hu71"]
-[ext_resource type="Texture2D" uid="uid://d1b5ya65be0bw" path="res://assets/ChArt/Kapparah.png" id="14_smwnv"]
-[ext_resource type="Texture2D" uid="uid://deohthvug7cxx" path="res://assets/BttlSprit/fause.png" id="15_dg7pb"]
+[ext_resource type="Texture2D" uid="uid://beg24ycjs84j3" path="res://assets/ChArt/Fray Corvus.png" id="12_v8i3o"]
+[ext_resource type="Texture2D" uid="uid://d1b8xp4fkipop" path="res://assets/ChArt/galaad.png" id="13_8hu71"]
+[ext_resource type="Texture2D" uid="uid://dfs8oxeamveau" path="res://assets/ChArt/Kapparah.png" id="14_smwnv"]
+[ext_resource type="Texture2D" uid="uid://ga0fbc5tw6p2" path="res://assets/ChArt/Devotio.png" id="15_64hlh"]
 [ext_resource type="Texture2D" uid="uid://dnlj1wukc7ad3" path="res://assets/Icons/der.png" id="15_dyuab"]
+[ext_resource type="Texture2D" uid="uid://cjolaylrprwqf" path="res://assets/ChArt/trono.png" id="15_y736b"]
 [ext_resource type="Texture2D" uid="uid://0v8cge6fmk2k" path="res://assets/Icons/izq.png" id="16_dg7pb"]
+[ext_resource type="Texture2D" uid="uid://bph7a011e1urg" path="res://assets/ChArt/sintax.png" id="16_f222x"]
+[ext_resource type="Texture2D" uid="uid://ehevbhrwdayw" path="res://assets/BttlSprit/Eliadran.png" id="18_f222x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64hlh"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -37,7 +40,7 @@ border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.14509805, 0.7058824, 0.14117648, 1)
+border_color = Color(0.78431374, 0, 0.12941177, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -222,8 +225,14 @@ offset_right = 1152.0
 offset_bottom = 120.0
 theme_override_colors/font_color = Color(0.9995722, 0.8720149, 0.66100925, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 5
+theme_override_constants/paragraph_spacing = 5
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 8
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 6
 theme_override_fonts/font = ExtResource("3_mg7aj")
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 57
 text = "Glosario"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -240,6 +249,10 @@ offset_right = 1152.0
 offset_bottom = 190.0
 theme_override_colors/font_color = Color(0.9995722, 0.8720149, 0.66100925, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("3_mg7aj")
 theme_override_font_sizes/font_size = 44
 text = "Personajes"
@@ -678,18 +691,20 @@ expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="General/ScrollContainerMaldiciones/Maldiciones/Devotio"]
 layout_mode = 0
-offset_top = 23.0
-offset_right = 299.99997
-offset_bottom = 442.99997
+offset_left = -6.0
+offset_top = 43.999985
+offset_right = 293.99997
+offset_bottom = 470.24994
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("8_dyuab")
+texture = ExtResource("15_64hlh")
 stretch_mode = 3
 
 [node name="Label" type="Label" parent="General/ScrollContainerMaldiciones/Maldiciones/Devotio"]
 layout_mode = 0
 offset_left = -5.0
+offset_top = -17.0
 offset_right = 245.0
-offset_bottom = 132.0
+offset_bottom = 117.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_fonts/font = ExtResource("3_mg7aj")
 theme_override_font_sizes/font_size = 32
@@ -722,7 +737,7 @@ offset_top = 82.99999
 offset_right = 342.85718
 offset_bottom = 480.14282
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("5_8w1dr")
+texture = ExtResource("16_f222x")
 stretch_mode = 3
 
 [node name="Label" type="Label" parent="General/ScrollContainerMaldiciones/Maldiciones/Reves"]
@@ -772,19 +787,21 @@ texture = ExtResource("4_0g5od")
 expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="General/ScrollContainerPoderes/Poderes/Trono"]
+z_index = 1
 layout_mode = 0
-offset_top = 1.0000095
-offset_right = 257.0
-offset_bottom = 406.55554
+offset_left = 2.0
+offset_top = 35.99997
+offset_right = 259.0
+offset_bottom = 385.99997
 scale = Vector2(0.9, 0.9)
-texture = ExtResource("6_3pcg7")
-stretch_mode = 3
+texture = ExtResource("15_y736b")
 
 [node name="Label" type="Label" parent="General/ScrollContainerPoderes/Poderes/Trono"]
 layout_mode = 0
 offset_left = -5.0
-offset_right = 245.0
-offset_bottom = 75.0
+offset_top = -13.0
+offset_right = 246.0
+offset_bottom = 63.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_fonts/font = ExtResource("3_mg7aj")
 theme_override_font_sizes/font_size = 32
@@ -812,13 +829,12 @@ expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="General/ScrollContainerPoderes/Poderes/Alma"]
 layout_mode = 0
-offset_left = -0.99999994
-offset_top = 41.999996
-offset_right = 299.0
-offset_bottom = 439.14282
+offset_left = 2.0
+offset_top = 43.0
+offset_right = 297.0
+offset_bottom = 425.49997
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("15_dg7pb")
-stretch_mode = 3
+texture = ExtResource("18_f222x")
 
 [node name="Label" type="Label" parent="General/ScrollContainerPoderes/Poderes/Alma"]
 layout_mode = 0
@@ -1001,9 +1017,9 @@ theme_override_font_sizes/normal_font_size = 30
 [node name="Descripcion" type="Button" parent="Detalle"]
 layout_mode = 0
 offset_left = 950.0
-offset_top = 134.0
+offset_top = 123.0
 offset_right = 1120.0
-offset_bottom = 202.0
+offset_bottom = 191.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_dg7pb")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_4g640")
@@ -1020,10 +1036,10 @@ expand_mode = 1
 
 [node name="texto" type="Label" parent="Detalle/Descripcion"]
 layout_mode = 0
-offset_left = 9.0
-offset_top = 8.0
-offset_right = 158.0
-offset_bottom = 60.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 155.0
+offset_bottom = 58.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_fonts/font = ExtResource("3_mg7aj")
 theme_override_font_sizes/font_size = 40
@@ -1033,9 +1049,9 @@ horizontal_alignment = 1
 [node name="Religion" type="Button" parent="Detalle"]
 layout_mode = 0
 offset_left = 778.0
-offset_top = 134.0
+offset_top = 124.0
 offset_right = 945.0
-offset_bottom = 202.0
+offset_bottom = 192.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_dg7pb")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_4g640")
@@ -1065,9 +1081,9 @@ horizontal_alignment = 1
 [node name="Alma" type="Button" parent="Detalle"]
 layout_mode = 0
 offset_left = 635.0
-offset_top = 134.0
+offset_top = 124.0
 offset_right = 773.0
-offset_bottom = 202.0
+offset_bottom = 192.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_dg7pb")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_4g640")
