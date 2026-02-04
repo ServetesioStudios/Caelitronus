@@ -20,7 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://cjolaylrprwqf" path="res://assets/ChArt/trono.png" id="15_y736b"]
 [ext_resource type="Texture2D" uid="uid://0v8cge6fmk2k" path="res://assets/Icons/izq.png" id="16_dg7pb"]
 [ext_resource type="Texture2D" uid="uid://bph7a011e1urg" path="res://assets/ChArt/sintax.png" id="16_f222x"]
-[ext_resource type="Texture2D" uid="uid://ehevbhrwdayw" path="res://assets/BttlSprit/Eliadran.png" id="18_f222x"]
+[ext_resource type="Texture2D" uid="uid://bunwgyyux5u5y" path="res://assets/BttlSprit/alma.png" id="18_f222x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64hlh"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -260,6 +260,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ScrollContainerPersonajes" type="ScrollContainer" parent="General"]
+visible = false
 custom_minimum_size = Vector2(1132, 400)
 layout_mode = 0
 offset_left = 10.0
@@ -765,7 +766,6 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
 theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
 
 [node name="ScrollContainerPoderes" type="ScrollContainer" parent="General"]
-visible = false
 custom_minimum_size = Vector2(1132, 400)
 layout_mode = 0
 offset_left = 10.0
@@ -828,11 +828,12 @@ texture = ExtResource("4_0g5od")
 expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="General/ScrollContainerPoderes/Poderes/Alma"]
+modulate = Color(0.8819366, 0.8819366, 0.88193655, 1)
 layout_mode = 0
-offset_left = 2.0
-offset_top = 43.0
-offset_right = 297.0
-offset_bottom = 425.49997
+offset_left = -3.0
+offset_top = 40.0
+offset_right = 292.0
+offset_bottom = 426.24997
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("18_f222x")
 
