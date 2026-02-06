@@ -260,7 +260,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ScrollContainerPersonajes" type="ScrollContainer" parent="General"]
-visible = false
 custom_minimum_size = Vector2(1132, 400)
 layout_mode = 0
 offset_left = 10.0
@@ -766,6 +765,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
 theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
 
 [node name="ScrollContainerPoderes" type="ScrollContainer" parent="General"]
+visible = false
 custom_minimum_size = Vector2(1132, 400)
 layout_mode = 0
 offset_left = 10.0
