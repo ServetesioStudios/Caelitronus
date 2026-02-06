@@ -162,10 +162,14 @@ func _on_alma_pressed() -> void:
 	else:
 		$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"alma")
 	match glosarioid:
+		"Monaquillo":
+			$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/almamonaquillos.png")
 		"Espina":
 			$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Kamathra.png")
 		"Serpico":
 			$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/vahruksha.png")
+		"Theresa":
+			$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Artemisia.png")
 		"Corvus":
 			$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Nzolukaya.png")
 		"Galaad":
