@@ -34,6 +34,10 @@ func atacar(atacante, defensor):
 	daño_final = max(daño_final, 1)
 
 	defensor.hp -= daño_final
+	
+	# 👇 ACTUALIZAR BARRA DE VIDA
+	if defensor.has_method("actualizar_barra_vida"):
+		defensor.actualizar_barra_vida()
 
 	print(atacante.nombre + " golpea a " + defensor.nombre + " por " + str(daño_final))
 
@@ -52,16 +56,12 @@ func animar_ataque(atacante):
 	var tween = create_tween()
 
 	var posicion_original = atacante.position
-
 	var distancia = 40
-
 	var posicion_ataque
 
 	# Player → derecha
 	if atacante == player:
 		posicion_ataque = posicion_original + Vector2(distancia, 0)
-
-	# Enemy → izquierda
 	else:
 		posicion_ataque = posicion_original + Vector2(-distancia, 0)
 
@@ -69,4 +69,4 @@ func animar_ataque(atacante):
 	tween.tween_property(atacante, "position", posicion_ataque, 0.1)
 
 	# Volver
-	tween.tween_property(atacante, "position", posicion_original, 0.1) 
+	tween.tween_property(atacante, "position", posicion_original, 0.1)

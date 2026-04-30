@@ -25,6 +25,7 @@ func _ready():
 	randomize()
 	cargar_progreso()
 	cargar_stats()
+	actualizar_barra_vida()
 	
 	if has_node("AnimationPlayer"):
 		$AnimationPlayer.play("idle")
@@ -34,6 +35,25 @@ func _ready():
 func _process(delta):
 	tiempo_ataque -= delta
 
+#BARRA DE VIDA
+func actualizar_barra_vida():
+	if not has_node("HealthBar"):
+		return
+
+	var barra = $HealthBar
+
+	var porcentaje = float(hp) / float(max_hp) * 100.0
+	barra.value = porcentaje
+
+	# COLOR SEGÚN VIDA
+	if porcentaje > 50:
+		barra.modulate = Color(0.591, 0.809, 0.51, 1.0) # verde
+	elif porcentaje > 10:
+		barra.modulate = Color(0.81, 0.692, 0.377, 1.0) # amarillo
+	elif porcentaje > 0:
+		barra.modulate = Color(0.907, 0.337, 0.268, 1.0) # rojo
+	else:
+		barra.modulate = Color(1.0, 1.0, 1.0, 0.0) # sin color (muerto)
 
 # ATAQUE
 func puede_atacar():
