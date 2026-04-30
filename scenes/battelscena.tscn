@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmu6hcrme284g"]
+
+[ext_resource type="Texture2D" uid="uid://1ujq4vhia20d" path="res://assets/BckGrnd/Bonefield_mvt.png" id="1_bxpjm"]
+[ext_resource type="Script" uid="uid://ta11uy1xj5dd" path="res://scenes/battelscena.gd" id="1_qf52c"]
+[ext_resource type="PackedScene" uid="uid://bjsf3q6hvbyji" path="res://scenes/player.tscn" id="2_4ohde"]
+[ext_resource type="PackedScene" uid="uid://dtlvudb7gixqy" path="res://scenes/enemi.tscn" id="3_1gdom"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_qf52c")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BonefieldMvt" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(576.5, 329)
+scale = Vector2(1.155, 0.98648655)
+texture = ExtResource("1_bxpjm")
+
+[node name="player" parent="CanvasLayer" instance=ExtResource("2_4ohde")]
+
+[node name="enemy" parent="CanvasLayer" instance=ExtResource("3_1gdom")]
