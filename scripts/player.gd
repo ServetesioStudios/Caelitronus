@@ -1,7 +1,9 @@
 extends Node2D
 
+# IDENTIDAD
 var nombre = "Caelius"
 
+# STATS
 var hp = 100
 var max_hp = 100
 
@@ -16,51 +18,108 @@ var poder = 0
 # COMBATE
 var tiempo_ataque = 0.0
 
-
 # PROGRESO
-var tipo_caelius = "ira"  
+var tipo_caelius = "ira"
 var nivel = 1
 
+# HABILIDADES
+var habilidad_activa = false
+var habilidad_timer = 0.0
+
+var bonus_daño = 1.0
+var bonus_defensa = 1.0
+var bonus_velocidad = 1.0
+
+var robo_vida = false
+var doble_golpe = false
+var inmune = false
+
+# READY
 func _ready():
 	randomize()
-	cargar_progreso()
-	cargar_stats()
 	actualizar_barra_vida()
-	
-	if has_node("AnimationPlayer"):
-		$AnimationPlayer.play("idle")
-
 
 # PROCESS
 func _process(delta):
 	tiempo_ataque -= delta
 
-#BARRA DE VIDA
-func actualizar_barra_vida():
-	if not has_node("HealthBar"):
-		return
+	# CONTROL HABILIDAD
+	if habilidad_activa:
+		habilidad_timer -= delta
+		if habilidad_timer <= 0:
+			desactivar_habilidad()
 
-	var barra = $HealthBar
-
-	var porcentaje = float(hp) / float(max_hp) * 100.0
-	barra.value = porcentaje
-
-	# COLOR SEGÚN VIDA
-	if porcentaje > 50:
-		barra.modulate = Color(0.591, 0.809, 0.51, 1.0) # verde
-	elif porcentaje > 10:
-		barra.modulate = Color(0.81, 0.692, 0.377, 1.0) # amarillo
-	elif porcentaje > 0:
-		barra.modulate = Color(0.907, 0.337, 0.268, 1.0) # rojo
-	else:
-		barra.modulate = Color(1.0, 1.0, 1.0, 0.0) # sin color (muerto)
+	# 🔥 TEST
+	if Input.is_action_just_pressed("ui_accept"):
+		activar_habilidad()
 
 # ATAQUE
 func puede_atacar():
 	return tiempo_ataque <= 0 and hp > 0
 
 func reiniciar_tiempo():
-	tiempo_ataque = 1.0 / velocidad
+	tiempo_ataque = 1.0 / (velocidad * bonus_velocidad)
+
+# HABILIDADES
+func activar_habilidad():
+	habilidad_activa = true
+	habilidad_timer = 5.0
+
+	match tipo_caelius:
+		"ira":
+			activar_ira()
+		"pena":
+			activar_pena()
+		"ego":
+			activar_ego()
+
+func activar_ira():
+	bonus_daño = 1.5
+	bonus_defensa = 1.5
+	bonus_velocidad = 1.5
+	print("Ira del Depredador ACTIVADA")
+
+func activar_pena():
+	robo_vida = true
+	print("Lamento Parasitario ACTIVO")
+
+func activar_ego():
+	doble_golpe = true
+	inmune = true
+	print("Dominación Absoluta ACTIVADA")
+
+func desactivar_habilidad():
+	habilidad_activa = false
+
+	bonus_daño = 1.0
+	bonus_defensa = 1.0
+	bonus_velocidad = 1.0
+
+	robo_vida = false
+	doble_golpe = false
+	inmune = false
+
+	print("Habilidad terminada")
+
+# BARRA DE VIDA
+func actualizar_barra_vida():
+	if not has_node("HealthBar"):
+		return
+
+	var barra = $HealthBar
+	var porcentaje = float(hp) / float(max_hp) * 100.0
+
+	barra.value = porcentaje
+
+	if porcentaje > 50:
+		barra.modulate = Color(0.591, 0.809, 0.51)
+	elif porcentaje > 10:
+		barra.modulate = Color(0.81, 0.692, 0.377)
+	elif porcentaje > 0:
+		barra.modulate = Color(0.907, 0.337, 0.268)
+	else:
+		barra.modulate = Color(1, 1, 1, 0)
+		
 
 # CARGAR CFG
 func cargar_progreso():

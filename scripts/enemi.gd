@@ -1,5 +1,6 @@
 extends Node2D
 
+# IDENTIDAD
 var nombre = "Enemigo"
 
 # CONFIG
@@ -19,8 +20,23 @@ var velocidad = 1.0
 var fe = 0
 var poder = 0
 
+# BONUS
+var bonus_daño = 1.0
+var bonus_defensa = 1.0
+var bonus_velocidad = 1.0
+
+var robo_vida = false
+var doble_golpe = false
+var inmune = false
+
+# HABILIDADES ENEMIGO
+var puede_revivir = true
+var cooldown_habilidad = 0.0
+
+
 # COMBATE
 var tiempo_ataque = 0.0
+var vida_tween = null
 
 # SPRITES
 var sprite_sagrado = preload("res://assets/BttlSprit/sagrados.png")
@@ -35,15 +51,22 @@ func _ready():
 		elegir_tipo_random()
 
 	cargar_enemigo()
-	cargar_sprite()   #cambia el sprite
+	cargar_sprite()
 	actualizar_barra_vida()
-	
-	if has_node("AnimationPlayer"):
+
+	if has_node("AnimationPlayer") and $AnimationPlayer.has_animation("idle"):
 		$AnimationPlayer.play("idle")
 
 # PROCESS
 func _process(delta):
 	tiempo_ataque -= delta
+	cooldown_habilidad -= delta
+
+	match tipo:
+		"monaquillo_sagrado":
+			habilidad_sagrado()
+		"monaquillo_oscuro":
+			habilidad_oscuro()
 
 # ATAQUE
 func puede_atacar():
@@ -52,7 +75,39 @@ func puede_atacar():
 func reiniciar_tiempo():
 	tiempo_ataque = 1.0 / velocidad
 
-# RANDOM TIPO (40/40/20)
+# RECIBIR DAÑO 
+func recibir_daño(cantidad):
+
+	if hp <= 0:
+		return
+
+	hp -= cantidad
+
+	print(nombre + " recibe " + str(cantidad))
+
+	actualizar_barra_vida()
+
+	# MUERTE O REVIVIR
+	if hp <= 0:
+		if tipo == "monaquillo_lazaro" and puede_revivir:
+			revivir()
+		else:
+			morir()
+
+# REVIVIR (LÁZARO)
+func revivir():
+	hp = int(max_hp * 0.5)
+	puede_revivir = false
+
+	print("Lázaro revive!")
+
+	actualizar_barra_vida()
+
+# MORIR
+func morir():
+	print(nombre + " murió")
+
+# RANDOM
 func elegir_tipo_random():
 	var r = randi() % 100
 
@@ -63,45 +118,80 @@ func elegir_tipo_random():
 	else:
 		tipo = "monaquillo_lazaro"
 
-	print("Tipo elegido:", tipo)
+# HABILIDADES
+# SAGRADO → se cura
+func habilidad_sagrado():
+	if cooldown_habilidad > 0:
+		return
+
+	var cura = int(max_hp * 0.05)
+	hp += cura
+	hp = min(hp, max_hp)
+
+	actualizar_barra_vida()
+	print("Sagrado se cura:", cura)
+
+	cooldown_habilidad = 3.0
+
+
+# OSCURO → daño extra temporal
+func habilidad_oscuro():
+	if cooldown_habilidad > 0:
+		return
+
+	var chance = randi() % 100
+
+	if chance < 30:
+		bonus_daño = 1.5
+		print("Oscuro entra en furia!")
+	else:
+		bonus_daño = 1.0
+
+	cooldown_habilidad = 2.0
 
 # CARGAR ENEMIGO
 func cargar_enemigo():
 	match tipo:
 		"monaquillo_sagrado":
+			nombre = "Monaquillo Sagrado"
 			stats_monaquillo_sagrado()
 		"monaquillo_oscuro":
+			nombre = "Monaquillo Oscuro"
 			stats_monaquillo_oscuro()
 		"monaquillo_lazaro":
+			nombre = "Monaquillo Lázaro"
 			stats_monaquillo_lazaro()
-		_:
-			print("Tipo no definido, usando sagrado")
-			stats_monaquillo_sagrado()
 
-	print("Enemy:", nombre, "| Nivel:", nivel)
-
-#BARRA DE VIDA
+# BARRA DE VIDA
 func actualizar_barra_vida():
 	if not has_node("HealthBar"):
 		return
 
 	var barra = $HealthBar
-
 	var porcentaje = float(hp) / float(max_hp) * 100.0
+
+	if vida_tween != null:
+		vida_tween.kill()
+
+	vida_tween = create_tween()
+	vida_tween.tween_property(barra, "value", porcentaje, 0.2)
+
 	barra.value = porcentaje
 
-	# COLOR SEGÚN VIDA
 	if porcentaje > 50:
-		barra.modulate = Color(0.591, 0.809, 0.51, 1.0) # verde
+		barra.modulate = Color(0.591, 0.809, 0.51)
 	elif porcentaje > 10:
-		barra.modulate = Color(0.81, 0.692, 0.377, 1.0) # amarillo
+		barra.modulate = Color(0.81, 0.692, 0.377)
 	elif porcentaje > 0:
-		barra.modulate = Color(0.907, 0.337, 0.268, 1.0) # rojo
+		barra.modulate = Color(0.907, 0.337, 0.268)
 	else:
-		barra.modulate = Color(1.0, 1.0, 1.0, 0.0) # sin color (muerto)
+		barra.modulate = Color(1, 1, 1, 0)
 
-# SPRITE SEGÚN TIPO
+# SPRITE
 func cargar_sprite():
+	if not has_node("Sprite2D"):
+		return
+
 	var sprite = $Sprite2D
 
 	match tipo:
@@ -112,47 +202,33 @@ func cargar_sprite():
 		"monaquillo_lazaro":
 			sprite.texture = sprite_lazaro
 
-# MONAQUILLO SAGRADO
+# STATS
 func stats_monaquillo_sagrado():
-	nombre = "Monaquillo Sagrado"
-
-	var stats = [
+	aplicar_stats([
 		[150,10,10,15,25,25,10],
 		[200,15,15,20,30,35,15],
 		[350,20,20,25,35,45,20],
 		[400,25,25,30,40,55,25],
 		[550,30,30,35,45,65,30]
-	]
+	][nivel - 1])
 
-	aplicar_stats(stats[nivel - 1])
-
-# MONAQUILLO OSCURO
 func stats_monaquillo_oscuro():
-	nombre = "Monaquillo Oscuro"
-
-	var stats = [
+	aplicar_stats([
 		[160,15,10,25,15,0,15],
 		[230,25,20,35,25,5,25],
 		[300,35,30,45,35,10,35],
 		[370,45,40,55,45,15,45],
 		[440,55,50,65,55,20,55]
-	]
+	][nivel - 1])
 
-	aplicar_stats(stats[nivel - 1])
-
-# MONAQUILLO LAZARO
 func stats_monaquillo_lazaro():
-	nombre = "Monaquillo Lázaro"
-
-	var stats = [
+	aplicar_stats([
 		[100,10,20,10,25,20,10],
 		[230,20,35,20,40,35,20],
 		[300,30,50,30,55,50,30],
 		[370,40,65,40,70,65,40],
 		[440,50,80,50,85,80,50]
-	]
-
-	aplicar_stats(stats[nivel - 1])
+	][nivel - 1])
 
 # APLICAR STATS
 func aplicar_stats(s):
@@ -164,11 +240,3 @@ func aplicar_stats(s):
 	velocidad = s[4] / 10.0
 	fe = s[5]
 	poder = s[6]
-
-	print("HP:", hp)
-	print("Daño:", daño)
-	print("Def:", defensa)
-	print("Esquive:", esquive)
-	print("Vel:", velocidad)
-	print("Fe:", fe)
-	print("Poder:", poder)
