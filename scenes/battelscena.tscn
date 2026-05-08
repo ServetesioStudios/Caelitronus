@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmu6hcrme284g"]
+[gd_scene load_steps=7 format=3 uid="uid://dmu6hcrme284g"]
 
 [ext_resource type="Texture2D" uid="uid://1ujq4vhia20d" path="res://assets/BckGrnd/Bonefield_mvt.png" id="1_bxpjm"]
 [ext_resource type="Script" uid="uid://ta11uy1xj5dd" path="res://scripts/battelscena.gd" id="1_qf52c"]
 [ext_resource type="PackedScene" uid="uid://bjsf3q6hvbyji" path="res://scenes/player.tscn" id="2_4ohde"]
 [ext_resource type="PackedScene" uid="uid://dtlvudb7gixqy" path="res://scenes/enemi.tscn" id="3_1gdom"]
+[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://assets/BckGrnd/paperallborder.png" id="5_fowxk"]
+[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://assets/Fonts/Seagram_tfb.ttf" id="6_n02j2"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_qf52c")
@@ -11,10 +13,30 @@ script = ExtResource("1_qf52c")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="BonefieldMvt" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(576.5, 329)
-scale = Vector2(1.155, 0.98648655)
+position = Vector2(576.5, 321.99997)
+scale = Vector2(1.155, 0.8756756)
 texture = ExtResource("1_bxpjm")
 
 [node name="player" parent="CanvasLayer" instance=ExtResource("2_4ohde")]
+position = Vector2(6, -35)
 
 [node name="enemy" parent="CanvasLayer" instance=ExtResource("3_1gdom")]
+position = Vector2(-2, -42)
+
+[node name="papelcombate" type="TextureRect" parent="CanvasLayer"]
+offset_left = 405.0
+offset_top = -2.0
+offset_right = 794.0
+offset_bottom = 647.0
+texture = ExtResource("5_fowxk")
+expand_mode = 1
+
+[node name="textocombate" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 436.0
+offset_top = 28.0
+offset_right = 757.0
+offset_bottom = 603.0
+theme_override_colors/default_color = Color(0.5747718, 0.3360082, 0, 1)
+theme_override_fonts/normal_font = ExtResource("6_n02j2")
+theme_override_font_sizes/normal_font_size = 25
+autowrap_mode = 2
