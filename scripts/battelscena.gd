@@ -3,6 +3,15 @@ extends Node2D
 @onready var player = $CanvasLayer/player
 @onready var enemy = $CanvasLayer/enemy
 
+# TEXTO
+@onready var texto_combate = $CanvasLayer/textocombate
+
+# HISTORIAL
+var historial_texto = ""
+
+# LIMITE LINEAS
+var max_lineas = 18
+
 # LOOP
 func _process(_delta):
 
@@ -13,6 +22,12 @@ func _process(_delta):
 func handle_turn(atacante, defensor):
 
 	if atacante == null or defensor == null:
+		return
+
+	if !is_instance_valid(atacante):
+		return
+
+	if !is_instance_valid(defensor):
 		return
 
 	if atacante.hp <= 0:
@@ -27,28 +42,78 @@ func handle_turn(atacante, defensor):
 
 		atacante.reiniciar_tiempo()
 
+# TEXTO
+func mostrar_texto(texto):
+
+	if texto_combate == null:
+		return
+
+	historial_texto += texto + "\n\n"
+
+	var lineas = historial_texto.split("\n")
+
+	# LIMITAR TEXTO
+	if lineas.size() > max_lineas:
+
+		var nuevas_lineas = []
+
+		for i in range(
+			lineas.size() - max_lineas,
+			lineas.size()
+		):
+			nuevas_lineas.append(lineas[i])
+
+		historial_texto = "\n".join(nuevas_lineas)
+
+	texto_combate.text = historial_texto
+
+	# SCROLL
+	await get_tree().process_frame
+
+	if is_instance_valid(texto_combate):
+		texto_combate.scroll_to_line(
+			texto_combate.get_line_count()
+		)
+
 # CALCULAR DAÑO
 func calcular_daño(atacante, defensor):
+
+	if !is_instance_valid(atacante):
+		return 0
+
+	if !is_instance_valid(defensor):
+		return 0
 
 	# ESQUIVE
 	var chance = randi() % 100
 
 	if chance < defensor.esquive:
-		print(defensor.nombre + " esquivó!")
+
+		mostrar_texto(
+			defensor.nombre +
+			" esquivó!"
+		)
+
 		return 0
 
-	# INMUNE
+	# INMUNIDAD
 	if defensor.inmune:
-		print(defensor.nombre + " es inmune!")
+
+		mostrar_texto(
+			defensor.nombre +
+			" es inmune!"
+		)
+
 		return 0
 
-	# NUEVA FORMULA
+	# DAÑO
 	var daño_base = atacante.daño * atacante.bonus_daño
+
 	var defensa_base = defensor.defensa * defensor.bonus_defensa
 
 	var daño = (daño_base * 1.4) - (defensa_base * 0.5)
 
-	# VARIACIÓN
+	# RANDOM
 	var variacion = randf_range(0.9, 1.1)
 
 	daño *= variacion
@@ -61,58 +126,126 @@ func calcular_daño(atacante, defensor):
 # EFECTOS
 func aplicar_efectos(atacante, defensor, daño):
 
+	if !is_instance_valid(atacante):
+		return
+
+	if !is_instance_valid(defensor):
+		return
+
 	# RECIBIR DAÑO
 	if defensor.has_method("recibir_daño"):
+
 		defensor.recibir_daño(daño)
+
+		mostrar_texto(
+			defensor.nombre +
+			" recibe " +
+			str(daño)
+		)
 
 	# ROBO VIDA
 	if atacante.robo_vida:
 
 		atacante.hp += daño
 
-		atacante.hp = min(atacante.hp, atacante.max_hp)
+		atacante.hp = min(
+			atacante.hp,
+			atacante.max_hp
+		)
 
 		atacante.actualizar_barra_vida()
 
-		print("Robo de vida!")
+		mostrar_texto(
+			atacante.nombre +
+			" roba vida " +
+			str(daño)
+		)
 
 	# DOBLE GOLPE
 	if atacante.doble_golpe:
 
-		print("Doble impacto!")
+		mostrar_texto(
+			atacante.nombre +
+			" hace doble impacto!"
+		)
 
 		if defensor.has_method("recibir_daño"):
+
 			defensor.recibir_daño(daño)
+
+			mostrar_texto(
+				defensor.nombre +
+				" recibe " +
+				str(daño)
+			)
 
 # ATAQUE
 func atacar(atacante, defensor):
 
+	if !is_instance_valid(atacante):
+		return
+
+	if !is_instance_valid(defensor):
+		return
+
+	# ANIMACIÓN
 	animar_ataque(atacante)
 
-	var daño_final = calcular_daño(atacante, defensor)
+	# DAÑO
+	var daño_final = calcular_daño(
+		atacante,
+		defensor
+	)
 
 	if daño_final <= 0:
 		return
 
-	aplicar_efectos(atacante, defensor, daño_final)
-
-	print(
-		atacante.nombre +
-		" golpea a " +
-		defensor.nombre +
-		" por " +
-		str(daño_final)
+	# EFECTOS
+	aplicar_efectos(
+		atacante,
+		defensor,
+		daño_final
 	)
 
-	# FLASH
-	defensor.modulate = Color(0.747, 0.0, 0.169)
+	# SI MURIÓ DURANTE EL ATAQUE
+	if !is_instance_valid(defensor):
+		return
+
+	# FLASH DAÑO
+	defensor.modulate = Color(
+		0.747,
+		0.0,
+		0.169,
+		1.0
+	)
 
 	await get_tree().create_timer(0.1).timeout
 
-	defensor.modulate = Color(1,1,1)
+	# EVITA ERROR 
+	if is_instance_valid(defensor):
+
+		defensor.modulate = Color(
+			1,
+			1,
+			1,
+			1
+		)
+
+	# MUERTE
+	if is_instance_valid(defensor):
+
+		if defensor.hp <= 0:
+
+			mostrar_texto(
+				defensor.nombre +
+				" fue derrotado"
+			)
 
 # ANIMACIÓN
 func animar_ataque(atacante):
+
+	if !is_instance_valid(atacante):
+		return
 
 	var tween = create_tween()
 
@@ -122,12 +255,23 @@ func animar_ataque(atacante):
 
 	var posicion_ataque
 
+	# PLAYER
 	if atacante == player:
-		posicion_ataque = posicion_original + Vector2(distancia,0)
 
+		posicion_ataque = (
+			posicion_original +
+			Vector2(distancia, 0)
+		)
+
+	# ENEMY
 	else:
-		posicion_ataque = posicion_original + Vector2(-distancia,0)
 
+		posicion_ataque = (
+			posicion_original +
+			Vector2(-distancia, 0)
+		)
+
+	# IR
 	tween.tween_property(
 		atacante,
 		"position",
@@ -135,6 +279,7 @@ func animar_ataque(atacante):
 		0.1
 	)
 
+	# VOLVER
 	tween.tween_property(
 		atacante,
 		"position",
