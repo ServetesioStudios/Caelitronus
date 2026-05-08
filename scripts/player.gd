@@ -26,7 +26,7 @@ var nivel = 1
 var habilidad_activa = false
 var habilidad_timer = 0.0
 
-var bonus_daño = 1.0
+var bonus_daño = 1.3
 var bonus_defensa = 1.0
 var bonus_velocidad = 1.0
 
@@ -155,7 +155,7 @@ func cargar_stats():
 # IRA
 func stats_ira():
 	var stats = [
-		[150,10,5,15,10,10,15],
+		[180,20,5,15,10,10,15],
 		[300,25,15,25,20,15,30],
 		[450,40,25,35,30,20,45],
 		[600,55,35,45,40,25,60],
@@ -167,7 +167,7 @@ func stats_ira():
 # EGO
 func stats_ego():
 	var stats = [
-		[200,5,15,5,15,10,5],
+		[200,15,15,5,15,10,5],
 		[350,10,30,10,30,20,10],
 		[500,15,45,15,45,30,15],
 		[650,20,60,20,60,40,20],
@@ -179,7 +179,7 @@ func stats_ego():
 # PENA
 func stats_pena():
 	var stats = [
-		[150,5,5,15,15,20,5],
+		[150,15,5,15,15,20,5],
 		[300,10,10,25,25,35,10],
 		[450,15,15,35,35,50,15],
 		[600,20,20,45,45,65,20],

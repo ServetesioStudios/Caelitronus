@@ -21,7 +21,7 @@ var fe = 0
 var poder = 0
 
 # BONUS
-var bonus_daño = 1.0
+var bonus_daño = 1.3
 var bonus_defensa = 1.0
 var bonus_velocidad = 1.0
 
@@ -111,9 +111,9 @@ func morir():
 func elegir_tipo_random():
 	var r = randi() % 100
 
-	if r < 40:
+	if r <= 40:
 		tipo = "monaquillo_sagrado"
-	elif r < 80:
+	elif r < 80 && r > 40:
 		tipo = "monaquillo_oscuro"
 	else:
 		tipo = "monaquillo_lazaro"
@@ -124,14 +124,14 @@ func habilidad_sagrado():
 	if cooldown_habilidad > 0:
 		return
 
-	var cura = int(max_hp * 0.05)
+	var cura = int(max_hp * 0.01)
 	hp += cura
 	hp = min(hp, max_hp)
 
 	actualizar_barra_vida()
 	print("Sagrado se cura:", cura)
 
-	cooldown_habilidad = 3.0
+	cooldown_habilidad = 5.0
 
 
 # OSCURO → daño extra temporal
@@ -147,7 +147,7 @@ func habilidad_oscuro():
 	else:
 		bonus_daño = 1.0
 
-	cooldown_habilidad = 2.0
+	cooldown_habilidad = 3.0
 
 # CARGAR ENEMIGO
 func cargar_enemigo():
@@ -166,7 +166,6 @@ func cargar_enemigo():
 func actualizar_barra_vida():
 	if not has_node("HealthBar"):
 		return
-
 	var barra = $HealthBar
 	var porcentaje = float(hp) / float(max_hp) * 100.0
 
@@ -201,11 +200,11 @@ func cargar_sprite():
 			sprite.texture = sprite_oscuro
 		"monaquillo_lazaro":
 			sprite.texture = sprite_lazaro
-
+			
 # STATS
 func stats_monaquillo_sagrado():
 	aplicar_stats([
-		[150,10,10,15,25,25,10],
+		[110,10,10,15,10,25,10],
 		[200,15,15,20,30,35,15],
 		[350,20,20,25,35,45,20],
 		[400,25,25,30,40,55,25],
@@ -214,7 +213,7 @@ func stats_monaquillo_sagrado():
 
 func stats_monaquillo_oscuro():
 	aplicar_stats([
-		[160,15,10,25,15,0,15],
+		[120,15,5,25,10,0,15],
 		[230,25,20,35,25,5,25],
 		[300,35,30,45,35,10,35],
 		[370,45,40,55,45,15,45],
@@ -223,7 +222,7 @@ func stats_monaquillo_oscuro():
 
 func stats_monaquillo_lazaro():
 	aplicar_stats([
-		[100,10,20,10,25,20,10],
+		[100,10,20,10,15,20,10],
 		[230,20,35,20,40,35,20],
 		[300,30,50,30,55,50,30],
 		[370,40,65,40,70,65,40],

@@ -56,6 +56,7 @@ func aplicar_efectos(atacante, defensor, daño):
 	# DAÑO CORRECTO
 	if defensor.has_method("recibir_daño"):
 		defensor.recibir_daño(daño)
+		
 	else:
 		defensor.hp -= daño
 		if defensor.has_method("actualizar_barra_vida"):
@@ -96,7 +97,7 @@ func atacar(atacante, defensor):
 	# APLICAR EFECTOS
 	aplicar_efectos(atacante, defensor, daño_final)
 
-	# INFO
+	#INFORMACION
 	print(atacante.nombre + " golpea a " + defensor.nombre + " por " + str(daño_final))
 
 	# IMPACTO VISUAL
