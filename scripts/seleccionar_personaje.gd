@@ -73,4 +73,4 @@ func _on_btn_seleccionar_pressed() -> void:
 		file.store_var(save_data)
 		file.close()
 
-	get_tree().change_scene_to_file("res://scenes/juego.tscn")
+	get_tree().change_scene_to_file("res://scenes/select_nivel.tscn")
