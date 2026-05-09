@@ -27,9 +27,9 @@ libraries = {
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
 offset_left = 881.0
-offset_top = 55.0
+offset_top = 94.0
 offset_right = 1121.0
-offset_bottom = 102.0
+offset_bottom = 141.0
 value = 100.0
 texture_under = ExtResource("2_wfprl")
 texture_progress = ExtResource("3_3frmn")
