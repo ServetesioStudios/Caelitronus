@@ -3,13 +3,17 @@ extends Node2D
 @onready var player = $CanvasLayer/player
 @onready var enemy = $CanvasLayer/enemy
 
-# TEXTO
+# TEXTO COMBATE
 @onready var texto_combate = $CanvasLayer/textocombate
+
+# STATS UI
+@onready var texto_stats_player = $CanvasLayer/playerstatstex
+@onready var texto_stats_enemy = $CanvasLayer/enemiplayetex
 
 # HISTORIAL
 var historial_texto = ""
 
-# LIMITE LINEAS
+# LIMITE
 var max_lineas = 18
 
 # LOOP
@@ -18,10 +22,15 @@ func _process(_delta):
 	handle_turn(player, enemy)
 	handle_turn(enemy, player)
 
+	actualizar_stats_ui()
+
 # TURNOS
 func handle_turn(atacante, defensor):
 
-	if atacante == null or defensor == null:
+	if atacante == null:
+		return
+
+	if defensor == null:
 		return
 
 	if !is_instance_valid(atacante):
@@ -42,7 +51,7 @@ func handle_turn(atacante, defensor):
 
 		atacante.reiniciar_tiempo()
 
-# TEXTO
+# TEXTO COMBATE
 func mostrar_texto(texto):
 
 	if texto_combate == null:
@@ -52,7 +61,6 @@ func mostrar_texto(texto):
 
 	var lineas = historial_texto.split("\n")
 
-	# LIMITAR TEXTO
 	if lineas.size() > max_lineas:
 
 		var nuevas_lineas = []
@@ -61,19 +69,53 @@ func mostrar_texto(texto):
 			lineas.size() - max_lineas,
 			lineas.size()
 		):
+
 			nuevas_lineas.append(lineas[i])
 
 		historial_texto = "\n".join(nuevas_lineas)
 
 	texto_combate.text = historial_texto
 
-	# SCROLL
 	await get_tree().process_frame
 
 	if is_instance_valid(texto_combate):
+
 		texto_combate.scroll_to_line(
 			texto_combate.get_line_count()
 		)
+
+# ACTUALIZAR UI STATS
+func actualizar_stats_ui():
+
+	# PLAYER
+	if is_instance_valid(player):
+
+		var texto_player = ""
+
+		texto_player += "ATQ= " + str(player.daño) + "     "
+		texto_player += "VEL= " + str(player.velocidad) + "     "
+		texto_player += "PODER= " + str(player.poder) + "\n"
+
+		texto_player += "DEF= " + str(player.defensa) + "     "
+		texto_player += "ESQ= " + str(player.esquive) + "     "
+		texto_player += "FE= " + str(player.fe)
+
+		texto_stats_player.text = texto_player
+
+	# ENEMY
+	if is_instance_valid(enemy):
+
+		var texto_enemy = ""
+
+		texto_enemy += "ATQ= " + str(enemy.daño) + "     "
+		texto_enemy += "VEL= " + str(enemy.velocidad) + "     "
+		texto_enemy += "PODER= " + str(enemy.poder) + "\n"
+
+		texto_enemy += "DEF= " + str(enemy.defensa) + "     "
+		texto_enemy += "ESQ= " + str(enemy.esquive) + "     "
+		texto_enemy += "FE= " + str(enemy.fe)
+
+		texto_stats_enemy.text = texto_enemy
 
 # CALCULAR DAÑO
 func calcular_daño(atacante, defensor):
@@ -106,14 +148,16 @@ func calcular_daño(atacante, defensor):
 
 		return 0
 
-	# DAÑO
+	# DAÑO BASE
 	var daño_base = atacante.daño * atacante.bonus_daño
 
+	# DEFENSA
 	var defensa_base = defensor.defensa * defensor.bonus_defensa
 
+	# FORMULA
 	var daño = (daño_base * 1.4) - (defensa_base * 0.5)
 
-	# RANDOM
+	# VARIACIÓN
 	var variacion = randf_range(0.9, 1.1)
 
 	daño *= variacion
@@ -132,7 +176,7 @@ func aplicar_efectos(atacante, defensor, daño):
 	if !is_instance_valid(defensor):
 		return
 
-	# RECIBIR DAÑO
+	# DAÑO
 	if defensor.has_method("recibir_daño"):
 
 		defensor.recibir_daño(daño)
@@ -207,29 +251,26 @@ func atacar(atacante, defensor):
 		daño_final
 	)
 
-	# SI MURIÓ DURANTE EL ATAQUE
-	if !is_instance_valid(defensor):
-		return
-
-	# FLASH DAÑO
-	defensor.modulate = Color(
-		0.747,
-		0.0,
-		0.169,
-		1.0
-	)
-
-	await get_tree().create_timer(0.1).timeout
-
-	# EVITA ERROR 
+	# FLASH
 	if is_instance_valid(defensor):
 
 		defensor.modulate = Color(
-			1,
-			1,
-			1,
-			1
+			0.747,
+			0.0,
+			0.169,
+			1.0
 		)
+
+		await get_tree().create_timer(0.1).timeout
+
+		if is_instance_valid(defensor):
+
+			defensor.modulate = Color(
+				1,
+				1,
+				1,
+				1
+			)
 
 	# MUERTE
 	if is_instance_valid(defensor):
