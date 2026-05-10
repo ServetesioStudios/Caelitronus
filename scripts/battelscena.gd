@@ -3,17 +3,15 @@ extends Node2D
 @onready var player = $CanvasLayer/player
 @onready var enemy = $CanvasLayer/enemy
 
-# TEXTO COMBATE
+# TEXTO
 @onready var texto_combate = $CanvasLayer/textocombate
 
-# STATS UI
+# STATS
 @onready var texto_stats_player = $CanvasLayer/playerstatstex
 @onready var texto_stats_enemy = $CanvasLayer/enemiplayetex
 
 # HISTORIAL
 var historial_texto = ""
-
-# LIMITE
 var max_lineas = 18
 
 # LOOP
@@ -45,13 +43,44 @@ func handle_turn(atacante, defensor):
 	if defensor.hp <= 0:
 		return
 
+	# HABILIDAD
+	if atacante.habilidad_activa:
+
+		if !atacante.has_meta(
+			"habilidad_mostrada"
+		):
+
+			mostrar_texto(
+				atacante.nombre +
+				" usa " +
+				atacante.habilidad_nombre
+			)
+
+			atacante.set_meta(
+				"habilidad_mostrada",
+				true
+			)
+
+	else:
+
+		if atacante.has_meta(
+			"habilidad_mostrada"
+		):
+
+			atacante.remove_meta(
+				"habilidad_mostrada"
+			)
+
+	# ATAQUE
 	if atacante.puede_atacar():
 
 		atacar(atacante, defensor)
 
-		atacante.reiniciar_tiempo()
+		if is_instance_valid(atacante):
 
-# TEXTO COMBATE
+			atacante.reiniciar_tiempo()
+
+# TEXTO
 func mostrar_texto(texto):
 
 	if texto_combate == null:
@@ -70,9 +99,13 @@ func mostrar_texto(texto):
 			lineas.size()
 		):
 
-			nuevas_lineas.append(lineas[i])
+			nuevas_lineas.append(
+				lineas[i]
+			)
 
-		historial_texto = "\n".join(nuevas_lineas)
+		historial_texto = "\n".join(
+			nuevas_lineas
+		)
 
 	texto_combate.text = historial_texto
 
@@ -84,10 +117,9 @@ func mostrar_texto(texto):
 			texto_combate.get_line_count()
 		)
 
-# ACTUALIZAR UI STATS
+# STATS UI
 func actualizar_stats_ui():
 
-	# PLAYER
 	if is_instance_valid(player):
 
 		var texto_player = ""
@@ -102,7 +134,6 @@ func actualizar_stats_ui():
 
 		texto_stats_player.text = texto_player
 
-	# ENEMY
 	if is_instance_valid(enemy):
 
 		var texto_enemy = ""
@@ -117,7 +148,7 @@ func actualizar_stats_ui():
 
 		texto_stats_enemy.text = texto_enemy
 
-# CALCULAR DAÑO
+# DAÑO
 func calcular_daño(atacante, defensor):
 
 	if !is_instance_valid(atacante):
@@ -138,7 +169,7 @@ func calcular_daño(atacante, defensor):
 
 		return 0
 
-	# INMUNIDAD
+	# INMUNE
 	if defensor.inmune:
 
 		mostrar_texto(
@@ -148,22 +179,33 @@ func calcular_daño(atacante, defensor):
 
 		return 0
 
-	# DAÑO BASE
-	var daño_base = atacante.daño * atacante.bonus_daño
+	var daño_base = (
+		atacante.daño *
+		atacante.bonus_daño
+	)
 
-	# DEFENSA
-	var defensa_base = defensor.defensa * defensor.bonus_defensa
+	var defensa_base = (
+		defensor.defensa *
+		defensor.bonus_defensa
+	)
 
-	# FORMULA
-	var daño = (daño_base * 1.4) - (defensa_base * 0.5)
+	# NUEVO BALANCE
+	var daño = (
+		daño_base -
+		(defensa_base * 0.7)
+	)
 
-	# VARIACIÓN
-	var variacion = randf_range(0.9, 1.1)
+	var variacion = randf_range(
+		0.85,
+		1.05
+	)
 
 	daño *= variacion
 
-	# MINIMO
-	daño = max(int(daño), 1)
+	daño = max(
+		int(daño),
+		1
+	)
 
 	return daño
 
@@ -177,7 +219,9 @@ func aplicar_efectos(atacante, defensor, daño):
 		return
 
 	# DAÑO
-	if defensor.has_method("recibir_daño"):
+	if defensor.has_method(
+		"recibir_daño"
+	):
 
 		defensor.recibir_daño(daño)
 
@@ -190,7 +234,7 @@ func aplicar_efectos(atacante, defensor, daño):
 	# ROBO VIDA
 	if atacante.robo_vida:
 
-		atacante.hp += daño
+		atacante.hp += int(daño * 0.5)
 
 		atacante.hp = min(
 			atacante.hp,
@@ -201,26 +245,25 @@ func aplicar_efectos(atacante, defensor, daño):
 
 		mostrar_texto(
 			atacante.nombre +
-			" roba vida " +
-			str(daño)
+			" roba vida"
 		)
 
 	# DOBLE GOLPE
 	if atacante.doble_golpe:
 
-		mostrar_texto(
-			atacante.nombre +
-			" hace doble impacto!"
-		)
+		var daño_extra = int(daño * 0.5)
 
-		if defensor.has_method("recibir_daño"):
+		if defensor.has_method(
+			"recibir_daño"
+		):
 
-			defensor.recibir_daño(daño)
+			defensor.recibir_daño(
+				daño_extra
+			)
 
 			mostrar_texto(
-				defensor.nombre +
-				" recibe " +
-				str(daño)
+				"Segundo impacto " +
+				str(daño_extra)
 			)
 
 # ATAQUE
@@ -232,10 +275,8 @@ func atacar(atacante, defensor):
 	if !is_instance_valid(defensor):
 		return
 
-	# ANIMACIÓN
 	animar_ataque(atacante)
 
-	# DAÑO
 	var daño_final = calcular_daño(
 		atacante,
 		defensor
@@ -244,7 +285,6 @@ func atacar(atacante, defensor):
 	if daño_final <= 0:
 		return
 
-	# EFECTOS
 	aplicar_efectos(
 		atacante,
 		defensor,
@@ -282,7 +322,7 @@ func atacar(atacante, defensor):
 				" fue derrotado"
 			)
 
-# ANIMACIÓN
+# ANIMACION
 func animar_ataque(atacante):
 
 	if !is_instance_valid(atacante):
@@ -293,10 +333,8 @@ func animar_ataque(atacante):
 	var posicion_original = atacante.position
 
 	var distancia = 40
-
 	var posicion_ataque
 
-	# PLAYER
 	if atacante == player:
 
 		posicion_ataque = (
@@ -304,7 +342,6 @@ func animar_ataque(atacante):
 			Vector2(distancia, 0)
 		)
 
-	# ENEMY
 	else:
 
 		posicion_ataque = (
@@ -312,7 +349,6 @@ func animar_ataque(atacante):
 			Vector2(-distancia, 0)
 		)
 
-	# IR
 	tween.tween_property(
 		atacante,
 		"position",
@@ -320,7 +356,6 @@ func animar_ataque(atacante):
 		0.1
 	)
 
-	# VOLVER
 	tween.tween_property(
 		atacante,
 		"position",

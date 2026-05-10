@@ -7,20 +7,20 @@ var nombre = "Caelius"
 var hp = 100
 var max_hp = 100
 
-var daño = 10
-var defensa = 10
-var esquive = 10
+var daño = 6
+var defensa = 5
+var esquive = 5
 var velocidad = 1.0
 
 var fe = 0
 var poder = 0
 
-# BONUS COMBATE
+# BONUS
 var bonus_daño = 1.0
 var bonus_defensa = 1.0
 var bonus_velocidad = 1.0
 
-# HABILIDADES
+# EFECTOS
 var robo_vida = false
 var doble_golpe = false
 var inmune = false
@@ -32,12 +32,11 @@ var tiempo_ataque = 0.0
 var tipo_caelius = "ira"
 var nivel = 1
 
-# HABILIDAD ESPECIAL
+# HABILIDADES
 var habilidad_activa = false
 var habilidad_timer = 0.0
-
-# VIDA
-var vida_tween = null
+var cooldown_habilidad = 0.0
+var habilidad_nombre = ""
 
 # READY
 func _ready():
@@ -46,7 +45,6 @@ func _ready():
 
 	cargar_progreso()
 	cargar_stats()
-
 	actualizar_barra_vida()
 
 # PROCESS
@@ -54,7 +52,9 @@ func _process(delta):
 
 	tiempo_ataque -= delta
 
-	# HABILIDAD TIMER
+	if cooldown_habilidad > 0:
+		cooldown_habilidad -= delta
+
 	if habilidad_activa:
 
 		habilidad_timer -= delta
@@ -62,80 +62,70 @@ func _process(delta):
 		if habilidad_timer <= 0:
 			desactivar_habilidad()
 
-	# TEST HABILIDAD
+	# TEST
 	if Input.is_action_just_pressed("ui_accept"):
+
 		activar_habilidad()
 
 # ATAQUE
 func puede_atacar():
+
 	return tiempo_ataque <= 0 and hp > 0
 
 func reiniciar_tiempo():
-	tiempo_ataque = 1.0 / (velocidad * bonus_velocidad)
 
-# RECIBIR DAÑO
-func recibir_daño(cantidad):
+	tiempo_ataque = 1.3 / (
+		velocidad *
+		bonus_velocidad
+	)
 
-	if hp <= 0:
-		return
-
-	hp -= cantidad
-
-	print(nombre + " recibe " + str(cantidad))
-
-	actualizar_barra_vida()
-
-	if hp <= 0:
-		morir()
-
-# MORIR
-func morir():
-
-	print(nombre + " fue derrotado")
-
-# HABILIDADES
+# HABILIDAD
 func activar_habilidad():
+
+	if cooldown_habilidad > 0:
+		return
 
 	if habilidad_activa:
 		return
 
 	habilidad_activa = true
-	habilidad_timer = 5.0
 
 	match tipo_caelius:
 
+		# IRA
 		"ira":
-			activar_ira()
 
+			habilidad_nombre = "Ira del Depredador"
+
+			habilidad_timer = 5.0
+
+			bonus_daño = 1.25
+			bonus_defensa = 1.2
+			bonus_velocidad = 1.15
+
+		# PENA
 		"pena":
-			activar_pena()
 
+			habilidad_nombre = "Lamento Parasitario"
+
+			habilidad_timer = 5.0
+
+			robo_vida = true
+
+		# EGO
 		"ego":
-			activar_ego()
 
-# IRA
-func activar_ira():
+			habilidad_nombre = "Dominio Absoluto"
 
-	bonus_daño = 1.3
-	bonus_defensa = 1.2
-	bonus_velocidad = 1.2
+			habilidad_timer = 4.0
 
-	print("🔥 Ira del Depredador ACTIVADA")
+			inmune = true
+			doble_golpe = true
 
-# PENA
-func activar_pena():
-
-	robo_vida = true
-
-	print("🩸 Lamento Parasitario ACTIVADO")
-
-# EGO
-func activar_ego():
-
-	doble_golpe = true
-	inmune = true
-
-	print("👁 Dominación Absoluta ACTIVADA")
+	cooldown_habilidad = max(
+		18.0 - (fe * 0.08),
+		10.0
+	)
 
 # DESACTIVAR
 func desactivar_habilidad():
@@ -150,49 +140,67 @@ func desactivar_habilidad():
 	doble_golpe = false
 	inmune = false
 
-	print("Habilidad terminada")
+# RECIBIR DAÑO
+func recibir_daño(cantidad):
 
-# BARRA VIDA
+	if hp <= 0:
+		return
+
+	hp -= cantidad
+
+	hp = max(hp, 0)
+
+	actualizar_barra_vida()
+
+# VIDA
 func actualizar_barra_vida():
 
-	if not has_node("HealthBar"):
+	if !has_node("HealthBar"):
 		return
 
 	var barra = $HealthBar
 
-	var porcentaje = float(hp) / float(max_hp) * 100.0
-
-	# TWEEN
-	if vida_tween != null:
-		vida_tween.kill()
-
-	vida_tween = create_tween()
-	vida_tween.tween_property(barra, "value", porcentaje, 0.2)
+	var porcentaje = (
+		float(hp) /
+		float(max_hp)
+	) * 100.0
 
 	barra.value = porcentaje
 
-	# COLOR
 	if porcentaje > 50:
-		barra.modulate = Color(0.591, 0.809, 0.51)
+
+		barra.modulate = Color(
+			0.591,
+			0.809,
+			0.51
+		)
 
 	elif porcentaje > 10:
-		barra.modulate = Color(0.81, 0.692, 0.377)
 
-	elif porcentaje > 0:
-		barra.modulate = Color(0.907, 0.337, 0.268)
+		barra.modulate = Color(
+			0.81,
+			0.692,
+			0.377
+		)
 
 	else:
-		barra.modulate = Color(1,1,1,0)
+
+		barra.modulate = Color(
+			0.907,
+			0.337,
+			0.268
+		)
 
 # CFG
 func cargar_progreso():
 
 	var config = ConfigFile.new()
 
-	var err = config.load("res://cfg/progreso.cfg")
+	var err = config.load(
+		"res://cfg/progreso.cfg"
+	)
 
 	if err != OK:
-		print("No se pudo cargar progreso")
 		return
 
 	tipo_caelius = config.get_value(
@@ -221,44 +229,52 @@ func cargar_stats():
 		"pena":
 			stats_pena()
 
-		_:
-			stats_ira()
-
-# NUEVO BALANCE DE STATS
 # IRA
 func stats_ira():
 
-	aplicar_stats([
-		[110,8,3,8,10,8,10],
-		[170,12,5,10,14,12,15],
-		[240,18,8,14,18,16,22],
-		[320,24,12,18,22,20,30],
-		[420,32,16,22,26,25,40]
-	][nivel - 1])
+	var stats = [
+		95,
+		7,
+		4,
+		5,
+		10,
+		8,
+		8
+	]
+
+	aplicar_stats(stats)
 
 # EGO
 func stats_ego():
 
-	aplicar_stats([
-		[130,5,8,5,8,10,5],
-		[200,8,12,8,12,15,8],
-		[280,12,16,10,16,20,12],
-		[360,16,22,14,20,25,18],
-		[480,22,28,18,24,30,25]
-	][nivel - 1])
+	var stats = [
+		90,
+		5,
+		6,
+		4,
+		9,
+		12,
+		6
+	]
+
+	aplicar_stats(stats)
 
 # PENA
 func stats_pena():
 
-	aplicar_stats([
-		[100,6,4,12,10,18,6],
-		[160,10,6,15,14,25,10],
-		[230,14,10,18,18,35,15],
-		[310,20,14,22,22,45,22],
-		[400,26,18,26,26,55,30]
-	][nivel - 1])
+	var stats = [
+		85,
+		6,
+		5,
+		6,
+		9,
+		14,
+		7
+	]
 
-# APLICAR STATS
+	aplicar_stats(stats)
+
+# APLICAR
 func aplicar_stats(s):
 
 	max_hp = s[0]
@@ -268,19 +284,7 @@ func aplicar_stats(s):
 	defensa = s[2]
 	esquive = s[3]
 
-	# NUEVO BALANCE
-	velocidad = s[4] / 25.0
+	velocidad = s[4] / 10.0
 
 	fe = s[5]
 	poder = s[6]
-
-	print("==========")
-	print(nombre)
-	print("HP:", hp)
-	print("Daño:", daño)
-	print("Defensa:", defensa)
-	print("Esquive:", esquive)
-	print("Velocidad:", velocidad)
-	print("Fe:", fe)
-	print("Poder:", poder)
-	print("==========")
