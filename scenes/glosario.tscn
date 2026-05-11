@@ -1,17 +1,17 @@
 [gd_scene load_steps=37 format=3 uid="uid://dq5wr8hrd5emr"]
 
-[ext_resource type="Script" uid="uid://dba8kh4oyc4bs" path="res://scripts/glosario.gd" id="1_7wj5c"]
+[ext_resource type="Script" uid="uid://kwrkyf0e8tgl" path="res://scripts/glosario.gd" id="1_7wj5c"]
 [ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://assets/BckGrnd/Nivel.png" id="2_k4k2e"]
 [ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://assets/Fonts/Seagram_tfb.ttf" id="3_mg7aj"]
 [ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://assets/BckGrnd/paperallborder.png" id="4_0g5od"]
 [ext_resource type="Texture2D" uid="uid://c03f2guura5ub" path="res://assets/ChArt/caelius de ira.png" id="5_8w1dr"]
 [ext_resource type="Texture2D" uid="uid://cf6c3r3bns6yo" path="res://assets/ChArt/el papa.png" id="6_3pcg7"]
-[ext_resource type="Texture2D" uid="uid://bhihwen6uod2m" path="res://assets/ChArt/la monja.png" id="7_lfoln"]
+[ext_resource type="Texture2D" uid="uid://bpblbh1jcbnrf" path="res://assets/ChArt/monjasenta.png" id="7_v8i3o"]
 [ext_resource type="Texture2D" uid="uid://b0haia2rg2ey1" path="res://assets/ChArt/los monaquillo.png" id="8_dyuab"]
 [ext_resource type="Texture2D" uid="uid://0vctymefvq5k" path="res://assets/ChArt/padre espina.png" id="9_dg7pb"]
 [ext_resource type="Texture2D" uid="uid://davjajidu876c" path="res://assets/ChArt/Obispo Serpico.png" id="10_64hlh"]
 [ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="10_y736b"]
-[ext_resource type="Texture2D" uid="uid://ca0af7od2a11l" path="res://assets/ChArt/tere.png" id="11_f222x"]
+[ext_resource type="Texture2D" uid="uid://c006hoir638k1" path="res://assets/ChArt/tere.png" id="11_f222x"]
 [ext_resource type="Texture2D" uid="uid://beg24ycjs84j3" path="res://assets/ChArt/Fray Corvus.png" id="12_v8i3o"]
 [ext_resource type="Texture2D" uid="uid://d1b8xp4fkipop" path="res://assets/ChArt/galaad.png" id="13_8hu71"]
 [ext_resource type="Texture2D" uid="uid://dfs8oxeamveau" path="res://assets/ChArt/Kapparah.png" id="14_smwnv"]
@@ -360,11 +360,12 @@ expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="General/ScrollContainerPersonajes/Personajes/Monja"]
 layout_mode = 0
-offset_top = 51.199974
-offset_right = 257.0
-offset_bottom = 437.19998
+offset_left = 14.925
+offset_top = 51.2
+offset_right = 271.925
+offset_bottom = 437.2
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("7_lfoln")
+texture = ExtResource("7_v8i3o")
 stretch_mode = 3
 
 [node name="Label" type="Label" parent="General/ScrollContainerPersonajes/Personajes/Monja"]
@@ -508,23 +509,23 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_64hlh")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
 theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
 
-[node name="Theresa" type="TextureRect" parent="General/ScrollContainerPersonajes/Personajes"]
+[node name="Eirene" type="TextureRect" parent="General/ScrollContainerPersonajes/Personajes"]
 custom_minimum_size = Vector2(240, 360)
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("4_0g5od")
 expand_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="General/ScrollContainerPersonajes/Personajes/Theresa"]
+[node name="TextureRect" type="TextureRect" parent="General/ScrollContainerPersonajes/Personajes/Eirene"]
 layout_mode = 0
-offset_top = 68.0
-offset_right = 302.5
-offset_bottom = 418.0
+offset_top = 51.19998
+offset_right = 300.0
+offset_bottom = 437.19998
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("11_f222x")
 stretch_mode = 3
 
-[node name="Label" type="Label" parent="General/ScrollContainerPersonajes/Personajes/Theresa"]
+[node name="Label" type="Label" parent="General/ScrollContainerPersonajes/Personajes/Eirene"]
 layout_mode = 0
 offset_left = -5.0
 offset_right = 245.0
@@ -536,7 +537,7 @@ text = "Theresa"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="General/ScrollContainerPersonajes/Personajes/Theresa" groups=["GlosarioButton"]]
+[node name="Button" type="Button" parent="General/ScrollContainerPersonajes/Personajes/Eirene" groups=["GlosarioButton"]]
 layout_mode = 0
 offset_left = -5.0
 offset_top = -5.0
@@ -869,11 +870,12 @@ expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="General/ScrollContainerPoderes/Poderes/MonjaPoder"]
 layout_mode = 0
-offset_top = 82.99999
-offset_right = 292.85706
+offset_left = 14.925
+offset_top = 83.0
+offset_right = 307.78204
 offset_bottom = 480.14282
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("7_lfoln")
+texture = ExtResource("7_v8i3o")
 stretch_mode = 3
 
 [node name="Label" type="Label" parent="General/ScrollContainerPoderes/Poderes/MonjaPoder"]
@@ -1154,7 +1156,7 @@ bus = &"SFX"
 [connection signal="mouse_entered" from="General/ScrollContainerPersonajes/Personajes/Monaquillo/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_entered" from="General/ScrollContainerPersonajes/Personajes/Espina/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_entered" from="General/ScrollContainerPersonajes/Personajes/Serpico/Button" to="." method="_on_button_mouse_entered"]
-[connection signal="mouse_entered" from="General/ScrollContainerPersonajes/Personajes/Theresa/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="General/ScrollContainerPersonajes/Personajes/Eirene/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_entered" from="General/ScrollContainerPersonajes/Personajes/Corvus/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_entered" from="General/ScrollContainerPersonajes/Personajes/Galaad/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_entered" from="General/ScrollContainerPersonajes/Personajes/Kapparah/Button" to="." method="_on_button_mouse_entered"]
