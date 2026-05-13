@@ -230,7 +230,6 @@ focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_dr5ty")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_568h8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_pquok")
-toggle_mode = true
 
 [node name="Fondo" type="TextureRect" parent="Personajes/PJ_ira"]
 layout_mode = 0
@@ -392,4 +391,3 @@ bus = &"SFX"
 [connection signal="pressed" from="Personajes/PJ_pena" to="." method="_on_pj_pena_pressed"]
 [connection signal="pressed" from="Personajes/PJ_ira" to="." method="_on_pj_ira_pressed"]
 [connection signal="pressed" from="Personajes/PJ_ego" to="." method="_on_pj_ego_pressed"]
-[connection signal="pressed" from="BtnSeleccionar" to="." method="_on_btn_seleccionar_pressed"]

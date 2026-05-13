@@ -30,8 +30,8 @@ func _ready():
 			ocultar("Espina")
 		if progreso.get_value("Jefes","serpico") == 0:
 			ocultar("Serpico")
-		if progreso.get_value("Jefes","theresa") == 0:
-			ocultar("Theresa")
+		if progreso.get_value("Jefes","eirene") == 0:
+			ocultar("Eirene")
 		if progreso.get_value("Jefes","corvus") == 0:
 			ocultar("Corvus")
 		if progreso.get_value("Jefes","galaad") == 0:
