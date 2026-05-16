@@ -13,6 +13,7 @@ import Levels
 import Save
 import Glosario
 import creditos 
+import UI_const
 
 FONTPATH = r"Assets\\Fonts\\Seagram_tfb.ttf"
 
@@ -21,7 +22,7 @@ class Game:
         pygame.init()
 
         # Configuración Global
-        self.WIDTH, self.HEIGHT = 920, 750  # Tamaño de la ventana
+        self.WIDTH, self.HEIGHT = UI_const.WIDTH_screen, UI_const.HEIGHT_screen # Tamaño de la ventana
         self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         pygame.display.set_caption("Caelitronus")
         self.clock = pygame.time.Clock()
@@ -119,7 +120,7 @@ class Game:
     def _reproducir_video_intro(self):
      pygame.mixer.music.stop()  # Detiene la música del juego
 
-     video_path = r"Assets\\Movie\\prologo.mov"
+     video_path = r"Assets\\Movie\\prologo.mp4"
      audio_path = r"Assets\\Movie\\prologo.wav"
 
      cap = cv2.VideoCapture(video_path)
@@ -262,16 +263,17 @@ class Game:
 
         #Cargar Jugador
         M1 = Save.plyr_load()
-        if M1 == None:
-            # Si no hay jugador guardado, reproducir la cinemática de introducción
-            video_result = self._reproducir_video_intro()
-            if video_result == "QUIT":
-                return "QUIT" # Salir del juego si el usuario lo decide durante la cinemática
-            elif video_result == "MENU":
-                return "MENU" # Volver al menú si el usuario lo decide durante la cinemática
+        # if M1 == None:
+        #     # Si no hay jugador guardado, reproducir la cinemática de introducción´
+        #     pass
+        #     video_result = self._reproducir_video_intro()
+        #     if video_result == "QUIT":
+        #         return "QUIT" # Salir del juego si el usuario lo decide durante la cinemática
+        #     elif video_result == "MENU":
+        #         return "MENU" # Volver al menú si el usuario lo decide durante la cinemática
             
-            # Si el video terminó o fue omitido para continuar, permitir la selección de personaje
-            M1 = getattr(Characters,charSel.runMenu() + "DmnManifest")(1)
+        #     # Si el video terminó o fue omitido para continuar, permitir la selección de personaje
+        M1 = getattr(Characters,charSel.runMenu() + "DmnManifest")(1)
         
         #Correr Menu de Seleccion de Nivel
         while True:

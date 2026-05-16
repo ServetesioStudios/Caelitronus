@@ -11,8 +11,9 @@ import random
 import Characters as Ch
 import Battle as Btl
 import Menus as Mns
+import UI_const
 
-WIDTH, HEIGHT = 920, 750
+WIDTH, HEIGHT = (UI_const.WIDTH_screen, UI_const.HEIGHT_screen)
 
 #Angel Randomizer Chances
 ANGRND = [["HealManifest",4],["DrainManifest",3], ["LazManifest",1]]

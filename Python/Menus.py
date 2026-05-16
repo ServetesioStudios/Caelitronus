@@ -6,11 +6,11 @@ from pygame_widgets.button import Button as WidButton
 
 import Characters
 import Button
+import UI_const
 
 pygame.init()
 
-
-WIDTH, HEIGHT = 920, 720
+WIDTH, HEIGHT = (UI_const.WIDTH_screen, UI_const.HEIGHT_screen)
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 font_Path = r"Assets\\Fonts\\Seagram_Tfb.ttf"
 BTNIMAGE = r"Assets\\BckGrnd\\paperallborder.png"
@@ -466,7 +466,7 @@ class LevelSelectScreen:
             self.jefesderrotados+=1
 
         icon_serpico = pygame.transform.scale(icon_serpico, (50, 50))
-        posicion = pygame.Rect(155,550,50,50)
+        posicion = pygame.Rect(155,HEIGHT-170,50,50)
         icon_serpico_rect = icon_serpico.get_rect(center = posicion.center)
 
         if(self.flag_espina == False):
@@ -476,7 +476,7 @@ class LevelSelectScreen:
             self.jefesderrotados+=1
 
         icon_espina = pygame.transform.scale(icon_espina, (50, 50))
-        posicion = pygame.Rect(435,550,50,50)
+        posicion = pygame.Rect(435,HEIGHT-170,50,50)
         icon_espina_rect = icon_espina.get_rect(center = posicion.center)
 
         if(self.flag_corvus == False):
@@ -486,7 +486,7 @@ class LevelSelectScreen:
             self.jefesderrotados+=1
 
         icon_corvus = pygame.transform.scale(icon_corvus, (50, 50))
-        posicion = pygame.Rect(715,550,50,50)
+        posicion = pygame.Rect(715,HEIGHT-170,50,50)
         icon_corvus_rect = icon_corvus.get_rect(center = posicion.center)
 
         if(self.flag_galaad == False):
@@ -506,9 +506,9 @@ class LevelSelectScreen:
         icon_misionero_rect = icon_misionero.get_rect(center = posicion.center)
 
         #Botones de Seleccion de nivel (clase Button)
-        but_serpico = Button.Button('Obispo Serpico',200,100,(80,600))
-        but_espina = Button.Button('Padre Espina',200,100,(360,600))
-        but_corvus = Button.Button('Fray Corvus',200,100,(640,600))
+        but_serpico = Button.Button('Obispo Serpico',200,100,(80,HEIGHT-120))
+        but_espina = Button.Button('Padre Espina',200,100,(360,HEIGHT-120))
+        but_corvus = Button.Button('Fray Corvus',200,100,(640,HEIGHT-120))
         but_galaad = Button.Button('Galaad',200,100,(360,325))
         but_misionero = Button.Button('???',200,100,(360,100))
         but_menu = Button.Button('Salir al Menu Principal',280,50,(595,25))
@@ -660,27 +660,34 @@ class CharSelectScreen:
 
             if(border_rect.left == 40):
                 icon = pygame.image.load("./Assets/Icons/Espada.png")
-                but_select = Button.Button('Seleccionar',150,40,(100, 670))
+                but_select = Button.Button('Seleccionar',150,40,(100, HEIGHT-50))
             if(border_rect.left == 325):
                 icon = pygame.image.load("./Assets/Icons/Escudo.png")
-                but_select = Button.Button('Seleccionar',150,40,(385, 670))
+                but_select = Button.Button('Seleccionar',150,40,(385, HEIGHT-50))
             if(border_rect.left == 610):
                 icon = pygame.image.load("./Assets/Icons/Velocidad.png")
-                but_select = Button.Button('Seleccionar',150,40,(670, 670))
+                but_select = Button.Button('Seleccionar',150,40,(670, HEIGHT-50))
             
             icon = pygame.transform.scale(icon, (32, 32))
             icon_rect = icon.get_rect(center = fondo_rect.center)
             icon_rect.top = border_rect.top + 15
 
-            font = pygame.font.Font("./Assets/Fonts/Seagram_tfb.ttf", 20)
-            text = font.render(thing,True,'#000000')
-            text_rect = text.get_rect(center = fondo_rect.center)
-            
             pygame.draw.rect(screen,border_color,border_rect,5)
             screen.blit(fondo,fondo_rect)
             screen.blit(icon,icon_rect)
-            screen.blit(text,text_rect)
 
+            #TEXTO MULTILÍNEA
+            font = pygame.font.Font("./Assets/Fonts/Seagram_tfb.ttf", 20)
+            y_offset = 0
+       
+            lineas = thing.split('\n');
+            for linea in lineas: 
+               text = font.render(linea,True,'#000000')
+               text_rect = text.get_rect(center=(fondo_rect.centerx, fondo_rect.top + 70 + y_offset))
+               y_offset += 24;
+               screen.blit(text,text_rect)
+                
+            
             return but_select
 
         else:
@@ -709,9 +716,9 @@ class CharSelectScreen:
 
         #Botones de Seleccion de Personajes (clase Button)
 
-        but_select1 = Button.Button('Obispo Serpico',610,475,(270,250))
-        but_select2 = Button.Button('Obispo Serpico',325,475,(270,250))
-        but_select3 = Button.Button('Obispo Serpico',40,475,(270,250))
+        but_select1 = Button.Button('Obispo Serpico',610,HEIGHT-250,(270,250))
+        but_select2 = Button.Button('Obispo Serpico',325,HEIGHT-250,(270,250))
+        but_select3 = Button.Button('Obispo Serpico',40,HEIGHT-250,(270,250))
 
         run = True
         while run:
@@ -735,13 +742,13 @@ class CharSelectScreen:
 
             screen.blit(fondo_screen,(0,0))
 
-            self.drawThing(screen, pygame.Rect(65,25,220,425), caelius1)
-            self.drawThing(screen, pygame.Rect(350,25,220,425), caelius2)
-            self.drawThing(screen, pygame.Rect(635,25,220,425), caelius3)
+            self.drawThing(screen, pygame.Rect(65,15,220,425), caelius1)
+            self.drawThing(screen, pygame.Rect(350,15,220,425), caelius2)
+            self.drawThing(screen, pygame.Rect(635,15,220,425), caelius3)
 
-            but_select1 = self.drawThing(screen, pygame.Rect(40,475,270,250), "   Fauste de Fe (Ira): \n Incrementa sus valores\n de ATK y DAN en un \n   30% por 5 segundos  ")
-            but_select2 = self.drawThing(screen, pygame.Rect(325,475,270,250), "     Fauste de Fe (Ego):\nIncrementa su valor de DEF\n  en un 40% por 5 segundos\n       y se cura 10% de sus\n            PV maximos")
-            but_select3 = self.drawThing(screen, pygame.Rect(610,475,270,250), "      Fauste de Fe (Pena):\nIncrementa su valor de SRT\n   por un 10% y sus valores\n    de ESQ y VLC en 20%\n          por 5 segundos")
+            but_select1 = self.drawThing(screen, pygame.Rect(40,HEIGHT-250,270,250), "Fauste de Fe (Ira): \nIncrementa sus valores\nde ATK y DAN en un\n30% por 5 segundos ")
+            but_select2 = self.drawThing(screen, pygame.Rect(325,HEIGHT-250,270,250), " Fauste de Fe (Ego):\nIncrementa su valor de DEF\nen un 40% por 5 segundos\ny se cura 10% de sus\nPV maximos")
+            but_select3 = self.drawThing(screen, pygame.Rect(610,HEIGHT-250,270,250), " Fauste de Fe (Pena):\nIncrementa su valor de SRT\npor un 10% y sus valores\nde ESQ y VLC en 20%\npor 5 segundos")
            
             but_select1.draw(screen,True,False)
             but_select2.draw(screen,True,False)

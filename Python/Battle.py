@@ -2,6 +2,7 @@ from time import sleep
 
 import pygame
 import random as rnd
+import UI_const
 
 from PIL.ImageChops import offset
 
@@ -15,7 +16,7 @@ lifeGauge = pygame.image.load(lifeGauge_path)
 
 lifeGauge_offsetX = 18
 lifeGauge_offsetY = 13
-# WIDTH, HEIGHT = 800, 600
+WIDTH, HEIGHT = (UI_const.WIDTH_screen, UI_const.HEIGHT_screen)
 # screen = pygame.display.set_mode((WIDTH, HEIGHT))
 # pygame.display.set_caption("Prueba de Ticks")
 #fontPath = None
@@ -198,11 +199,13 @@ class Battle:
 
                 print(str(actualTick) + " - " + str(self.get_tiempoEvent1()))
 
-                self._textos.append(font.render(f"{btlMsg1}", True, BLACK, None, 265))
+                #self._textos.append(font.render(f"{btlMsg1}", True, BLACK, None, 265))
+                self._textos.append(btlMsg1)
 
                 if self.get_battler2().get_hp() <= 0:
                     expGainMsg = self.get_battler1().xpUp(5 * self._battler2.get_lv())
-                    self._textos.append(font.render(f"{expGainMsg}", True, BLACK, None, 265))
+                    #self._textos.append(font.render(f"{expGainMsg}", True, BLACK, None, 265))
+                    self._textos.append(expGainMsg)
 
                 # self._textos.append(font.render("PJ 1 ataca", True, BLACK))
 
@@ -233,7 +236,8 @@ class Battle:
 
                 # self._textos.append(font.render(f"PJ 2 ataca con Daño {danioNuevo[0]} {danioNuevo[1]}", True, BLACK))
 
-                self._textos.append(font.render(f"{btlMsg2}", True, BLACK, None, 256))
+                #self._textos.append(font.render(f"{btlMsg2}", True, BLACK, None, 256))
+                self._textos.append(btlMsg2)
 
                 # self._textos.append(font.render("PJ 2 ataca", True, BLACK))
 
@@ -249,7 +253,8 @@ class Battle:
 
             if self.get_battler1().get_actvBuff()[1] and actualTick >= self.get_tiempoBuff1() + self.get_battler1().get_actvBuff()[0]:
                 endBuffmsg = self.get_battler1().endBuff()
-                self._textos.append(font.render(f"{endBuffmsg}", True, BLACK, None, 256))
+                #self._textos.append(font.render(f"{endBuffmsg}", True, BLACK, None, 256))
+                self._textos.append(endBuffmsg)
                 self.set_tiempoBuff1(0)
 
                 self._animations.append(["Debuff", 1, 24, 1])
@@ -264,7 +269,8 @@ class Battle:
 
             if self.get_battler2().get_actvBuff()[1] and actualTick >= self.get_tiempoBuff1() + self.get_battler2().get_actvBuff()[0]:
                 endBuffmsg = self.get_battler2().endBuff()
-                self._textos.append(font.render(f"PJ 2: {endBuffmsg}", True, BLACK, None, 256))
+                #self._textos.append(font.render(f"PJ 2: {endBuffmsg}", True, BLACK, None, 256))
+                self._textos.append(f"PJ 2: {endBuffmsg}")
                 self.set_tiempoBuff2(0)
                 self._animations.append(["Debuff", 1, 24, 0])
                 print("Ataque actual sin buff: " + str(self.get_battler2().get_atk()))
@@ -322,8 +328,28 @@ class Battle:
         ##############
         ############## Dibujar Stats
 
-        HUD1 = fontStats.render(self.printStats(self.get_battler1()), True, BLACK)
-        HUD2 = fontStats.render(self.printStats(self.get_battler2()), True, BLACK)
+        #HUD1
+        self.draw_wrapped_text(
+            self.get_screen(),
+            self.printStats(self.get_battler1()),
+            fontStats,
+            BLACK,
+            25,
+            HEIGHT - 140,
+            250)
+
+        #HUD2
+        self.draw_wrapped_text(
+            self.get_screen(),
+            self.printStats(self.get_battler2()),
+            fontStats,
+            BLACK,
+            self.get_screen().get_width() - 280,
+            HEIGHT - 140,
+            250)
+        
+        #HUD1 = fontStats.render(self.printStats(self.get_battler1()), True, BLACK)
+        #HUD2 = fontStats.render(self.printStats(self.get_battler2()), True, BLACK)
 
         LIFE1 = fontStats.render(str(self.get_battler1().get_hp()) + "/" + str(self.get_battler1().get_maxHp()), True, WHITE)
         LIFE2 = fontStats.render(str(self.get_battler2().get_hp()) + "/" + str(self.get_battler2().get_maxHp()), True, WHITE)
@@ -344,8 +370,8 @@ class Battle:
         self.get_screen().blit(NAME1, (25, TOPY - 20))
         self.get_screen().blit(NAME2, (self.get_screen().get_width() - NAME2.get_width() - 25, TOPY - 20))
 
-        self.get_screen().blit(HUD1, (25, 600))
-        self.get_screen().blit(HUD2, (self.get_screen().get_width() - 280, 600))
+        #self.get_screen().blit(HUD1, (25, HEIGHT-120))
+        #self.get_screen().blit(HUD2, (self.get_screen().get_width() - 280, HEIGHT-120))
 
         ################
 
@@ -354,8 +380,17 @@ class Battle:
             self._textos.remove(self._textos[0])
 
         for i, texto in enumerate(self._textos):
-            if texto.get_alpha() > 1:
-                self.get_screen().blit(texto, ((self.get_screen().get_width() / 3) + 10, TOPY + i * 125))
+            # if texto.get_alpha() > 1:
+            #     self.get_screen().blit(texto, ((self.get_screen().get_width() / 3) + 10, TOPY + i * 125))
+            self.draw_wrapped_text(
+                self.get_screen(),
+                texto,
+                font,
+                BLACK,
+                (self.get_screen().get_width() / 3) + 10,
+                TOPY + i * 100,
+                300
+            )
 
         self.get_screen().blit(self.get_imagen1(), (0 + offset_x1, TOPY + 100 + offset_y1))
         self.get_screen().blit(pygame.transform.flip(self.get_imagen2(), True, False), (self.get_screen().get_width() - (self.get_imagen2().get_width()) + offset_x2, TOPY + 100 + offset_y2))
@@ -404,4 +439,36 @@ class Battle:
         
         pygame.display.flip()
         return True
+    
+    def draw_wrapped_text(self, screen, texto, font, color, x, y, max_width):
+        palabras = texto.split(' ')
+        lineas = []
+        linea_actual = ""
 
+         # WRAP
+        for palabra in palabras:
+
+            prueba = linea_actual + palabra + " "
+
+            if font.size(prueba)[0] <= max_width:
+                linea_actual = prueba
+            else:
+                lineas.append(linea_actual)
+                linea_actual = palabra + " "
+
+        lineas.append(linea_actual)
+
+        # DIBUJAR
+        y_offset = y
+
+        for linea in lineas:
+
+            render = font.render(linea, True, color)
+
+            screen.blit(render, (x, y_offset))
+
+            y_offset += font.get_height() + 5
+
+
+
+    

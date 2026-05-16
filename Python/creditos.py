@@ -1,8 +1,9 @@
 import pygame
 import Button
 import numpy
+import UI_const
 
-WIDTH, HEIGHT = 920, 750
+WIDTH, HEIGHT = (UI_const.WIDTH_screen, UI_const.HEIGHT_screen)
 SCREEN = None
 
 class CreditosScreen:

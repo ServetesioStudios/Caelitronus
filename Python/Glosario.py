@@ -1,9 +1,10 @@
 import pygame
 import Button
+import UI_const
 from pygame import Rect, mouse
 
 pygame.init()
-WIDTH, HEIGHT = 920, 750
+WIDTH, HEIGHT = (UI_const.WIDTH_screen, UI_const.HEIGHT_screen)
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 clock.tick(30)
