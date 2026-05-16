@@ -263,14 +263,13 @@ class Game:
 
         #Cargar Jugador
         M1 = Save.plyr_load()
-        # if M1 == None:
+        if M1 == None:
         #     # Si no hay jugador guardado, reproducir la cinemática de introducción´
-        #     pass
-        #     video_result = self._reproducir_video_intro()
-        #     if video_result == "QUIT":
-        #         return "QUIT" # Salir del juego si el usuario lo decide durante la cinemática
-        #     elif video_result == "MENU":
-        #         return "MENU" # Volver al menú si el usuario lo decide durante la cinemática
+            video_result = self._reproducir_video_intro()
+            if video_result == "QUIT":
+                return "QUIT" # Salir del juego si el usuario lo decide durante la cinemática
+            elif video_result == "MENU":
+                return "MENU" # Volver al menú si el usuario lo decide durante la cinemática
             
         #     # Si el video terminó o fue omitido para continuar, permitir la selección de personaje
         M1 = getattr(Characters,charSel.runMenu() + "DmnManifest")(1)
