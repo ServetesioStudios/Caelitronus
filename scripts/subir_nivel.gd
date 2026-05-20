@@ -57,7 +57,6 @@ func cargar(incremento,s,a):
 	final=[]
 	for i in range(s.size()):
 		final.append(incremento[i]+s[i]+a[i])
-	print(final)
 	
 	var iconos = "[img=30]assets/Icons/der.png[/img] [img=30]assets/Icons/der.png[/img]"
 	if a[0] == 0:
