@@ -168,7 +168,7 @@ func _on_alma_pressed() -> void:
 			$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Kamathra.png")
 		"Serpico":
 			$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/vahruksha.png")
-		"Theresa":
+		"Eirene":
 			$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Artemisia.png")
 		"Corvus":
 			$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Nzolukaya.png")

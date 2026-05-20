@@ -14,6 +14,8 @@ extends Control
 
 var personaje_actual: String = ""
 var progreso = ConfigFile.new()
+var statsiniciales: Array = []
+
 
 func _ready() -> void:
 	panel_info.visible = false
@@ -59,16 +61,17 @@ func seleccionar_personaje(tipo: String) -> void:
 			$Personajes/PJ_pena.add_theme_stylebox_override("normal",$Personajes/PJ_pena.get_theme_stylebox("hover"))
 			titulo.text = "Caelius de Pena"
 			stats.text = "Incrementa el valor de fe y sus valores de esquive y velocidad en un 20% por 5 segundos."
-
+			statsiniciales = [85,6,5,6,9,14,7]
 		"ira":
 			$Personajes/PJ_ira.add_theme_stylebox_override("normal",$Personajes/PJ_ira.get_theme_stylebox("hover"))
 			titulo.text = "Caelius de Ira"
 			stats.text = "Incrementa el valor de ataque y daño en un 30% por 5 segundos."
-
+			statsiniciales = [95,7,4,5,10,8,8]
 		"ego":
 			$Personajes/PJ_ego.add_theme_stylebox_override("normal",$Personajes/PJ_ego.get_theme_stylebox("hover"))
 			titulo.text = "Caelius de Ego"
 			stats.text = "Incrementa su valor de defensa un 40% por 5 segundos y se cura un 10%."
+			statsiniciales = [90,5,6,4,9,12,6]
 
 func _on_btn_seleccionar_pressed() -> void:
 
@@ -84,6 +87,8 @@ func _on_btn_seleccionar_pressed() -> void:
 	var err = progreso.load("res://cfg/progreso.cfg")
 	if err == OK:
 		progreso.set_value("Caelius","tipo",personaje_actual)
+		progreso.set_value("Caelius","nivel",1)
+		progreso.set_value("Caelius","stats",statsiniciales)
 		progreso.save("res://cfg/progreso.cfg")
 
 	get_tree().change_scene_to_file("res://scenes/select_nivel.tscn")

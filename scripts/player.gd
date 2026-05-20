@@ -1,5 +1,8 @@
 extends Node2D
 
+var progreso = ConfigFile.new()
+
+
 # IDENTIDAD
 var nombre = "Caelius"
 
@@ -218,61 +221,65 @@ func cargar_progreso():
 # STATS
 func cargar_stats():
 
-	match tipo_caelius:
-
-		"ira":
-			stats_ira()
-
-		"ego":
-			stats_ego()
-
-		"pena":
-			stats_pena()
+	var err = progreso.load("res://cfg/progreso.cfg")
+	if err == OK:
+		var stats = progreso.get_value("Caelius","stats")
+		aplicar_stats(stats)
+	#match tipo_caelius:
+#
+		#"ira":
+			#stats_ira()
+#
+		#"ego":
+			#stats_ego()
+#
+		#"pena":
+			#stats_pena()
 
 # IRA
-func stats_ira():
-
-	var stats = [
-		95,
-		7,
-		4,
-		5,
-		10,
-		8,
-		8
-	]
-
-	aplicar_stats(stats)
+#func stats_ira():
+#
+	#var stats = [
+		#95,
+		#7,
+		#4,
+		#5,
+		#10,
+		#8,
+		#8
+	#]
+#
+	#aplicar_stats(stats)
 
 # EGO
-func stats_ego():
-
-	var stats = [
-		90,
-		5,
-		6,
-		4,
-		9,
-		12,
-		6
-	]
-
-	aplicar_stats(stats)
+#func stats_ego():
+#
+	#var stats = [
+		#90,
+		#5,
+		#6,
+		#4,
+		#9,
+		#12,
+		#6
+	#]
+#
+	#aplicar_stats(stats)
 
 # PENA
-func stats_pena():
-
-	var stats = [
-		85,
-		6,
-		5,
-		6,
-		9,
-		14,
-		7
-	]
-
-	aplicar_stats(stats)
+#func stats_pena():
+#
+	#var stats = [
+		#85,
+		#6,
+		#5,
+		#6,
+		#9,
+		#14,
+		#7
+	#]
+#
+	#aplicar_stats(stats)
 
 # APLICAR
 func aplicar_stats(s):
