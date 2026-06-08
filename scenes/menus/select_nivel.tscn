@@ -1,0 +1,620 @@
+[gd_scene load_steps=16 format=3 uid="uid://ce8rpi164d7tb"]
+
+[ext_resource type="Script" uid="uid://dhsmpwf2ndep" path="res://scripts/menus/select_nivel.gd" id="1_58aum"]
+[ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://assets/BckGrnd/Nivel.png" id="1_fpbh7"]
+[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://assets/BckGrnd/paperallborder.png" id="2_cdy6t"]
+[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://assets/Fonts/Seagram_tfb.ttf" id="3_58aum"]
+[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="5_0welv"]
+[ext_resource type="Texture2D" uid="uid://cwx0cjlp6h5yy" path="res://assets/Icons/Serpico.png" id="6_y04hq"]
+[ext_resource type="Texture2D" uid="uid://d311kgi76ulx4" path="res://assets/BckGrnd/paper.png" id="7_aynrb"]
+[ext_resource type="Texture2D" uid="uid://kkshx7n5r6b" path="res://assets/Icons/Espina.png" id="8_vr6hs"]
+[ext_resource type="Texture2D" uid="uid://bujocqjnco2ly" path="res://assets/Icons/tere.png" id="9_3meqc"]
+[ext_resource type="Texture2D" uid="uid://c8478h663nkv7" path="res://assets/Icons/Corvus.png" id="9_wxfgt"]
+[ext_resource type="Texture2D" uid="uid://c7gpx4py1tr4r" path="res://assets/Icons/Galaad.png" id="10_0w2jm"]
+[ext_resource type="Texture2D" uid="uid://ckatdamg27mio" path="res://assets/Icons/kapara.png" id="11_0xiw4"]
+
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0welv"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y04hq"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.78431374, 0, 0.12941177, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aynrb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.89411765, 0.8039216, 0.14901961, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_58aum")
+
+[node name="Fondo" type="TextureRect" parent="."]
+modulate = Color(0.90413505, 0.76640046, 0.667267, 1)
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("1_fpbh7")
+expand_mode = 1
+
+[node name="Niveles" type="Control" parent="."]
+anchors_preset = 0
+offset_top = 17.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Lineas" type="Control" parent="Niveles"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Negras" type="Control" parent="Niveles/Lineas"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Negras"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 430.0
+offset_top = 108.0
+offset_right = 462.0
+offset_bottom = 518.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Niveles/Lineas/Negras"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 57.0
+offset_top = 468.0
+offset_right = 89.0
+offset_bottom = 518.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="Niveles/Lineas/Negras"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 804.0
+offset_top = 468.0
+offset_right = 836.0
+offset_bottom = 518.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="Niveles/Lineas/Negras"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 57.0
+offset_top = 436.0
+offset_right = 836.0
+offset_bottom = 468.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="Rojas" type="Control" parent="Niveles/Lineas"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="1" type="Control" parent="Niveles/Lineas/Rojas"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Rojas/1"]
+modulate = Color(0.78431374, 0, 0.12941177, 1)
+layout_mode = 0
+offset_left = 63.0
+offset_top = 462.0
+offset_right = 83.0
+offset_bottom = 518.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Niveles/Lineas/Rojas/1"]
+modulate = Color(0.78431374, 0, 0.12941177, 1)
+layout_mode = 0
+offset_left = 810.0
+offset_top = 462.0
+offset_right = 830.0
+offset_bottom = 518.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="Niveles/Lineas/Rojas/1"]
+modulate = Color(0.78431374, 0, 0.12941177, 1)
+layout_mode = 0
+offset_left = 436.0
+offset_top = 462.0
+offset_right = 456.0
+offset_bottom = 518.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="Niveles/Lineas/Rojas/1"]
+modulate = Color(0.78431374, 0, 0.12941177, 1)
+layout_mode = 0
+offset_left = 63.0
+offset_top = 460.0
+offset_right = 830.0
+offset_bottom = 462.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="2" type="Control" parent="Niveles/Lineas/Rojas"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect2" type="TextureRect" parent="Niveles/Lineas/Rojas/2"]
+modulate = Color(0.78431374, 0, 0.12941177, 1)
+layout_mode = 0
+offset_left = 63.0
+offset_top = 444.0
+offset_right = 830.0
+offset_bottom = 460.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="3" type="Control" parent="Niveles/Lineas/Rojas"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Rojas/3"]
+modulate = Color(0.78431374, 0, 0.12941177, 1)
+layout_mode = 0
+offset_left = 436.0
+offset_top = 393.0
+offset_right = 456.0
+offset_bottom = 442.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Niveles/Lineas/Rojas/3"]
+modulate = Color(0.78431374, 0, 0.12941177, 1)
+layout_mode = 0
+offset_left = 63.0
+offset_top = 442.0
+offset_right = 830.0
+offset_bottom = 444.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="corvus" type="Control" parent="Niveles/Lineas/Rojas"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Rojas/corvus"]
+modulate = Color(0.78431374, 0, 0.12941177, 1)
+layout_mode = 0
+offset_left = 436.0
+offset_top = 253.0
+offset_right = 456.0
+offset_bottom = 313.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="galaad" type="Control" parent="Niveles/Lineas/Rojas"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Rojas/galaad"]
+modulate = Color(0.78431374, 0, 0.12941177, 1)
+layout_mode = 0
+offset_left = 436.0
+offset_top = 113.0
+offset_right = 456.0
+offset_bottom = 173.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="Botones" type="Control" parent="Niveles"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Serpico" type="Button" parent="Niveles/Botones"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 518.0
+offset_right = 373.0
+offset_bottom = 598.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
+
+[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Serpico"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 5.0
+offset_right = 335.0
+offset_bottom = 75.0
+texture = ExtResource("2_cdy6t")
+expand_mode = 1
+
+[node name="texto" type="Label" parent="Niveles/Botones/Serpico"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 5.0
+offset_right = 335.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_58aum")
+theme_override_font_sizes/font_size = 40
+text = "Obispo Serpico"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="icono" type="TextureRect" parent="Niveles/Botones/Serpico"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 72.0
+offset_bottom = 72.0
+texture = ExtResource("6_y04hq")
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Serpico/icono"]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 67.0
+offset_bottom = 67.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="Espina" type="Button" parent="Niveles/Botones"]
+layout_mode = 0
+offset_left = 406.0
+offset_top = 518.0
+offset_right = 746.0
+offset_bottom = 598.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
+
+[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Espina"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 5.0
+offset_right = 335.0
+offset_bottom = 75.0
+texture = ExtResource("2_cdy6t")
+expand_mode = 1
+
+[node name="texto" type="Label" parent="Niveles/Botones/Espina"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 5.0
+offset_right = 335.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_58aum")
+theme_override_font_sizes/font_size = 40
+text = "Padre Espina"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="icono" type="TextureRect" parent="Niveles/Botones/Espina"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 72.0
+offset_bottom = 72.0
+texture = ExtResource("8_vr6hs")
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Espina/icono"]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 67.0
+offset_bottom = 67.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="Eirene" type="Button" parent="Niveles/Botones"]
+layout_mode = 0
+offset_left = 779.0
+offset_top = 518.0
+offset_right = 1119.0
+offset_bottom = 598.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
+
+[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Eirene"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 5.0
+offset_right = 335.0
+offset_bottom = 75.0
+texture = ExtResource("2_cdy6t")
+expand_mode = 1
+
+[node name="texto" type="Label" parent="Niveles/Botones/Eirene"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 5.0
+offset_right = 335.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_58aum")
+theme_override_font_sizes/font_size = 40
+text = "Eirene"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="icono" type="TextureRect" parent="Niveles/Botones/Eirene"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 72.0
+offset_bottom = 72.0
+texture = ExtResource("9_3meqc")
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Eirene/icono"]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 67.0
+offset_bottom = 67.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="Corvus" type="Button" parent="Niveles/Botones"]
+layout_mode = 0
+offset_left = 406.0
+offset_top = 313.0
+offset_right = 746.0
+offset_bottom = 393.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
+
+[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Corvus"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 5.0
+offset_right = 335.0
+offset_bottom = 75.0
+texture = ExtResource("2_cdy6t")
+expand_mode = 1
+
+[node name="texto" type="Label" parent="Niveles/Botones/Corvus"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 5.0
+offset_right = 335.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_58aum")
+theme_override_font_sizes/font_size = 40
+text = "Fray Corvus"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="icono" type="TextureRect" parent="Niveles/Botones/Corvus"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 72.0
+offset_bottom = 72.0
+texture = ExtResource("9_wxfgt")
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Corvus/icono"]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 67.0
+offset_bottom = 67.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="Galaad" type="Button" parent="Niveles/Botones"]
+layout_mode = 0
+offset_left = 406.0
+offset_top = 173.0
+offset_right = 746.0
+offset_bottom = 253.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
+
+[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Galaad"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 5.0
+offset_right = 335.0
+offset_bottom = 75.0
+texture = ExtResource("2_cdy6t")
+expand_mode = 1
+
+[node name="texto" type="Label" parent="Niveles/Botones/Galaad"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 5.0
+offset_right = 335.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_58aum")
+theme_override_font_sizes/font_size = 40
+text = "Galaad"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="icono" type="TextureRect" parent="Niveles/Botones/Galaad"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 72.0
+offset_bottom = 72.0
+texture = ExtResource("10_0w2jm")
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Galaad/icono"]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 67.0
+offset_bottom = 67.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="Kapparah" type="Button" parent="Niveles/Botones"]
+layout_mode = 0
+offset_left = 406.0
+offset_top = 33.0
+offset_right = 746.0
+offset_bottom = 113.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
+
+[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Kapparah"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 5.0
+offset_right = 335.0
+offset_bottom = 75.0
+texture = ExtResource("2_cdy6t")
+expand_mode = 1
+
+[node name="texto" type="Label" parent="Niveles/Botones/Kapparah"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 5.0
+offset_right = 335.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_58aum")
+theme_override_font_sizes/font_size = 40
+text = "???"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="icono" type="TextureRect" parent="Niveles/Botones/Kapparah"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 72.0
+offset_bottom = 72.0
+texture = ExtResource("11_0xiw4")
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Kapparah/icono"]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 67.0
+offset_bottom = 67.0
+texture = ExtResource("7_aynrb")
+expand_mode = 1
+
+[node name="Menuprincipal" type="Button" parent="."]
+custom_minimum_size = Vector2(243, 62)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 253.0
+offset_bottom = 72.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
+
+[node name="Fondo" type="TextureRect" parent="Menuprincipal"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 238.0
+offset_bottom = 57.0
+texture = ExtResource("2_cdy6t")
+expand_mode = 1
+
+[node name="texto" type="Label" parent="Menuprincipal"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 5.0
+offset_right = 232.0
+offset_bottom = 57.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_58aum")
+theme_override_font_sizes/font_size = 32
+text = "Menu Principal"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_0welv")
+volume_db = -1.0
+bus = &"SFX"
+
+[connection signal="mouse_entered" from="Niveles/Botones/Serpico" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Niveles/Botones/Espina" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Niveles/Botones/Eirene" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Niveles/Botones/Corvus" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Niveles/Botones/Galaad" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Niveles/Botones/Kapparah" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Menuprincipal" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Menuprincipal" to="." method="_on_menuprincipal_pressed"]

@@ -1,0 +1,107 @@
+[gd_scene load_steps=5 format=3 uid="uid://tw8spa7qddqp"]
+
+[ext_resource type="Script" uid="uid://8putwlrtuq0a" path="res://scripts/menus/menu_principal.gd" id="1_mwt4b"]
+[ext_resource type="Texture2D" uid="uid://dkknsmcypx4pc" path="res://assets/Images/MainM.png" id="2_gvws0"]
+[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://assets/Fonts/Seagram_tfb.ttf" id="4_pxfs1"]
+[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="5_yenkw"]
+
+[node name="MenuPrincipal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mwt4b")
+
+[node name="fondo" type="TextureRect" parent="."]
+self_modulate = Color(0.90588236, 0.8039216, 0.5764706, 0.8156863)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -33.0
+offset_right = 5.0
+offset_bottom = 39.0
+mouse_filter = 2
+texture = ExtResource("2_gvws0")
+
+[node name="menubotones" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.34800002
+anchor_top = 0.377
+anchor_right = 0.646
+anchor_bottom = 0.99500006
+offset_left = 0.10397339
+offset_top = -0.29600525
+offset_right = -0.1920166
+offset_bottom = 0.2399292
+theme_override_constants/separation = 1
+alignment = 1
+
+[node name="btncontinuar" type="Button" parent="menubotones"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.14391401, 0.10457852, 0.029176127, 1)
+theme_override_fonts/font = ExtResource("4_pxfs1")
+theme_override_font_sizes/font_size = 45
+text = "continuar"
+flat = true
+
+[node name="bntcomenzar" type="Button" parent="menubotones"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.14509805, 0.105882354, 0.02745098, 1)
+theme_override_fonts/font = ExtResource("4_pxfs1")
+theme_override_font_sizes/font_size = 45
+text = "comenzar partida"
+flat = true
+
+[node name="bntajustes" type="Button" parent="menubotones"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.14509805, 0.105882354, 0.02745098, 1)
+theme_override_fonts/font = ExtResource("4_pxfs1")
+theme_override_font_sizes/font_size = 45
+text = "ajustes"
+flat = true
+
+[node name="btnglosario" type="Button" parent="menubotones"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.14509805, 0.105882354, 0.02745098, 1)
+theme_override_fonts/font = ExtResource("4_pxfs1")
+theme_override_font_sizes/font_size = 45
+text = "glosario"
+flat = true
+
+[node name="btncreditos" type="Button" parent="menubotones"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.14509805, 0.105882354, 0.02745098, 1)
+theme_override_fonts/font = ExtResource("4_pxfs1")
+theme_override_font_sizes/font_size = 45
+text = "creditos"
+flat = true
+
+[node name="btnsalir" type="Button" parent="menubotones"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.14509805, 0.105882354, 0.02745098, 1)
+theme_override_fonts/font = ExtResource("4_pxfs1")
+theme_override_font_sizes/font_size = 45
+text = "salir"
+flat = true
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_yenkw")
+volume_db = -1.0
+bus = &"SFX"
+
+[connection signal="pressed" from="menubotones/btncontinuar" to="." method="_on_btncontinuar_pressed"]
+[connection signal="pressed" from="menubotones/bntcomenzar" to="." method="_on_bntcomenzar_pressed"]
+[connection signal="pressed" from="menubotones/bntajustes" to="." method="_on_bntajustes_pressed"]
+[connection signal="pressed" from="menubotones/btnglosario" to="." method="_on_btnglosario_pressed"]
+[connection signal="pressed" from="menubotones/btncreditos" to="." method="_on_btncreditos_pressed"]
+[connection signal="pressed" from="menubotones/btnsalir" to="." method="_on_btnsalir_pressed"]

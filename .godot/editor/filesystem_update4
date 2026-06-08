@@ -1,0 +1,14 @@
+res://scenes/cinematicas/cinematica_inicio.tscn
+res://scripts/cinematicas/cinematica_inicio.gd
+res://scenes/juego.tscn
+res://scripts/juego.gd
+res://scenes/menus/seleccionar_personaje.tscn
+res://scripts/menus/btnvolver.gd
+res://scripts/menus/seleccionar_personaje.gd
+res://scenes/menus/ajustes.tscn
+res://scenes/managers/MusicManager.tscn
+res://scripts/managers/music_manager.gd
+res://scenes/menus/menu_principal.tscn
+res://scripts/menus/menu_principal.gd
+res://scripts/select_nivel.gd
+res://scenes/select_nivel.gd

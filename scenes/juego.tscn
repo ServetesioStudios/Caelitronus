@@ -1,3 +1,8 @@
-[gd_scene format=3 uid="uid://4os55smbdxga"]
+[gd_scene load_steps=2 format=3 uid="uid://4os55smbdxga"]
 
-[node name="Node2D" type="Node2D"]
+[ext_resource type="Script" uid="uid://b0d0bh8ebwwyu" path="res://scripts/juego.gd" id="1_uc3sl"]
+
+[node name="Juego" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_uc3sl")

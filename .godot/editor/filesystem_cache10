@@ -1,0 +1,137 @@
+63f7b34db8d8cdea90c76aacccf841ec
+::res://::1780951926
+default_bus_layout.tres::AudioBusLayout::3613183280232800959::1780826530::0::1::::<><><>0<>0<><>::
+icon.svg::CompressedTexture2D::6637943192390016884::1780826530::1780826612::1::::<><><>0<>0<>7b0e0cdf6d2b353c7934f6358bac4642<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
+::res://assets/::1780826846
+::res://assets/BckGrnd/::1780826846
+Bonefield_mvt.png::CompressedTexture2D::1866774071254231649::1780826530::1780826612::1::::<><><>0<>0<>33edca78684ff5ed634355bf3ac14045<>res://.godot/imported/Bonefield_mvt.png-943aa79cda9fcd60ba0ae12283ef5116.ctex::
+Nivel.png::CompressedTexture2D::3833051132719314424::1780826530::1780826612::1::::<><><>0<>0<>5e3d6e27a2aade7f77236e7768931b11<>res://.godot/imported/Nivel.png-81538accc4526e4e4b9a28101a92f39b.ctex::
+paper.png::CompressedTexture2D::9179820323295436903::1780826530::1780826612::1::::<><><>0<>0<>b7674b0671e177e8186ffb57c6e30857<>res://.godot/imported/paper.png-219899817e8abbdeb5fe7fb655fab9c9.ctex::
+paperallborder.png::CompressedTexture2D::7115625996879366626::1780826530::1780826612::1::::<><><>0<>0<>2bec145ba13361d350bcc17aadd49609<>res://.godot/imported/paperallborder.png-ca78fc1a0318893b6e6597cfd01e26c0.ctex::
+papersideborder.png::CompressedTexture2D::4043946708188494155::1780826530::1780826612::1::::<><><>0<>0<>6c632587d192739f49eecd51c004181a<>res://.godot/imported/papersideborder.png-580a07699d557c637b5283bd96be411b.ctex::
+::res://assets/BttlSprit/::1780826846
+alma.png::CompressedTexture2D::4562334999405075864::1780826530::1780826612::1::::<><><>0<>0<>e2e691f7e12d1a325a80463986b381da<>res://.godot/imported/alma.png-fedc79c13b577a171f668a341d23396b.ctex::
+almamonaquillos.png::CompressedTexture2D::8402205993966212497::1780826530::1780826612::1::::<><><>0<>0<>4afd80e942ac4280378ede66b86330ae<>res://.godot/imported/almamonaquillos.png-6719146cf4302eef293af1d53faac11e.ctex::
+Artemisia.png::CompressedTexture2D::7632915911348930914::1780826530::1780826612::1::::<><><>0<>0<>ac8d73b5f45bf3c227f76e4883792a7e<>res://.godot/imported/Artemisia.png-b3e4f06699eede3f3798c4c29bcb593f.ctex::
+Eliadran.png::CompressedTexture2D::6232212500674724070::1780826530::1780826612::1::::<><><>0<>0<>20efe0e98ca040194b2933db195cfd1b<>res://.godot/imported/Eliadran.png-80b522f5d77a4b44d1ad62d5252de6e7.ctex::
+fause.png::CompressedTexture2D::7469378064244158925::1780826530::1780826612::1::::<><><>0<>0<>302dc824318ea262e67320be1036b221<>res://.godot/imported/fause.png-37943e23752b14057bd25ae3a78ba171.ctex::
+Kamathra.png::CompressedTexture2D::3819414653604386337::1780826530::1780826612::1::::<><><>0<>0<>41c8389e52f6307777a586f700d9074e<>res://.godot/imported/Kamathra.png-bb14eec10c0226e7dbc1a5f9fad63204.ctex::
+lazaro.png::CompressedTexture2D::2869569681818235230::1780826530::1780826612::1::::<><><>0<>0<>04644384cd3d05515592fc86f0644dab<>res://.godot/imported/lazaro.png-1793fe059d4e8aa983dfdc47c543d4d9.ctex::
+Nzolukaya.png::CompressedTexture2D::4421216406176040106::1780826530::1780826612::1::::<><><>0<>0<>d2d00b65cced0df1cd3114b7ab6522ae<>res://.godot/imported/Nzolukaya.png-984a378d5b4a76a0b4d951f3c4a43b3b.ctex::
+oscuro.png::CompressedTexture2D::7218017543941722681::1780826530::1780826612::1::::<><><>0<>0<>dbd4541bcc94bf53c559a71b3c5dd48e<>res://.godot/imported/oscuro.png-e34e560576775bb524fd594f4e9fff44.ctex::
+sagrados.png::CompressedTexture2D::1993628667011304531::1780826530::1780826612::1::::<><><>0<>0<>6b771d1aa06eb4f852a14622d2a8e09b<>res://.godot/imported/sagrados.png-737cb9eaa3e8d2d1e5aef7eefafe832a.ctex::
+Tzafiel.png::CompressedTexture2D::846659872391241899::1780826530::1780826612::1::::<><><>0<>0<>48ee025c1309369bdd06efe7aae4b270<>res://.godot/imported/Tzafiel.png-a4c7965c97c1b4f6d7be75f4547f3f46.ctex::
+vahruksha.png::CompressedTexture2D::2826183605606911931::1780826530::1780826612::1::::<><><>0<>0<>c0af39ff2c39ed515bfe51d793cc87ca<>res://.godot/imported/vahruksha.png-dad566ef6212eb36819032ec43ce5abe.ctex::
+::res://assets/ChArt/::1780826846
+caelius de ego.png::CompressedTexture2D::1085911861691540437::1780826530::1780826612::1::::<><><>0<>0<>f177db456e13f2039f86118aeb40b4e5<>res://.godot/imported/caelius de ego.png-6fe507a9638a53de0c68c27861047122.ctex::
+caelius de ira.png::CompressedTexture2D::6585717183817600689::1780826530::1780826612::1::::<><><>0<>0<>6a457f892a09abc087b54d8c34a6a3c6<>res://.godot/imported/caelius de ira.png-bc1eb12a28e0b66a5db4823e5a202fba.ctex::
+caelius de pena.png::CompressedTexture2D::6305915553255455232::1780826530::1780826612::1::::<><><>0<>0<>2837d3f390796e7fbadcbedb721b8e6f<>res://.godot/imported/caelius de pena.png-367622ca1d5b939c9f68187f93d530d2.ctex::
+Devotio.png::CompressedTexture2D::4516272757307284866::1780826530::1780826612::1::::<><><>0<>0<>f34b84e5fefa2ca298aac21b690a025d<>res://.godot/imported/Devotio.png-691e3146c7a4de5b1700ed8f124bb038.ctex::
+el papa.png::CompressedTexture2D::4523549872316077430::1780826530::1780826612::1::::<><><>0<>0<>8b0d1d788b48a5da1bfb1e02512d9749<>res://.godot/imported/el papa.png-970308d2bf2c190a0e9eec4b3d5f8b07.ctex::
+Fray Corvus.png::CompressedTexture2D::979210733898078087::1780826530::1780826612::1::::<><><>0<>0<>c22bc6ea7aa546c2f4fdb6a85aa88e37<>res://.godot/imported/Fray Corvus.png-1ee477048d2d76d63e16a3f27ba229b0.ctex::
+galaad.png::CompressedTexture2D::1881128299565210104::1780826530::1780826612::1::::<><><>0<>0<>4c6a303fca7d2b4fb88768fa12c564cd<>res://.godot/imported/galaad.png-896b485a6a4e30509b37a1ab8f8067e9.ctex::
+Kapparah.png::CompressedTexture2D::8988100781512438476::1780826530::1780826612::1::::<><><>0<>0<>7264f36091c39876dd814e39797fe27c<>res://.godot/imported/Kapparah.png-d9391c7b523fd23057a673fa7545d324.ctex::
+la monja.png::CompressedTexture2D::2817697218334819969::1780826530::1780826612::1::::<><><>0<>0<>efc83bb9edb81d864204a4c75aa14264<>res://.godot/imported/la monja.png-fb5f850dd8902e7a6976a9983a24295c.ctex::
+los monaquillo.png::CompressedTexture2D::1115406903255714875::1780826530::1780826612::1::::<><><>0<>0<>c70e4ce0023b15c2d5b4700efe01149a<>res://.godot/imported/los monaquillo.png-a221693e7324e06edfdf5563802065b3.ctex::
+monjasenta.png::CompressedTexture2D::3980552770880065750::1780826530::1780826612::1::::<><><>0<>0<>30ebfd160ea0ed7dc69c1842fc79a2f2<>res://.godot/imported/monjasenta.png-288919dedca8e1aa98eb0ff6781d39f7.ctex::
+Obispo Serpico.png::CompressedTexture2D::7203160922082411336::1780826530::1780826612::1::::<><><>0<>0<>78f95cfa461845e5ad1a5304eb2ddda9<>res://.godot/imported/Obispo Serpico.png-53ae4208de42e4f73a45abd18303a9a6.ctex::
+padre espina.png::CompressedTexture2D::3947432458861198439::1780826530::1780826612::1::::<><><>0<>0<>873cbb432835160ad3c8703670489f71<>res://.godot/imported/padre espina.png-f862a4f1151661a29bb9516cc0308888.ctex::
+sintax.png::CompressedTexture2D::7684556969165079912::1780826530::1780826612::1::::<><><>0<>0<>5d57abf9a1f8c5d7e90bb685d25bc95f<>res://.godot/imported/sintax.png-5c9b4bc4c5bf7dafd68d4fbf69afbb5f.ctex::
+tere.png::CompressedTexture2D::4824461442754105719::1780826530::1780826612::1::::<><><>0<>0<>0a2426836f3bcd30f55939b4acc01c85<>res://.godot/imported/tere.png-d5ff09bf0e3caf19e1b0f040c9ab86e8.ctex::
+trono.png::CompressedTexture2D::8758886222403285927::1780826530::1780826612::1::::<><><>0<>0<>8cec7a8bd8e2fbf9cd0ea93ba9fd52ce<>res://.godot/imported/trono.png-e1765fa9fa56cec33af14c3e00713b5a.ctex::
+::res://assets/credit/::1780826846
+adrian.png::CompressedTexture2D::838718588332990637::1780826530::1780826612::1::::<><><>0<>0<>0441e874cdb33e5c2558540643b15747<>res://.godot/imported/adrian.png-9aff7131c8b97674ddbff3721d969e97.ctex::
+anto.png::CompressedTexture2D::2374903826696960750::1780826530::1780826612::1::::<><><>0<>0<>a862ab859eec92058539495378378031<>res://.godot/imported/anto.png-a1972cd7c56968006a2432da8202bd6e.ctex::
+Javier.png::CompressedTexture2D::3308143454278041012::1780826530::1780826612::1::::<><><>0<>0<>e917539b0e010de88b0d10e2f2ee7d27<>res://.godot/imported/Javier.png-9ade55fed1f183202383b33e15dddb44.ctex::
+juaco.png::CompressedTexture2D::3832037651727166174::1780826530::1780826612::1::::<><><>0<>0<>05d046ee63b1651cba16a142e5a172e4<>res://.godot/imported/juaco.png-d4293d6fabfde1c93fc3b735511c895c.ctex::
+logo.png::CompressedTexture2D::5060494823091122271::1780826530::1780826612::1::::<><><>0<>0<>c7a2cb9d135d817c490fb15bd7b8c06d<>res://.godot/imported/logo.png-c8bb98e1dcb8b56af1ee3cf301558808.ctex::
+lucio.png::CompressedTexture2D::6507757408923496170::1780826530::1780826612::1::::<><><>0<>0<>81303dde8051722b470852019333c2d8<>res://.godot/imported/lucio.png-25f589bb5f91fbfab8bccb626b5ead5c.ctex::
+matias.png::CompressedTexture2D::6973366310969273023::1780826530::1780826612::1::::<><><>0<>0<>fda390d3be35be0bab00e8890e343262<>res://.godot/imported/matias.png-8142f3ac771f7ee70670de33e9ae15ab.ctex::
+matu.png::CompressedTexture2D::3210431074723034781::1780826530::1780826612::1::::<><><>0<>0<>291964ae390dac25eaef81523d2c96f4<>res://.godot/imported/matu.png-5bf0de242186e0a50a63e57c3f462c65.ctex::
+thiago.png::CompressedTexture2D::2958447301393547768::1780826530::1780826612::1::::<><><>0<>0<>076f1c6bebc30cb6ff4349b34093e749<>res://.godot/imported/thiago.png-42332a814f66c76b01096b587e88e420.ctex::
+uri.png::CompressedTexture2D::5700898030753975470::1780826530::1780826612::1::::<><><>0<>0<>012acfa25aa83c8ce3c29f650faa66bd<>res://.godot/imported/uri.png-d846c543e8e34f05eb8aa1a938f93431.ctex::
+::res://assets/Fonts/::1780826846
+Seagram_tfb.ttf::FontFile::5870971843415987144::1780826530::1780826612::1::::<><><>0<>0<>4cca1685fe1ccbe72fe91f88ca30dc79<>res://.godot/imported/Seagram_tfb.ttf-b42486ffd7412d8096fa2e54058ee9eb.fontdata::
+::res://assets/Icons/::1780826846
+Corvus.png::CompressedTexture2D::7150942454275219418::1780826530::1780826612::1::::<><><>0<>0<>b10f287ca61384fe70a401591983013e<>res://.godot/imported/Corvus.png-ad208a3c71bf982dc941aac5719e9bf4.ctex::
+CorvusDerrotado.png::CompressedTexture2D::6881404310061429727::1780826530::1780826612::1::::<><><>0<>0<>30abf3f46426176c4919753606dfe2ee<>res://.godot/imported/CorvusDerrotado.png-59c66ac343a0a625881560518fe95a0d.ctex::
+der.png::CompressedTexture2D::8095019244112883426::1780826530::1780826612::1::::<><><>0<>0<>5979104ad79b04869f2477bc57f985f8<>res://.godot/imported/der.png-cb083d31c92fa5bb18b272736f6e62b6.ctex::
+dere.png::CompressedTexture2D::1969732201499319341::1780826530::1780826612::1::::<><><>0<>0<>664d13728dfdab84152353d43ac2c2a1<>res://.godot/imported/dere.png-1ca5cf0900516511e37fc9bbfba57c99.ctex::
+Escudo.png::CompressedTexture2D::830258877749828212::1780826530::1780826612::1::::<><><>0<>0<>94e97e2dc6fcd9e4335c16e9b1ced289<>res://.godot/imported/Escudo.png-3a4b28006f1ba23c8fa6dea046c30d61.ctex::
+Espada.png::CompressedTexture2D::3673294660097100206::1780826530::1780826612::1::::<><><>0<>0<>f4862155e3c3cd59c58be0a8a770c3de<>res://.godot/imported/Espada.png-6c5d25faef42fb795b6f06461dccab9c.ctex::
+Espina.png::CompressedTexture2D::21283496425008867::1780826530::1780826612::1::::<><><>0<>0<>0e51767ff5ff2d77fb311ba290b1f19f<>res://.godot/imported/Espina.png-d6e15eae7ad0a0a23b6ae4b484175b79.ctex::
+EspinaDerrotado.png::CompressedTexture2D::9104294966136525346::1780826530::1780826612::1::::<><><>0<>0<>2ca6430d909b9eff66115e792187f208<>res://.godot/imported/EspinaDerrotado.png-7c8d9dff10ba1acd5cbc3445a18adbf7.ctex::
+esquive.png::CompressedTexture2D::4473415644680603527::1780826530::1780826612::1::::<><><>0<>0<>4ade4db9e80817d53b597af44eee786c<>res://.godot/imported/esquive.png-5e46e498ee4dee492a61ec2c47ce7b1e.ctex::
+fe.png::CompressedTexture2D::5001302146341709437::1780826530::1780826612::1::::<><><>0<>0<>5782c720444e2a972b34a310d008109f<>res://.godot/imported/fe.png-3df8b85eb2d63268fcbd62393eb0f623.ctex::
+Galaad.png::CompressedTexture2D::7032224005954089383::1780826530::1780826612::1::::<><><>0<>0<>c33bbf3b7ef66d5354fb9ef68442fc94<>res://.godot/imported/Galaad.png-fe7a9090fa65c2a82768b7907757cdb6.ctex::
+GalaadDerrotado.png::CompressedTexture2D::8064017526234845496::1780826530::1780826612::1::::<><><>0<>0<>e0b12440b5933dc84100954df85a863c<>res://.godot/imported/GalaadDerrotado.png-3e7f69611083c776d4ed2a26ef1d043a.ctex::
+icon.ico::OtherFile::-1::1780826530::0::1::::<><><>0<>0<><>::
+icon.png::CompressedTexture2D::2399277166649885711::1780826530::1780826612::1::::<><><>0<>0<>6267732b02c64c60d9bf917c14ac5b53<>res://.godot/imported/icon.png-bfcbdf82c9b8cc2ea0909908eebd0e88.ctex::
+icono.png::CompressedTexture2D::5975974402503431849::1780826530::1780826612::1::::<><><>0<>0<>5dd0cfe1585f50499c15d5fd8e1b2f03<>res://.godot/imported/icono.png-1de8cb5cd08c4e0612c9bf9b77169bc1.ctex::
+izq.png::CompressedTexture2D::1800080578870150488::1780826530::1780826612::1::::<><><>0<>0<>96a2a7dc0acffcfeab9d0db0998c6881<>res://.godot/imported/izq.png-07621f2b219bb7e40c6dd7fe4faa0121.ctex::
+izqu.png::CompressedTexture2D::7223101413519642978::1780826530::1780826612::1::::<><><>0<>0<>aec5f661352b5e59dfc9f574a4810305<>res://.godot/imported/izqu.png-28950a2a1649f02dcf3d5281854b42b4.ctex::
+kapara.png::CompressedTexture2D::5475888802858421950::1780826530::1780826612::1::::<><><>0<>0<>ac8d176cda13770dc3a41d7cc582076a<>res://.godot/imported/kapara.png-2875ca8472e49a596ca0b2020d0bacc4.ctex::
+poder.png::CompressedTexture2D::1195572909097669968::1780826530::1780826612::1::::<><><>0<>0<>e1c0e43942c957a944453ae1ba24d4cc<>res://.godot/imported/poder.png-c2445f374401bb035815d4a93512043c.ctex::
+Serpico.png::CompressedTexture2D::6365998602599529096::1780826530::1780826612::1::::<><><>0<>0<>1bf475986e7299d5208c28edff137961<>res://.godot/imported/Serpico.png-84ea6dbd21ed8a64614effbad44fc6cb.ctex::
+SerpicoDerrotado.png::CompressedTexture2D::3029515960236327117::1780826530::1780826612::1::::<><><>0<>0<>c8499818057e859f852364e68a8da62f<>res://.godot/imported/SerpicoDerrotado.png-dcd5478007ce2589f6a5f3a5982e20e9.ctex::
+tere.png::CompressedTexture2D::3809631420597584106::1780826530::1780826612::1::::<><><>0<>0<>8d1b5df44603543eac30afb6d2afbab4<>res://.godot/imported/tere.png-d066ff7223a86f8df799ee49e175da5b.ctex::
+terederrotada.png::CompressedTexture2D::1163350520163388675::1780826530::1780826612::1::::<><><>0<>0<>8072b4b95cefaf09947ffce80077573c<>res://.godot/imported/terederrotada.png-4eab8ac0c6dc974a3e547658eae56b5d.ctex::
+Velocidad.png::CompressedTexture2D::2011170143055561393::1780826530::1780826612::1::::<><><>0<>0<>430606c7fb52bedcc4818b4f85af7c78<>res://.godot/imported/Velocidad.png-12aadbea1c62c490699812aafddf14d4.ctex::
+vida.png::CompressedTexture2D::7498770217590873342::1780826530::1780826612::1::::<><><>0<>0<>6741b50941044dc903d84f32c2e1ec97<>res://.godot/imported/vida.png-e8e817ab4fee8e242562176c2689eba3.ctex::
+::res://assets/Images/::1780826846
+MainM.png::CompressedTexture2D::7882616364677720732::1780826530::1780826612::1::::<><><>0<>0<>3f3e461a957ac4cb6ed421691d23cdb5<>res://.godot/imported/MainM.png-f71a1cb4cd09e7fe22bf3d2ebed8f112.ctex::
+::res://assets/Movie/::1780826846
+::res://assets/Movie/inicio/::1780826846
+prologo.ogv::VideoStreamTheora::2129323849594314455::1780826530::0::1::::<><><>0<>0<><>::
+prologo.wav::AudioStreamWAV::9062597635344010680::1780826530::1780826612::1::::<><><>0<>0<>298643e2a6f9571b5137327f09caace9<>res://.godot/imported/prologo.wav-3236815802796b24b49786e50f4fb061.sample::
+::res://assets/Music/::1780948600
+Adversus.wav::AudioStreamWAV::4446944520650800422::1780948599::1780948600::1::::<><><>0<>0<>f79d163b9deb4dc05485d191e2aa3dd6<>res://.godot/imported/Adversus.wav-8d1f4dbfeb38f294ad134a6696a8b9c9.sample::
+Ruins.wav::AudioStreamWAV::4400991333811950482::1780826530::1780826612::1::::<><><>0<>0<>a21137e192945986e037708a3ea6c59c<>res://.godot/imported/Ruins.wav-09b718d51d79d659108d21cb16a10ca9.sample::
+::res://assets/Sounds/::1780826846
+Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav::AudioStreamWAV::4478431414190171198::1780826530::1780826612::1::::<><><>0<>0<>12d2c2ef7edb1641fe0c833ca0487d96<>res://.godot/imported/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav-51b5b24b9bc0a15a0c418d2e260dec51.sample::
+::res://assets/ui/::1780826846
+lifeGaugeAlpha.png::CompressedTexture2D::5989279065483501906::1780826530::1780826612::1::::<><><>0<>0<>42ba94aa82e08b6eb34a6d61fb7c6add<>res://.godot/imported/lifeGaugeAlpha.png-e6c472cd05874243f89f1f153f4e35f6.ctex::
+lifeGaugeLlen.png::CompressedTexture2D::6312142229639365886::1780826530::1780826612::1::::<><><>0<>0<>2c0b531790085b1961a3ec66cb5e6053<>res://.godot/imported/lifeGaugeLlen.png-bb399f79d79b9e94276a12be5315ea60.ctex::
+::res://cfg/::1780826846
+glosario.cfg::TextFile::-1::1780826530::0::1::::<><><>0<>0<><>::
+progreso.cfg::TextFile::-1::1780951914::0::1::::<><><>0<>0<><>::
+::res://guardados/::1780826846
+::res://scenes/::1780951925
+battleScena.tscn::PackedScene::8044710589010028092::1780948353::0::1::::<><><>0<>0<><>::uid://1ujq4vhia20d::::res://assets/BckGrnd/Bonefield_mvt.png<>uid://ta11uy1xj5dd::::res://scripts/battelscena.gd<>uid://bjsf3q6hvbyji::::res://scenes/player.tscn<>uid://dtlvudb7gixqy::::res://scenes/enemy.tscn<>uid://c8m4k5tnnhfda::::res://assets/BckGrnd/paperallborder.png<>uid://cpv7bwckc7nqu::::res://assets/Fonts/Seagram_tfb.ttf<>uid://bxu6hgpccqqdf::::res://assets/BckGrnd/papersideborder.png
+BossEspina.tscn::PackedScene::9191727351880200089::1780826530::0::1::::<><><>0<>0<><>::uid://c7asw634gdeje::::res://scripts/boss_espina.gd<>uid://crlis0e7fcf4e::::res://assets/ui/lifeGaugeAlpha.png<>uid://cv6wcbyj6ymdy::::res://assets/ui/lifeGaugeLlen.png<>uid://w4m8b6cjn0bx::::res://assets/BttlSprit/Kamathra.png
+enemy.tscn::PackedScene::8516869168799917684::1780949828::0::1::::<><><>0<>0<><>::uid://dyymoxpfdamvl::::res://scripts/enemy.gd<>uid://crlis0e7fcf4e::::res://assets/ui/lifeGaugeAlpha.png<>uid://cv6wcbyj6ymdy::::res://assets/ui/lifeGaugeLlen.png
+juego.tscn::PackedScene::2065525837800409168::1780951905::0::1::::<><><>0<>0<><>::uid://b0d0bh8ebwwyu::::res://scripts/juego.gd
+player.tscn::PackedScene::3055633551810355474::1780826530::0::1::::<><><>0<>0<><>::uid://cdhbafruh2cg::::res://assets/BttlSprit/fause.png<>uid://dimsfxq4ijnuj::::res://scripts/player.gd<>uid://crlis0e7fcf4e::::res://assets/ui/lifeGaugeAlpha.png<>uid://cv6wcbyj6ymdy::::res://assets/ui/lifeGaugeLlen.png
+select_nivel.tscn::PackedScene::5122780645407030991::1780951925::0::1::::<><><>0<>0<><>::uid://dhsmpwf2ndep::::res://scripts/menus/select_nivel.gd<>uid://buu016yjlw7su::::res://assets/BckGrnd/Nivel.png<>uid://c8m4k5tnnhfda::::res://assets/BckGrnd/paperallborder.png<>uid://cpv7bwckc7nqu::::res://assets/Fonts/Seagram_tfb.ttf<>uid://b42nd1ocqfu1s::::res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav<>uid://cwx0cjlp6h5yy::::res://assets/Icons/Serpico.png<>uid://d311kgi76ulx4::::res://assets/BckGrnd/paper.png<>uid://kkshx7n5r6b::::res://assets/Icons/Espina.png<>uid://bujocqjnco2ly::::res://assets/Icons/tere.png<>uid://c8478h663nkv7::::res://assets/Icons/Corvus.png<>uid://c7gpx4py1tr4r::::res://assets/Icons/Galaad.png<>uid://ckatdamg27mio::::res://assets/Icons/kapara.png
+subir_nivel.tscn::PackedScene::5362497787170136551::1780826530::0::1::::<><><>0<>0<><>::uid://buu016yjlw7su::::res://assets/BckGrnd/Nivel.png<>uid://bejfl33gjhhj2::::res://scripts/subir_nivel.gd<>uid://cpv7bwckc7nqu::::res://assets/Fonts/Seagram_tfb.ttf<>uid://c8m4k5tnnhfda::::res://assets/BckGrnd/paperallborder.png<>uid://b42nd1ocqfu1s::::res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav
+::res://scenes/cinematicas/::1780948284
+cinematica_inicio.tscn::PackedScene::5494887449441400172::1780948284::0::1::::<><><>0<>0<><>::uid://ra06n4r7mpyr::::res://scripts/cinematicas/cinematica_inicio.gd<>uid://5lpwgr52jgjv::::res://assets/Movie/inicio/prologo.ogv<>uid://d2d8wn2a1ld8s::::res://assets/Movie/inicio/prologo.wav
+::res://scenes/managers/::1780951515
+MusicManager.tscn::PackedScene::1898249929978616104::1780951515::0::1::::<><><>0<>0<><>::uid://davd3fnjepbmn::::res://scripts/managers/music_manager.gd
+::res://scenes/menus/::1780951834
+ajustes.tscn::PackedScene::6698328712270890754::1780950278::0::1::::<><><>0<>0<><>::uid://y4hv76jfdsq::::res://scripts/menus/ajustes.gd<>uid://cpv7bwckc7nqu::::res://assets/Fonts/Seagram_tfb.ttf<>uid://c8m4k5tnnhfda::::res://assets/BckGrnd/paperallborder.png<>res://scripts/menus/btnvolver.gd<>uid://b3x4xja0k3xl7::::res://assets/Music/Ruins.wav<>uid://b42nd1ocqfu1s::::res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav
+creditos.tscn::PackedScene::5724933102885467923::1780946734::0::1::::<><><>0<>0<><>::uid://bft701nfh11r4::::res://scripts/menus/creditos.gd<>uid://buu016yjlw7su::::res://assets/BckGrnd/Nivel.png<>uid://cpv7bwckc7nqu::::res://assets/Fonts/Seagram_tfb.ttf<>uid://c8m4k5tnnhfda::::res://assets/BckGrnd/paperallborder.png<>uid://bneqv0dwag2ma::::res://assets/credit/Javier.png<>uid://b8yohj6agvbay::::res://scripts/menus/btnvolver.gd<>uid://c6l7la6cvbqe6::::res://assets/credit/matias.png<>uid://l7jtp66nor1v::::res://assets/credit/adrian.png<>uid://bl0flil3itppl::::res://assets/credit/matu.png<>uid://cnhs7tbwyb3uo::::res://assets/credit/uri.png<>uid://b42nd1ocqfu1s::::res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav<>uid://83ok324g7k5k::::res://assets/credit/anto.png<>uid://cyyn2ww3kst4u::::res://assets/credit/lucio.png<>uid://bifdgvhgfwo3i::::res://assets/credit/thiago.png<>uid://buujdn5qaymwc::::res://assets/credit/juaco.png<>uid://dnlj1wukc7ad3::::res://assets/Icons/der.png<>uid://0v8cge6fmk2k::::res://assets/Icons/izq.png<>uid://b3x4xja0k3xl7::::res://assets/Music/Ruins.wav
+glosario.tscn::PackedScene::8345582759108641081::1780946736::0::1::::<><><>0<>0<><>::uid://dba8kh4oyc4bs::::res://scripts/menus/glosario.gd<>uid://buu016yjlw7su::::res://assets/BckGrnd/Nivel.png<>uid://cpv7bwckc7nqu::::res://assets/Fonts/Seagram_tfb.ttf<>uid://c8m4k5tnnhfda::::res://assets/BckGrnd/paperallborder.png<>uid://c03f2guura5ub::::res://assets/ChArt/caelius de ira.png<>uid://b5pig8s5tbryk::::res://assets/ChArt/el papa.png<>uid://bge6cdd2b4qqj::::res://assets/ChArt/la monja.png<>uid://p5kuatt7i836::::res://assets/ChArt/los monaquillo.png<>uid://bwifvvcioxl2n::::res://assets/ChArt/padre espina.png<>uid://davjajidu876c::::res://assets/ChArt/Obispo Serpico.png<>uid://ca0af7od2a11l::::res://assets/ChArt/tere.png<>uid://n7lptelqr1bv::::res://assets/ChArt/Fray Corvus.png<>uid://12h547fjdvgq::::res://assets/ChArt/galaad.png<>uid://d1b5ya65be0bw::::res://assets/ChArt/Kapparah.png<>uid://b5lyl8p05pq5o::::res://assets/ChArt/Devotio.png<>uid://dhqpsbk53x1ce::::res://assets/ChArt/sintax.png<>uid://dw14tuktvxhml::::res://assets/ChArt/trono.png<>uid://b6aa8xpls4foa::::res://assets/BttlSprit/alma.png<>uid://0v8cge6fmk2k::::res://assets/Icons/izq.png<>uid://dnlj1wukc7ad3::::res://assets/Icons/der.png<>uid://b42nd1ocqfu1s::::res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav
+menu_principal.tscn::PackedScene::1381040934089200851::1780951229::0::1::::<><><>0<>0<><>::uid://8putwlrtuq0a::::res://scripts/menus/menu_principal.gd<>uid://dkknsmcypx4pc::::res://assets/Images/MainM.png<>uid://cpv7bwckc7nqu::::res://assets/Fonts/Seagram_tfb.ttf<>uid://b42nd1ocqfu1s::::res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav
+salir.tscn::PackedScene::2944471456274401490::1780828188::0::1::::<><><>0<>0<><>::uid://dkknsmcypx4pc::::res://assets/Images/MainM.png<>uid://b3x4xja0k3xl7::::res://assets/Music/Ruins.wav<>uid://cpv7bwckc7nqu::::res://assets/Fonts/Seagram_tfb.ttf<>uid://b42nd1ocqfu1s::::res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav
+seleccionar_personaje.tscn::PackedScene::174250851825739024::1780951834::0::1::::<><><>0<>0<><>::uid://dv1po6ndd3wa6::::res://scripts/menus/seleccionar_personaje.gd<>uid://buu016yjlw7su::::res://assets/BckGrnd/Nivel.png<>uid://c8m4k5tnnhfda::::res://assets/BckGrnd/paperallborder.png<>uid://cv3vrjc1xpmbg::::res://assets/ChArt/caelius de pena.png<>uid://cpv7bwckc7nqu::::res://assets/Fonts/Seagram_tfb.ttf<>uid://c03f2guura5ub::::res://assets/ChArt/caelius de ira.png<>uid://pqa2sa1oiqyf::::res://assets/ChArt/caelius de ego.png<>uid://b42nd1ocqfu1s::::res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav
+::res://scripts/::1780951894
+battelscena.gd::GDScript::1335214190330824793::1780826530::0::1::::<>Node2D<><>0<>0<><>::
+boss_espina.gd::GDScript::7020018229943088734::1780826530::0::1::::<>Node2D<><>0<>0<><>::
+enemy.gd::GDScript::8894094200957701397::1780826530::0::1::::<>Node2D<><>0<>0<><>::
+juego.gd::GDScript::4148855037345122204::1780949128::0::1::::<>Control<><>0<>0<><>::
+player.gd::GDScript::7746648402154211789::1780826530::0::1::::<>Node2D<><>0<>0<><>::
+subir_nivel.gd::GDScript::2686080200921805553::1780826530::0::1::::<>Control<><>0<>0<><>::
+::res://scripts/cinematicas/::1780948277
+cinematica_inicio.gd::GDScript::1194784354695298621::1780948277::0::1::::<>Control<><>0<>0<><>::
+::res://scripts/managers/::1780951528
+AudioSettings.gd::GDScript::195502477367872674::1780826530::0::1::::<>Node<><>0<>0<><>::
+music_manager.gd::GDScript::7202846420236258369::1780951068::0::1::::<>Node<><>0<>0<><>::
+::res://scripts/menus/::1780951925
+ajustes.gd::GDScript::51319513289816472::1780828862::0::1::::<>Control<><>0<>0<><>::
+btnvolver.gd::GDScript::4753060648909601892::1780949891::0::1::::<>Button<><>0<>0<><>::
+creditos.gd::GDScript::2778577053753693159::1780946986::0::1::::<>Control<><>0<>0<><>::
+glosario.gd::GDScript::7231472826548737080::1780946825::0::1::::<>Control<><>0<>0<><>::
+menu_principal.gd::GDScript::2348446949610637378::1780951705::0::1::::<>Control<><>0<>0<><>::
+seleccionar_personaje.gd::GDScript::8687838993537456039::1780951897::0::1::::<>Control<><>0<>0<><>::
+select_nivel.gd::GDScript::226132332688892763::1780951905::0::1::::<>Control<><>0<>0<><>::
