@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d1b5ya65be0bw"
-path="res://.godot/imported/Kapparah.png-d9391c7b523fd23057a673fa7545d324.ctex"
+path="res://.godot/imported/Kapparah.png-ed86db5b687048dafe71fc0c04839812.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ChArt/Kapparah.png"
-dest_files=["res://.godot/imported/Kapparah.png-d9391c7b523fd23057a673fa7545d324.ctex"]
+source_file="res://Assets/ChArt/Kapparah.png"
+dest_files=["res://.godot/imported/Kapparah.png-ed86db5b687048dafe71fc0c04839812.ctex"]
 
 [params]
 

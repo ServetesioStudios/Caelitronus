@@ -34,6 +34,9 @@ func guardar():
 	}
 
 	var file := FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)
+	if file == null:
+		push_error("AudioSettings: no se pudo abrir %s para escribir" % SETTINGS_PATH)
+		return
 	file.store_var(data)
 	file.close()
 
@@ -42,6 +45,9 @@ func cargar():
 		return
 
 	var file := FileAccess.open(SETTINGS_PATH, FileAccess.READ)
+	if file == null:
+		push_error("AudioSettings: no se pudo abrir %s para leer" % SETTINGS_PATH)
+		return
 	var data: Dictionary = file.get_var()
 	file.close()
 

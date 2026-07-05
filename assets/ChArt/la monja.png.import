@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bge6cdd2b4qqj"
-path="res://.godot/imported/la monja.png-fb5f850dd8902e7a6976a9983a24295c.ctex"
+path="res://.godot/imported/la monja.png-87a61f1a70bf598f3b5abfe83c144e7a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ChArt/la monja.png"
-dest_files=["res://.godot/imported/la monja.png-fb5f850dd8902e7a6976a9983a24295c.ctex"]
+source_file="res://Assets/ChArt/la monja.png"
+dest_files=["res://.godot/imported/la monja.png-87a61f1a70bf598f3b5abfe83c144e7a.ctex"]
 
 [params]
 

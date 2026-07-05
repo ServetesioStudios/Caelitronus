@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://kkshx7n5r6b"
-path="res://.godot/imported/Espina.png-d6e15eae7ad0a0a23b6ae4b484175b79.ctex"
+path="res://.godot/imported/Espina.png-dc6473517227cd240cc45a41c538e377.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Icons/Espina.png"
-dest_files=["res://.godot/imported/Espina.png-d6e15eae7ad0a0a23b6ae4b484175b79.ctex"]
+source_file="res://Assets/Icons/Espina.png"
+dest_files=["res://.godot/imported/Espina.png-dc6473517227cd240cc45a41c538e377.ctex"]
 
 [params]
 

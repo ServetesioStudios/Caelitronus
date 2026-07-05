@@ -16,7 +16,6 @@ func _on_hover() -> void:
 	hover_sound.play()
 
 func _on_atras_pressed() -> void:
-	#get_tree().change_scene_to_file("res://scenes/menus/menu_principal.tscn")
 	queue_free()
 
 func _on_links_pressed() -> void:

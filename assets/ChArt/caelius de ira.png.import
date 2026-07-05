@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c03f2guura5ub"
-path="res://.godot/imported/caelius de ira.png-bc1eb12a28e0b66a5db4823e5a202fba.ctex"
+path="res://.godot/imported/caelius de ira.png-8b917a762ca2ba5d590c5ae1be9a22ff.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ChArt/caelius de ira.png"
-dest_files=["res://.godot/imported/caelius de ira.png-bc1eb12a28e0b66a5db4823e5a202fba.ctex"]
+source_file="res://Assets/ChArt/caelius de ira.png"
+dest_files=["res://.godot/imported/caelius de ira.png-8b917a762ca2ba5d590c5ae1be9a22ff.ctex"]
 
 [params]
 

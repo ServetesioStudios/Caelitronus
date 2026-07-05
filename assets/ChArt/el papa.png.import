@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5pig8s5tbryk"
-path="res://.godot/imported/el papa.png-970308d2bf2c190a0e9eec4b3d5f8b07.ctex"
+path="res://.godot/imported/el papa.png-53647af127b3fddb3da599d4c7a6d350.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ChArt/el papa.png"
-dest_files=["res://.godot/imported/el papa.png-970308d2bf2c190a0e9eec4b3d5f8b07.ctex"]
+source_file="res://Assets/ChArt/el papa.png"
+dest_files=["res://.godot/imported/el papa.png-53647af127b3fddb3da599d4c7a6d350.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://buofg3y0bfje4"
-path="res://.godot/imported/Kamathra.png-bb14eec10c0226e7dbc1a5f9fad63204.ctex"
+path="res://.godot/imported/Kamathra.png-5fc3a8c44395ce89f619174c41d5b966.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/BttlSprit/Kamathra.png"
-dest_files=["res://.godot/imported/Kamathra.png-bb14eec10c0226e7dbc1a5f9fad63204.ctex"]
+source_file="res://Assets/BttlSprit/Kamathra.png"
+dest_files=["res://.godot/imported/Kamathra.png-5fc3a8c44395ce89f619174c41d5b966.ctex"]
 
 [params]
 

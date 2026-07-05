@@ -1,13 +1,13 @@
 [gd_scene load_steps=21 format=3 uid="uid://cqn5eke30ryu"]
 
-[ext_resource type="Script" uid="uid://dv1po6ndd3wa6" path="res://scripts/menus/seleccionar_personaje.gd" id="1_fcywi"]
-[ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://assets/BckGrnd/Nivel.png" id="2_joykv"]
-[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://assets/BckGrnd/paperallborder.png" id="3_kvxfk"]
-[ext_resource type="Texture2D" uid="uid://cv3vrjc1xpmbg" path="res://assets/ChArt/caelius de pena.png" id="4_llbfp"]
-[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://assets/Fonts/Seagram_tfb.ttf" id="5_iw1wv"]
-[ext_resource type="Texture2D" uid="uid://c03f2guura5ub" path="res://assets/ChArt/caelius de ira.png" id="6_rev6g"]
-[ext_resource type="Texture2D" uid="uid://pqa2sa1oiqyf" path="res://assets/ChArt/caelius de ego.png" id="7_a7vnf"]
-[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="10_8om2e"]
+[ext_resource type="Script" uid="uid://dv1po6ndd3wa6" path="res://Scripts/menus/select_personaje.gd" id="1_8afk0"]
+[ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://Assets/BckGrnd/Nivel.png" id="2_ya60t"]
+[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="3_26w3f"]
+[ext_resource type="Texture2D" uid="uid://cv3vrjc1xpmbg" path="res://Assets/ChArt/caelius de pena.png" id="4_wtvv2"]
+[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="5_nks3u"]
+[ext_resource type="Texture2D" uid="uid://c03f2guura5ub" path="res://Assets/ChArt/caelius de ira.png" id="6_6ikru"]
+[ext_resource type="Texture2D" uid="uid://pqa2sa1oiqyf" path="res://Assets/ChArt/caelius de ego.png" id="7_ioxdl"]
+[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="8_egwgt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qf4rk"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -160,7 +160,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_fcywi")
+script = ExtResource("1_8afk0")
 
 [node name="Fondo" type="TextureRect" parent="."]
 modulate = Color(1, 0.88235295, 0.7411765, 1)
@@ -171,7 +171,7 @@ anchor_right = 1.001
 anchor_bottom = 0.99700004
 offset_right = -5.1520996
 offset_bottom = 1.9439697
-texture = ExtResource("2_joykv")
+texture = ExtResource("2_ya60t")
 expand_mode = 1
 
 [node name="Personajes" type="HBoxContainer" parent="."]
@@ -196,7 +196,7 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 255.0
 offset_bottom = 466.0
-texture = ExtResource("3_kvxfk")
+texture = ExtResource("3_26w3f")
 expand_mode = 1
 
 [node name="Sprite" type="TextureRect" parent="Personajes/PJ_pena"]
@@ -206,7 +206,7 @@ offset_left = 9.0
 offset_top = 9.0
 offset_right = 258.0
 offset_bottom = 422.0
-texture = ExtResource("4_llbfp")
+texture = ExtResource("4_wtvv2")
 stretch_mode = 5
 
 [node name="Nombre" type="Label" parent="Personajes/PJ_pena"]
@@ -216,7 +216,7 @@ offset_top = 398.0
 offset_right = 240.0
 offset_bottom = 444.0
 theme_override_colors/font_color = Color(0.5647059, 0.39607844, 0.007843138, 1)
-theme_override_fonts/font = ExtResource("5_iw1wv")
+theme_override_fonts/font = ExtResource("5_nks3u")
 theme_override_font_sizes/font_size = 36
 text = "caelius de pena"
 horizontal_alignment = 1
@@ -236,7 +236,7 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 255.0
 offset_bottom = 466.0
-texture = ExtResource("3_kvxfk")
+texture = ExtResource("3_26w3f")
 expand_mode = 1
 
 [node name="Sprite" type="TextureRect" parent="Personajes/PJ_ira"]
@@ -246,7 +246,7 @@ offset_left = 8.0
 offset_top = 7.0
 offset_right = 260.0
 offset_bottom = 423.0
-texture = ExtResource("6_rev6g")
+texture = ExtResource("6_6ikru")
 stretch_mode = 5
 
 [node name="Nombre" type="Label" parent="Personajes/PJ_ira"]
@@ -256,7 +256,7 @@ offset_top = 398.0
 offset_right = 240.0
 offset_bottom = 444.0
 theme_override_colors/font_color = Color(0.5647059, 0.39607844, 0.007843138, 1)
-theme_override_fonts/font = ExtResource("5_iw1wv")
+theme_override_fonts/font = ExtResource("5_nks3u")
 theme_override_font_sizes/font_size = 36
 text = "caelius de ira"
 horizontal_alignment = 1
@@ -276,7 +276,7 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 255.0
 offset_bottom = 466.0
-texture = ExtResource("3_kvxfk")
+texture = ExtResource("3_26w3f")
 expand_mode = 1
 
 [node name="Sprite" type="TextureRect" parent="Personajes/PJ_ego"]
@@ -286,7 +286,7 @@ offset_left = 6.0
 offset_top = 9.0
 offset_right = 255.0
 offset_bottom = 422.0
-texture = ExtResource("7_a7vnf")
+texture = ExtResource("7_ioxdl")
 stretch_mode = 5
 
 [node name="Nombre" type="Label" parent="Personajes/PJ_ego"]
@@ -296,7 +296,7 @@ offset_top = 398.0
 offset_right = 240.0
 offset_bottom = 444.0
 theme_override_colors/font_color = Color(0.5647059, 0.39607844, 0.007843138, 1)
-theme_override_fonts/font = ExtResource("5_iw1wv")
+theme_override_fonts/font = ExtResource("5_nks3u")
 theme_override_font_sizes/font_size = 36
 text = "caelius de ego"
 horizontal_alignment = 1
@@ -317,7 +317,7 @@ offset_top = 2.0
 offset_right = 518.0
 offset_bottom = 48.0
 theme_override_colors/font_color = Color(0.79122466, 0.6596201, 0.14132708, 1)
-theme_override_fonts/font = ExtResource("5_iw1wv")
+theme_override_fonts/font = ExtResource("5_nks3u")
 theme_override_font_sizes/font_size = 36
 horizontal_alignment = 1
 
@@ -328,7 +328,7 @@ offset_top = 46.0
 offset_right = 761.0
 offset_bottom = 101.0
 theme_override_colors/font_color = Color(0.7921569, 0.65882355, 0.14117648, 1)
-theme_override_fonts/font = ExtResource("5_iw1wv")
+theme_override_fonts/font = ExtResource("5_nks3u")
 theme_override_font_sizes/font_size = 26
 autowrap_mode = 2
 
@@ -354,7 +354,7 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 178.0
 offset_bottom = 63.0
-texture = ExtResource("3_kvxfk")
+texture = ExtResource("3_26w3f")
 expand_mode = 1
 
 [node name="texto" type="Label" parent="BtnSeleccionar"]
@@ -364,13 +364,13 @@ offset_top = 5.0
 offset_right = 169.0
 offset_bottom = 56.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
-theme_override_fonts/font = ExtResource("5_iw1wv")
+theme_override_fonts/font = ExtResource("5_nks3u")
 theme_override_font_sizes/font_size = 40
 text = "continuar"
 horizontal_alignment = 1
 
 [node name="HoverSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("10_8om2e")
+stream = ExtResource("8_egwgt")
 volume_db = -1.0
 bus = &"SFX"
 

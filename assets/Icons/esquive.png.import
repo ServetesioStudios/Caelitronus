@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b4y7rcoj4o4fj"
-path="res://.godot/imported/esquive.png-5e46e498ee4dee492a61ec2c47ce7b1e.ctex"
+path="res://.godot/imported/esquive.png-9712a1b5dc2671365c52ae7017081286.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Icons/esquive.png"
-dest_files=["res://.godot/imported/esquive.png-5e46e498ee4dee492a61ec2c47ce7b1e.ctex"]
+source_file="res://Assets/Icons/esquive.png"
+dest_files=["res://.godot/imported/esquive.png-9712a1b5dc2671365c52ae7017081286.ctex"]
 
 [params]
 

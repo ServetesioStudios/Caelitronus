@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c7gpx4py1tr4r"
-path="res://.godot/imported/Galaad.png-fe7a9090fa65c2a82768b7907757cdb6.ctex"
+path="res://.godot/imported/Galaad.png-b7a48837930270c8aab111bf85100966.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Icons/Galaad.png"
-dest_files=["res://.godot/imported/Galaad.png-fe7a9090fa65c2a82768b7907757cdb6.ctex"]
+source_file="res://Assets/Icons/Galaad.png"
+dest_files=["res://.godot/imported/Galaad.png-b7a48837930270c8aab111bf85100966.ctex"]
 
 [params]
 

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=5 format=3 uid="uid://ldlpdqj8nje5"]
+
+[ext_resource type="Script" uid="uid://5uw7jpiqmd43" path="res://Scripts/data/enemy_data.gd" id="1_khx7f"]
+[ext_resource type="Texture2D" uid="uid://3ny1jo84eeqt" path="res://Assets/BttlSprit/sagrados.png" id="2_is3g7"]
+[ext_resource type="Script" uid="uid://3jdy5elvqaqm" path="res://Scripts/data/stats.gd" id="3_u5ler"]
+
+[sub_resource type="Resource" id="Resource_20tst"]
+script = ExtResource("3_u5ler")
+max_hp = 90
+"daño" = 5
+esquive = 6
+velocidad = 0.9
+fe = 12
+poder = 5
+metadata/_custom_type_script = "uid://3jdy5elvqaqm"
+
+[resource]
+script = ExtResource("1_khx7f")
+nombre = "Monaguillo Sagrado"
+stats = SubResource("Resource_20tst")
+sprite = ExtResource("2_is3g7")
+metadata/_custom_type_script = "uid://5uw7jpiqmd43"

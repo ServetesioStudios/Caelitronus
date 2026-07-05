@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c5bnyuqoan4yt"
-path="res://.godot/imported/CorvusDerrotado.png-59c66ac343a0a625881560518fe95a0d.ctex"
+path="res://.godot/imported/CorvusDerrotado.png-6db369819933acc74b896a3f2bb0dda7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Icons/CorvusDerrotado.png"
-dest_files=["res://.godot/imported/CorvusDerrotado.png-59c66ac343a0a625881560518fe95a0d.ctex"]
+source_file="res://Assets/Icons/CorvusDerrotado.png"
+dest_files=["res://.godot/imported/CorvusDerrotado.png-6db369819933acc74b896a3f2bb0dda7.ctex"]
 
 [params]
 

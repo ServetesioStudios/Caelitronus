@@ -13,12 +13,14 @@ config_version=5
 config/name="Caleitronus"
 run/main_scene="uid://tw8spa7qddqp"
 config/features=PackedStringArray("4.5", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://bagh0kr0djlw6"
 
 [autoload]
 
-AudioSettings="*res://scripts/managers/AudioSettings.gd"
-MusicManager="*res://scenes/managers/MusicManager.tscn"
+AudioSettings="*res://Scripts/managers/audio_settings.gd"
+MusicManager="*res://Scenes/managers/MusicManager.tscn"
+SceneManager="*res://Scripts/managers/scene_manager.gd"
+GameManager="*res://Scripts/managers/game_manager.gd"
 
 [rendering]
 

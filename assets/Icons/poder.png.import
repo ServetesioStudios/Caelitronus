@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://rbe58jl1ngei"
-path="res://.godot/imported/poder.png-c2445f374401bb035815d4a93512043c.ctex"
+path="res://.godot/imported/poder.png-e1a66da74cdda6e2b11872951f2b7ea1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Icons/poder.png"
-dest_files=["res://.godot/imported/poder.png-c2445f374401bb035815d4a93512043c.ctex"]
+source_file="res://Assets/Icons/poder.png"
+dest_files=["res://.godot/imported/poder.png-e1a66da74cdda6e2b11872951f2b7ea1.ctex"]
 
 [params]
 

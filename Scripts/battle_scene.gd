@@ -44,32 +44,32 @@ func handle_turn(atacante, defensor):
 		return
 
 	# HABILIDAD
-	if atacante.habilidad_activa:
-
-		if !atacante.has_meta(
-			"habilidad_mostrada"
-		):
-
-			mostrar_texto(
-				atacante.nombre +
-				" usa " +
-				atacante.habilidad_nombre
-			)
-
-			atacante.set_meta(
-				"habilidad_mostrada",
-				true
-			)
-
-	else:
-
-		if atacante.has_meta(
-			"habilidad_mostrada"
-		):
-
-			atacante.remove_meta(
-				"habilidad_mostrada"
-			)
+	#if atacante.habilidad_activa:
+#
+		#if !atacante.has_meta(
+			#"habilidad_mostrada"
+		#):
+#
+			#mostrar_texto(
+				#atacante.nombre +
+				#" usa " +
+				#atacante.habilidad_nombre
+			#)
+#
+			#atacante.set_meta(
+				#"habilidad_mostrada",
+				#true
+			#)
+#
+	#else:
+#
+		#if atacante.has_meta(
+			#"habilidad_mostrada"
+		#):
+#
+			#atacante.remove_meta(
+				#"habilidad_mostrada"
+			#)
 
 	# ATAQUE
 	if atacante.puede_atacar():
@@ -305,12 +305,7 @@ func atacar(atacante, defensor):
 
 		if is_instance_valid(defensor):
 
-			defensor.modulate = Color(
-				1,
-				1,
-				1,
-				1
-			)
+			defensor.modulate = defensor.color_base
 
 	# MUERTE
 	if is_instance_valid(defensor):

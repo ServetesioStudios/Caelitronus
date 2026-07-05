@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cyyn2ww3kst4u"
-path="res://.godot/imported/lucio.png-25f589bb5f91fbfab8bccb626b5ead5c.ctex"
+path="res://.godot/imported/lucio.png-dea11a8f3450e6d7de1084d91c7da1f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/credit/lucio.png"
-dest_files=["res://.godot/imported/lucio.png-25f589bb5f91fbfab8bccb626b5ead5c.ctex"]
+source_file="res://Assets/credit/lucio.png"
+dest_files=["res://.godot/imported/lucio.png-dea11a8f3450e6d7de1084d91c7da1f6.ctex"]
 
 [params]
 

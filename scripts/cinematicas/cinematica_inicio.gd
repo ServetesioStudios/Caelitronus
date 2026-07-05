@@ -11,10 +11,8 @@ func _input(event):
 	if event.is_action_pressed("ui_accept") or event is InputEventMouseButton:
 		_iniciar_Juego()
 
-
 func _on_inicio_finished() -> void:
 	_iniciar_Juego()
 	
-
 func _iniciar_Juego():
-	get_tree().change_scene_to_file("res://scenes/juego.tscn")
+	SceneManager.change_scene(SceneManager.SceneID.SELECT_PERSONAJE)

@@ -2,43 +2,33 @@ extends Control
 
 @onready var hover_sound = $HoverSound
 var glosariotexto = ConfigFile.new()
-var progreso = ConfigFile.new()
-var glosarioid
+#var progreso = ConfigFile.new()
+var glosarioid: String = ""
 
 
 func _ready():
 	for button in get_tree().get_nodes_in_group("GlosarioButton"):
 		button.pressed.connect(_on_button_pressed.bind(button.get_parent().name))
-	var err = progreso.load("res://cfg/progreso.cfg")
-	if err == OK:
-		var caelius = progreso.get_value("Caelius","tipo")
-		if caelius != "":
-			match caelius:
-				"ego":
+		
+	if GameManager.player_data != null:
+		match GameManager.player_data.tipo_caelius:
+				GameManager.TipoCaelius.EGO:
 					$General/ScrollContainerPersonajes/Personajes/Caelius/TextureRect.texture = load("res://assets/ChArt/caelius de ego.png")
-				"ira":
+				GameManager.TipoCaelius.IRA:
 					$General/ScrollContainerPersonajes/Personajes/Caelius/TextureRect.texture = load("res://assets/ChArt/caelius de ira.png")
-				"pena":
+				GameManager.TipoCaelius.PENA:
 					$General/ScrollContainerPersonajes/Personajes/Caelius/TextureRect.texture = load("res://assets/ChArt/caelius de pena.png")
-		else:
-			ocultar("Caelius")
-			$General/ScrollContainerMaldiciones/Maldiciones/Reves/TextureRect.modulate = Color()
-			$General/ScrollContainerMaldiciones/Maldiciones/Reves/Label.text = "???"
-			$General/ScrollContainerMaldiciones/Maldiciones/Reves/Button.disabled = true
-			$General/ScrollContainerMaldiciones/Maldiciones/Reves/Button.set_block_signals(1)
-		if progreso.get_value("Jefes","espina") == 0:
-			ocultar("Espina")
-		if progreso.get_value("Jefes","serpico") == 0:
-			ocultar("Serpico")
-		if progreso.get_value("Jefes","eirene") == 0:
-			ocultar("Eirene")
-		if progreso.get_value("Jefes","corvus") == 0:
-			ocultar("Corvus")
-		if progreso.get_value("Jefes","galaad") == 0:
-			ocultar("Galaad")
-		if progreso.get_value("Jefes","kapparah") == 0:
-			ocultar("Kapparah")
-			
+	else:
+		ocultar("Caelius")
+		$General/ScrollContainerMaldiciones/Maldiciones/Reves/TextureRect.modulate = Color()
+		$General/ScrollContainerMaldiciones/Maldiciones/Reves/Label.text = "???"
+		$General/ScrollContainerMaldiciones/Maldiciones/Reves/Button.disabled = true
+		$General/ScrollContainerMaldiciones/Maldiciones/Reves/Button.set_block_signals(1)
+
+	for jefe_nombre in GameManager.Jefe.keys():
+		var jefe_id = GameManager.Jefe[jefe_nombre]
+		if not GameManager.es_jefe_derrotado(jefe_id):
+			ocultar(jefe_nombre.capitalize())	
 		
 func ocultar(nombre):
 	$General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/TextureRect").modulate = Color()
@@ -53,7 +43,6 @@ func _on_atras_pressed() -> void:
 		$General.show()
 		$Glosario.text = "Glosario"
 	else:
-		#get_tree().change_scene_to_file("res://scenes/menu_principal.tscn")
 		queue_free()
 
 
@@ -90,7 +79,7 @@ func _on_button_izq_pressed() -> void:
 
 
 func _on_button_pressed(id) -> void:
-	var err = glosariotexto.load("res://cfg/glosario.cfg")
+	var err = glosariotexto.load("res://Data/text/glosario.cfg")
 	if err != OK:
 		return
 	glosarioid = id
@@ -121,12 +110,12 @@ func _on_descripcion_pressed() -> void:
 	$Detalle/Alma.disabled = false
 	$Detalle/Alma.set_block_signals(0)
 	if glosarioid == "Caelius":
-		match progreso.get_value("Caelius","tipo"):
-			"ego":
+		match GameManager.player_data.tipo_caelius:
+			GameManager.TipoCaelius.EGO:
 				$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"descripcionego")
-			"ira":
+			GameManager.TipoCaelius.IRA:
 				$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"descripcionira")
-			"pena":
+			GameManager.TipoCaelius.PENA:
 				$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"descripcionpena")
 	else:
 		$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"descripcion")
@@ -152,12 +141,12 @@ func _on_alma_pressed() -> void:
 	$Detalle/Religion.disabled = false
 	$Detalle/Religion.set_block_signals(0)
 	if glosarioid == "Caelius":
-		match progreso.get_value("Caelius","tipo"):
-			"ego":
+		match GameManager.player_data.tipo_caelius:
+			GameManager.TipoCaelius.EGO:
 				$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"almaego")
-			"ira":
+			GameManager.TipoCaelius.IRA:
 				$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"almaira")
-			"pena":
+			GameManager.TipoCaelius.PENA:
 				$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"almapena")
 		$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/fause.png")
 	else:

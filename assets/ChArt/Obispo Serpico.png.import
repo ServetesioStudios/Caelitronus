@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://davjajidu876c"
-path="res://.godot/imported/Obispo Serpico.png-53ae4208de42e4f73a45abd18303a9a6.ctex"
+path="res://.godot/imported/Obispo Serpico.png-f96a607a1a14c1d33632b5b81999ec7e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ChArt/Obispo Serpico.png"
-dest_files=["res://.godot/imported/Obispo Serpico.png-53ae4208de42e4f73a45abd18303a9a6.ctex"]
+source_file="res://Assets/ChArt/Obispo Serpico.png"
+dest_files=["res://.godot/imported/Obispo Serpico.png-f96a607a1a14c1d33632b5b81999ec7e.ctex"]
 
 [params]
 

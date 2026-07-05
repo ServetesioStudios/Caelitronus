@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://da3pxuybhiua0"
-path="res://.godot/imported/oscuro.png-e34e560576775bb524fd594f4e9fff44.ctex"
+path="res://.godot/imported/oscuro.png-13b6661f0f2ce3f354974aa029d4a104.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/BttlSprit/oscuro.png"
-dest_files=["res://.godot/imported/oscuro.png-e34e560576775bb524fd594f4e9fff44.ctex"]
+source_file="res://Assets/BttlSprit/oscuro.png"
+dest_files=["res://.godot/imported/oscuro.png-13b6661f0f2ce3f354974aa029d4a104.ctex"]
 
 [params]
 

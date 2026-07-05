@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=5 format=3 uid="uid://b04b4x5apcmav"]
+
+[ext_resource type="Script" uid="uid://5uw7jpiqmd43" path="res://Scripts/data/enemy_data.gd" id="1_hp5c1"]
+[ext_resource type="Texture2D" uid="uid://buofg3y0bfje4" path="res://Assets/BttlSprit/Kamathra.png" id="2_4htqt"]
+[ext_resource type="Script" uid="uid://3jdy5elvqaqm" path="res://Scripts/data/stats.gd" id="3_k8tg5"]
+
+[sub_resource type="Resource" id="Resource_nbnj2"]
+script = ExtResource("3_k8tg5")
+max_hp = 420
+"daño" = 11
+defensa = 8
+esquive = 6
+fe = 28
+poder = 14
+metadata/_custom_type_script = "uid://3jdy5elvqaqm"
+
+[resource]
+script = ExtResource("1_hp5c1")
+nombre = "Padre Espina"
+stats = SubResource("Resource_nbnj2")
+sprite = ExtResource("2_4htqt")
+metadata/_custom_type_script = "uid://5uw7jpiqmd43"

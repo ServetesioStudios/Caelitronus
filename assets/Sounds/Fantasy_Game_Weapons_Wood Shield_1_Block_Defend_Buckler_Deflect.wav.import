@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://b42nd1ocqfu1s"
-path="res://.godot/imported/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav-51b5b24b9bc0a15a0c418d2e260dec51.sample"
+path="res://.godot/imported/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav-7b7f86b0f1905a282166bdfb0890a1b6.sample"
 
 [deps]
 
-source_file="res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav"
-dest_files=["res://.godot/imported/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav-51b5b24b9bc0a15a0c418d2e260dec51.sample"]
+source_file="res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav"
+dest_files=["res://.godot/imported/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav-7b7f86b0f1905a282166bdfb0890a1b6.sample"]
 
 [params]
 

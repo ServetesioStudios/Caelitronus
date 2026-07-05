@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bg5bnm1uf3iao"
-path="res://.godot/imported/lazaro.png-1793fe059d4e8aa983dfdc47c543d4d9.ctex"
+path="res://.godot/imported/lazaro.png-7204e4edd10fe3b746ac048e4816a601.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/BttlSprit/lazaro.png"
-dest_files=["res://.godot/imported/lazaro.png-1793fe059d4e8aa983dfdc47c543d4d9.ctex"]
+source_file="res://Assets/BttlSprit/lazaro.png"
+dest_files=["res://.godot/imported/lazaro.png-7204e4edd10fe3b746ac048e4816a601.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2ygn4tun1it3"
-path="res://.godot/imported/EspinaDerrotado.png-7c8d9dff10ba1acd5cbc3445a18adbf7.ctex"
+path="res://.godot/imported/EspinaDerrotado.png-98c8d98074a0ef1499a571013cd6452f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Icons/EspinaDerrotado.png"
-dest_files=["res://.godot/imported/EspinaDerrotado.png-7c8d9dff10ba1acd5cbc3445a18adbf7.ctex"]
+source_file="res://Assets/Icons/EspinaDerrotado.png"
+dest_files=["res://.godot/imported/EspinaDerrotado.png-98c8d98074a0ef1499a571013cd6452f.ctex"]
 
 [params]
 

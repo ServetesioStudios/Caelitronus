@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cu16vnr6avfte"
-path="res://.godot/imported/Eliadran.png-80b522f5d77a4b44d1ad62d5252de6e7.ctex"
+path="res://.godot/imported/Eliadran.png-3c38cf42a94b7295cc04886c1f4ac930.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/BttlSprit/Eliadran.png"
-dest_files=["res://.godot/imported/Eliadran.png-80b522f5d77a4b44d1ad62d5252de6e7.ctex"]
+source_file="res://Assets/BttlSprit/Eliadran.png"
+dest_files=["res://.godot/imported/Eliadran.png-3c38cf42a94b7295cc04886c1f4ac930.ctex"]
 
 [params]
 
