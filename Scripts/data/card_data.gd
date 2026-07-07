@@ -2,9 +2,11 @@ class_name CardData
 extends Resource
 
 @export var card_name: String
-@export var description: String
-@export var cost: int
-@export_multiline var flavor_text: String
-@export var artwork: Texture2D
+@export_multiline var descripcion: String
+@export var costo: int = 1
+@export var arte: Texture2D
+@export var efectos: Array[EffectData] = []
 
-#@export var effects: Array[EffectData] = []
+func jugar(fuente: CombatEntity, objetivo: CombatEntity) -> void:
+	for efecto in efectos:
+		efecto.aplicar(fuente, objetivo)

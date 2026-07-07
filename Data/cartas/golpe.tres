@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://chgiksewl3u8w"]
+
+[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/data/effect_data.gd" id="1_t172a"]
+[ext_resource type="Script" uid="uid://dsoesbabr1uya" path="res://Scripts/data/efectos/damage_effect_data.gd" id="2_53pbu"]
+[ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/data/card_data.gd" id="2_ivst8"]
+
+[sub_resource type="Resource" id="Resource_iwchs"]
+script = ExtResource("2_53pbu")
+cantidad = 6
+metadata/_custom_type_script = "uid://dsoesbabr1uya"
+
+[resource]
+script = ExtResource("2_ivst8")
+card_name = "Golpe"
+descripcion = "Inflige 6 de daño"
+efectos = Array[ExtResource("1_t172a")]([SubResource("Resource_iwchs")])
+metadata/_custom_type_script = "uid://wr8ukg3kbesn"

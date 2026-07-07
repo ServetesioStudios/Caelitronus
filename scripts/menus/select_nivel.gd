@@ -56,4 +56,4 @@ func _on_menuprincipal_pressed() -> void:
 
 
 func _on_espina_pressed() -> void:
-	SceneManager.change_scene(SceneManager.SceneID.COMBATE)
+	SceneManager.change_scene(SceneManager.SceneID.BATALLA)

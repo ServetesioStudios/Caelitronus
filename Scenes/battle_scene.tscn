@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmu6hcrme284g"]
+[gd_scene load_steps=9 format=3 uid="uid://dmu6hcrme284g"]
 
 [ext_resource type="Texture2D" uid="uid://1ujq4vhia20d" path="res://Assets/BckGrnd/Bonefield_mvt.png" id="1_bxpjm"]
-[ext_resource type="Script" uid="uid://ta11uy1xj5dd" path="res://Scripts/battle_scene.gd" id="1_qf52c"]
+[ext_resource type="Script" uid="uid://ta11uy1xj5dd" path="res://Scripts/batalla/battle_scene.gd" id="1_qf52c"]
 [ext_resource type="PackedScene" uid="uid://bjsf3q6hvbyji" path="res://Scenes/player.tscn" id="2_4ohde"]
 [ext_resource type="PackedScene" uid="uid://dtlvudb7gixqy" path="res://Scenes/enemy.tscn" id="3_1gdom"]
 [ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="5_fowxk"]
 [ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="6_n02j2"]
 [ext_resource type="Texture2D" uid="uid://bxu6hgpccqqdf" path="res://Assets/BckGrnd/papersideborder.png" id="7_n02j2"]
+[ext_resource type="Script" uid="uid://dbapsc8dah0c4" path="res://Scripts/batalla/combat_manager.gd" id="8_w4764"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_qf52c")
@@ -26,17 +27,17 @@ position = Vector2(-17, -68)
 
 [node name="papelcombate" type="TextureRect" parent="CanvasLayer"]
 offset_left = 387.0
-offset_top = -2.0
+offset_top = 421.0
 offset_right = 776.0
 offset_bottom = 647.0
 texture = ExtResource("5_fowxk")
 expand_mode = 1
 
 [node name="textocombate" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 418.0
-offset_top = 15.0
-offset_right = 739.0
-offset_bottom = 590.0
+offset_left = 421.0
+offset_top = 445.0
+offset_right = 742.0
+offset_bottom = 622.0
 theme_override_colors/default_color = Color(0.5747718, 0.3360082, 0, 1)
 theme_override_fonts/normal_font = ExtResource("6_n02j2")
 theme_override_font_sizes/normal_font_size = 22
@@ -79,3 +80,13 @@ offset_bottom = 612.0
 theme_override_colors/default_color = Color(0.5764706, 0.3372549, 0, 1)
 theme_override_fonts/normal_font = ExtResource("6_n02j2")
 theme_override_font_sizes/normal_font_size = 19
+
+[node name="BtnFinTurno" type="Button" parent="CanvasLayer"]
+offset_left = 1020.0
+offset_top = 557.0
+offset_right = 1125.0
+offset_bottom = 605.0
+text = "Terminar"
+
+[node name="CombatManager" type="Node" parent="."]
+script = ExtResource("8_w4764")

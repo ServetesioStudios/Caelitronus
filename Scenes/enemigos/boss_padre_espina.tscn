@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dtlvudb7gixqy" path="res://Scenes/enemy.tscn" id="1_6gaod"]
 [ext_resource type="Script" uid="uid://buaou72m2jtch" path="res://Scripts/enemigos/boss_padre_espina.gd" id="2_ut8pt"]
-[ext_resource type="Resource" uid="uid://b04b4x5apcmav" path="res://Data/enemies/boss_padre_espina.tres" id="3_bhd4o"]
+[ext_resource type="Resource" uid="uid://b04b4x5apcmav" path="res://Data/enemigos/boss_padre_espina.tres" id="3_bhd4o"]
 
 [node name="Node2D" instance=ExtResource("1_6gaod")]
 script = ExtResource("2_ut8pt")

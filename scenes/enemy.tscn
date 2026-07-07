@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dtlvudb7gixqy"]
 
 [ext_resource type="Script" uid="uid://dyymoxpfdamvl" path="res://Scripts/enemy.gd" id="1_2tsnu"]
-[ext_resource type="Resource" uid="uid://c5frbhsbnmeve" path="res://Data/enemies/monaguillo_lazaro.tres" id="2_287tu"]
+[ext_resource type="Resource" uid="uid://c5frbhsbnmeve" path="res://Data/enemigos/monaguillo_lazaro.tres" id="2_287tu"]
 [ext_resource type="Texture2D" uid="uid://crlis0e7fcf4e" path="res://Assets/ui/lifeGaugeAlpha.png" id="2_wfprl"]
 [ext_resource type="Texture2D" uid="uid://cv6wcbyj6ymdy" path="res://Assets/ui/lifeGaugeLlen.png" id="3_3frmn"]
 

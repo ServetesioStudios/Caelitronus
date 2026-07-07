@@ -1,5 +1,9 @@
 extends Node2D
 
+@onready var combat_manager := $CombatManager
+@onready var deck_manager := $DeckManager
+@onready var btn_fin_turno := $CanvasLayer/BtnFinTurno
+
 @onready var player = $CanvasLayer/player
 @onready var enemy = $CanvasLayer/enemy
 
@@ -10,6 +14,37 @@ extends Node2D
 @onready var texto_stats_player = $CanvasLayer/playerstatstex
 @onready var texto_stats_enemy = $CanvasLayer/enemiplayetex
 
+func _ready():
+	var enemigos: Array[Enemy] = [enemy]
+	
+	var mazo_prueba: Array[CardData] = []
+	for i in 5:
+		mazo_prueba.append(load("res://Data/cards/golpe.tres"))
+	for i in 5:
+		mazo_prueba.append(load("res://Data/cards/bloqueo.tres"))
+	deck_manager.iniciar_mazo(mazo_prueba)
+	
+	combat_manager.iniciar_combate(player, enemigos)
+	combat_manager.turno_jugador_iniciado.connect(deck_manager.iniciar_turno)
+
+	combat_manager.turno_jugador_iniciado.connect(func(): print("Turno del jugador"))
+	combat_manager.turno_enemigo_iniciado.connect(func(): print("Turno del enemigo"))
+	combat_manager.combate_terminado.connect(_on_combate_terminado)
+	
+	deck_manager.mano_actualizada.connect(_debug_mostrar_mano)
+	btn_fin_turno.pressed.connect(combat_manager.finalizar_turno_jugador)
+
+func _debug_mostrar_mano(mano: Array[CardData]) -> void:
+	print("--- MANO ACTUAL (%d cartas) ---" % mano.size())
+	for carta in mano:
+		print(" - %s (costo %d)" % [carta.nombre, carta.costo])
+
+func _on_combate_terminado(victoria: bool):
+	if victoria:
+		print("¡Ganaste!")
+	else:
+		print("Perdiste")
+	
 # HISTORIAL
 var historial_texto = ""
 var max_lineas = 18
@@ -81,73 +116,32 @@ func handle_turn(atacante, defensor):
 			atacante.reiniciar_tiempo()
 
 # TEXTO
-func mostrar_texto(texto):
-
+func mostrar_texto(texto: String) -> void:
 	if texto_combate == null:
 		return
-
 	historial_texto += texto + "\n\n"
-
 	var lineas = historial_texto.split("\n")
-
 	if lineas.size() > max_lineas:
-
 		var nuevas_lineas = []
-
-		for i in range(
-			lineas.size() - max_lineas,
-			lineas.size()
-		):
-
-			nuevas_lineas.append(
-				lineas[i]
-			)
-
-		historial_texto = "\n".join(
-			nuevas_lineas
-		)
-
+		for i in range(lineas.size() - max_lineas, lineas.size()):
+			nuevas_lineas.append(lineas[i])
+		historial_texto = "\n".join(nuevas_lineas)
 	texto_combate.text = historial_texto
-
 	await get_tree().process_frame
-
 	if is_instance_valid(texto_combate):
-
-		texto_combate.scroll_to_line(
-			texto_combate.get_line_count()
-		)
+		texto_combate.scroll_to_line(texto_combate.get_line_count())
 
 # STATS UI
-func actualizar_stats_ui():
-
+func actualizar_stats_ui() -> void:
 	if is_instance_valid(player):
-
-		var texto_player = ""
-
-		texto_player += "ATQ= " + str(player.daño) + "     "
-		texto_player += "VEL= " + str(player.velocidad) + "     "
-		texto_player += "PODER= " + str(player.poder) + "\n"
-
-		texto_player += "DEF= " + str(player.defensa) + "     "
-		texto_player += "ESQ= " + str(player.esquive) + "     "
-		texto_player += "FE= " + str(player.fe)
-
-		texto_stats_player.text = texto_player
-
+		texto_stats_player.text = "ATQ= %s     VEL= %s     PODER= %s\nDEF= %s     ESQ= %s     FE= %s" % [
+			player.daño, player.velocidad, player.poder, player.defensa, player.esquive, player.fe
+		]
 	if is_instance_valid(enemy):
-
-		var texto_enemy = ""
-
-		texto_enemy += "ATQ= " + str(enemy.daño) + "     "
-		texto_enemy += "VEL= " + str(enemy.velocidad) + "     "
-		texto_enemy += "PODER= " + str(enemy.poder) + "\n"
-
-		texto_enemy += "DEF= " + str(enemy.defensa) + "     "
-		texto_enemy += "ESQ= " + str(enemy.esquive) + "     "
-		texto_enemy += "FE= " + str(enemy.fe)
-
-		texto_stats_enemy.text = texto_enemy
-
+		texto_stats_enemy.text = "ATQ= %s     VEL= %s     PODER= %s\nDEF= %s     ESQ= %s     FE= %s" % [
+			enemy.daño, enemy.velocidad, enemy.poder, enemy.defensa, enemy.esquive, enemy.fe
+	]
+	
 # DAÑO
 func calcular_daño(atacante, defensor):
 
@@ -318,42 +312,12 @@ func atacar(atacante, defensor):
 			)
 
 # ANIMACION
-func animar_ataque(atacante):
-
+func animar_ataque(atacante: CombatEntity) -> void:
 	if !is_instance_valid(atacante):
 		return
-
 	var tween = create_tween()
-
 	var posicion_original = atacante.position
-
 	var distancia = 40
-	var posicion_ataque
-
-	if atacante == player:
-
-		posicion_ataque = (
-			posicion_original +
-			Vector2(distancia, 0)
-		)
-
-	else:
-
-		posicion_ataque = (
-			posicion_original +
-			Vector2(-distancia, 0)
-		)
-
-	tween.tween_property(
-		atacante,
-		"position",
-		posicion_ataque,
-		0.1
-	)
-
-	tween.tween_property(
-		atacante,
-		"position",
-		posicion_original,
-		0.1
-	)
+	var posicion_ataque = posicion_original + (Vector2(distancia, 0) if atacante == player else Vector2(-distancia, 0))
+	tween.tween_property(atacante, "position", posicion_ataque, 0.1)
+	tween.tween_property(atacante, "position", posicion_original, 0.1)
