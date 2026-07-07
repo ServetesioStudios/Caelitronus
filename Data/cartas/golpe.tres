@@ -11,7 +11,7 @@ metadata/_custom_type_script = "uid://dsoesbabr1uya"
 
 [resource]
 script = ExtResource("2_ivst8")
-card_name = "Golpe"
+nombre = "Golpe"
 descripcion = "Inflige 6 de daño"
 efectos = Array[ExtResource("1_t172a")]([SubResource("Resource_iwchs")])
 metadata/_custom_type_script = "uid://wr8ukg3kbesn"

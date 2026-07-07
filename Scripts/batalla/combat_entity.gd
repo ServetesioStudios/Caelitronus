@@ -14,6 +14,8 @@ var velocidad: int
 var fe: int
 var poder: int
 
+var bloqueo: int = 0
+
 var bonus_daño := 1.0
 var bonus_defensa := 1.0
 var bonus_velocidad := 1.0
@@ -76,11 +78,20 @@ func puede_atacar() -> bool:
 func reiniciar_tiempo() -> void:
 	tiempo_ataque = base_tiempo_ataque / (float(velocidad) * bonus_velocidad)
 
-func recibir_daño(cantidad: int) -> void:
+func recibir_daño(cantidad: int, ignora_bloqueo: bool = false) -> void:
 	if hp <= 0 or inmune:
 		return
-	hp -= cantidad
-	hp = max(hp, 0)
+		
+	var daño_restante := cantidad
+	#BLOQUEO
+	if not ignora_bloqueo and bloqueo > 0:
+		var absorbido = min(bloqueo, daño_restante)
+		bloqueo -= absorbido
+		daño_restante -= absorbido
+	if daño_restante > 0:
+		hp -= cantidad
+		hp = max(hp, 0)
+	
 	actualizar_barra_vida()
 	if hp <= 0:
 		morir()

@@ -4,4 +4,4 @@ extends EffectData
 @export var cantidad: int = 1
 
 func aplicar(fuente: CombatEntity, objetivo: CombatEntity) -> void:
-	objetivo.bloqueo += cantidad
+	fuente.bloqueo += cantidad

@@ -3,6 +3,7 @@ extends CombatEntity
 
 @export var enemy_data: EnemyData
 
+var intencion_actual: IntentData
 func _ready():
 	cargar_desde_data()
 	actualizar_barra_vida()
@@ -15,3 +16,10 @@ func cargar_desde_data():
 	aplicar_stats(enemy_data.stats.duplicate())
 	if has_node("Sprite2D") and enemy_data.sprite != null:
 		$Sprite2D.texture = enemy_data.sprite
+
+func decidir_intencion() -> void: 
+	var nueva_intencion := IntentData.new()
+	nueva_intencion.tipo = IntentData.Tipo.ATACAR
+	nueva_intencion.valor = daño
+	intencion_actual = nueva_intencion
+	

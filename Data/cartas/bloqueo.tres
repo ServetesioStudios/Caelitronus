@@ -11,7 +11,8 @@ metadata/_custom_type_script = "uid://bg3ykg37brkkc"
 
 [resource]
 script = ExtResource("2_0kyum")
-card_name = "Bloqueo"
+nombre = "Bloqueo"
 descripcion = "Gana 5 de bloqueo"
+costo = 2
 efectos = Array[ExtResource("1_ofetc")]([SubResource("Resource_g5pwv")])
 metadata/_custom_type_script = "uid://wr8ukg3kbesn"
