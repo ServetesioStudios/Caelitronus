@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2vtruyogl3dt"]
+
+[ext_resource type="Script" uid="uid://roqk3ngjxk4i" path="res://Scripts/ui/card_ui.gd" id="1_obeoo"]
+[ext_resource type="Texture2D" uid="uid://doeu123prfpee" path="res://Assets/pruebas(borrar)/carta1.png" id="2_hcufj"]
+
+[node name="CardUI" type="Control"]
+custom_minimum_size = Vector2(120, 200)
+layout_mode = 3
+anchor_right = 0.10300001
+anchor_bottom = 0.30900002
+offset_right = 1.3439941
+offset_bottom = -0.23200989
+script = ExtResource("1_obeoo")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(120, 200)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 200.0
+texture = ExtResource("2_hcufj")
+stretch_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(50, 60)
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 203.0
+
+[node name="Nombre" type="Label" parent="Panel/VBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(1, 100)
+layout_mode = 2
+text = "Nombre"
+horizontal_alignment = 1
+
+[node name="Descripcion" type="Label" parent="Panel/VBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+text = "Descripcion"
+autowrap_mode = 3
+
+[node name="Costo" type="Label" parent="Panel/VBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+text = "Costo"

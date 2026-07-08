@@ -23,7 +23,6 @@ func _process(delta):
 		
 func cargar_stats():
 	var stats: Stats = GameManager.get_stats_for(tipo_caelius)
-	print(tipo_caelius)
 	if stats == null:
 		push_error("Player: no se pudieron cargar los stats")
 		return

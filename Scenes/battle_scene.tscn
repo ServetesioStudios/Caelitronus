@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dmu6hcrme284g"]
+[gd_scene load_steps=12 format=3 uid="uid://dmu6hcrme284g"]
 
 [ext_resource type="Texture2D" uid="uid://1ujq4vhia20d" path="res://Assets/BckGrnd/Bonefield_mvt.png" id="1_bxpjm"]
 [ext_resource type="Script" uid="uid://ta11uy1xj5dd" path="res://Scripts/batalla/battle_scene.gd" id="1_qf52c"]
@@ -7,11 +7,19 @@
 [ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="5_fowxk"]
 [ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="6_n02j2"]
 [ext_resource type="Texture2D" uid="uid://bxu6hgpccqqdf" path="res://Assets/BckGrnd/papersideborder.png" id="7_n02j2"]
+[ext_resource type="Script" uid="uid://cjxi2c8jyhqcn" path="res://Scripts/ui/drop_zone.gd" id="8_ms847"]
 [ext_resource type="Script" uid="uid://dbapsc8dah0c4" path="res://Scripts/batalla/combat_manager.gd" id="8_w4764"]
 [ext_resource type="Script" uid="uid://eg85yacwhx1v" path="res://Scripts/batalla/deck_manager.gd" id="9_ed262"]
+[ext_resource type="Script" uid="uid://3hhe153qj06q" path="res://Scripts/ui/mano.gd" id="12_wb0gu"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_qf52c")
+
+[node name="CombatManager" type="Node" parent="."]
+script = ExtResource("8_w4764")
+
+[node name="DeckManager" type="Node" parent="."]
+script = ExtResource("9_ed262")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -89,8 +97,25 @@ offset_right = 1125.0
 offset_bottom = 605.0
 text = "Terminar"
 
-[node name="CombatManager" type="Node" parent="."]
-script = ExtResource("8_w4764")
+[node name="DropZonePlayer" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("entidad") groups=["DropZones"]]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 369.0
+offset_bottom = 531.0
+script = ExtResource("8_ms847")
+es_zona_propia = true
+entidad = NodePath("../player")
 
-[node name="DeckManager" type="Node" parent="."]
-script = ExtResource("9_ed262")
+[node name="DropZoneEnemy" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("entidad") groups=["DropZones"]]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 413.0
+offset_right = 1153.0
+offset_bottom = 532.0
+script = ExtResource("8_ms847")
+entidad = NodePath("../enemy")
+
+[node name="Mano" type="HBoxContainer" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("12_wb0gu")

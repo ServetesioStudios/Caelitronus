@@ -1,4 +1,9 @@
+HBoxContainer
+Label
+TextureRect
+VBoxContainer
+Panel
+Control
 Node
 Button
 AudioStreamPlayer
-Control

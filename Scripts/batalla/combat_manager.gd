@@ -75,12 +75,12 @@ func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
 func _calcular_daño_enemigo(atacante: CombatEntity, defensor: CombatEntity) -> int:
 	var chance = randi() % 100
 	if chance < defensor.esquive or defensor.inmune:
-		print("chance %d" %chance)
+		#print("chance %d" %chance)
 		return 0
 	
 	var daño_base = atacante.daño * atacante.bonus_daño
-	print("daño base = %f + bonus %f" %
-	[atacante.daño, atacante.bonus_daño])
+	#print("daño base = %f + bonus %f" %
+	#[atacante.daño, atacante.bonus_daño])
 	
 	var defensa_base = defensor.defensa * defensor.bonus_defensa
 	
@@ -89,7 +89,7 @@ func _calcular_daño_enemigo(atacante: CombatEntity, defensor: CombatEntity) -> 
 	
 	var variacion = randf_range(0.85, 1.05)
 	daño *= variacion
-	print("daño atacante %f" %daño)
+	#print("daño atacante %f" %daño)
 	return max(int(daño), 1)
 		
 	

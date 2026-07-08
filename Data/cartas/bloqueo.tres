@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://cbvk448qnq5ue"]
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://cbvk448qnq5ue"]
 
+[ext_resource type="Texture2D" uid="uid://cpg0mjdido8li" path="res://Assets/pruebas(borrar)/carta2.png" id="1_gmt4k"]
 [ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/data/effect_data.gd" id="1_ofetc"]
 [ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/data/card_data.gd" id="2_0kyum"]
 [ext_resource type="Script" uid="uid://bg3ykg37brkkc" path="res://Scripts/data/efectos/block_effect_data.gd" id="2_gmt4k"]
 
-[sub_resource type="Resource" id="Resource_g5pwv"]
+[sub_resource type="Resource" id="Resource_gmt4k"]
 script = ExtResource("2_gmt4k")
-cantidad = 5
 metadata/_custom_type_script = "uid://bg3ykg37brkkc"
 
 [resource]
@@ -14,5 +14,7 @@ script = ExtResource("2_0kyum")
 nombre = "Bloqueo"
 descripcion = "Gana 5 de bloqueo"
 costo = 2
-efectos = Array[ExtResource("1_ofetc")]([SubResource("Resource_g5pwv")])
+tipo_objetivo = 0
+arte = ExtResource("1_gmt4k")
+efectos = Array[ExtResource("1_ofetc")]([SubResource("Resource_gmt4k")])
 metadata/_custom_type_script = "uid://wr8ukg3kbesn"

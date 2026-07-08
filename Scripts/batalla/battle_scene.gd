@@ -11,10 +11,15 @@ extends Node2D
 @onready var texto_stats_player = $CanvasLayer/playerstatstex
 @onready var texto_stats_enemy = $CanvasLayer/enemiplayetex
 
+@onready var mano_ui := $CanvasLayer/Mano
+
 var historial_texto = ""
 var max_lineas = 18
 
 func _ready():
+	for zona in get_tree().get_nodes_in_group("DropZones"):
+		zona.carta_soltada.connect(intentar_jugar_carta)
+	
 	var enemigos: Array[Enemy] = [enemy]
 
 	var mazo_prueba: Array[CardData] = []
@@ -23,23 +28,20 @@ func _ready():
 	for i in 5:
 		mazo_prueba.append(load("res://Data/cartas/bloqueo.tres"))
 	deck_manager.iniciar_mazo(mazo_prueba)
-	
-	var mazo_inicial = ""
-	for carta in mazo_prueba:
-		mazo_inicial += " %s," %carta.nombre
-	print(mazo_inicial)
 
 	combat_manager.turno_jugador_iniciado.connect(deck_manager.iniciar_turno)
 	combat_manager.turno_jugador_iniciado.connect(func(): print("Turno del jugador"))
 	combat_manager.turno_enemigo_iniciado.connect(func(): print("Turno del enemigo"))
 	
 	combat_manager.intencion_actualizada.connect(_debug_mostrar_intencion)
+	deck_manager.mano_actualizada.connect(mano_ui.mostrar_mano)
 	
 	combat_manager.combate_terminado.connect(_on_combate_terminado)
 	deck_manager.mano_actualizada.connect(_debug_mostrar_mano)
 	btn_fin_turno.pressed.connect(combat_manager.finalizar_turno_jugador)
 	combat_manager.iniciar_combate(player, enemigos)
 
+			
 func _debug_mostrar_mano(mano: Array[CardData]) -> void:
 	print("--- MANO ACTUAL (%d cartas) ---" % mano.size())
 	for carta in mano:
