@@ -23,6 +23,26 @@ script = ExtResource("9_ed262")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="DropZonePlayer" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("entidad") groups=["DropZones"]]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 3.0
+offset_top = 4.0
+offset_right = 385.0
+offset_bottom = 535.0
+script = ExtResource("8_ms847")
+es_zona_propia = true
+entidad = NodePath("../player")
+
+[node name="DropZoneEnemy" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("entidad") groups=["DropZones"]]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 413.0
+offset_right = 1153.0
+offset_bottom = 532.0
+script = ExtResource("8_ms847")
+entidad = NodePath("../enemy")
+
 [node name="BonefieldMvt" type="Sprite2D" parent="CanvasLayer"]
 position = Vector2(576.5, 321.99997)
 scale = Vector2(1.155, 0.8756756)
@@ -34,22 +54,31 @@ position = Vector2(3, -73)
 [node name="enemy" parent="CanvasLayer" instance=ExtResource("3_1gdom")]
 position = Vector2(-17, -68)
 
+[node name="papelcombate2" type="TextureRect" parent="CanvasLayer"]
+offset_left = 385.0
+offset_top = 454.0
+offset_right = 774.0
+offset_bottom = 637.0
+texture = ExtResource("5_fowxk")
+expand_mode = 1
+
 [node name="papelcombate" type="TextureRect" parent="CanvasLayer"]
-offset_left = 387.0
-offset_top = 421.0
-offset_right = 776.0
-offset_bottom = 647.0
+offset_left = 386.0
+offset_top = 2.0
+offset_right = 775.0
+offset_bottom = 243.0
 texture = ExtResource("5_fowxk")
 expand_mode = 1
 
 [node name="textocombate" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 421.0
-offset_top = 445.0
-offset_right = 742.0
-offset_bottom = 622.0
+offset_left = 425.0
+offset_top = 6.0
+offset_right = 746.0
+offset_bottom = 220.0
 theme_override_colors/default_color = Color(0.5747718, 0.3360082, 0, 1)
 theme_override_fonts/normal_font = ExtResource("6_n02j2")
 theme_override_font_sizes/normal_font_size = 22
+text = "textocombate"
 autowrap_mode = 2
 
 [node name="playerstats" type="TextureRect" parent="CanvasLayer"]
@@ -61,13 +90,14 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="playerstatstex" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 13.0
-offset_top = 550.0
-offset_right = 373.0
-offset_bottom = 615.0
+offset_left = 34.0
+offset_top = 4.0
+offset_right = 405.0
+offset_bottom = 69.0
 theme_override_colors/default_color = Color(0.5747718, 0.3360082, 0, 1)
 theme_override_fonts/normal_font = ExtResource("6_n02j2")
 theme_override_font_sizes/normal_font_size = 19
+text = "playerstatstex"
 fit_content = true
 autowrap_mode = 2
 tab_size = 3
@@ -83,12 +113,22 @@ stretch_mode = 6
 
 [node name="enemiplayetex" type="RichTextLabel" parent="CanvasLayer"]
 offset_left = 784.0
-offset_top = 549.0
-offset_right = 1141.0
-offset_bottom = 612.0
+offset_top = 7.0
+offset_right = 1147.0
+offset_bottom = 70.0
 theme_override_colors/default_color = Color(0.5764706, 0.3372549, 0, 1)
 theme_override_fonts/normal_font = ExtResource("6_n02j2")
 theme_override_font_sizes/normal_font_size = 19
+text = "enemyplaytex
+"
+
+[node name="LabelEnergia" type="Label" parent="CanvasLayer"]
+self_modulate = Color(0, 0, 0, 1)
+offset_left = 15.0
+offset_top = 539.0
+offset_right = 154.0
+offset_bottom = 581.0
+text = "3/3"
 
 [node name="BtnFinTurno" type="Button" parent="CanvasLayer"]
 offset_left = 1020.0
@@ -97,25 +137,17 @@ offset_right = 1125.0
 offset_bottom = 605.0
 text = "Terminar"
 
-[node name="DropZonePlayer" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("entidad") groups=["DropZones"]]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 369.0
-offset_bottom = 531.0
-script = ExtResource("8_ms847")
-es_zona_propia = true
-entidad = NodePath("../player")
-
-[node name="DropZoneEnemy" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("entidad") groups=["DropZones"]]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 413.0
-offset_right = 1153.0
-offset_bottom = 532.0
-script = ExtResource("8_ms847")
-entidad = NodePath("../enemy")
-
 [node name="Mano" type="HBoxContainer" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 139.0
+offset_top = 410.0
+offset_right = 633.0
+offset_bottom = 614.0
 script = ExtResource("12_wb0gu")
+
+[node name="IntencionEnemigo" type="Label" parent="CanvasLayer"]
+self_modulate = Color(0, 0, 0, 1)
+offset_left = 799.0
+offset_top = 546.0
+offset_right = 980.0
+offset_bottom = 614.0
+text = "intencion"

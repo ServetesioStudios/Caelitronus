@@ -6,10 +6,10 @@
 
 [sub_resource type="Resource" id="Resource_v51al"]
 script = ExtResource("3_8bopv")
-"daño" = 4
+"daño" = 20
 defensa = 7
 esquive = 4
-velocidad = 0.7
+velocidad = 2
 fe = 15
 poder = 4
 metadata/_custom_type_script = "uid://3jdy5elvqaqm"

@@ -7,7 +7,7 @@
 [sub_resource type="Resource" id="Resource_20tst"]
 script = ExtResource("3_u5ler")
 max_hp = 90
-"daño" = 5
+"daño" = 20
 esquive = 6
 velocidad = 0.9
 fe = 12

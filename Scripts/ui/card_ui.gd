@@ -12,17 +12,17 @@ func setear_carta(data: CardData) -> void:
 	carta = data
 	nombre_label.text = data.nombre
 	descripcion_label.text = data.descripcion
-	costo_label.text = str(data.costo)
+	costo_label.text = "Costo:" + str(data.costo)
 	if data.arte != null:
 		arte_rect.texture = data.arte
 
-func _get_drag_data(at_position: Vector2):
-	var preview := duplicate()
-	preview.set_anchors_preset(Control.PRESET_TOP_LEFT)
-	preview.size = size
-	preview.position = Vector2.ZERO
-	preview.modulate.a = 0.7
+func _get_drag_data(_position):
+	var preview := TextureRect.new()
+	preview.texture = arte_rect.texture
+	preview.custom_minimum_size = Vector2(150, 220)
+
 	set_drag_preview(preview)
+
 	modulate.a = 0.4
 	return carta
 

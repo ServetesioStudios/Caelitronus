@@ -7,6 +7,7 @@
 [sub_resource type="Resource" id="Resource_o206c"]
 script = ExtResource("3_j2tl8")
 max_hp = 80
+"daño" = 8
 defensa = 3
 esquive = 10
 velocidad = 1.2

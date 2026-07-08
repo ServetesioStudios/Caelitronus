@@ -9,6 +9,7 @@ signal enemigo_actuo(enemigo: Enemy)
 signal combate_terminado(victoria: bool)
 signal energia_actualizada(actual: int, maxima: int)
 signal intencion_actualizada(enemigo: Enemy)
+signal accion_enemigo_realizada(enemigo: Enemy, descripcion: String)
 
 enum Estado { INICIO, TURNO_JUGADOR, TURNO_ENEMIGO, VICTORIA, DERROTA }
 
@@ -54,24 +55,6 @@ func _ejecutar_turno_enemigo() -> void:
 	if not _verificar_fin_combate():
 		_iniciar_turno_jugador()
 
-func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
-	enemigo_actuo.emit(enemigo)
-	
-	match enemigo.intencion_actual.tipo:
-		IntentData.Tipo.ATACAR:
-			if is_instance_valid(player) and player.hp > 0:
-				var daño = _calcular_daño_enemigo(enemigo, player)
-				if daño > 0:
-					player.recibir_daño(daño)
-					
-		IntentData.Tipo.DEFENDER:
-			enemigo.bloqueo += enemigo.intencion_actual.valor
-		
-		IntentData.Tipo.HABILIDAD:
-			enemigo.activar_habilidad()
-			
-	await get_tree().create_timer(0.6).timeout  # tiempo para que la UI anime el ataque
-
 func _calcular_daño_enemigo(atacante: CombatEntity, defensor: CombatEntity) -> int:
 	var chance = randi() % 100
 	if chance < defensor.esquive or defensor.inmune:
@@ -116,3 +99,26 @@ func es_turno_jugador() -> bool:
 
 func verificar_fin_combate() -> bool:
 	return _verificar_fin_combate()
+	
+func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
+	enemigo_actuo.emit(enemigo)
+	
+	var descripcion := ""
+	match enemigo.intencion_actual.tipo:
+		IntentData.Tipo.ATACAR:
+			if is_instance_valid(player) and player.hp > 0:
+				var daño = _calcular_daño_enemigo(enemigo, player)
+				if daño > 0:
+					player.recibir_daño(daño)
+					descripcion = "%s ataca e inflige %d de daño" % [enemigo.nombre, daño]
+				else:
+					descripcion = "%s atacó, pero fue esquivado" % enemigo.nombre
+		IntentData.Tipo.DEFENDER:
+			enemigo.bloqueo += enemigo.intencion_actual.valor
+			descripcion = "%s se defiende y gana %d de bloqueo" % [enemigo.nombre, enemigo.intencion_actual.valor]
+		IntentData.Tipo.HABILIDAD:
+			enemigo.activar_habilidad()
+			descripcion = "%s usa %s" % [enemigo.nombre, enemigo.habilidad_nombre]
+			
+	accion_enemigo_realizada.emit(enemigo, descripcion)
+	await get_tree().create_timer(0.6).timeout

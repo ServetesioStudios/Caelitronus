@@ -10,8 +10,9 @@ extends Node2D
 @onready var texto_combate = $CanvasLayer/textocombate
 @onready var texto_stats_player = $CanvasLayer/playerstatstex
 @onready var texto_stats_enemy = $CanvasLayer/enemiplayetex
-
+@onready var label_energia = $CanvasLayer/LabelEnergia
 @onready var mano_ui := $CanvasLayer/Mano
+@onready var intencion_enemigo = $CanvasLayer/IntencionEnemigo
 
 var historial_texto = ""
 var max_lineas = 18
@@ -27,25 +28,26 @@ func _ready():
 		mazo_prueba.append(load("res://Data/cartas/golpe.tres"))
 	for i in 5:
 		mazo_prueba.append(load("res://Data/cartas/bloqueo.tres"))
+		
 	deck_manager.iniciar_mazo(mazo_prueba)
-
-	combat_manager.turno_jugador_iniciado.connect(deck_manager.iniciar_turno)
-	combat_manager.turno_jugador_iniciado.connect(func(): print("Turno del jugador"))
-	combat_manager.turno_enemigo_iniciado.connect(func(): print("Turno del enemigo"))
-	
-	combat_manager.intencion_actualizada.connect(_debug_mostrar_intencion)
+	mano_ui.player_ref = player 
 	deck_manager.mano_actualizada.connect(mano_ui.mostrar_mano)
 	
+	combat_manager.turno_jugador_iniciado.connect(deck_manager.iniciar_turno)
+	combat_manager.turno_jugador_iniciado.connect(func(): btn_fin_turno.disabled = false)
+	combat_manager.turno_enemigo_iniciado.connect(func(): btn_fin_turno.disabled = true)
 	combat_manager.combate_terminado.connect(_on_combate_terminado)
-	deck_manager.mano_actualizada.connect(_debug_mostrar_mano)
+	combat_manager.intencion_actualizada.connect(_mostrar_intencion)
+	combat_manager.enemigo_actuo.connect(func(enemigo): animar_ataque(enemigo))
+	combat_manager.accion_enemigo_realizada.connect(_on_accion_enemigo_realizada)
+	
+	player.energia_actualizada.connect(_actualizar_label_energia)
+	player.energia_actualizada.connect(func(_a, _m): mano_ui.actualizar_disponibilidad_todas())
+	
 	btn_fin_turno.pressed.connect(combat_manager.finalizar_turno_jugador)
+	
 	combat_manager.iniciar_combate(player, enemigos)
-
-			
-func _debug_mostrar_mano(mano: Array[CardData]) -> void:
-	print("--- MANO ACTUAL (%d cartas) ---" % mano.size())
-	for carta in mano:
-		print(" - %s (costo %d)" % [carta.nombre, carta.costo])
+	actualizar_stats_ui()
 
 func _on_combate_terminado(victoria: bool):
 	if victoria:
@@ -97,19 +99,19 @@ func intentar_jugar_carta(carta: CardData, objetivo: CombatEntity) -> void:
 		return
 	
 	player.gastar_energia(carta.costo)
+	animar_ataque(player)
 	carta.jugar(player,objetivo)
 	deck_manager.jugar_carta(carta)
 	
 	mostrar_texto("%s juega %s" % [player.nombre, carta.nombre]) 
+	actualizar_stats_ui()
 	
 	_debug_estado_combate()
 	if combat_manager.verificar_fin_combate():
 		return
-		
-func _unhandled_input(event):
-	if event.is_action_pressed("ui_accept") and combat_manager.es_turno_jugador():
-		if deck_manager.mano.size() > 0:
-			intentar_jugar_carta(deck_manager.mano[0], enemy)
+
+func _actualizar_label_energia(actual: int, maxima: int) -> void: 
+	label_energia.text = "Energía: %d / %d" %[actual, maxima]
 
 func _debug_estado_combate():
 	print("Player HP: %d/%d | Player DEF: %d | Energía: %d/%d | Enemy HP: %d/%d" % [
@@ -119,5 +121,15 @@ func _debug_estado_combate():
 		enemy.hp, enemy.max_hp
 	])			
 
-func _debug_mostrar_intencion(enemigo: Enemy):
-	print("%s va a: %s (%d)" % [enemigo.nombre, IntentData.Tipo.keys()[enemigo.intencion_actual.tipo], enemigo.intencion_actual.valor])
+func _mostrar_intencion(enemigo: Enemy) -> void:
+	match enemigo.intencion_actual.tipo:
+		IntentData.Tipo.ATACAR:
+			intencion_enemigo.text = "Siguiente movimiento: Atacar * %s" %str(enemigo.intencion_actual.valor)
+		IntentData.Tipo.DEFENDER:
+			intencion_enemigo.text = "Siguiente movimiento: Defender * %s" %str(enemigo.intencion_actual.valor)
+		IntentData.Tipo.HABILIDAD:
+			intencion_enemigo.text = "Siguiente movimiento: Habilidad * %s" %str(enemigo.intencion_actual.valor)
+
+func _on_accion_enemigo_realizada(enemigo: Enemy, descripcion: String) -> void:
+	mostrar_texto(descripcion)
+	actualizar_stats_ui()
