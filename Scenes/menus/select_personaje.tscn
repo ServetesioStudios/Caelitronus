@@ -176,10 +176,10 @@ expand_mode = 1
 
 [node name="Personajes" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 54.0
-offset_top = 19.0
-offset_right = 1074.0
-offset_bottom = 490.0
+offset_left = 139.0
+offset_top = 85.0
+offset_right = 1159.0
+offset_bottom = 556.0
 theme_override_constants/separation = 120
 
 [node name="PJ_pena" type="Button" parent="Personajes"]
@@ -305,17 +305,17 @@ vertical_alignment = 2
 [node name="PanelInfo" type="Panel" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 82.0
-offset_top = 497.0
-offset_right = 878.0
-offset_bottom = 625.0
+offset_left = 45.0
+offset_top = 580.0
+offset_right = 999.0
+offset_bottom = 708.0
 
 [node name="Titulo" type="Label" parent="PanelInfo"]
 layout_mode = 0
-offset_left = 273.0
-offset_top = 2.0
-offset_right = 518.0
-offset_bottom = 48.0
+offset_left = 397.0
+offset_top = 9.0
+offset_right = 642.0
+offset_bottom = 55.0
 theme_override_colors/font_color = Color(0.79122466, 0.6596201, 0.14132708, 1)
 theme_override_fonts/font = ExtResource("5_nks3u")
 theme_override_font_sizes/font_size = 36
@@ -323,10 +323,10 @@ horizontal_alignment = 1
 
 [node name="Stats" type="Label" parent="PanelInfo"]
 layout_mode = 0
-offset_left = 37.0
-offset_top = 46.0
-offset_right = 761.0
-offset_bottom = 101.0
+offset_left = 16.0
+offset_top = 53.0
+offset_right = 937.0
+offset_bottom = 108.0
 theme_override_colors/font_color = Color(0.7921569, 0.65882355, 0.14117648, 1)
 theme_override_fonts/font = ExtResource("5_nks3u")
 theme_override_font_sizes/font_size = 26
@@ -339,10 +339,10 @@ anchor_left = 0.010000001
 anchor_top = 0.023000002
 anchor_right = 0.133
 anchor_bottom = 0.12200001
-offset_left = 950.48
-offset_top = 520.096
-offset_right = 991.784
-offset_bottom = 523.944
+offset_left = 1033.2
+offset_top = 599.44
+offset_right = 1072.784
+offset_bottom = 605.50397
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_x6bg5")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_tjg0h")
@@ -352,17 +352,17 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_tun08")
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
-offset_right = 178.0
-offset_bottom = 63.0
+offset_right = 194.0
+offset_bottom = 72.343994
 texture = ExtResource("3_26w3f")
 expand_mode = 1
 
 [node name="texto" type="Label" parent="BtnSeleccionar"]
 layout_mode = 0
-offset_left = 17.0
-offset_top = 5.0
-offset_right = 169.0
-offset_bottom = 56.0
+offset_left = 27.0
+offset_top = 12.343994
+offset_right = 179.0
+offset_bottom = 63.343994
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_fonts/font = ExtResource("5_nks3u")
 theme_override_font_sizes/font_size = 40

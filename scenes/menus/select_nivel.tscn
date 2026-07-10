@@ -61,16 +61,16 @@ script = ExtResource("1_58aum")
 [node name="Fondo" type="TextureRect" parent="."]
 modulate = Color(0.90413505, 0.76640046, 0.667267, 1)
 layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_right = 1281.0
+offset_bottom = 720.0
 texture = ExtResource("1_fpbh7")
 expand_mode = 1
 
 [node name="Niveles" type="Control" parent="."]
 anchors_preset = 0
 offset_top = 17.0
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_right = 73.0
+offset_bottom = 89.0
 
 [node name="Lineas" type="Control" parent="Niveles"]
 anchors_preset = 0
@@ -85,40 +85,40 @@ offset_bottom = 40.0
 [node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Negras"]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
-offset_left = 430.0
-offset_top = 108.0
-offset_right = 462.0
-offset_bottom = 518.0
+offset_left = 512.0
+offset_top = 137.0
+offset_right = 544.0
+offset_bottom = 547.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="Niveles/Lineas/Negras"]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
-offset_left = 57.0
-offset_top = 468.0
-offset_right = 89.0
-offset_bottom = 518.0
+offset_left = 139.0
+offset_top = 497.0
+offset_right = 171.0
+offset_bottom = 547.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
 [node name="TextureRect3" type="TextureRect" parent="Niveles/Lineas/Negras"]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
-offset_left = 804.0
-offset_top = 468.0
-offset_right = 836.0
-offset_bottom = 518.0
+offset_left = 886.0
+offset_top = 497.0
+offset_right = 918.0
+offset_bottom = 547.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
 [node name="TextureRect4" type="TextureRect" parent="Niveles/Lineas/Negras"]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
-offset_left = 57.0
-offset_top = 436.0
-offset_right = 836.0
-offset_bottom = 468.0
+offset_left = 139.0
+offset_top = 465.0
+offset_right = 918.0
+offset_bottom = 497.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
@@ -254,10 +254,10 @@ offset_bottom = 40.0
 
 [node name="Serpico" type="Button" parent="Niveles/Botones"]
 layout_mode = 0
-offset_left = 33.0
-offset_top = 518.0
-offset_right = 373.0
-offset_bottom = 598.0
+offset_left = 115.0
+offset_top = 547.0
+offset_right = 455.0
+offset_bottom = 627.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
@@ -307,10 +307,10 @@ expand_mode = 1
 
 [node name="Espina" type="Button" parent="Niveles/Botones"]
 layout_mode = 0
-offset_left = 406.0
-offset_top = 518.0
-offset_right = 746.0
-offset_bottom = 598.0
+offset_left = 488.0
+offset_top = 547.0
+offset_right = 828.0
+offset_bottom = 627.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
@@ -360,10 +360,10 @@ expand_mode = 1
 
 [node name="Eirene" type="Button" parent="Niveles/Botones"]
 layout_mode = 0
-offset_left = 779.0
-offset_top = 518.0
-offset_right = 1119.0
-offset_bottom = 598.0
+offset_left = 861.0
+offset_top = 547.0
+offset_right = 1201.0
+offset_bottom = 627.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
@@ -413,10 +413,10 @@ expand_mode = 1
 
 [node name="Corvus" type="Button" parent="Niveles/Botones"]
 layout_mode = 0
-offset_left = 406.0
-offset_top = 313.0
-offset_right = 746.0
-offset_bottom = 393.0
+offset_left = 488.0
+offset_top = 342.0
+offset_right = 828.0
+offset_bottom = 422.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
@@ -466,10 +466,10 @@ expand_mode = 1
 
 [node name="Galaad" type="Button" parent="Niveles/Botones"]
 layout_mode = 0
-offset_left = 406.0
-offset_top = 173.0
-offset_right = 746.0
-offset_bottom = 253.0
+offset_left = 488.0
+offset_top = 202.0
+offset_right = 828.0
+offset_bottom = 282.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
@@ -519,10 +519,10 @@ expand_mode = 1
 
 [node name="Kapparah" type="Button" parent="Niveles/Botones"]
 layout_mode = 0
-offset_left = 406.0
-offset_top = 33.0
-offset_right = 746.0
-offset_bottom = 113.0
+offset_left = 488.0
+offset_top = 62.0
+offset_right = 828.0
+offset_bottom = 142.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")

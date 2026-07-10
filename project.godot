@@ -22,6 +22,11 @@ MusicManager="*res://Scenes/managers/MusicManager.tscn"
 SceneManager="*res://Scripts/managers/scene_manager.gd"
 GameManager="*res://Scripts/managers/game_manager.gd"
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

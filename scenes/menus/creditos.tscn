@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cntg2uoiu5u5x"]
+[gd_scene load_steps=38 format=3 uid="uid://cntg2uoiu5u5x"]
 
 [ext_resource type="Script" uid="uid://bft701nfh11r4" path="res://Scripts/menus/creditos.gd" id="1_215w6"]
 [ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://Assets/BckGrnd/Nivel.png" id="2_tla2k"]
@@ -17,7 +17,6 @@
 [ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="15_qsxli"]
 [ext_resource type="Texture2D" uid="uid://dnlj1wukc7ad3" path="res://Assets/Icons/der.png" id="16_itsvs"]
 [ext_resource type="Texture2D" uid="uid://0v8cge6fmk2k" path="res://Assets/Icons/izq.png" id="17_f72fs"]
-[ext_resource type="AudioStream" uid="uid://b3x4xja0k3xl7" path="res://Assets/Music/Ruins.wav" id="18_xpjt8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lrn2f"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -67,6 +66,11 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="LabelSettings" id="LabelSettings_215w6"]
+font = ExtResource("3_sjgso")
+font_size = 28
+font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xvgel"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 5
@@ -115,6 +119,11 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="LabelSettings" id="LabelSettings_rt6ot"]
+font = ExtResource("3_sjgso")
+font_size = 29
+font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f2a5c"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 5
@@ -126,6 +135,11 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_tla2k"]
+font = ExtResource("3_sjgso")
+font_size = 28
+font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bs8hc"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -231,15 +245,17 @@ script = ExtResource("1_215w6")
 [node name="Fondo" type="TextureRect" parent="."]
 modulate = Color(0.90413505, 0.76640046, 0.667267, 1)
 layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_right = 1278.0
+offset_bottom = 717.0
 texture = ExtResource("2_tla2k")
 expand_mode = 1
 
 [node name="Creditos" type="Label" parent="."]
 layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 100.0
+offset_left = 1.0
+offset_top = 7.0
+offset_right = 1277.0
+offset_bottom = 107.0
 theme_override_colors/font_color = Color(0.9995722, 0.8720149, 0.66100925, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 5
@@ -256,9 +272,10 @@ vertical_alignment = 1
 
 [node name="Caelitronus" type="Label" parent="."]
 layout_mode = 0
-offset_top = 100.0
-offset_right = 1152.0
-offset_bottom = 205.0
+offset_left = 53.0
+offset_top = 93.0
+offset_right = 1205.0
+offset_bottom = 237.0
 theme_override_colors/font_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9843137)
 theme_override_constants/shadow_offset_x = 2
@@ -274,9 +291,10 @@ vertical_alignment = 1
 
 [node name="Tipo" type="Label" parent="."]
 layout_mode = 0
-offset_top = 200.0
-offset_right = 1152.0
-offset_bottom = 300.0
+offset_left = 72.0
+offset_top = 260.0
+offset_right = 1224.0
+offset_bottom = 360.0
 theme_override_colors/font_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
@@ -291,9 +309,10 @@ vertical_alignment = 1
 
 [node name="Desarrolladores" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_top = 310.0
-offset_right = 1152.0
-offset_bottom = 598.0
+offset_left = 73.0
+offset_top = 370.0
+offset_right = 1225.0
+offset_bottom = 658.0
 theme_override_constants/separation = 20
 alignment = 1
 
@@ -314,15 +333,14 @@ texture = ExtResource("5_nwsv2")
 
 [node name="Label" type="Label" parent="Desarrolladores/Javier"]
 layout_mode = 0
-offset_left = -20.0
+offset_left = 2.0
 offset_top = 1.0
-offset_right = 220.0
+offset_right = 204.0
 offset_bottom = 86.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 32
-text = "Javier
-Juarez"
+text = "Javier Juarez"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -354,15 +372,14 @@ texture = ExtResource("6_xotio")
 
 [node name="Label" type="Label" parent="Desarrolladores/Matias"]
 layout_mode = 0
-offset_left = 1.0
+offset_left = 11.0
 offset_top = 11.0
 offset_right = 197.0
 offset_bottom = 75.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 32
-text = "Matias 
-Diaz"
+text = "Matias Diaz"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -394,15 +411,15 @@ texture = ExtResource("7_xl75b")
 
 [node name="Label" type="Label" parent="Desarrolladores/Adrian"]
 layout_mode = 0
-offset_left = 2.0
-offset_top = 11.0
-offset_right = 198.0
-offset_bottom = 96.0
+offset_left = -2.0
+offset_top = -5.0
+offset_right = 213.0
+offset_bottom = 87.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 32
-text = "Adrian 
-Briosso"
+text = "Adrian Briosso"
+label_settings = SubResource("LabelSettings_215w6")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -475,13 +492,12 @@ texture = ExtResource("9_a2sw1")
 layout_mode = 0
 offset_left = 14.0
 offset_top = 8.0
-offset_right = 210.0
+offset_right = 204.0
 offset_bottom = 93.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 32
-text = "Uriel 
-Lara"
+text = "Uriel Lara"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -499,9 +515,10 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_3ghxt")
 [node name="Voces" type="HBoxContainer" parent="."]
 visible = false
 layout_mode = 0
-offset_top = 310.0
-offset_right = 1152.0
-offset_bottom = 598.0
+offset_left = 73.0
+offset_top = 370.0
+offset_right = 1193.0
+offset_bottom = 658.0
 theme_override_constants/separation = 20
 alignment = 1
 
@@ -529,8 +546,7 @@ offset_bottom = 71.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 32
-text = "Anto 
-Fiori"
+text = "Anto Fiori"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -602,13 +618,13 @@ texture = ExtResource("12_jd85i")
 layout_mode = 0
 offset_left = 10.0
 offset_top = 5.0
-offset_right = 206.0
+offset_right = 205.0
 offset_bottom = 69.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 32
-text = "Thiago 
-Ferraro"
+text = "Thiago Ferraro"
+label_settings = SubResource("LabelSettings_rt6ot")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -678,15 +694,15 @@ texture = ExtResource("13_etnac")
 
 [node name="Label" type="Label" parent="Voces/Joaquin"]
 layout_mode = 0
-offset_left = 9.0
+offset_left = 3.0
 offset_top = 4.0
-offset_right = 205.0
+offset_right = 204.0
 offset_bottom = 89.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 32
-text = "Joaquin 
-Iglesias"
+text = "Joaquin Iglesias"
+label_settings = SubResource("LabelSettings_tla2k")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -734,9 +750,9 @@ horizontal_alignment = 1
 
 [node name="Links" type="Button" parent="."]
 layout_mode = 0
-offset_left = 950.0
+offset_left = 1067.0
 offset_top = 10.0
-offset_right = 1142.0
+offset_right = 1259.0
 offset_bottom = 122.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_lrn2f")
@@ -762,10 +778,10 @@ offset_bottom = 109.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 40
-text = "Servetesio 
-Studio"
+text = "Servetesio Studio"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="HoverSound" type="AudioStreamPlayer" parent="Links"]
 stream = ExtResource("15_qsxli")
@@ -774,10 +790,10 @@ bus = &"SFX"
 
 [node name="ButtonDer" type="Button" parent="."]
 layout_mode = 0
-offset_left = 888.0
-offset_top = 210.0
-offset_right = 968.0
-offset_bottom = 282.0
+offset_left = 1162.0
+offset_top = 269.0
+offset_right = 1242.0
+offset_bottom = 341.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_5dhh5")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_8vhsq")
@@ -831,18 +847,7 @@ offset_bottom = 65.0
 texture = ExtResource("17_f72fs")
 expand_mode = 1
 
-[node name="musica" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("18_xpjt8")
-volume_db = -3.0
-autoplay = true
-bus = &"Music"
-
 [node name="HoverSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("15_qsxli")
-volume_db = -1.0
-bus = &"SFX"
-
-[node name="HoverSound" type="AudioStreamPlayer" parent="HoverSound"]
 stream = ExtResource("15_qsxli")
 volume_db = -1.0
 bus = &"SFX"

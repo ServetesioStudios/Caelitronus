@@ -57,24 +57,24 @@ script = ExtResource("1_dojii")
 [node name="Fondo" type="TextureRect" parent="."]
 modulate = Color(0.2533432, 0.2957271, 0.22637159, 1)
 layout_mode = 0
-offset_left = 196.0
-offset_top = 63.0
-offset_right = 947.0
-offset_bottom = 591.0
+offset_left = 259.0
+offset_top = 71.0
+offset_right = 1010.0
+offset_bottom = 599.0
 texture = ExtResource("2_l0dfj")
 expand_mode = 1
 
 [node name="opciones" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.054
-anchor_top = 0.39400002
+anchor_left = 0.062000003
+anchor_top = 0.066
 anchor_right = 0.938
 anchor_bottom = 0.9480001
-offset_left = 269.792
-offset_top = -50.180008
-offset_right = -267.57605
-offset_bottom = -50.17206
+offset_left = 255.95
+offset_top = 166.67801
+offset_right = -263.95007
+offset_bottom = -128.71606
 theme_override_constants/separation = 15
 
 [node name="music" type="Label" parent="opciones"]
@@ -126,10 +126,10 @@ anchor_left = 0.010000001
 anchor_top = 0.023000002
 anchor_right = 0.133
 anchor_bottom = 0.12200001
-offset_left = 204.53
-offset_top = 92.297
-offset_right = 210.83401
-offset_bottom = 96.14499
+offset_left = 267.53
+offset_top = 100.297
+offset_right = 273.83398
+offset_bottom = 104.14498
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_jg833")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_nv4yc")
@@ -140,17 +140,17 @@ script = ExtResource("4_p3tvd")
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
-offset_right = 143.0
-offset_bottom = 63.0
+offset_right = 161.72
+offset_bottom = 70.212006
 texture = ExtResource("2_l0dfj")
 expand_mode = 1
 
 [node name="texto" type="Label" parent="BtnVolver"]
 layout_mode = 0
-offset_left = 20.0
-offset_top = 7.0
-offset_right = 126.0
-offset_bottom = 58.0
+offset_left = 32.72
+offset_top = 12.212006
+offset_right = 138.72
+offset_bottom = 63.212006
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_fonts/font = ExtResource("3_ctf5j")
 theme_override_font_sizes/font_size = 40

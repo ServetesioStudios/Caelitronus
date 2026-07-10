@@ -21,10 +21,10 @@ _data = {
 script = ExtResource("1_g2els")
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
-offset_left = 63.0
-offset_top = 129.0
-offset_right = 306.0
-offset_bottom = 176.0
+offset_left = 30.0
+offset_top = 3.0
+offset_right = 273.0
+offset_bottom = 50.0
 value = 100.0
 texture_under = ExtResource("3_dqkch")
 texture_progress = ExtResource("4_qlg0r")
@@ -35,7 +35,7 @@ libraries = {
 }
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(174.99998, 393)
+position = Vector2(143, 297)
 scale = Vector2(1.1070039, 1.1714286)
 texture = ExtResource("1_3vyb7")
 

@@ -10,10 +10,11 @@ enum TipoObjetivo {
 
 @export var nombre: String
 @export_multiline var descripcion: String
-@export var costo: int = 1
-@export var tipo_objetivo: TipoObjetivo = TipoObjetivo.ENEMIGO_CUALQUIERA
-@export var arte: Texture2D
 @export var efectos: Array[EffectData] = []
+@export var tipo_objetivo: TipoObjetivo = TipoObjetivo.ENEMIGO_CUALQUIERA
+@export var costo: int = 1
+@export var arte: Texture2D
+
 
 func jugar(fuente: CombatEntity, objetivo: CombatEntity) -> void:
 	for efecto in efectos:

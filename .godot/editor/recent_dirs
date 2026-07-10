@@ -1,6 +1,9 @@
+res://Scripts/enemigos
+res://Scenes/enemigos
+res://Assets/Cartas
+res://Data/cartas
 res://Scripts/ui
 res://Scripts/batalla
-res://Data/cartas
 res://Scripts
 res://Assets/Icons
 res://scenes/managers

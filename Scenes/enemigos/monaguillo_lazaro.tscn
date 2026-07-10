@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuyai5td2vp8s"]
+
+[ext_resource type="PackedScene" uid="uid://dtlvudb7gixqy" path="res://Scenes/enemy.tscn" id="1_m364l"]
+[ext_resource type="Script" uid="uid://dk60gg4fnxhdg" path="res://Scripts/enemigos/enemigo_autocuracion_por_contador.gd" id="2_jhelr"]
+
+[node name="Node2D" instance=ExtResource("1_m364l")]
+script = ExtResource("2_jhelr")
+incremento_por_ataque = 4
+porcentaje_curacion = 1.0

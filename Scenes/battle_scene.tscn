@@ -1,16 +1,19 @@
-[gd_scene load_steps=12 format=3 uid="uid://dmu6hcrme284g"]
+[gd_scene load_steps=13 format=3 uid="uid://dmu6hcrme284g"]
 
 [ext_resource type="Texture2D" uid="uid://1ujq4vhia20d" path="res://Assets/BckGrnd/Bonefield_mvt.png" id="1_bxpjm"]
 [ext_resource type="Script" uid="uid://ta11uy1xj5dd" path="res://Scripts/batalla/battle_scene.gd" id="1_qf52c"]
 [ext_resource type="PackedScene" uid="uid://bjsf3q6hvbyji" path="res://Scenes/player.tscn" id="2_4ohde"]
-[ext_resource type="PackedScene" uid="uid://dtlvudb7gixqy" path="res://Scenes/enemy.tscn" id="3_1gdom"]
 [ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="5_fowxk"]
 [ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="6_n02j2"]
+[ext_resource type="PackedScene" uid="uid://bwcqpjd6438sc" path="res://Scenes/enemigos/monaguillo_oscuro.tscn" id="7_f4ggb"]
 [ext_resource type="Texture2D" uid="uid://bxu6hgpccqqdf" path="res://Assets/BckGrnd/papersideborder.png" id="7_n02j2"]
 [ext_resource type="Script" uid="uid://cjxi2c8jyhqcn" path="res://Scripts/ui/drop_zone.gd" id="8_ms847"]
 [ext_resource type="Script" uid="uid://dbapsc8dah0c4" path="res://Scripts/batalla/combat_manager.gd" id="8_w4764"]
 [ext_resource type="Script" uid="uid://eg85yacwhx1v" path="res://Scripts/batalla/deck_manager.gd" id="9_ed262"]
 [ext_resource type="Script" uid="uid://3hhe153qj06q" path="res://Scripts/ui/mano.gd" id="12_wb0gu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_f4ggb"]
+font = ExtResource("6_n02j2")
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_qf52c")
@@ -38,62 +41,56 @@ entidad = NodePath("../player")
 layout_mode = 3
 anchors_preset = 0
 offset_left = 413.0
-offset_right = 1153.0
-offset_bottom = 532.0
+offset_right = 1276.0
+offset_bottom = 577.0
 script = ExtResource("8_ms847")
 entidad = NodePath("../enemy")
 
 [node name="BonefieldMvt" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(576.5, 321.99997)
-scale = Vector2(1.155, 0.8756756)
+position = Vector2(642, 358.5)
+scale = Vector2(1.2859999, 0.97432435)
 texture = ExtResource("1_bxpjm")
 
 [node name="player" parent="CanvasLayer" instance=ExtResource("2_4ohde")]
-position = Vector2(3, -73)
+position = Vector2(71, 72)
 
-[node name="enemy" parent="CanvasLayer" instance=ExtResource("3_1gdom")]
-position = Vector2(-17, -68)
-
-[node name="papelcombate2" type="TextureRect" parent="CanvasLayer"]
-offset_left = 385.0
-offset_top = 454.0
-offset_right = 774.0
-offset_bottom = 637.0
-texture = ExtResource("5_fowxk")
-expand_mode = 1
+[node name="enemy" parent="CanvasLayer" instance=ExtResource("7_f4ggb")]
+position = Vector2(838, 98)
+duracion_turnos = 5
 
 [node name="papelcombate" type="TextureRect" parent="CanvasLayer"]
-offset_left = 386.0
-offset_top = 2.0
-offset_right = 775.0
-offset_bottom = 243.0
+offset_left = 306.0
+offset_top = 460.0
+offset_right = 980.0
+offset_bottom = 701.0
 texture = ExtResource("5_fowxk")
 expand_mode = 1
 
 [node name="textocombate" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 425.0
-offset_top = 6.0
-offset_right = 746.0
-offset_bottom = 220.0
+offset_left = 948.0
+offset_top = 8.0
+offset_right = 1269.0
+offset_bottom = 134.0
 theme_override_colors/default_color = Color(0.5747718, 0.3360082, 0, 1)
 theme_override_fonts/normal_font = ExtResource("6_n02j2")
 theme_override_font_sizes/normal_font_size = 22
-text = "textocombate"
 autowrap_mode = 2
+horizontal_alignment = 2
 
 [node name="playerstats" type="TextureRect" parent="CanvasLayer"]
-offset_top = 531.0
-offset_right = 388.0
-offset_bottom = 638.0
+offset_left = 16.0
+offset_top = 610.0
+offset_right = 305.0
+offset_bottom = 705.0
 texture = ExtResource("7_n02j2")
 expand_mode = 1
 stretch_mode = 6
 
 [node name="playerstatstex" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 34.0
-offset_top = 4.0
-offset_right = 405.0
-offset_bottom = 69.0
+offset_left = 13.0
+offset_top = 5.0
+offset_right = 403.0
+offset_bottom = 30.0
 theme_override_colors/default_color = Color(0.5747718, 0.3360082, 0, 1)
 theme_override_fonts/normal_font = ExtResource("6_n02j2")
 theme_override_font_sizes/normal_font_size = 19
@@ -103,19 +100,19 @@ autowrap_mode = 2
 tab_size = 3
 
 [node name="enemistats" type="TextureRect" parent="CanvasLayer"]
-offset_left = 775.0
-offset_top = 532.0
-offset_right = 1154.0
-offset_bottom = 639.0
+offset_left = 983.0
+offset_top = 611.0
+offset_right = 1262.0
+offset_bottom = 706.0
 texture = ExtResource("7_n02j2")
 expand_mode = 1
 stretch_mode = 6
 
 [node name="enemiplayetex" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 784.0
-offset_top = 7.0
-offset_right = 1147.0
-offset_bottom = 70.0
+offset_left = 531.0
+offset_top = 3.0
+offset_right = 925.0
+offset_bottom = 82.0
 theme_override_colors/default_color = Color(0.5764706, 0.3372549, 0, 1)
 theme_override_fonts/normal_font = ExtResource("6_n02j2")
 theme_override_font_sizes/normal_font_size = 19
@@ -124,30 +121,23 @@ text = "enemyplaytex
 
 [node name="LabelEnergia" type="Label" parent="CanvasLayer"]
 self_modulate = Color(0, 0, 0, 1)
-offset_left = 15.0
-offset_top = 539.0
-offset_right = 154.0
-offset_bottom = 581.0
+offset_left = 39.0
+offset_top = 628.0
+offset_right = 178.0
+offset_bottom = 670.0
 text = "3/3"
+label_settings = SubResource("LabelSettings_f4ggb")
 
 [node name="BtnFinTurno" type="Button" parent="CanvasLayer"]
-offset_left = 1020.0
-offset_top = 557.0
-offset_right = 1125.0
-offset_bottom = 605.0
+offset_left = 1147.0
+offset_top = 637.0
+offset_right = 1252.0
+offset_bottom = 685.0
 text = "Terminar"
 
 [node name="Mano" type="HBoxContainer" parent="CanvasLayer"]
-offset_left = 139.0
-offset_top = 410.0
-offset_right = 633.0
-offset_bottom = 614.0
+offset_left = 332.0
+offset_top = 470.0
+offset_right = 956.0
+offset_bottom = 694.0
 script = ExtResource("12_wb0gu")
-
-[node name="IntencionEnemigo" type="Label" parent="CanvasLayer"]
-self_modulate = Color(0, 0, 0, 1)
-offset_left = 799.0
-offset_top = 546.0
-offset_right = 980.0
-offset_bottom = 614.0
-text = "intencion"

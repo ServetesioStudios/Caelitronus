@@ -1,6 +1,11 @@
 class_name CombatEntity
 extends Node
 
+enum TipoEstado { SANGRADO, VENENO }
+var estados: Dictionary = {}
+var esquive_buff_valor: int = 0
+var esquive_buff_turnos: int = 0
+
 var nombre: String
 var stats: Stats
 
@@ -26,13 +31,15 @@ var inmune := false
 
 var base_tiempo_ataque := 0.0
 var habilidad_activa := false
-var habilidad_timer := 0.0
+#var habilidad_timer := 0.0
 var cooldown_habilidad := 0.0
 var habilidad_nombre := ""
 
 var tiempo_ataque := 0.0
 var vida_tween = null
 var color_base: Color = Color(1, 1, 1, 1)
+
+
 
 func aplicar_stats(s: Stats) -> void:
 	stats = s
@@ -45,20 +52,22 @@ func aplicar_stats(s: Stats) -> void:
 	fe = s.fe
 	poder = s.poder
 	base_tiempo_ataque = s.base_tiempo_ataque
-	
+
 func _process(delta):
 	tiempo_ataque -= delta
-	if cooldown_habilidad > 0:
-		cooldown_habilidad -= delta
-	if habilidad_activa:
-		habilidad_timer -= delta
-		if habilidad_timer <= 0:
-			desactivar_habilidad()
-	if hp > 0 and cooldown_habilidad <= 0:
-		evaluar_activacion_habilidad()
+	#if cooldown_habilidad > 0:
+		#cooldown_habilidad -= delta
+	#if habilidad_activa:
+		#habilidad_timer -= delta
+		#if habilidad_timer <= 0:
+			#desactivar_habilidad()
+	#if hp > 0 and cooldown_habilidad <= 0:
+		#evaluar_activacion_habilidad()
 
-func evaluar_activacion_habilidad() -> void:
-	pass
+
+
+#func evaluar_activacion_habilidad() -> void:
+	#pass
 
 func activar_habilidad() -> void:
 	habilidad_activa = true
@@ -71,6 +80,8 @@ func desactivar_habilidad() -> void:
 	robo_vida = false
 	doble_golpe = false
 	inmune = false
+
+
 
 func puede_atacar() -> bool:
 	return tiempo_ataque <= 0 and hp > 0
@@ -89,7 +100,7 @@ func recibir_daño(cantidad: int, ignora_bloqueo: bool = false) -> void:
 		bloqueo -= absorbido
 		daño_restante -= absorbido
 	if daño_restante > 0:
-		hp -= cantidad
+		hp -= daño_restante
 		hp = max(hp, 0)
 	
 	actualizar_barra_vida()
@@ -114,3 +125,61 @@ func actualizar_barra_vida() -> void:
 		barra.modulate = Color(0.81, 0.692, 0.377)
 	else:
 		barra.modulate = Color(0.907, 0.337, 0.268)
+
+
+
+func aplicar_estado(tipo: TipoEstado, cantidad: int) -> void:
+	estados[tipo] = estados.get(tipo, 0) + cantidad
+
+func tiene_estado(tipo: TipoEstado) -> bool:
+	return estados.get(tipo, 0) > 0
+	
+func procesar_estados() -> void:
+	if tiene_estado(TipoEstado.SANGRADO):
+		var stacks = estados[TipoEstado.SANGRADO]
+		recibir_daño(stacks, true)
+		estados[TipoEstado.SANGRADO] = max(stacks - 1, 0)
+
+	if tiene_estado(TipoEstado.VENENO):
+		var stacks = estados[TipoEstado.VENENO]
+		recibir_daño(stacks, false)
+		estados[TipoEstado.VENENO] = max(stacks - 1, 0)
+
+	if esquive_buff_turnos > 0:
+		esquive_buff_turnos -= 1
+		if esquive_buff_turnos <= 0:
+			esquive_buff_valor = 0
+
+func esquive_efectivo() -> int:
+	return esquive + esquive_buff_valor
+
+func reproducir_animacion(tipo: IntentData.Tipo) -> void:
+	# comportamiento genérico por defecto: un tween simple según el tipo
+	match tipo:
+		IntentData.Tipo.ATACAR:
+			_tween_ataque()
+		IntentData.Tipo.DEFENDER:
+			_tween_defensa()
+		IntentData.Tipo.HABILIDAD:
+			_tween_habilidad()
+
+func _tween_ataque() -> void:
+	var tween = create_tween()
+	var pos_original = self.position
+	var distancia = 40
+	var pos_ataque = pos_original + (Vector2(distancia, 0) if self == Player else Vector2(distancia, 0))
+	tween.tween_property(self, "position", pos_ataque, 0.1)
+	tween.tween_property(self, "position", pos_original, 0.1)
+	
+
+func _tween_defensa() -> void:
+	var tween = create_tween()
+	var pos_original = self.position
+	tween.tween_property(self, "position", pos_original + Vector2(0, -40), 0.1)
+	tween.tween_property(self, "position", pos_original, 0.1)
+
+func _tween_habilidad() -> void:
+	var tween = create_tween()
+	var pos_original = self.position
+	tween.tween_property(self, "position", pos_original + Vector2(0, -20), 0.1)
+	tween.tween_property(self, "position", pos_original, 0.1)
