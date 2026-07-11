@@ -76,19 +76,21 @@ func _actualizar_label_energia(actual: int, maxima: int) -> void:
 
 func actualizar_stats_ui() -> void:
 	if is_instance_valid(player):
-		texto_stats_player.text = "ATQ= %s     VEL= %s     PODER= %s\nDEF= %s     ESQ= %s     FE= %s\nBloqueo= %d     Sangrado= %d     Veneno= %d" % [
-			player.daño, player.velocidad, player.poder, player.defensa, player.esquive, player.fe,
-			player.bloqueo,
-			player.estados.get(CombatEntity.TipoEstado.SANGRADO, 0),
-			player.estados.get(CombatEntity.TipoEstado.VENENO, 0)
-		]	
+		texto_stats_player.text = "hp: %d/%d      Bloqueo: %d" % [player.hp, player.max_hp, player.bloqueo]	
+		#texto_stats_player.text = "ATQ= %s     VEL= %s     PODER= %s\nDEF= %s     ESQ= %s     FE= %s\nBloqueo= %d     Sangrado= %d     Veneno= %d" % [
+			#player.daño, player.velocidad, player.poder, player.defensa, player.esquive, player.fe,
+			#player.bloqueo,
+			#player.estados.get(CombatEntity.TipoEstado.SANGRADO, 0),
+			#player.estados.get(CombatEntity.TipoEstado.VENENO, 0)
+		#]	
 	if is_instance_valid(enemy):
-		texto_stats_enemy.text = "ATQ= %s     VEL= %s     PODER= %s\nDEF= %s     ESQ= %s     FE= %s\nBloqueo= %d     Sangrado= %d     Veneno= %d" % [
-			enemy.daño, enemy.velocidad, enemy.poder, enemy.defensa, enemy.esquive, enemy.fe,
-			enemy.bloqueo,
-			enemy.estados.get(CombatEntity.TipoEstado.SANGRADO, 0),
-			enemy.estados.get(CombatEntity.TipoEstado.VENENO, 0)
-		]
+		texto_stats_enemy.text = "hp: %d/%d      Bloqueo= %d" % [enemy.hp, enemy.max_hp,enemy.bloqueo]
+		#texto_stats_enemy.text = "ATQ= %s     VEL= %s     PODER= %s\nDEF= %s     ESQ= %s     FE= %s\nBloqueo= %d     Sangrado= %d     Veneno= %d" % [
+			#enemy.daño, enemy.velocidad, enemy.poder, enemy.defensa, enemy.esquive, enemy.fe,
+			#enemy.bloqueo,
+			#enemy.estados.get(CombatEntity.TipoEstado.SANGRADO, 0),
+			#enemy.estados.get(CombatEntity.TipoEstado.VENENO, 0)
+		#]
 
 
 func _crear_mazo_inicial() -> Array[CardData]:

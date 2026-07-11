@@ -1,5 +1,5 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1783719188
+::res://::1783725180
 default_bus_layout.tres::AudioBusLayout::3613183280232800959::1780826530::0::1::::<><><>0<>0<><>::
 icon.svg::CompressedTexture2D::6637943192390016884::1780826530::1780826612::1::::<><><>0<>0<>7b0e0cdf6d2b353c7934f6358bac4642<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 ::res://Assets/::1783679740
@@ -22,12 +22,14 @@ oscuro.png::CompressedTexture2D::7218017543941722681::1780826530::1783455804::1:
 sagrados.png::CompressedTexture2D::1993628667011304531::1780826530::1783455804::1::::<><><>0<>0<>6a266322e3cc6fd43fb4c63a62046dd4<>res://.godot/imported/sagrados.png-6229cf1c87a1b8317eaaea83bf8c3333.ctex::
 Tzafiel.png::CompressedTexture2D::846659872391241899::1780826530::1783455804::1::::<><><>0<>0<>e8e8840c46b322b2499e3a29d4948fce<>res://.godot/imported/Tzafiel.png-2170fcbb29da40d665ab182544d5e0bc.ctex::
 vahruksha.png::CompressedTexture2D::2826183605606911931::1780826530::1783455804::1::::<><><>0<>0<>916e7e40069efc7eddb5838cf6124e0e<>res://.godot/imported/vahruksha.png-33af914439b9d39b9b8b0fed53861ed6.ctex::
-::res://Assets/Cartas/::1783682251
-cardataque.png::CompressedTexture2D::6251795066788940170::1783682218::1783682251::1::::<><><>0<>0<>331f5c2596119e1b3e2325e5a253dd89<>res://.godot/imported/cardataque.png-f861d20cd882366af695fb26078a89a0.ctex::
-cardataque_original.png::CompressedTexture2D::8597823501790736988::1783679576::1783680156::1::::<><><>0<>0<>ac952ad7982e66148514d34da0527bfe<>res://.godot/imported/cardataque_original.png-83a0cf97751096b0e6930d6a41aa4657.ctex::
-cardbloqueo.png::CompressedTexture2D::2922506666317173901::1783682218::1783682251::1::::<><><>0<>0<>8878a3bda30c9b0aeb0018b97cb5ab71<>res://.godot/imported/cardbloqueo.png-12667a0bacdf9897cbb45897e3380f99.ctex::
-cardbloqueo_original.png::CompressedTexture2D::2800124668995137221::1783679576::1783680156::1::::<><><>0<>0<>e31b4ad71129560ce01a34e7e2ddd174<>res://.godot/imported/cardbloqueo_original.png-b698becd02e1df87e616abe0e518913a.ctex::
-carta1.png::CompressedTexture2D::8151425605614292832::1783682218::1783682251::1::::<><><>0<>0<>6a8ce21e632afed9ee965dac430be90b<>res://.godot/imported/carta1.png-f496064f094426627fb1c5e26608b358.ctex::
+::res://Assets/Cartas/::1783732051
+cardataque.png::CompressedTexture2D::1048850987958154560::1783732032::1783732053::1::::<><><>0<>0<>9e84f852910dc217f2d9d752174189cd<>res://.godot/imported/cardataque.png-f861d20cd882366af695fb26078a89a0.ctex::
+cardbloqueo.png::CompressedTexture2D::3722307017712021689::1783732032::1783732053::1::::<><><>0<>0<>9c9df2c0b9d4b8be43607cb326a95994<>res://.godot/imported/cardbloqueo.png-12667a0bacdf9897cbb45897e3380f99.ctex::
+cardenergia.png::CompressedTexture2D::4199248459707823434::1783732032::1783732053::1::::<><><>0<>0<>ff9815fb4ef5fb484d436e0afa7c6eac<>res://.godot/imported/cardenergia.png-fd0e64d2d7ba10118353df12dc5ba4a9.ctex::
+::res://Assets/Cartas/originales/::1783731992
+cardataque.png::CompressedTexture2D::6251795066788940170::1783731781::1783732053::1::::<><><>0<>0<>caa9f56f8ff98ec062c1fdd02a0acefa<>res://.godot/imported/cardataque.png-d0fb42809c85b57953cc11a7ae692352.ctex::
+cardbloqueo.png::CompressedTexture2D::2922506666317173901::1783731781::1783732053::1::::<><><>0<>0<>903deae79ebf4f36ddf60f939846cca3<>res://.godot/imported/cardbloqueo.png-dce6feaa05e2ed644568ce1979fca5db.ctex::
+cardenergia.png::CompressedTexture2D::5426867327937277564::1783731781::1783732053::1::::<><><>0<>0<>cd915fe4d3e8b5f6ecc3329716a3a70d<>res://.godot/imported/cardenergia.png-ca7478f9d3d9d058d4847d6496d871a0.ctex::
 ::res://Assets/ChArt/::1783455804
 caelius de ego.png::CompressedTexture2D::1085911861691540437::1780826530::1783455804::1::::<><><>0<>0<>8af98981002e7a1e81941ddb9008f3c2<>res://.godot/imported/caelius de ego.png-c938a8d353ddd67925aef3bd48153815.ctex::
 caelius de ira.png::CompressedTexture2D::6585717183817600689::1780826530::1783455804::1::::<><><>0<>0<>d0ead8ca19cd90acde1349b9f0b334cd<>res://.godot/imported/caelius de ira.png-8b917a762ca2ba5d590c5ae1be9a22ff.ctex::
@@ -120,50 +122,49 @@ monaguillo_sagrado.tres::Resource/EnemyData::778965269850000610::1783722101::0::
 glosario.cfg::TextFile::-1::1783455715::0::1::::<><><>0<>0<><>::
 ::res://Data/ui/::1783455715
 tema_menu.tres::Resource/UIThemeData::966189042755823472::1783455715::0::1::::<><><>0<>0<><>::uid://b5wna6njqp2gq::::res://Scripts/data/ui_theme_data.gd
-::res://Scenes/::1783724982
-battle_scene.tscn::PackedScene::8044710589010028092::1783725126::0::1::::<><><>0<>0<><>::uid://1ujq4vhia20d::::res://Assets/BckGrnd/Bonefield_mvt.png<>uid://ta11uy1xj5dd::::res://Scripts/batalla/battle_scene.gd<>uid://bjsf3q6hvbyji::::res://Scenes/player.tscn<>uid://c8m4k5tnnhfda::::res://Assets/BckGrnd/paperallborder.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://bxu6hgpccqqdf::::res://Assets/BckGrnd/papersideborder.png<>uid://cjxi2c8jyhqcn::::res://Scripts/ui/drop_zone.gd<>uid://dbapsc8dah0c4::::res://Scripts/batalla/combat_manager.gd<>uid://eg85yacwhx1v::::res://Scripts/batalla/deck_manager.gd<>uid://3hhe153qj06q::::res://Scripts/ui/mano.gd
+::res://Scenes/::1783730322
+battle_scene.tscn::PackedScene::8044710589010028092::1783730322::0::1::::<><><>0<>0<><>::uid://1ujq4vhia20d::::res://Assets/BckGrnd/Bonefield_mvt.png<>uid://ta11uy1xj5dd::::res://Scripts/batalla/battle_scene.gd<>uid://bjsf3q6hvbyji::::res://Scenes/player.tscn<>uid://c8m4k5tnnhfda::::res://Assets/BckGrnd/paperallborder.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://bxu6hgpccqqdf::::res://Assets/BckGrnd/papersideborder.png<>uid://cjxi2c8jyhqcn::::res://Scripts/ui/drop_zone.gd<>uid://dbapsc8dah0c4::::res://Scripts/batalla/combat_manager.gd<>uid://eg85yacwhx1v::::res://Scripts/batalla/deck_manager.gd<>uid://3hhe153qj06q::::res://Scripts/ui/mano.gd
 enemy.tscn::PackedScene::8516869168799917684::1783628217::0::1::::<><><>0<>0<><>::uid://dyymoxpfdamvl::::res://Scripts/enemy.gd<>uid://c5frbhsbnmeve::::res://Data/enemigos/monaguillo_lazaro.tres<>uid://crlis0e7fcf4e::::res://Assets/ui/lifeGaugeAlpha.png<>uid://cv6wcbyj6ymdy::::res://Assets/ui/lifeGaugeLlen.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf
 player.tscn::PackedScene::3055633551810355474::1783608898::0::1::::<><><>0<>0<><>::uid://deohthvug7cxx::::res://Assets/BttlSprit/fause.png<>uid://dimsfxq4ijnuj::::res://Scripts/player.gd<>uid://crlis0e7fcf4e::::res://Assets/ui/lifeGaugeAlpha.png<>uid://cv6wcbyj6ymdy::::res://Assets/ui/lifeGaugeLlen.png
 subir_nivel.tscn::PackedScene::5362497787170136551::1783611699::0::1::::<><><>0<>0<><>::uid://bejfl33gjhhj2::::res://Scripts/subir_nivel.gd<>uid://buu016yjlw7su::::res://Assets/BckGrnd/Nivel.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://c8m4k5tnnhfda::::res://Assets/BckGrnd/paperallborder.png<>uid://b42nd1ocqfu1s::::res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav
 ::res://Scenes/cinematicas/::1783455716
 cinematica_inicio.tscn::PackedScene::5494887449441400172::1783455716::0::1::::<><><>0<>0<><>::uid://ra06n4r7mpyr::::res://Scripts/cinematicas/cinematica_inicio.gd<>uid://5lpwgr52jgjv::::res://Assets/Movie/inicio/prologo.ogv<>uid://d2d8wn2a1ld8s::::res://Assets/Movie/inicio/prologo.wav
-::res://Scenes/enemigos/::1783688771
-boss_padre_espina.tscn::PackedScene::2425914370274043654::1783455715::0::1::::<><><>0<>0<><>::uid://dtlvudb7gixqy::::res://Scenes/enemy.tscn<>uid://buaou72m2jtch::::res://Scripts/enemigos/boss_padre_espina.gd<>uid://b04b4x5apcmav::::res://Data/enemigos/boss_padre_espina.tres
+::res://Scenes/enemigos/::1783729116
+boss_padre_espina.tscn::PackedScene::2425914370274043654::1783729116::0::1::::<><><>0<>0<><>::uid://dtlvudb7gixqy::::res://Scenes/enemy.tscn<>uid://buaou72m2jtch::::res://Scripts/enemigos/boss_padre_espina.gd<>uid://b04b4x5apcmav::::res://Data/enemigos/boss_padre_espina.tres<>uid://buofg3y0bfje4::::res://Assets/BttlSprit/Kamathra.png
 monaguillo_lazaro.tscn::PackedScene::6226179197820543016::1783686123::0::1::::<><><>0<>0<><>::uid://dtlvudb7gixqy::::res://Scenes/enemy.tscn<>uid://dk60gg4fnxhdg::::res://Scripts/enemigos/enemigo_autocuracion_por_contador.gd
 monaguillo_oscuro.tscn::PackedScene::3935702736823725626::1783688771::0::1::::<><><>0<>0<><>::uid://dtlvudb7gixqy::::res://Scenes/enemy.tscn<>uid://osjuc83k0fdx::::res://Scripts/enemigos/enemigo_robo_vida_temporal.gd<>uid://cg2pwu86xrqqy::::res://Data/enemigos/monaguillo_oscuro.tres
 monaguillo_sagrado.tscn::PackedScene::7658734533323698439::1783686301::0::1::::<><><>0<>0<><>::uid://dtlvudb7gixqy::::res://Scenes/enemy.tscn<>uid://cc6kyaccrscaf::::res://Scripts/enemigos/enemigo_curacion_por_umbral.gd<>uid://ldlpdqj8nje5::::res://Data/enemigos/monaguillo_sagrado.tres
-::res://Scenes/managers/::1783456250
-MusicManager.tscn::PackedScene::1898249929978616104::1783456250::0::1::::<><><>0<>0<><>::uid://davd3fnjepbmn::::res://Scripts/managers/music_manager.gd
-::res://Scenes/menus/::1783724852
+::res://Scenes/managers/::1783729940
+MusicManager.tscn::PackedScene::1898249929978616104::1783729940::0::1::::<><><>0<>0<><>::uid://davd3fnjepbmn::::res://Scripts/managers/music_manager.gd<>uid://b4mer5xptq7kc::::res://Assets/Music/Adversus.wav<>uid://b3x4xja0k3xl7::::res://Assets/Music/Ruins.wav<>uid://d348o5wum4nj4::::res://Scripts/data/audio_library.gd
+::res://Scenes/menus/::1783731859
 ajustes.tscn::PackedScene::6698328712270890754::1783610664::0::1::::<><><>0<>0<><>::uid://y4hv76jfdsq::::res://Scripts/menus/ajustes.gd<>uid://c8m4k5tnnhfda::::res://Assets/BckGrnd/paperallborder.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://b8yohj6agvbay::::res://Scripts/menus/btn_volver.gd<>uid://b42nd1ocqfu1s::::res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav<>uid://b3x4xja0k3xl7::::res://Assets/Music/Ruins.wav
 creditos.tscn::PackedScene::5724933102885467923::1783611223::0::1::::<><><>0<>0<><>::uid://bft701nfh11r4::::res://Scripts/menus/creditos.gd<>uid://buu016yjlw7su::::res://Assets/BckGrnd/Nivel.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://c8m4k5tnnhfda::::res://Assets/BckGrnd/paperallborder.png<>uid://bneqv0dwag2ma::::res://Assets/credit/Javier.png<>uid://c6l7la6cvbqe6::::res://Assets/credit/matias.png<>uid://l7jtp66nor1v::::res://Assets/credit/adrian.png<>uid://bl0flil3itppl::::res://Assets/credit/matu.png<>uid://cnhs7tbwyb3uo::::res://Assets/credit/uri.png<>uid://83ok324g7k5k::::res://Assets/credit/anto.png<>uid://cyyn2ww3kst4u::::res://Assets/credit/lucio.png<>uid://bifdgvhgfwo3i::::res://Assets/credit/thiago.png<>uid://buujdn5qaymwc::::res://Assets/credit/juaco.png<>uid://b8yohj6agvbay::::res://Scripts/menus/btn_volver.gd<>uid://b42nd1ocqfu1s::::res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav<>uid://dnlj1wukc7ad3::::res://Assets/Icons/der.png<>uid://0v8cge6fmk2k::::res://Assets/Icons/izq.png
+fin_partida.tscn::PackedScene::5424739085436857888::1783725180::0::1::::<><><>0<>0<><>::uid://fvtm8al66uwf::::res://Scripts/menus/fin_partida.gd<>uid://c8m4k5tnnhfda::::res://Assets/BckGrnd/paperallborder.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://b8yohj6agvbay::::res://Scripts/menus/btn_volver.gd<>uid://b42nd1ocqfu1s::::res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav
 glosario.tscn::PackedScene::8345582759108641081::1783611467::0::1::::<><><>0<>0<><>::uid://dba8kh4oyc4bs::::res://Scripts/menus/glosario.gd<>uid://buu016yjlw7su::::res://Assets/BckGrnd/Nivel.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://c8m4k5tnnhfda::::res://Assets/BckGrnd/paperallborder.png<>uid://c03f2guura5ub::::res://Assets/ChArt/caelius de ira.png<>uid://b5pig8s5tbryk::::res://Assets/ChArt/el papa.png<>uid://bge6cdd2b4qqj::::res://Assets/ChArt/la monja.png<>uid://p5kuatt7i836::::res://Assets/ChArt/los monaquillo.png<>uid://bwifvvcioxl2n::::res://Assets/ChArt/padre espina.png<>uid://davjajidu876c::::res://Assets/ChArt/Obispo Serpico.png<>uid://ca0af7od2a11l::::res://Assets/ChArt/tere.png<>uid://n7lptelqr1bv::::res://Assets/ChArt/Fray Corvus.png<>uid://12h547fjdvgq::::res://Assets/ChArt/galaad.png<>uid://d1b5ya65be0bw::::res://Assets/ChArt/Kapparah.png<>uid://b5lyl8p05pq5o::::res://Assets/ChArt/Devotio.png<>uid://dhqpsbk53x1ce::::res://Assets/ChArt/sintax.png<>uid://dw14tuktvxhml::::res://Assets/ChArt/trono.png<>uid://b6aa8xpls4foa::::res://Assets/BttlSprit/alma.png<>uid://0v8cge6fmk2k::::res://Assets/Icons/izq.png<>uid://dnlj1wukc7ad3::::res://Assets/Icons/der.png<>uid://b42nd1ocqfu1s::::res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav
-menu_principal.tscn::PackedScene::1381040934089200851::1783455716::0::1::::<><><>0<>0<><>::uid://8putwlrtuq0a::::res://Scripts/menus/menu_principal.gd<>uid://dkknsmcypx4pc::::res://Assets/Images/MainM.png<>uid://n1a80ggx16sq::::res://Data/ui/tema_menu.tres<>uid://cw7nkqtlwslf::::res://Data/audio/audio_library.tres<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://b42nd1ocqfu1s::::res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav
-fin_partida.tscn::PackedScene::5424739085436857888::1783724852::0::1::::<><><>0<>0<><>::uid://fvtm8al66uwf::::res://Scenes/menus/fin_partida.gd<>uid://c8m4k5tnnhfda::::res://Assets/BckGrnd/paperallborder.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://b8yohj6agvbay::::res://Scripts/menus/btn_volver.gd<>uid://b42nd1ocqfu1s::::res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav
-fin_partida.gd::GDScript::395472937227851913::1783723778::0::1::::<>Control<><>0<>0<><>::
+menu_principal.tscn::PackedScene::1381040934089200851::1783731859::0::1::::<><><>0<>0<><>::uid://8putwlrtuq0a::::res://Scripts/menus/menu_principal.gd<>uid://dkknsmcypx4pc::::res://Assets/Images/MainM.png<>uid://n1a80ggx16sq::::res://Data/ui/tema_menu.tres<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://b42nd1ocqfu1s::::res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav
 salir.tscn::PackedScene::2944471456274401490::1783455716::0::1::::<><><>0<>0<><>::uid://dkknsmcypx4pc::::res://Assets/Images/MainM.png<>uid://b3x4xja0k3xl7::::res://Assets/Music/Ruins.wav<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://b42nd1ocqfu1s::::res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav
-select_nivel.tscn::PackedScene::5122780645407030991::1783611567::0::1::::<><><>0<>0<><>::uid://dhsmpwf2ndep::::res://Scripts/menus/select_nivel.gd<>uid://buu016yjlw7su::::res://Assets/BckGrnd/Nivel.png<>uid://c8m4k5tnnhfda::::res://Assets/BckGrnd/paperallborder.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://b42nd1ocqfu1s::::res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav<>uid://cwx0cjlp6h5yy::::res://Assets/Icons/Serpico.png<>uid://d311kgi76ulx4::::res://Assets/BckGrnd/paper.png<>uid://kkshx7n5r6b::::res://Assets/Icons/Espina.png<>uid://bujocqjnco2ly::::res://Assets/Icons/tere.png<>uid://c8478h663nkv7::::res://Assets/Icons/Corvus.png<>uid://c7gpx4py1tr4r::::res://Assets/Icons/Galaad.png<>uid://ckatdamg27mio::::res://Assets/Icons/kapara.png
+select_nivel.tscn::PackedScene::5122780645407030991::1783730766::0::1::::<><><>0<>0<><>::uid://dhsmpwf2ndep::::res://Scripts/menus/select_nivel.gd<>uid://buu016yjlw7su::::res://Assets/BckGrnd/Nivel.png<>uid://c8m4k5tnnhfda::::res://Assets/BckGrnd/paperallborder.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://b42nd1ocqfu1s::::res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav<>uid://cwx0cjlp6h5yy::::res://Assets/Icons/Serpico.png<>uid://d311kgi76ulx4::::res://Assets/BckGrnd/paper.png<>uid://kkshx7n5r6b::::res://Assets/Icons/Espina.png<>uid://bujocqjnco2ly::::res://Assets/Icons/tere.png<>uid://c8478h663nkv7::::res://Assets/Icons/Corvus.png<>uid://c7gpx4py1tr4r::::res://Assets/Icons/Galaad.png<>uid://ckatdamg27mio::::res://Assets/Icons/kapara.png
 select_personaje.tscn::PackedScene::174250851825739024::1783611699::0::1::::<><><>0<>0<><>::uid://dv1po6ndd3wa6::::res://Scripts/menus/select_personaje.gd<>uid://buu016yjlw7su::::res://Assets/BckGrnd/Nivel.png<>uid://c8m4k5tnnhfda::::res://Assets/BckGrnd/paperallborder.png<>uid://cv3vrjc1xpmbg::::res://Assets/ChArt/caelius de pena.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://c03f2guura5ub::::res://Assets/ChArt/caelius de ira.png<>uid://pqa2sa1oiqyf::::res://Assets/ChArt/caelius de ego.png<>uid://b42nd1ocqfu1s::::res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav
 ::res://Scenes/ui/::1783682305
 card_ui.tscn::PackedScene::6712477147994165473::1783682305::0::1::::<><><>0<>0<><>::uid://roqk3ngjxk4i::::res://Scripts/ui/card_ui.gd<>uid://doeu123prfpee::::res://Assets/Cartas/carta1.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf
-::res://Scripts/::1783722883
-enemy.gd::GDScript::8894094200957701397::1783720847::0::1::::Enemy<>CombatEntity<><>0<>0<><>::
-player.gd::GDScript::7746648402154211789::1783722883::0::1::::Player<>CombatEntity<><>0<>0<><>::
+::res://Scripts/::1783730835
+enemy.gd::GDScript::8894094200957701397::1783729074::0::1::::Enemy<>CombatEntity<><>0<>0<><>::
+player.gd::GDScript::7746648402154211789::1783730835::0::1::::Player<>CombatEntity<><>0<>0<><>::
 subir_nivel.gd::GDScript::2686080200921805553::1780826530::0::1::::<>Control<><>0<>0<><>::
-::res://Scripts/batalla/::1783724642
-battle_scene.gd::GDScript::1335214190330824793::1783725126::0::1::::<>Node2D<><>0<>0<><>::
-combat_entity.gd::GDScript::3971043777422351998::1783724642::0::1::::CombatEntity<>Node<><>0<>0<><>::
-combat_manager.gd::GDScript::7230393950060977053::1783688230::0::1::::CombatManager<>Node<><>0<>0<><>::
+::res://Scripts/batalla/::1783731859
+battle_scene.gd::GDScript::1335214190330824793::1783730965::0::1::::<>Node2D<><>0<>0<><>::
+combat_entity.gd::GDScript::3971043777422351998::1783731859::0::1::::CombatEntity<>Node<><>0<>0<><>::
+combat_manager.gd::GDScript::7230393950060977053::1783731770::0::1::::CombatManager<>Node<><>0<>0<><>::
 deck_manager.gd::GDScript::295200136335904701::1783455716::0::1::::DeckManager<>Node<><>0<>0<><>::
 ::res://Scripts/cinematicas/::1783455716
 cinematica_inicio.gd::GDScript::1194784354695298621::1783455716::0::1::::<>Control<><>0<>0<><>::
-::res://Scripts/data/::1783594184
+::res://Scripts/data/::1783730807
 audio_library.gd::GDScript::9186446900300006443::1783455716::0::1::::AudioLibrary<>Resource<><>0<>0<><>::
 card_data.gd::GDScript::1581288894283047593::1783594184::0::1::::CardData<>Resource<><>0<>0<><>::
 effect_data.gd::GDScript::2414025937912852224::1783455716::0::1::::EffectData<>Resource<><>0<>0<><>::
 enemy_data.gd::GDScript::2148346279735544354::1783455716::0::1::::EnemyData<>Resource<><>0<>0<><>::
 intent_data.gd::GDScript::491001750847227259::1783461935::0::1::::IntentData<>Resource<><>0<>0<><>::
-player_data.gd::GDScript::2742066760711807314::1783455716::0::1::::PlayerData<>Resource<><>0<>0<><>::
+player_data.gd::GDScript::2742066760711807314::1783730807::0::1::::PlayerData<>Resource<><>0<>0<><>::
 relic_data.gd::GDScript::3590431618069622683::1783455716::0::1::::RelicData<>Resource<><>0<>0<><>::
 stats.gd::GDScript::1984093614091665756::1783459898::0::1::::Stats<>Resource<><>0<>0<><>::
 ui_theme_data.gd::GDScript::4538293273066584736::1783455716::0::1::::UIThemeData<>Resource<><>0<>0<><>::
@@ -173,23 +174,24 @@ damage_effect_data.gd::GDScript::8451837589974626048::1783460093::0::1::::Damage
 energy_effect_data.gd::GDScript::9194819308806799911::1783593826::0::1::::EnergyEffectData<>EffectData<><>0<>0<><>::
 esquive_buff_effect_data.gd::GDScript::5451141786663566842::1783592867::0::1::::EsquiveBuffEffectData<>EffectData<><>0<>0<><>::
 estado_effect_data.gd::GDScript::1121763867301020085::1783592648::0::1::::EstadoEffectData<>EffectData<><>0<>0<><>::
-::res://Scripts/enemigos/::1783687197
-boss.gd::GDScript::3034739236751469128::1783455716::0::1::::<>Enemy<><>0<>0<><>::
-boss_padre_espina.gd::GDScript::3791085033269182927::1783455716::0::1::::<>Enemy<><>0<>0<><>::
+::res://Scripts/enemigos/::1783729116
+boss.gd::GDScript::3034739236751469128::1783726328::0::1::::Boss<>Enemy<><>0<>0<><>::
+boss_padre_espina.gd::GDScript::3791085033269182927::1783729116::0::1::::<>Boss<><>0<>0<><>::
 enemigo_autocuracion_por_contador.gd::GDScript::7926675197602961648::1783686123::0::1::::<>Enemy<><>0<>0<><>::
 enemigo_curacion_por_umbral.gd::GDScript::4977864797223409261::1783686123::0::1::::<>Enemy<><>0<>0<><>::
 enemigo_robo_vida_temporal.gd::GDScript::1020384936630315193::1783687197::0::1::::<>Enemy<><>0<>0<><>::
-::res://Scripts/managers/::1783724982
+::res://Scripts/managers/::1783730897
 audio_settings.gd::GDScript::195502477367872674::1783455716::0::1::::<>Node<><>0<>0<><>::
-game_manager.gd::GDScript::5219364380401042666::1783725090::0::1::::<>Node<><>0<>0<><>::
-music_manager.gd::GDScript::7202846420236258369::1783252915::0::1::::<>Node<><>0<>0<><>::
+game_manager.gd::GDScript::5219364380401042666::1783730897::0::1::::<>Node<><>0<>0<><>::
+music_manager.gd::GDScript::7202846420236258369::1783729904::0::1::::<>Node<><>0<>0<><>::
 scene_manager.gd::GDScript::3412121658258886737::1783721282::0::1::::<>Node<><>0<>0<><>::
-::res://Scripts/menus/::1783455716
+::res://Scripts/menus/::1783730002
 ajustes.gd::GDScript::51319513289816472::1783455716::0::1::::<>Control<><>0<>0<><>::
 btn_volver.gd::GDScript::4753060648909601892::1783455716::0::1::::<>Button<><>0<>0<><>::
 creditos.gd::GDScript::2778577053753693159::1783455716::0::1::::<>Control<><>0<>0<><>::
+fin_partida.gd::GDScript::395472937227851913::1783723778::0::1::::<>Control<><>0<>0<><>::
 glosario.gd::GDScript::7231472826548737080::1783455716::0::1::::<>Control<><>0<>0<><>::
-menu_principal.gd::GDScript::2348446949610637378::1783455716::0::1::::<>Control<><>0<>0<><>::
+menu_principal.gd::GDScript::2348446949610637378::1783730002::0::1::::<>Control<><>0<>0<><>::
 select_nivel.gd::GDScript::226132332688892763::1783455716::0::1::::<>Control<><>0<>0<><>::
 select_personaje.gd::GDScript::8687838993537456039::1783455716::0::1::::<>Control<><>0<>0<><>::
 ::res://Scripts/ui/::1783543162

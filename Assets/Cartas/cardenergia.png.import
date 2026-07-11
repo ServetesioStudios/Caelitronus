@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o7comphs57xc"
-path="res://.godot/imported/cardataque.png-f861d20cd882366af695fb26078a89a0.ctex"
+uid="uid://b03faj7ssp3pe"
+path="res://.godot/imported/cardenergia.png-fd0e64d2d7ba10118353df12dc5ba4a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Cartas/cardataque.png"
-dest_files=["res://.godot/imported/cardataque.png-f861d20cd882366af695fb26078a89a0.ctex"]
+source_file="res://Assets/Cartas/cardenergia.png"
+dest_files=["res://.godot/imported/cardenergia.png-fd0e64d2d7ba10118353df12dc5ba4a9.ctex"]
 
 [params]
 

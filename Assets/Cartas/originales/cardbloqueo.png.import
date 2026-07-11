@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o7comphs57xc"
-path="res://.godot/imported/cardataque.png-f861d20cd882366af695fb26078a89a0.ctex"
+uid="uid://bhvxi1a8xndeb"
+path="res://.godot/imported/cardbloqueo.png-dce6feaa05e2ed644568ce1979fca5db.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Cartas/cardataque.png"
-dest_files=["res://.godot/imported/cardataque.png-f861d20cd882366af695fb26078a89a0.ctex"]
+source_file="res://Assets/Cartas/originales/cardbloqueo.png"
+dest_files=["res://.godot/imported/cardbloqueo.png-dce6feaa05e2ed644568ce1979fca5db.ctex"]
 
 [params]
 

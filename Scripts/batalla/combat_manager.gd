@@ -76,6 +76,16 @@ func _actualizar_intencion(enemigo: Enemy) -> void:
 func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
 	enemigo_actuo.emit(enemigo)
 	var descripcion := ""
+
+
+	print(
+		"ACCION:",
+		IntentData.Tipo.keys()[enemigo.intencion_actual.tipo],
+		" robo:",
+		enemigo.robo_vida
+	)
+
+
 	match enemigo.intencion_actual.tipo:
 		IntentData.Tipo.ATACAR:
 			if is_instance_valid(player) and player.hp > 0:
@@ -84,7 +94,7 @@ func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
 					player.recibir_daño(daño)
 					descripcion = "%s ataca e inflige %d de daño" % [enemigo.nombre, daño]
 					if enemigo.robo_vida:
-						var vida_robada = int(daño * 0.5)
+						var vida_robada = int(daño * enemigo.porcentaje_robo_vida)
 						enemigo.hp = min(enemigo.hp + vida_robada, enemigo.max_hp)
 						enemigo.actualizar_barra_vida()
 						descripcion += " y roba %d de vida" % vida_robada

@@ -44,5 +44,8 @@ func actualizar_intencion_ui() -> void:
 func al_atacar() -> void: 
 	pass
 
+func aplicar_efecto_habilidad_a_objetivo(objetivo: CombatEntity) -> void:
+	pass
+	
 func activar_habilidad() -> void:
 	super()

@@ -6,7 +6,7 @@
 
 [node name="Node2D" instance=ExtResource("1_5cn86")]
 script = ExtResource("2_0lwpp")
-"bonus_daño_habilidad" = 0.2
-duracion_turnos = 2
+"bonus_daño_habilidad" = 2.0
+duracion_turnos = 3
 turnos_cooldown = 5
 enemy_data = ExtResource("3_18825")

@@ -10,11 +10,11 @@ const STATS_PATHS := {
 	TipoCaelius.EGO: "res://Data/characters/stats_ego.tres",
 }
 
-const CANTIDAD_MONAGUILLOS_POR_RUN := 2
+const CANTIDAD_MONAGUILLOS_POR_RUN := 1
 const MONAGUILLOS :  Array[String] = [
-	"res://Scenes/enemigos/monaguillo_sagrado.tscn",
+#	"res://Scenes/enemigos/monaguillo_sagrado.tscn",
 	"res://Scenes/enemigos/monaguillo_oscuro.tscn",
-	"res://Scenes/enemigos/monaguillo_lazaro.tscn",
+#	"res://Scenes/enemigos/monaguillo_lazaro.tscn",
 ]
 const BOSS_SCENE := "res://Scenes/enemigos/boss_padre_espina.tscn"
 

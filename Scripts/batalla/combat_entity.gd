@@ -26,6 +26,7 @@ var bonus_defensa := 1.0
 var bonus_velocidad := 1.0
 
 var robo_vida := false
+var porcentaje_robo_vida := 0.5
 var doble_golpe := false
 var inmune := false
 
@@ -73,6 +74,7 @@ func activar_habilidad() -> void:
 	habilidad_activa = true
 	
 func desactivar_habilidad() -> void:
+	print("DESACTIVANDO HABILIDAD")
 	habilidad_activa = false
 	bonus_daño = 1.0
 	bonus_defensa = 1.0
@@ -167,7 +169,7 @@ func _tween_ataque() -> void:
 	var tween = create_tween()
 	var pos_original = self.position
 	var distancia = 40
-	var pos_ataque = pos_original + (Vector2(distancia, 0) if self == Player else Vector2(-distancia, 0))
+	var pos_ataque = pos_original + (Vector2(distancia, 0) if self == Player else Vector2(distancia, 0))
 	tween.tween_property(self, "position", pos_ataque, 0.1)
 	tween.tween_property(self, "position", pos_original, 0.1)
 	

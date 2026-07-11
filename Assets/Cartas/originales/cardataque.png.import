@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o7comphs57xc"
-path="res://.godot/imported/cardataque.png-f861d20cd882366af695fb26078a89a0.ctex"
+uid="uid://cvcofe7yhs0t7"
+path="res://.godot/imported/cardataque.png-d0fb42809c85b57953cc11a7ae692352.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Cartas/cardataque.png"
-dest_files=["res://.godot/imported/cardataque.png-f861d20cd882366af695fb26078a89a0.ctex"]
+source_file="res://Assets/Cartas/originales/cardataque.png"
+dest_files=["res://.godot/imported/cardataque.png-d0fb42809c85b57953cc11a7ae692352.ctex"]
 
 [params]
 

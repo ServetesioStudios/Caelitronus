@@ -61,10 +61,10 @@ texture = ExtResource("5_fowxk")
 expand_mode = 1
 
 [node name="textocombate" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 948.0
-offset_top = 8.0
-offset_right = 1269.0
-offset_bottom = 134.0
+offset_left = 490.0
+offset_top = 2.0
+offset_right = 823.0
+offset_bottom = 128.0
 theme_override_colors/default_color = Color(0.5747718, 0.3360082, 0, 1)
 theme_override_fonts/normal_font = ExtResource("6_n02j2")
 theme_override_font_sizes/normal_font_size = 22
@@ -92,6 +92,7 @@ text = "playerstatstex"
 fit_content = true
 autowrap_mode = 2
 tab_size = 3
+horizontal_alignment = 1
 
 [node name="enemistats" type="TextureRect" parent="CanvasLayer"]
 offset_left = 983.0
@@ -103,15 +104,16 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="enemiplayetex" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 531.0
-offset_top = 3.0
-offset_right = 925.0
-offset_bottom = 82.0
+offset_left = 848.0
+offset_top = 5.0
+offset_right = 1242.0
+offset_bottom = 84.0
 theme_override_colors/default_color = Color(0.5764706, 0.3372549, 0, 1)
 theme_override_fonts/normal_font = ExtResource("6_n02j2")
 theme_override_font_sizes/normal_font_size = 19
 text = "enemyplaytex
 "
+horizontal_alignment = 1
 
 [node name="LabelEnergia" type="Label" parent="CanvasLayer"]
 self_modulate = Color(0, 0, 0, 1)
