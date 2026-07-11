@@ -56,17 +56,20 @@ func seleccionar_personaje(tipo: GameManager.TipoCaelius) -> void:
 		GameManager.TipoCaelius.PENA:
 			$Personajes/PJ_pena.add_theme_stylebox_override("normal",$Personajes/PJ_pena.get_theme_stylebox("hover"))
 			titulo.text = "Caelius de Pena"
-			stats.text = "Incrementa el valor de fe y sus valores de esquive y velocidad en un 20% por 5 segundos."
+			stats.text = "Combina golpes moderados con la capacidad de sanar sus propias heridas en combate."
+			#stats.text = "Incrementa el valor de fe y sus valores de esquive y velocidad en un 20% por 5 segundos."
 			statsiniciales = [85,6,5,6,9,14,7]
 		GameManager.TipoCaelius.IRA:
 			$Personajes/PJ_ira.add_theme_stylebox_override("normal",$Personajes/PJ_ira.get_theme_stylebox("hover"))
 			titulo.text = "Caelius de Ira"
-			stats.text = "Incrementa el valor de ataque y daño en un 30% por 5 segundos."
+			stats.text = "Favorece el daño y los golpes contundentes."
+			#stats.text = "Incrementa el valor de ataque y daño en un 30% por 5 segundos."
 			statsiniciales = [95,7,4,5,10,8,8]
 		GameManager.TipoCaelius.EGO:
 			$Personajes/PJ_ego.add_theme_stylebox_override("normal",$Personajes/PJ_ego.get_theme_stylebox("hover"))
-			titulo.text = "Caelius de Ego"
-			stats.text = "Incrementa su valor de defensa un 40% por 5 segundos y se cura un 10%."
+			titulo.text = "Caelius de Ego" 
+			stats.text = "Bloqueo y resiliencia para desgastar al enemigo con paciencia."
+			#stats.text = "Incrementa su valor de defensa un 40% por 5 segundos y se cura un 10%."
 			statsiniciales = [90,5,6,4,9,12,6]
 
 func _on_btn_seleccionar_pressed() -> void:

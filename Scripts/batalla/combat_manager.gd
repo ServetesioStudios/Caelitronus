@@ -77,15 +77,6 @@ func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
 	enemigo_actuo.emit(enemigo)
 	var descripcion := ""
 
-
-	print(
-		"ACCION:",
-		IntentData.Tipo.keys()[enemigo.intencion_actual.tipo],
-		" robo:",
-		enemigo.robo_vida
-	)
-
-
 	match enemigo.intencion_actual.tipo:
 		IntentData.Tipo.ATACAR:
 			if is_instance_valid(player) and player.hp > 0:

@@ -262,8 +262,10 @@ focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
+disabled = true
 
 [node name="Fondo" type="TextureRect" parent="Niveles/Botones/Serpico"]
+modulate = Color(0.6955032, 0.6955031, 0.6955031, 1)
 layout_mode = 0
 offset_left = 75.0
 offset_top = 5.0
@@ -368,8 +370,10 @@ focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
+disabled = true
 
 [node name="Fondo" type="TextureRect" parent="Niveles/Botones/Eirene"]
+modulate = Color(0.69411767, 0.69411767, 0.69411767, 1)
 layout_mode = 0
 offset_left = 75.0
 offset_top = 5.0
@@ -423,6 +427,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
 
 [node name="Fondo" type="TextureRect" parent="Niveles/Botones/Corvus"]
+modulate = Color(0.69411767, 0.69411767, 0.69411767, 1)
 layout_mode = 0
 offset_left = 75.0
 offset_top = 5.0
@@ -476,6 +481,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
 
 [node name="Fondo" type="TextureRect" parent="Niveles/Botones/Galaad"]
+modulate = Color(0.69411767, 0.69411767, 0.69411767, 1)
 layout_mode = 0
 offset_left = 75.0
 offset_top = 5.0
@@ -529,6 +535,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
 
 [node name="Fondo" type="TextureRect" parent="Niveles/Botones/Kapparah"]
+modulate = Color(0.69411767, 0.69411767, 0.69411767, 1)
 layout_mode = 0
 offset_left = 75.0
 offset_top = 5.0

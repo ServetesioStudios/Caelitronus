@@ -36,7 +36,7 @@ func _ready():
 	
 	var enemigos: Array[Enemy] = [enemy]
 		
-	deck_manager.iniciar_mazo(_crear_mazo_inicial())
+	deck_manager.iniciar_mazo(GameManager.crear_mazo_inicial(player.tipo_caelius))
 	mano_ui.player_ref = player 
 	deck_manager.mano_actualizada.connect(mano_ui.mostrar_mano)
 	
@@ -91,22 +91,6 @@ func actualizar_stats_ui() -> void:
 			#enemy.estados.get(CombatEntity.TipoEstado.SANGRADO, 0),
 			#enemy.estados.get(CombatEntity.TipoEstado.VENENO, 0)
 		#]
-
-
-func _crear_mazo_inicial() -> Array[CardData]:
-	var mazo: Array[CardData] = []
-	var ruta = "res://Data/cartas/"
-	for i in 3: 
-		mazo.append(load(ruta + "/golpe_basico.tres"))
-	for i in 3:
-		mazo.append(load(ruta + "/golpe_fuerte.tres"))
-	for i in 2: 
-		mazo.append(load(ruta+"/escudo.tres"))
-	for i in 2: 
-		mazo.append(load(ruta + "recuperar_energia.tres"))
-	#for i in 2: 
-		#mazo.append(load(ruta+"/sangrado.tres"))
-	return mazo
 
 func _debug_estado_combate():
 	print("Player HP: %d/%d | Player DEF: %d | Energía: %d/%d | Enemy HP: %d/%d" % [

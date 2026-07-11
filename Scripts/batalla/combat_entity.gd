@@ -74,7 +74,6 @@ func activar_habilidad() -> void:
 	habilidad_activa = true
 	
 func desactivar_habilidad() -> void:
-	print("DESACTIVANDO HABILIDAD")
 	habilidad_activa = false
 	bonus_daño = 1.0
 	bonus_defensa = 1.0
