@@ -27,6 +27,9 @@ func cargar_stats():
 		push_error("Player: no se pudieron cargar los stats")
 		return
 	aplicar_stats(stats)
+	
+	if GameManager.player_data.hp_actual >= 0:
+		hp = GameManager.player_data.hp_actual
 
 func _definir_energia_maxima() -> void:
 	match tipo_caelius:
@@ -79,6 +82,6 @@ func activar_habilidad():
 			#inmune = true
 			#doble_golpe = true
 	#cooldown_habilidad = max(18.0 - (fe * 0.08), 10.0)
-	
-func morir() -> void: 
+
+func morir() -> void:
 	pass

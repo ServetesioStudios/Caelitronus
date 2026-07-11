@@ -10,6 +10,7 @@ enum SceneID {
 	AJUSTES,
 	CREDITOS,
 	GLOSARIO,
+	FIN_PARTIDA,
 	SALIR
 }
 
@@ -23,7 +24,8 @@ const SCENE_PATHS := {
 	SceneID.CREDITOS: "res://Scenes/menus/creditos.tscn",
 	SceneID.SALIR: "res://Scenes/menus/salir.tscn",
 	SceneID.SUBIR_NIVEL: "res://Scenes/subir_nivel.tscn",
-	SceneID.GLOSARIO: "res://Scenes/menus/glosario.tscn"
+	SceneID.GLOSARIO: "res://Scenes/menus/glosario.tscn", 
+	SceneID.FIN_PARTIDA: "res://Scenes/menus/fin_partida.tscn"
 }
 
 func change_scene(id: SceneID) -> void:
@@ -43,6 +45,7 @@ func add_overlay(id: SceneID, parent: Node) -> Node:
 		return null
 
 	var scene_resource: PackedScene = load(path)
+	
 	if scene_resource == null:
 		push_error("SceneManager: fallo al cargar %s" % path)
 		return null

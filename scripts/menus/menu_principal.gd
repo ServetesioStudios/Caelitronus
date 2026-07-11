@@ -1,7 +1,7 @@
 extends Control
 
 @export var theme_data: UIThemeData
-@export var audio_library: AudioLibrary
+#@export var audio_library: AudioLibrary
 
 @onready var btn_continuar = $menubotones/btncontinuar
 @onready var botones = $menubotones.get_children()
@@ -10,10 +10,7 @@ extends Control
 var btn_pos_orig = [];
 
 func _ready():
-	if audio_library == null:
-		push_error("MenuPrincipal: falta asignar audio_library en el Inspector")
-		return
-	MusicManager.play_music(audio_library.musica_menu)
+	MusicManager.play_menu()
 	AudioSettings.aplicar()
 	
 	#HAY PARTIDA GUARDADA?
@@ -51,7 +48,7 @@ func _on_hover_exit(btn: Button):
 func _on_btncontinuar_pressed():
 	GameManager.cargar_partida()
 	SceneManager.change_scene(SceneManager.SceneID.SELECT_PERSONAJE)
-	MusicManager.play_music(audio_library.musica_menu)
+	MusicManager.play_menu()
 
 func _on_bntcomenzar_pressed():
 	GameManager.borrar_partida()

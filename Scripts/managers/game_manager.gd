@@ -1,6 +1,8 @@
+#GAME_MANAGER
 extends Node
 
 const SAVE_PATH := "user://save.tres"
+
 
 const STATS_PATHS := {
 	TipoCaelius.PENA: "res://Data/characters/stats_pena.tres",
@@ -8,13 +10,24 @@ const STATS_PATHS := {
 	TipoCaelius.EGO: "res://Data/characters/stats_ego.tres",
 }
 
+const CANTIDAD_MONAGUILLOS_POR_RUN := 2
+const MONAGUILLOS :  Array[String] = [
+	"res://Scenes/enemigos/monaguillo_sagrado.tscn",
+	"res://Scenes/enemigos/monaguillo_oscuro.tscn",
+	"res://Scenes/enemigos/monaguillo_lazaro.tscn",
+]
+const BOSS_SCENE := "res://Scenes/enemigos/boss_padre_espina.tscn"
+
 var player_data: PlayerData
-
-
 enum TipoCaelius { PENA, IRA, EGO }
 enum Jefe { ESPINA, SERPICO, EIRENE, CORVUS, GALAAD, KAPPARAH }
 
+var secuencia_combates: Array[String] = []
+var combate_actual: int = 1
 
+func _ready() -> void:
+	MusicManager.play_menu()
+	
 func get_stats_for(tipo: TipoCaelius) -> Stats:
 	var path: String = STATS_PATHS.get(tipo, "")
 	if path == "":
@@ -30,6 +43,8 @@ func iniciar_nueva_partida(tipo: TipoCaelius) -> void:
 	player_data = PlayerData.new()
 	player_data.tipo_caelius = tipo
 	player_data.nivel = 1
+	player_data.hp_actual = -1
+	iniciar_secuencia_combates()
 	guardar_partida()
 	
 func hay_partida_guardada() -> bool:
@@ -63,8 +78,29 @@ func es_jefe_derrotado(id: int) -> bool:
 		return false
 	return player_data.jefes_derrotados.get(id, false)
 
-func marcar_jefe_derrotado(id: String) -> void:
+func marcar_jefe_derrotado(id: Jefe) -> void:
 	if player_data == null:
 		return
 	player_data.jefes_derrotados[id] = true
 	guardar_partida()
+
+func avanzar_combate() -> void: 
+	combate_actual += 1
+	
+func reiniciar_secuencia_combates() -> void:
+	iniciar_secuencia_combates()
+
+func iniciar_secuencia_combates() -> void:
+	secuencia_combates.clear()
+	var monaguillos_mezclados := MONAGUILLOS.duplicate()
+	monaguillos_mezclados.shuffle()
+	#secuencia_combates = monaguillos_mezclados
+	secuencia_combates.append_array(monaguillos_mezclados.slice(0, CANTIDAD_MONAGUILLOS_POR_RUN))
+	secuencia_combates.append(BOSS_SCENE)
+	combate_actual = 1
+
+func obtener_escena_enemigo_actual() -> String:
+	return secuencia_combates[combate_actual - 1]
+	
+func combate_actual_es_ultimo() -> bool:
+	return combate_actual >= secuencia_combates.size()

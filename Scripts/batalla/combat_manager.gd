@@ -75,7 +75,6 @@ func _actualizar_intencion(enemigo: Enemy) -> void:
 	
 func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
 	enemigo_actuo.emit(enemigo)
-	print("robo vida: %s " %enemigo.robo_vida)
 	var descripcion := ""
 	match enemigo.intencion_actual.tipo:
 		IntentData.Tipo.ATACAR:
@@ -98,6 +97,7 @@ func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
 		IntentData.Tipo.HABILIDAD:
 			enemigo.activar_habilidad()
 			descripcion = "%s usa %s" % [enemigo.nombre, enemigo.habilidad_nombre]
+			enemigo.aplicar_efecto_habilidad_a_objetivo(player) 
 			
 	accion_enemigo_realizada.emit(enemigo, descripcion)
 	await get_tree().create_timer(0.6).timeout

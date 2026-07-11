@@ -1,11 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://dmu6hcrme284g"]
+[gd_scene load_steps=12 format=3 uid="uid://dmu6hcrme284g"]
 
 [ext_resource type="Texture2D" uid="uid://1ujq4vhia20d" path="res://Assets/BckGrnd/Bonefield_mvt.png" id="1_bxpjm"]
 [ext_resource type="Script" uid="uid://ta11uy1xj5dd" path="res://Scripts/batalla/battle_scene.gd" id="1_qf52c"]
 [ext_resource type="PackedScene" uid="uid://bjsf3q6hvbyji" path="res://Scenes/player.tscn" id="2_4ohde"]
 [ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="5_fowxk"]
 [ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="6_n02j2"]
-[ext_resource type="PackedScene" uid="uid://bwcqpjd6438sc" path="res://Scenes/enemigos/monaguillo_oscuro.tscn" id="7_f4ggb"]
 [ext_resource type="Texture2D" uid="uid://bxu6hgpccqqdf" path="res://Assets/BckGrnd/papersideborder.png" id="7_n02j2"]
 [ext_resource type="Script" uid="uid://cjxi2c8jyhqcn" path="res://Scripts/ui/drop_zone.gd" id="8_ms847"]
 [ext_resource type="Script" uid="uid://dbapsc8dah0c4" path="res://Scripts/batalla/combat_manager.gd" id="8_w4764"]
@@ -37,14 +36,13 @@ script = ExtResource("8_ms847")
 es_zona_propia = true
 entidad = NodePath("../player")
 
-[node name="DropZoneEnemy" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("entidad") groups=["DropZones"]]
+[node name="DropZoneEnemy" type="Control" parent="CanvasLayer" groups=["DropZones"]]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 413.0
 offset_right = 1276.0
 offset_bottom = 577.0
 script = ExtResource("8_ms847")
-entidad = NodePath("../enemy")
 
 [node name="BonefieldMvt" type="Sprite2D" parent="CanvasLayer"]
 position = Vector2(642, 358.5)
@@ -52,11 +50,7 @@ scale = Vector2(1.2859999, 0.97432435)
 texture = ExtResource("1_bxpjm")
 
 [node name="player" parent="CanvasLayer" instance=ExtResource("2_4ohde")]
-position = Vector2(71, 72)
-
-[node name="enemy" parent="CanvasLayer" instance=ExtResource("7_f4ggb")]
-position = Vector2(838, 98)
-duracion_turnos = 5
+position = Vector2(72, 72)
 
 [node name="papelcombate" type="TextureRect" parent="CanvasLayer"]
 offset_left = 306.0

@@ -1,3 +1,4 @@
+#BATTLE_SCENE
 extends Node2D
 
 @onready var combat_manager := $CombatManager
@@ -5,7 +6,6 @@ extends Node2D
 @onready var btn_fin_turno := $CanvasLayer/BtnFinTurno
 
 @onready var player = $CanvasLayer/player
-@onready var enemy = $CanvasLayer/enemy
 
 @onready var texto_combate = $CanvasLayer/textocombate
 @onready var texto_stats_player = $CanvasLayer/playerstatstex
@@ -13,13 +13,26 @@ extends Node2D
 @onready var label_energia = $CanvasLayer/LabelEnergia
 @onready var mano_ui := $CanvasLayer/Mano
 
+var enemy: Enemy 
 
 var historial_texto = ""
 var max_lineas = 18
 
 func _ready():
+	MusicManager.play_battle()
+	var ruta_enemigo = GameManager.obtener_escena_enemigo_actual()
+	print("Combate actual: %d / %d | Ruta: %s" % [GameManager.combate_actual, GameManager.secuencia_combates.size(), ruta_enemigo])
+
+	var escena: PackedScene = load(ruta_enemigo)
+	enemy = escena.instantiate()
+	$CanvasLayer.add_child(enemy)
+	
+	enemy.position = Vector2(965,100)
+	
 	for zona in get_tree().get_nodes_in_group("DropZones"):
 		zona.carta_soltada.connect(intentar_jugar_carta)
+		if zona.es_zona_propia == false:
+			zona.entidad = enemy
 	
 	var enemigos: Array[Enemy] = [enemy]
 		
@@ -42,7 +55,7 @@ func _ready():
 	
 	combat_manager.iniciar_combate(player, enemigos)
 	actualizar_stats_ui()
-
+	
 func mostrar_texto(texto: String) -> void:
 	if texto_combate == null:
 		return
@@ -89,8 +102,8 @@ func _crear_mazo_inicial() -> Array[CardData]:
 		mazo.append(load(ruta+"/escudo.tres"))
 	for i in 2: 
 		mazo.append(load(ruta + "recuperar_energia.tres"))
-	for i in 2: 
-		mazo.append(load(ruta+"/sangrado.tres"))
+	#for i in 2: 
+		#mazo.append(load(ruta+"/sangrado.tres"))
 	return mazo
 
 func _debug_estado_combate():
@@ -130,7 +143,10 @@ func _on_accion_enemigo_realizada(enemigo: Enemy, descripcion: String) -> void:
 	actualizar_stats_ui()
 
 func _on_combate_terminado(victoria: bool):
-	if victoria:
-		print("¡Ganaste!")
-	else:
-		print("Perdiste")
+	if victoria: 
+		GameManager.player_data.hp_actual = player.hp
+		GameManager.guardar_partida()
+	
+	var overlay = SceneManager.add_overlay(SceneManager.SceneID.FIN_PARTIDA, $CanvasLayer)
+	var es_ultimo_combate = GameManager.combate_actual_es_ultimo()
+	overlay.configurar(victoria, es_ultimo_combate)

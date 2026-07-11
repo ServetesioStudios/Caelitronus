@@ -1,11 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://batepqjce3hva"]
+[gd_scene load_steps=5 format=3 uid="uid://batepqjce3hva"]
 
 [ext_resource type="PackedScene" uid="uid://dtlvudb7gixqy" path="res://Scenes/enemy.tscn" id="1_6gaod"]
 [ext_resource type="Script" uid="uid://buaou72m2jtch" path="res://Scripts/enemigos/boss_padre_espina.gd" id="2_ut8pt"]
 [ext_resource type="Resource" uid="uid://b04b4x5apcmav" path="res://Data/enemigos/boss_padre_espina.tres" id="3_bhd4o"]
+[ext_resource type="Texture2D" uid="uid://buofg3y0bfje4" path="res://Assets/BttlSprit/Kamathra.png" id="4_1xvvh"]
 
 [node name="Node2D" instance=ExtResource("1_6gaod")]
 script = ExtResource("2_ut8pt")
+nombre_habilidad = "Éxtasis Prohibido"
+cooldown_turnos = 3
+duracion_buff_turnos = 2
+"bonus_daño_habilidad" = 1.3
+veneno_aplicado = 3
+umbral_fase_desesperacion = 0.25
+"bonus_daño_fase_desesperacion" = 1.2
 enemy_data = ExtResource("3_bhd4o")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(134, 247)
+texture = ExtResource("4_1xvvh")
 
 [node name="TimerVeneno" type="Timer" parent="." index="3"]

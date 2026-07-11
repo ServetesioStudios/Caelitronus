@@ -167,7 +167,7 @@ func _tween_ataque() -> void:
 	var tween = create_tween()
 	var pos_original = self.position
 	var distancia = 40
-	var pos_ataque = pos_original + (Vector2(distancia, 0) if self == Player else Vector2(distancia, 0))
+	var pos_ataque = pos_original + (Vector2(distancia, 0) if self == Player else Vector2(-distancia, 0))
 	tween.tween_property(self, "position", pos_ataque, 0.1)
 	tween.tween_property(self, "position", pos_original, 0.1)
 	
