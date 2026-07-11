@@ -6,8 +6,8 @@
 
 [sub_resource type="Resource" id="Resource_nbnj2"]
 script = ExtResource("3_k8tg5")
-max_hp = 420
-"daño" = 15
+max_hp = 300
+"daño" = 12
 defensa = 10
 esquive = 6
 fe = 28
