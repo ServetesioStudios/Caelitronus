@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://dw0ufqq6jb471"]
 
 [ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/data/effect_data.gd" id="1_1v38k"]
-[ext_resource type="Texture2D" uid="uid://b03faj7ssp3pe" path="res://Assets/Cartas/cardenergia.png" id="1_uk3ux"]
+[ext_resource type="Texture2D" uid="uid://dnbgcc1ulij4u" path="res://Assets/cards/energia.png" id="1_uk3ux"]
 [ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/data/card_data.gd" id="2_swfm2"]
 [ext_resource type="Script" uid="uid://d4ablihk771nf" path="res://Scripts/data/efectos/energy_effect_data.gd" id="2_uk3ux"]
 

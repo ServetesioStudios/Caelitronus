@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://cbvk448qnq5ue"]
 
-[ext_resource type="Texture2D" uid="uid://btbd381k8rpt6" path="res://Assets/Cartas/cardbloqueo.png" id="1_bi2xl"]
+[ext_resource type="Texture2D" uid="uid://o1j8gtbkbv5m" path="res://Assets/cards/bloqueo.png" id="1_bi2xl"]
 [ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/data/effect_data.gd" id="2_2mu7s"]
 [ext_resource type="Script" uid="uid://bg3ykg37brkkc" path="res://Scripts/data/efectos/block_effect_data.gd" id="3_e7ka6"]
 [ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/data/card_data.gd" id="4_q1u1p"]
