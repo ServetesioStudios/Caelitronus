@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c2vtruyogl3dt"]
+[gd_scene load_steps=6 format=3 uid="uid://c2vtruyogl3dt"]
 
 [ext_resource type="Script" uid="uid://roqk3ngjxk4i" path="res://Scripts/ui/card_ui.gd" id="1_obeoo"]
 [ext_resource type="Texture2D" uid="uid://btbd381k8rpt6" path="res://Assets/Cartas/cardbloqueo.png" id="2_4xatn"]
@@ -9,10 +9,6 @@ font = ExtResource("3_o66yc")
 font_size = 15
 font_color = Color(0.8666667, 0.85882354, 0.79607844, 1)
 outline_color = Color(1, 1, 1, 0.8509804)
-
-[sub_resource type="LabelSettings" id="LabelSettings_1e1e1"]
-font = ExtResource("3_o66yc")
-font_size = 10
 
 [sub_resource type="LabelSettings" id="LabelSettings_ny268"]
 font = ExtResource("3_o66yc")
@@ -54,25 +50,17 @@ stretch_mode = 3
 custom_minimum_size = Vector2(50, 10)
 layout_mode = 0
 offset_left = 4.0
-offset_top = 5.623993
+offset_top = 179.624
 offset_right = 119.0
-offset_bottom = 197.624
+offset_bottom = 219.624
 
 [node name="Nombre" type="Label" parent="Panel/VBoxContainer"]
 modulate = Color(0, 0, 0, 1)
-custom_minimum_size = Vector2(1, 170)
+custom_minimum_size = Vector2(1, 20)
 layout_mode = 2
 text = "Nombre"
 label_settings = SubResource("LabelSettings_adlcx")
 horizontal_alignment = 1
-
-[node name="Descripcion" type="Label" parent="Panel/VBoxContainer"]
-modulate = Color(0, 0, 0, 1)
-custom_minimum_size = Vector2(110, 20)
-layout_mode = 2
-text = "Descripcion"
-label_settings = SubResource("LabelSettings_1e1e1")
-autowrap_mode = 3
 
 [node name="Costo" type="Label" parent="Panel/VBoxContainer"]
 modulate = Color(0, 0, 0, 1)
