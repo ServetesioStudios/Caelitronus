@@ -55,7 +55,7 @@ offset_right = 119.0
 offset_bottom = 219.624
 
 [node name="Nombre" type="Label" parent="Panel/VBoxContainer"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.627451, 0.52156866, 0.105882354, 1)
 custom_minimum_size = Vector2(1, 20)
 layout_mode = 2
 text = "Nombre"
@@ -63,7 +63,7 @@ label_settings = SubResource("LabelSettings_adlcx")
 horizontal_alignment = 1
 
 [node name="Costo" type="Label" parent="Panel/VBoxContainer"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.41863057, 0.34547013, 0.05983881, 1)
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 text = "Costo"
