@@ -4,14 +4,12 @@ extends Control
 var carta: CardData
 
 @onready var nombre_label := $Panel/VBoxContainer/Nombre
-@onready var descripcion_label := $Panel/VBoxContainer/Descripcion
 @onready var costo_label := $Panel/VBoxContainer/Costo
 @onready var arte_rect := $Panel/TextureRect
 
 func setear_carta(data: CardData) -> void:
 	carta = data
 	nombre_label.text = data.nombre
-	descripcion_label.text = data.descripcion
 	costo_label.text = "Costo:" + str(data.costo)
 	if data.arte != null:
 		arte_rect.texture = data.arte
