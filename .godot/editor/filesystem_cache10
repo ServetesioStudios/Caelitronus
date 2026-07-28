@@ -1,5 +1,5 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1784640109
+::res://::1785200276
 default_bus_layout.tres::AudioBusLayout::3613183280232800959::1783993616::0::1::::<><><>0<>0<><>::
 export_presets.cfg::TextFile::-1::1784070372::0::1::::<><><>0<>0<><>::
 icon.svg::CompressedTexture2D::6637943192390016884::1783993616::1784069229::1::::<><><>0<>0<>7b0e0cdf6d2b353c7934f6358bac4642<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
@@ -45,12 +45,12 @@ oscuro.png::CompressedTexture2D::7218017543941722681::1783993616::1784069229::1:
 sagrados.png::CompressedTexture2D::1993628667011304531::1783993616::1784069229::1::::<><><>0<>0<>6a266322e3cc6fd43fb4c63a62046dd4<>res://.godot/imported/sagrados.png-6229cf1c87a1b8317eaaea83bf8c3333.ctex::
 Tzafiel.png::CompressedTexture2D::846659872391241899::1783993616::1784069229::1::::<><><>0<>0<>e8e8840c46b322b2499e3a29d4948fce<>res://.godot/imported/Tzafiel.png-2170fcbb29da40d665ab182544d5e0bc.ctex::
 vahruksha.png::CompressedTexture2D::2826183605606911931::1783993616::1784069229::1::::<><><>0<>0<>916e7e40069efc7eddb5838cf6124e0e<>res://.godot/imported/vahruksha.png-33af914439b9d39b9b8b0fed53861ed6.ctex::
-::res://Assets/cards/::1784069229
-bloqueo.png::CompressedTexture2D::1036923361222015460::1783993616::1784069229::1::::<><><>0<>0<>cc3a32bb97b6bb7b6f4bfe5bac8be6e7<>res://.godot/imported/bloqueo.png-04ae1abd6e30b1dd88dfbfe51e1bcfb6.ctex::
-curacion.png::CompressedTexture2D::492755812651213054::1783993616::1784069229::1::::<><><>0<>0<>e2d012006b6c8a725d8e089f64d60c65<>res://.godot/imported/curacion.png-8a8ba7744d0ecd4b95e25ba1bed63dbf.ctex::
-energia.png::CompressedTexture2D::8074149415807541634::1783993616::1784069229::1::::<><><>0<>0<>15a2ff959b6fa31877e5f5fe4d93ad55<>res://.godot/imported/energia.png-8085c3440d90da12f94eef094acbd20c.ctex::
-golpe.png::CompressedTexture2D::6870358800293985204::1783993616::1784069229::1::::<><><>0<>0<>a5fea727adf0335846c656f65ecbc77e<>res://.godot/imported/golpe.png-8ac6d74a2c5ef55bd8bf94700a992287.ctex::
-golpefuerte.png::CompressedTexture2D::2310773184737773262::1783993616::1784069229::1::::<><><>0<>0<>b8d71a3a6d9275dd34991c3ea56ade70<>res://.godot/imported/golpefuerte.png-f07ec1b46ed2871940657002a80287f4.ctex::
+::res://Assets/cards/::1785200169
+bloqueo.png::CompressedTexture2D::1036923361222015460::1785200169::1785200277::1::::<><><>0<>0<>cc3a32bb97b6bb7b6f4bfe5bac8be6e7<>res://.godot/imported/bloqueo.png-04ae1abd6e30b1dd88dfbfe51e1bcfb6.ctex::
+curacion.png::CompressedTexture2D::492755812651213054::1785200169::1785200277::1::::<><><>0<>0<>e2d012006b6c8a725d8e089f64d60c65<>res://.godot/imported/curacion.png-8a8ba7744d0ecd4b95e25ba1bed63dbf.ctex::
+energia.png::CompressedTexture2D::8074149415807541634::1785200169::1785200277::1::::<><><>0<>0<>15a2ff959b6fa31877e5f5fe4d93ad55<>res://.godot/imported/energia.png-8085c3440d90da12f94eef094acbd20c.ctex::
+golpe.png::CompressedTexture2D::6870358800293985204::1785200169::1785200277::1::::<><><>0<>0<>a5fea727adf0335846c656f65ecbc77e<>res://.godot/imported/golpe.png-8ac6d74a2c5ef55bd8bf94700a992287.ctex::
+golpefuerte.png::CompressedTexture2D::2310773184737773262::1785200169::1785200277::1::::<><><>0<>0<>b8d71a3a6d9275dd34991c3ea56ade70<>res://.godot/imported/golpefuerte.png-f07ec1b46ed2871940657002a80287f4.ctex::
 ::res://Assets/Cartas/::1784069229
 cardataque.png::CompressedTexture2D::1048850987958154560::1783993616::1784069229::1::::<><><>0<>0<>9e84f852910dc217f2d9d752174189cd<>res://.godot/imported/cardataque.png-f861d20cd882366af695fb26078a89a0.ctex::
 cardbloqueo.png::CompressedTexture2D::3722307017712021689::1783993616::1784069229::1::::<><><>0<>0<>9c9df2c0b9d4b8be43607cb326a95994<>res://.godot/imported/cardbloqueo.png-12667a0bacdf9897cbb45897e3380f99.ctex::
@@ -185,8 +185,8 @@ menu_principal.tscn::PackedScene::1381040934089200851::1783993616::0::1::::<><><
 salir.tscn::PackedScene::2944471456274401490::1783993616::0::1::::<><><>0<>0<><>::uid://dkknsmcypx4pc::::res://Assets/Images/MainM.png<>uid://b3x4xja0k3xl7::::res://Assets/Music/Ruins.wav<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://b42nd1ocqfu1s::::res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav
 select_nivel.tscn::PackedScene::5122780645407030991::1783993616::0::1::::<><><>0<>0<><>::uid://dhsmpwf2ndep::::res://Scripts/menus/select_nivel.gd<>uid://buu016yjlw7su::::res://Assets/BckGrnd/Nivel.png<>uid://c8m4k5tnnhfda::::res://Assets/BckGrnd/paperallborder.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://b42nd1ocqfu1s::::res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav<>uid://cwx0cjlp6h5yy::::res://Assets/Icons/Serpico.png<>uid://d311kgi76ulx4::::res://Assets/BckGrnd/paper.png<>uid://kkshx7n5r6b::::res://Assets/Icons/Espina.png<>uid://bujocqjnco2ly::::res://Assets/Icons/tere.png<>uid://c8478h663nkv7::::res://Assets/Icons/Corvus.png<>uid://c7gpx4py1tr4r::::res://Assets/Icons/Galaad.png<>uid://ckatdamg27mio::::res://Assets/Icons/kapara.png
 select_personaje.tscn::PackedScene::174250851825739024::1783993616::0::1::::<><><>0<>0<><>::uid://dv1po6ndd3wa6::::res://Scripts/menus/select_personaje.gd<>uid://buu016yjlw7su::::res://Assets/BckGrnd/Nivel.png<>uid://c8m4k5tnnhfda::::res://Assets/BckGrnd/paperallborder.png<>uid://cv3vrjc1xpmbg::::res://Assets/ChArt/caelius de pena.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://c03f2guura5ub::::res://Assets/ChArt/caelius de ira.png<>uid://pqa2sa1oiqyf::::res://Assets/ChArt/caelius de ego.png<>uid://b42nd1ocqfu1s::::res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav
-::res://Scenes/ui/::1783993616
-card_ui.tscn::PackedScene::6712477147994165473::1783993616::0::1::::<><><>0<>0<><>::uid://roqk3ngjxk4i::::res://Scripts/ui/card_ui.gd<>uid://btbd381k8rpt6::::res://Assets/Cartas/cardbloqueo.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf
+::res://Scenes/ui/::1785200169
+card_ui.tscn::PackedScene::6712477147994165473::1785200169::0::1::::<><><>0<>0<><>::uid://roqk3ngjxk4i::::res://Scripts/ui/card_ui.gd<>uid://btbd381k8rpt6::::res://Assets/Cartas/cardbloqueo.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf
 ::res://Scripts/::1783993616
 enemy.gd::GDScript::8894094200957701397::1783993616::0::1::::Enemy<>CombatEntity<><>0<>0<><>::
 player.gd::GDScript::7746648402154211789::1783993616::0::1::::Player<>CombatEntity<><>0<>0<><>::
@@ -235,7 +235,7 @@ glosario.gd::GDScript::7231472826548737080::1783993616::0::1::::<>Control<><>0<>
 menu_principal.gd::GDScript::2348446949610637378::1783993616::0::1::::<>Control<><>0<>0<><>::
 select_nivel.gd::GDScript::226132332688892763::1783993616::0::1::::<>Control<><>0<>0<><>::
 select_personaje.gd::GDScript::8687838993537456039::1783993616::0::1::::<>Control<><>0<>0<><>::
-::res://Scripts/ui/::1783993616
-card_ui.gd::GDScript::1223102451248517330::1783993616::0::1::::CardUI<>Control<><>0<>0<><>::
+::res://Scripts/ui/::1785200169
+card_ui.gd::GDScript::1223102451248517330::1785200169::0::1::::CardUI<>Control<><>0<>0<><>::
 drop_zone.gd::GDScript::5452555757315962921::1783993616::0::1::::<>Control<><>0<>0<><>::
 mano.gd::GDScript::1980171841513503194::1783993616::0::1::::<>HBoxContainer<><>0<>0<><>::
