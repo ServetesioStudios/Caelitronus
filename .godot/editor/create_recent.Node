@@ -1,9 +1,9 @@
+Panel
 Label
 Container
 HBoxContainer
 TextureRect
 VBoxContainer
-Panel
 Control
 Node
 Button

@@ -238,8 +238,13 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [node name="Creditos" type="Control"]
+custom_minimum_size = Vector2(864, 600)
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_215w6")
 
 [node name="Fondo" type="TextureRect" parent="."]
@@ -248,7 +253,6 @@ layout_mode = 0
 offset_right = 1278.0
 offset_bottom = 717.0
 texture = ExtResource("2_tla2k")
-expand_mode = 1
 
 [node name="Creditos" type="Label" parent="."]
 layout_mode = 0
@@ -272,10 +276,10 @@ vertical_alignment = 1
 
 [node name="Caelitronus" type="Label" parent="."]
 layout_mode = 0
-offset_left = 53.0
-offset_top = 93.0
-offset_right = 1205.0
-offset_bottom = 237.0
+offset_left = 50.0
+offset_top = 90.0
+offset_right = 1202.0
+offset_bottom = 234.0
 theme_override_colors/font_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9843137)
 theme_override_constants/shadow_offset_x = 2
@@ -308,11 +312,15 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Desarrolladores" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 73.0
-offset_top = 370.0
-offset_right = 1225.0
-offset_bottom = 658.0
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -305.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_constants/separation = 20
 alignment = 1
 
@@ -514,11 +522,18 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_3ghxt")
 
 [node name="Voces" type="HBoxContainer" parent="."]
 visible = false
-layout_mode = 0
-offset_left = 73.0
-offset_top = 370.0
-offset_right = 1193.0
-offset_bottom = 658.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -560.0
+offset_top = -305.0
+offset_right = 560.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_constants/separation = 20
 alignment = 1
 
@@ -717,24 +732,27 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_lrn2f")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3ghxt")
 
 [node name="Atras" type="Button" parent="."]
+custom_minimum_size = Vector2(150, 70)
 layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 158.0
-offset_bottom = 78.0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 180.0
+offset_bottom = 100.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_lrn2f")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_bs8hc")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3ghxt")
 
 [node name="Fondo" type="TextureRect" parent="Atras"]
+custom_minimum_size = Vector2(140, 60)
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
-offset_right = 143.0
-offset_bottom = 63.0
+offset_right = 145.0
+offset_bottom = 65.0
 texture = ExtResource("4_1sxwp")
-expand_mode = 1
+expand_mode = 2
+flip_h = true
 
 [node name="texto" type="Label" parent="Atras"]
 layout_mode = 0
@@ -749,11 +767,12 @@ text = "Atras"
 horizontal_alignment = 1
 
 [node name="Links" type="Button" parent="."]
+custom_minimum_size = Vector2(195, 115)
 layout_mode = 0
 offset_left = 1067.0
 offset_top = 10.0
-offset_right = 1259.0
-offset_bottom = 122.0
+offset_right = 1262.0
+offset_bottom = 125.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_lrn2f")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ppa0q")
@@ -761,13 +780,14 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_3ghxt")
 script = ExtResource("14_yla4p")
 
 [node name="Fondo" type="TextureRect" parent="Links"]
+custom_minimum_size = Vector2(186, 105)
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
-offset_right = 187.0
-offset_bottom = 107.0
+offset_right = 191.0
+offset_bottom = 110.0
 texture = ExtResource("4_1sxwp")
-expand_mode = 1
+expand_mode = 2
 
 [node name="Label" type="Label" parent="Links"]
 layout_mode = 0
@@ -789,11 +809,17 @@ volume_db = -1.0
 bus = &"SFX"
 
 [node name="ButtonDer" type="Button" parent="."]
-layout_mode = 0
-offset_left = 1162.0
-offset_top = 269.0
-offset_right = 1242.0
-offset_bottom = 341.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -36.0
+offset_bottom = 36.0
+grow_horizontal = 0
+grow_vertical = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_5dhh5")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_8vhsq")
@@ -819,11 +845,14 @@ expand_mode = 1
 
 [node name="ButtonIzq" type="Button" parent="."]
 visible = false
-layout_mode = 0
-offset_left = 192.0
-offset_top = 210.0
-offset_right = 264.0
-offset_bottom = 282.0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -36.0
+offset_right = 72.0
+offset_bottom = 36.0
+grow_vertical = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_d5vbh")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_sw4pk")

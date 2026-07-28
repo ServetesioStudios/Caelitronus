@@ -1,4 +1,3 @@
-#BATTLE_SCENE
 extends Node2D
 
 @onready var combat_manager := $CombatManager

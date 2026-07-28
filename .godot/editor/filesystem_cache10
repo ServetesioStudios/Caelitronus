@@ -1,5 +1,5 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1785200276
+::res://::1785272775
 default_bus_layout.tres::AudioBusLayout::3613183280232800959::1783993616::0::1::::<><><>0<>0<><>::
 export_presets.cfg::TextFile::-1::1784070372::0::1::::<><><>0<>0<><>::
 icon.svg::CompressedTexture2D::6637943192390016884::1783993616::1784069229::1::::<><><>0<>0<>7b0e0cdf6d2b353c7934f6358bac4642<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
@@ -45,7 +45,7 @@ oscuro.png::CompressedTexture2D::7218017543941722681::1783993616::1784069229::1:
 sagrados.png::CompressedTexture2D::1993628667011304531::1783993616::1784069229::1::::<><><>0<>0<>6a266322e3cc6fd43fb4c63a62046dd4<>res://.godot/imported/sagrados.png-6229cf1c87a1b8317eaaea83bf8c3333.ctex::
 Tzafiel.png::CompressedTexture2D::846659872391241899::1783993616::1784069229::1::::<><><>0<>0<>e8e8840c46b322b2499e3a29d4948fce<>res://.godot/imported/Tzafiel.png-2170fcbb29da40d665ab182544d5e0bc.ctex::
 vahruksha.png::CompressedTexture2D::2826183605606911931::1783993616::1784069229::1::::<><><>0<>0<>916e7e40069efc7eddb5838cf6124e0e<>res://.godot/imported/vahruksha.png-33af914439b9d39b9b8b0fed53861ed6.ctex::
-::res://Assets/cards/::1785200169
+::res://Assets/cards/::1785200277
 bloqueo.png::CompressedTexture2D::1036923361222015460::1785200169::1785200277::1::::<><><>0<>0<>cc3a32bb97b6bb7b6f4bfe5bac8be6e7<>res://.godot/imported/bloqueo.png-04ae1abd6e30b1dd88dfbfe51e1bcfb6.ctex::
 curacion.png::CompressedTexture2D::492755812651213054::1785200169::1785200277::1::::<><><>0<>0<>e2d012006b6c8a725d8e089f64d60c65<>res://.godot/imported/curacion.png-8a8ba7744d0ecd4b95e25ba1bed63dbf.ctex::
 energia.png::CompressedTexture2D::8074149415807541634::1785200169::1785200277::1::::<><><>0<>0<>15a2ff959b6fa31877e5f5fe4d93ad55<>res://.godot/imported/energia.png-8085c3440d90da12f94eef094acbd20c.ctex::
@@ -160,8 +160,6 @@ monaguillo_sagrado.tres::Resource/EnemyData::778965269850000610::1783993616::0::
 glosario.cfg::TextFile::-1::1783993616::0::1::::<><><>0<>0<><>::
 ::res://Data/ui/::1783993616
 tema_menu.tres::Resource/UIThemeData::966189042755823472::1783993616::0::1::::<><><>0<>0<><>::uid://b5wna6njqp2gq::::res://Scripts/data/ui_theme_data.gd
-::res://Python/::1783993616
-::res://Python/__pycache__/::1783993552
 ::res://Scenes/::1783993616
 battle_scene.tscn::PackedScene::8044710589010028092::1783993616::0::1::::<><><>0<>0<><>::uid://1ujq4vhia20d::::res://Assets/BckGrnd/Bonefield_mvt.png<>uid://ta11uy1xj5dd::::res://Scripts/batalla/battle_scene.gd<>uid://bjsf3q6hvbyji::::res://Scenes/player.tscn<>uid://c8m4k5tnnhfda::::res://Assets/BckGrnd/paperallborder.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf<>uid://bxu6hgpccqqdf::::res://Assets/BckGrnd/papersideborder.png<>uid://cjxi2c8jyhqcn::::res://Scripts/ui/drop_zone.gd<>uid://dbapsc8dah0c4::::res://Scripts/batalla/combat_manager.gd<>uid://eg85yacwhx1v::::res://Scripts/batalla/deck_manager.gd<>uid://3hhe153qj06q::::res://Scripts/ui/mano.gd
 enemy.tscn::PackedScene::8516869168799917684::1783993616::0::1::::<><><>0<>0<><>::uid://dyymoxpfdamvl::::res://Scripts/enemy.gd<>uid://c5frbhsbnmeve::::res://Data/enemigos/monaguillo_lazaro.tres<>uid://crlis0e7fcf4e::::res://Assets/ui/lifeGaugeAlpha.png<>uid://cv6wcbyj6ymdy::::res://Assets/ui/lifeGaugeLlen.png<>uid://cpv7bwckc7nqu::::res://Assets/Fonts/Seagram_tfb.ttf
@@ -191,9 +189,9 @@ card_ui.tscn::PackedScene::6712477147994165473::1785200169::0::1::::<><><>0<>0<>
 enemy.gd::GDScript::8894094200957701397::1783993616::0::1::::Enemy<>CombatEntity<><>0<>0<><>::
 player.gd::GDScript::7746648402154211789::1783993616::0::1::::Player<>CombatEntity<><>0<>0<><>::
 subir_nivel.gd::GDScript::2686080200921805553::1783993616::0::1::::<>Control<><>0<>0<><>::
-::res://Scripts/batalla/::1783993616
-battle_scene.gd::GDScript::1335214190330824793::1783993616::0::1::::<>Node2D<><>0<>0<><>::
-combat_entity.gd::GDScript::3971043777422351998::1783993616::0::1::::CombatEntity<>Node<><>0<>0<><>::
+::res://Scripts/batalla/::1785205083
+battle_scene.gd::GDScript::1335214190330824793::1785205083::0::1::::<>Node2D<><>0<>0<><>::
+combat_entity.gd::GDScript::3971043777422351998::1785205004::0::1::::CombatEntity<>Node<><>0<>0<><>::
 combat_manager.gd::GDScript::7230393950060977053::1783993616::0::1::::CombatManager<>Node<><>0<>0<><>::
 deck_manager.gd::GDScript::295200136335904701::1783993616::0::1::::DeckManager<>Node<><>0<>0<><>::
 ::res://Scripts/cinematicas/::1783993616

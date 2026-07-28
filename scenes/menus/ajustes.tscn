@@ -54,30 +54,40 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dojii")
 
-[node name="Fondo" type="TextureRect" parent="."]
-modulate = Color(0.2533432, 0.2957271, 0.22637159, 1)
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(864, 600)
 layout_mode = 0
-offset_left = 259.0
+offset_left = 263.0
 offset_top = 71.0
-offset_right = 1010.0
+offset_right = 1012.0
 offset_bottom = 599.0
-texture = ExtResource("2_l0dfj")
-expand_mode = 1
 
-[node name="opciones" type="VBoxContainer" parent="."]
+[node name="Fondo" type="TextureRect" parent="Panel"]
+modulate = Color(0.2533432, 0.2957271, 0.22637159, 1)
+custom_minimum_size = Vector2(864, 600)
+layout_mode = 0
+offset_left = -4.0
+offset_right = 860.0
+offset_bottom = 600.0
+texture = ExtResource("2_l0dfj")
+
+[node name="opciones" type="VBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(600, 400)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.062000003
-anchor_top = 0.066
-anchor_right = 0.938
-anchor_bottom = 0.9480001
-offset_left = 255.95
-offset_top = 166.67801
-offset_right = -263.95007
-offset_bottom = -128.71606
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 15
 
-[node name="music" type="Label" parent="opciones"]
+[node name="music" type="Label" parent="Panel/opciones"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.86315715, 0.84186804, 0.68762344, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -86,13 +96,13 @@ theme_override_font_sizes/font_size = 40
 text = "Música"
 horizontal_alignment = 1
 
-[node name="SliderMusica" type="HSlider" parent="opciones"]
+[node name="SliderMusica" type="HSlider" parent="Panel/opciones"]
 modulate = Color(0.7791886, 0.7833376, 0.51790667, 1)
 layout_mode = 2
 focus_mode = 0
 value = 50.0
 
-[node name="Efectos" type="Label" parent="opciones"]
+[node name="Efectos" type="Label" parent="Panel/opciones"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.86315715, 0.84186804, 0.68762344, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -101,12 +111,12 @@ theme_override_font_sizes/font_size = 40
 text = "Efectos"
 horizontal_alignment = 1
 
-[node name="SliderEfectos" type="HSlider" parent="opciones"]
+[node name="SliderEfectos" type="HSlider" parent="Panel/opciones"]
 modulate = Color(0.7791886, 0.7833376, 0.51790667, 1)
 layout_mode = 2
 value = 50.0
 
-[node name="Voces" type="Label" parent="opciones"]
+[node name="Voces" type="Label" parent="Panel/opciones"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.86315715, 0.84186804, 0.68762344, 1)
 theme_override_fonts/font = ExtResource("3_ctf5j")
@@ -114,50 +124,48 @@ theme_override_font_sizes/font_size = 40
 text = "Voces"
 horizontal_alignment = 1
 
-[node name="SliderVoces" type="HSlider" parent="opciones"]
+[node name="SliderVoces" type="HSlider" parent="Panel/opciones"]
 modulate = Color(0.7791886, 0.7833376, 0.51790667, 1)
 layout_mode = 2
 value = 50.0
 
-[node name="BtnVolver" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.010000001
-anchor_top = 0.023000002
-anchor_right = 0.133
-anchor_bottom = 0.12200001
-offset_left = 267.53
-offset_top = 100.297
-offset_right = 273.83398
-offset_bottom = 104.14498
+[node name="BtnVolver" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(185, 80)
+layout_mode = 0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 215.0
+offset_bottom = 110.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_jg833")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_nv4yc")
 theme_override_styles/hover = SubResource("StyleBoxFlat_o5kyp")
 script = ExtResource("4_p3tvd")
 
-[node name="Fondo" type="TextureRect" parent="BtnVolver"]
+[node name="Fondo" type="TextureRect" parent="Panel/BtnVolver"]
+custom_minimum_size = Vector2(177, 70)
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
-offset_right = 161.72
-offset_bottom = 70.212006
+offset_right = 182.0
+offset_bottom = 75.0
 texture = ExtResource("2_l0dfj")
-expand_mode = 1
+expand_mode = 2
 
-[node name="texto" type="Label" parent="BtnVolver"]
+[node name="texto" type="Label" parent="Panel/BtnVolver"]
 layout_mode = 0
-offset_left = 32.72
-offset_top = 12.212006
-offset_right = 138.72
-offset_bottom = 63.212006
+offset_left = 45.0
+offset_top = 12.0
+offset_right = 151.0
+offset_bottom = 63.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_fonts/font = ExtResource("3_ctf5j")
 theme_override_font_sizes/font_size = 40
 text = "Atrás"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="HoverSound" type="AudioStreamPlayer" parent="BtnVolver"]
+[node name="HoverSound" type="AudioStreamPlayer" parent="Panel/BtnVolver"]
 stream = ExtResource("5_3v24l")
 volume_db = -1.0
 bus = &"SFX"
@@ -172,4 +180,4 @@ bus = &"SFX"
 [node name="PreviewVoces" type="AudioStreamPlayer" parent="."]
 bus = &"Voces"
 
-[connection signal="pressed" from="BtnVolver" to="." method="_on_btn_volver_pressed"]
+[connection signal="pressed" from="Panel/BtnVolver" to="." method="_on_btn_volver_pressed"]

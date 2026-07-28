@@ -155,7 +155,6 @@ func esquive_efectivo() -> int:
 	return esquive + esquive_buff_valor
 
 func reproducir_animacion(tipo: IntentData.Tipo) -> void:
-	# comportamiento genérico por defecto: un tween simple según el tipo
 	match tipo:
 		IntentData.Tipo.ATACAR:
 			_tween_ataque()

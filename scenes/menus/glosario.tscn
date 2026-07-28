@@ -208,6 +208,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [node name="Glosario" type="Control"]
+custom_minimum_size = Vector2(864, 600)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -218,16 +219,19 @@ script = ExtResource("1_d5s7p")
 
 [node name="Fondo" type="TextureRect" parent="."]
 modulate = Color(0.90413505, 0.76640046, 0.667267, 1)
+custom_minimum_size = Vector2(864, 600)
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 719.0
 texture = ExtResource("2_qwwyx")
-expand_mode = 1
 
 [node name="Glosario" type="Label" parent="."]
-layout_mode = 0
-offset_right = 1280.0
-offset_bottom = 120.0
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 25.0
+offset_bottom = 98.0
+grow_horizontal = 2
 theme_override_colors/font_color = Color(0.9995722, 0.8720149, 0.66100925, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 5
@@ -243,9 +247,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="General" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Tipo" type="Label" parent="General"]
 layout_mode = 0
@@ -265,12 +272,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ScrollContainerPersonajes" type="ScrollContainer" parent="General"]
-custom_minimum_size = Vector2(1132, 400)
-layout_mode = 0
-offset_left = 37.0
-offset_top = 210.0
-offset_right = 1261.0
-offset_bottom = 677.0
+custom_minimum_size = Vector2(800, 400)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -420.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="Personajes" type="HBoxContainer" parent="General/ScrollContainerPersonajes"]
 custom_minimum_size = Vector2(2700, 380)
@@ -673,12 +684,16 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
 
 [node name="ScrollContainerMaldiciones" type="ScrollContainer" parent="General"]
 visible = false
-custom_minimum_size = Vector2(1132, 400)
-layout_mode = 0
-offset_left = 10.0
-offset_top = 210.0
-offset_right = 1277.0
-offset_bottom = 610.0
+custom_minimum_size = Vector2(800, 400)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -420.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="Maldiciones" type="HBoxContainer" parent="General/ScrollContainerMaldiciones"]
 custom_minimum_size = Vector2(1132, 380)
@@ -769,12 +784,16 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
 
 [node name="ScrollContainerPoderes" type="ScrollContainer" parent="General"]
 visible = false
-custom_minimum_size = Vector2(1132, 400)
-layout_mode = 0
-offset_left = 10.0
-offset_top = 210.0
-offset_right = 1278.0
-offset_bottom = 610.0
+custom_minimum_size = Vector2(800, 400)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -420.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="Poderes" type="HBoxContainer" parent="General/ScrollContainerPoderes"]
 custom_minimum_size = Vector2(1132, 380)
@@ -904,11 +923,11 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
 
 [node name="ButtonIzq" type="Button" parent="General"]
 visible = false
-layout_mode = 0
-offset_left = 270.0
-offset_top = 110.0
-offset_right = 342.0
-offset_bottom = 182.0
+layout_mode = 1
+offset_left = 15.0
+offset_top = 130.0
+offset_right = 87.0
+offset_bottom = 202.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_o62w7")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_4n5e1")
@@ -933,11 +952,15 @@ texture = ExtResource("19_t728v")
 expand_mode = 1
 
 [node name="ButtonDer" type="Button" parent="General"]
-layout_mode = 0
-offset_left = 1168.0
-offset_top = 110.0
-offset_right = 1248.0
-offset_bottom = 182.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -95.0
+offset_top = 130.0
+offset_right = -15.0
+offset_bottom = 202.0
+grow_horizontal = 0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_y736b")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_8hu71")
@@ -1114,22 +1137,24 @@ text = "Alma"
 horizontal_alignment = 1
 
 [node name="Atras" type="Button" parent="."]
-layout_mode = 0
+custom_minimum_size = Vector2(150, 70)
+layout_mode = 1
 offset_left = 10.0
 offset_top = 10.0
-offset_right = 158.0
-offset_bottom = 78.0
+offset_right = 159.0
+offset_bottom = 80.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_8ny5s")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_vd0mr")
 theme_override_styles/hover = SubResource("StyleBoxFlat_i8uit")
 
 [node name="Fondo" type="TextureRect" parent="Atras"]
+custom_minimum_size = Vector2(140, 60)
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
-offset_right = 143.0
-offset_bottom = 63.0
+offset_right = 145.0
+offset_bottom = 65.0
 texture = ExtResource("4_314hx")
 expand_mode = 1
 

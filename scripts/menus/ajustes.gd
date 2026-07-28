@@ -1,8 +1,8 @@
 extends Control
 
-@onready var slider_musica = $opciones/SliderMusica
-@onready var slider_efectos = $opciones/SliderEfectos
-@onready var slider_voces = $opciones/SliderVoces
+@onready var slider_musica = $Panel/opciones/SliderMusica
+@onready var slider_efectos = $Panel/opciones/SliderEfectos
+@onready var slider_voces = $Panel/opciones/SliderVoces
 
 #@onready var preview_music = $PreviewMusic
 @onready var preview_sfx = $PreviewEfectos
