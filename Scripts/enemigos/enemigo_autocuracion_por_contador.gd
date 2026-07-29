@@ -10,6 +10,7 @@ func decidir_intencion() -> void:
 	if contador >= fe:
 		nueva_intencion.tipo = IntentData.Tipo.HABILIDAD
 		nueva_intencion.valor = int(fe * porcentaje_curacion)
+		nueva_intencion.animacion = "curacion"
 	else:
 		var accion = randi() % 2
 		match accion:

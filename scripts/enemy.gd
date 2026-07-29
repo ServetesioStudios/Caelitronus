@@ -16,8 +16,6 @@ func cargar_desde_data():
 		return
 	nombre = enemy_data.nombre
 	aplicar_stats(enemy_data.stats.duplicate())
-	if has_node("Sprite2D") and enemy_data.sprite != null:
-		$Sprite2D.texture = enemy_data.sprite
 
 func decidir_intencion() -> void:
 	var nueva_intencion := IntentData.new()
@@ -49,3 +47,14 @@ func aplicar_efecto_habilidad_a_objetivo(objetivo: CombatEntity) -> void:
 	
 func activar_habilidad() -> void:
 	super()
+	
+	
+func obtener_nombre_animacion_intencion() -> String:
+	if intencion_actual.animacion != "":
+		return intencion_actual.animacion
+	match intencion_actual.tipo:
+		IntentData.Tipo.ATACAR:
+			return "ataque"
+		IntentData.Tipo.DEFENDER:
+			return "bloqueo"
+	return ""

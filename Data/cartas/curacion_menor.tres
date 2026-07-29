@@ -14,6 +14,7 @@ script = ExtResource("2_g0y4p")
 nombre = "Curación"
 descripcion = "Recupera 4 de vida"
 efectos = Array[ExtResource("1_gej06")]([SubResource("Resource_03mn3")])
+animacion = "curacion"
 tipo_objetivo = 0
 arte = ExtResource("1_o8eox")
 metadata/_custom_type_script = "uid://wr8ukg3kbesn"

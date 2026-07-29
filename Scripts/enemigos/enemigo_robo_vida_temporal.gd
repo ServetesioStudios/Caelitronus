@@ -13,6 +13,7 @@ func decidir_intencion() -> void:
 	if turnos_restantes_cooldown <= 0:
 		nueva_intencion.tipo = IntentData.Tipo.HABILIDAD
 		nueva_intencion.valor = 0
+		nueva_intencion.animacion = "curacion"
 	else:
 		nueva_intencion.tipo = IntentData.Tipo.ATACAR
 		nueva_intencion.valor = daño

@@ -10,6 +10,8 @@ const JEFES_INICIALES := {
 }
 
 func _ready():
+	MusicManager.play_menu()
+	
 	var jefes := 0
 	for jefe_id in JEFES_INICIALES.keys():
 		if GameManager.es_jefe_derrotado(jefe_id):

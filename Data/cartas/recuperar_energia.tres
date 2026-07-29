@@ -14,6 +14,7 @@ script = ExtResource("2_swfm2")
 nombre = "Energía"
 descripcion = "Recupera 1 de energía"
 efectos = Array[ExtResource("1_1v38k")]([SubResource("Resource_tkgxo")])
+animacion = "energia"
 tipo_objetivo = 0
 costo = 0
 arte = ExtResource("1_uk3ux")

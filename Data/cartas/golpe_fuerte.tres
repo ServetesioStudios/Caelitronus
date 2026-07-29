@@ -15,5 +15,6 @@ script = ExtResource("4_uoxec")
 nombre = "Golpazo"
 descripcion = "Inflige 8 de daño"
 efectos = Array[ExtResource("2_86tbp")]([SubResource("Resource_iwchs")])
+animacion = "ataquefuerte"
 arte = ExtResource("1_ww2a1")
 metadata/_custom_type_script = "uid://wr8ukg3kbesn"

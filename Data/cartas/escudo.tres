@@ -15,6 +15,7 @@ script = ExtResource("4_q1u1p")
 nombre = "Escudo"
 descripcion = "Gana 5 de escudo"
 efectos = Array[ExtResource("2_2mu7s")]([SubResource("Resource_gmt4k")])
+animacion = "bloqueo"
 tipo_objetivo = 0
 arte = ExtResource("1_bi2xl")
 metadata/_custom_type_script = "uid://wr8ukg3kbesn"

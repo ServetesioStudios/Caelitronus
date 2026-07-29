@@ -13,17 +13,17 @@ func _ready():
 	if GameManager.player_data != null:
 		match GameManager.player_data.tipo_caelius:
 				GameManager.TipoCaelius.EGO:
-					$General/ScrollContainerPersonajes/Personajes/Caelius/TextureRect.texture = load("res://assets/ChArt/caelius de ego.png")
+					$Panel/General/ScrollContainerPersonajes/Personajes/Caelius/TextureRect.texture = load("res://assets/ChArt/caelius de ego.png")
 				GameManager.TipoCaelius.IRA:
-					$General/ScrollContainerPersonajes/Personajes/Caelius/TextureRect.texture = load("res://assets/ChArt/caelius de ira.png")
+					$Panel/General/ScrollContainerPersonajes/Personajes/Caelius/TextureRect.texture = load("res://assets/ChArt/caelius de ira.png")
 				GameManager.TipoCaelius.PENA:
-					$General/ScrollContainerPersonajes/Personajes/Caelius/TextureRect.texture = load("res://assets/ChArt/caelius de pena.png")
+					$Panel/General/ScrollContainerPersonajes/Personajes/Caelius/TextureRect.texture = load("res://assets/ChArt/caelius de pena.png")
 	else:
 		ocultar("Caelius")
-		$General/ScrollContainerMaldiciones/Maldiciones/Reves/TextureRect.modulate = Color()
-		$General/ScrollContainerMaldiciones/Maldiciones/Reves/Label.text = "???"
-		$General/ScrollContainerMaldiciones/Maldiciones/Reves/Button.disabled = true
-		$General/ScrollContainerMaldiciones/Maldiciones/Reves/Button.set_block_signals(1)
+		$Panel/General/ScrollContainerMaldiciones/Maldiciones/Reves/TextureRect.modulate = Color()
+		$Panel/General/ScrollContainerMaldiciones/Maldiciones/Reves/Label.text = "???"
+		$Panel/General/ScrollContainerMaldiciones/Maldiciones/Reves/Button.disabled = true
+		$Panel/General/ScrollContainerMaldiciones/Maldiciones/Reves/Button.set_block_signals(1)
 
 	for jefe_nombre in GameManager.Jefe.keys():
 		var jefe_id = GameManager.Jefe[jefe_nombre]
@@ -31,17 +31,17 @@ func _ready():
 			ocultar(jefe_nombre.capitalize())	
 		
 func ocultar(nombre):
-	$General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/TextureRect").modulate = Color()
-	$General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/Label").text = "???"
-	$General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/Button").disabled = true
-	$General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/Button").set_block_signals(1)
+	$Panel/General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/TextureRect").modulate = Color()
+	$Panel/General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/Label").text = "???"
+	$Panel/General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/Button").disabled = true
+	$Panel/General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/Button").set_block_signals(1)
 
 
 func _on_atras_pressed() -> void:
-	if $Detalle.visible:
-		$Detalle.hide()
-		$General.show()
-		$Glosario.text = "Glosario"
+	if $Panel/Detalle.visible:
+		$Panel/Detalle.hide()
+		$Panel/General.show()
+		$Panel/Glosario.text = "Glosario"
 	else:
 		queue_free()
 
@@ -53,29 +53,29 @@ func _on_button_mouse_entered() -> void:
 
 
 func _on_button_der_pressed() -> void:
-	if $General/Tipo.text == "Personajes":
-		$General/ButtonIzq.show()
-		$General/ScrollContainerPersonajes.hide()
-		$General/ScrollContainerMaldiciones.show()
-		$General/Tipo.text = "Maldiciones"
+	if $Panel/General/Tipo.text == "Personajes":
+		$Panel/General/ButtonIzq.show()
+		$Panel/General/ScrollContainerPersonajes.hide()
+		$Panel/General/ScrollContainerMaldiciones.show()
+		$Panel/General/Tipo.text = "Maldiciones"
 	else:
-		$General/ButtonDer.hide()
-		$General/ScrollContainerMaldiciones.hide()
-		$General/ScrollContainerPoderes.show()
-		$General/Tipo.text = "Poderes del Mundo"
+		$Panel/General/ButtonDer.hide()
+		$Panel/General/ScrollContainerMaldiciones.hide()
+		$Panel/General/ScrollContainerPoderes.show()
+		$Panel/General/Tipo.text = "Poderes del Mundo"
 
 
 func _on_button_izq_pressed() -> void:
-	if $General/Tipo.text == "Maldiciones":
-		$General/ButtonIzq.hide()
-		$General/ScrollContainerMaldiciones.hide()
-		$General/ScrollContainerPersonajes.show()
-		$General/Tipo.text = "Personajes"
+	if $Panel/General/Tipo.text == "Maldiciones":
+		$Panel/General/ButtonIzq.hide()
+		$Panel/General/ScrollContainerMaldiciones.hide()
+		$Panel/General/ScrollContainerPersonajes.show()
+		$Panel/General/Tipo.text = "Personajes"
 	else:
-		$General/ButtonDer.show()
-		$General/ScrollContainerPoderes.hide()
-		$General/ScrollContainerMaldiciones.show()
-		$General/Tipo.text = "Maldiciones"
+		$Panel/General/ButtonDer.show()
+		$Panel/General/ScrollContainerPoderes.hide()
+		$Panel/General/ScrollContainerMaldiciones.show()
+		$Panel/General/Tipo.text = "Maldiciones"
 
 
 func _on_button_pressed(id) -> void:
@@ -83,86 +83,86 @@ func _on_button_pressed(id) -> void:
 	if err != OK:
 		return
 	glosarioid = id
-	$General.hide()
+	$Panel/General.hide()
 	if id == "Devotio" or id == "Reves" or id == "Trono" or id == "Alma" or id == "MonjaPoder":
-		$Detalle/Descripcion/texto.text = "Concepto"
-		$Detalle/Descripcion.disabled = true
-		$Detalle/Alma.hide()
-		$Detalle/Religion.hide()
-		$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(id,"descripcion")
+		$Panel/Detalle/Descripcion/texto.text = "Concepto"
+		$Panel/Detalle/Descripcion.disabled = true
+		$Panel/Detalle/Alma.hide()
+		$Panel/Detalle/Religion.hide()
+		$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(id,"descripcion")
 		if id == "Devotio" or id == "Reves":
-			$Detalle/Imagen/TextureRect.texture = $General/ScrollContainerMaldiciones/Maldiciones.get_node(glosarioid + "/TextureRect").texture
+			$Panel/Detalle/Imagen/TextureRect.texture = $Panel/General/ScrollContainerMaldiciones/Maldiciones.get_node(glosarioid + "/TextureRect").texture
 		else:
-			$Detalle/Imagen/TextureRect.texture = $General/ScrollContainerPoderes/Poderes.get_node(glosarioid + "/TextureRect").texture
+			$Panel/Detalle/Imagen/TextureRect.texture = $Panel/General/ScrollContainerPoderes/Poderes.get_node(glosarioid + "/TextureRect").texture
 	else:
-		$Detalle/Descripcion/texto.text = "Historia"
-		$Detalle/Alma.show()
-		$Detalle/Religion.show()
-		$Detalle/Descripcion.emit_signal("pressed")
-	$Glosario.text = glosariotexto.get_value(id,"nombre")
-	$Detalle.show()
+		$Panel/Detalle/Descripcion/texto.text = "Historia"
+		$Panel/Detalle/Alma.show()
+		$Panel/Detalle/Religion.show()
+		$Panel/Detalle/Descripcion.emit_signal("pressed")
+	$Panel/Glosario.text = glosariotexto.get_value(id,"nombre")
+	$Panel/Detalle.show()
 
 func _on_descripcion_pressed() -> void:
-	$Detalle/Descripcion.disabled = true
-	$Detalle/Descripcion.set_block_signals(1)
-	$Detalle/Religion.disabled = false
-	$Detalle/Religion.set_block_signals(0)
-	$Detalle/Alma.disabled = false
-	$Detalle/Alma.set_block_signals(0)
+	$Panel/Detalle/Descripcion.disabled = true
+	$Panel/Detalle/Descripcion.set_block_signals(1)
+	$Panel/Detalle/Religion.disabled = false
+	$Panel/Detalle/Religion.set_block_signals(0)
+	$Panel/Detalle/Alma.disabled = false
+	$Panel/Detalle/Alma.set_block_signals(0)
 	if glosarioid == "Caelius":
 		match GameManager.player_data.tipo_caelius:
 			GameManager.TipoCaelius.EGO:
-				$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"descripcionego")
+				$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"descripcionego")
 			GameManager.TipoCaelius.IRA:
-				$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"descripcionira")
+				$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"descripcionira")
 			GameManager.TipoCaelius.PENA:
-				$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"descripcionpena")
+				$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"descripcionpena")
 	else:
-		$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"descripcion")
-	$Detalle/Imagen/TextureRect.texture = $General/ScrollContainerPersonajes/Personajes.get_node(glosarioid + "/TextureRect").texture
+		$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"descripcion")
+	$Panel/Detalle/Imagen/TextureRect.texture = $Panel/General/ScrollContainerPersonajes/Personajes.get_node(glosarioid + "/TextureRect").texture
 
 
 func _on_religion_pressed() -> void:
-	$Detalle/Religion.disabled = true
-	$Detalle/Religion.set_block_signals(1)
-	$Detalle/Descripcion.disabled = false
-	$Detalle/Descripcion.set_block_signals(0)
-	$Detalle/Alma.disabled = false
-	$Detalle/Alma.set_block_signals(0)
-	$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"religion")
-	$Detalle/Imagen/TextureRect.texture = $General/ScrollContainerPersonajes/Personajes.get_node(glosarioid + "/TextureRect").texture
+	$Panel/Detalle/Religion.disabled = true
+	$Panel/Detalle/Religion.set_block_signals(1)
+	$Panel/Detalle/Descripcion.disabled = false
+	$Panel/Detalle/Descripcion.set_block_signals(0)
+	$Panel/Detalle/Alma.disabled = false
+	$Panel/Detalle/Alma.set_block_signals(0)
+	$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"religion")
+	$Panel/Detalle/Imagen/TextureRect.texture = $Panel/General/ScrollContainerPersonajes/Personajes.get_node(glosarioid + "/TextureRect").texture
 
 
 func _on_alma_pressed() -> void:
-	$Detalle/Alma.disabled = true
-	$Detalle/Alma.set_block_signals(1)
-	$Detalle/Descripcion.disabled = false
-	$Detalle/Descripcion.set_block_signals(0)
-	$Detalle/Religion.disabled = false
-	$Detalle/Religion.set_block_signals(0)
+	$Panel/Detalle/Alma.disabled = true
+	$Panel/Detalle/Alma.set_block_signals(1)
+	$Panel/Detalle/Descripcion.disabled = false
+	$Panel/Detalle/Descripcion.set_block_signals(0)
+	$Panel/Detalle/Religion.disabled = false
+	$Panel/Detalle/Religion.set_block_signals(0)
 	if glosarioid == "Caelius":
 		match GameManager.player_data.tipo_caelius:
 			GameManager.TipoCaelius.EGO:
-				$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"almaego")
+				$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"almaego")
 			GameManager.TipoCaelius.IRA:
-				$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"almaira")
+				$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"almaira")
 			GameManager.TipoCaelius.PENA:
-				$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"almapena")
-		$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/fause.png")
+				$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"almapena")
+		$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/fause.png")
 	else:
-		$Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"alma")
+		$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"alma")
 	match glosarioid:
 		"Monaquillo":
-			$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/almamonaquillos.png")
+			$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/almamonaquillos.png")
 		"Espina":
-			$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Kamathra.png")
+			$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Kamathra.png")
 		"Serpico":
-			$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/vahruksha.png")
+			$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/vahruksha.png")
 		"Eirene":
-			$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Artemisia.png")
+			$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Artemisia.png")
 		"Corvus":
-			$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Nzolukaya.png")
+			$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Nzolukaya.png")
 		"Galaad":
-			$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Eliadran.png")
+			$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Eliadran.png")
 		"Kapparah":
-			$Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Tzafiel.png")
+			$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Tzafiel.png")

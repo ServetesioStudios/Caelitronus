@@ -1,5 +1,7 @@
-Panel
 Label
+Sprite2D
+Panel
+AnimatedSprite2D
 Container
 HBoxContainer
 TextureRect

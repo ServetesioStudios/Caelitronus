@@ -10,4 +10,4 @@ enum Religion {
 @export var nombre: String
 @export var religion: Religion = Religion.NINGUNA
 @export var stats: Stats
-@export var sprite: Texture2D
+#@export var sprite: Texture2D

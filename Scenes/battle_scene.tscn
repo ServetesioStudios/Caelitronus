@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dmu6hcrme284g"]
+[gd_scene load_steps=14 format=3 uid="uid://dmu6hcrme284g"]
 
 [ext_resource type="Texture2D" uid="uid://1ujq4vhia20d" path="res://Assets/BckGrnd/Bonefield_mvt.png" id="1_bxpjm"]
 [ext_resource type="Script" uid="uid://ta11uy1xj5dd" path="res://Scripts/batalla/battle_scene.gd" id="1_qf52c"]
@@ -13,6 +13,17 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_f4ggb"]
 font = ExtResource("6_n02j2")
+font_size = 20
+font_color = Color(1, 0, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wb0gu"]
+font = ExtResource("6_n02j2")
+font_size = 22
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ms847"]
+font = ExtResource("6_n02j2")
+font_size = 20
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_qf52c")
@@ -25,23 +36,13 @@ script = ExtResource("9_ed262")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="DropZonePlayer" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("entidad") groups=["DropZones"]]
+[node name="DropZone" type="Control" parent="CanvasLayer" groups=["DropZones"]]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 3.0
 offset_top = 4.0
-offset_right = 385.0
-offset_bottom = 535.0
-script = ExtResource("8_ms847")
-es_zona_propia = true
-entidad = NodePath("../player")
-
-[node name="DropZoneEnemy" type="Control" parent="CanvasLayer" groups=["DropZones"]]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 413.0
-offset_right = 1276.0
-offset_bottom = 577.0
+offset_right = 1284.0
+offset_bottom = 476.0
 script = ExtResource("8_ms847")
 
 [node name="BonefieldMvt" type="Sprite2D" parent="CanvasLayer"]
@@ -80,20 +81,6 @@ texture = ExtResource("7_n02j2")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="playerstatstex" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 13.0
-offset_top = 5.0
-offset_right = 403.0
-offset_bottom = 30.0
-theme_override_colors/default_color = Color(0.5747718, 0.3360082, 0, 1)
-theme_override_fonts/normal_font = ExtResource("6_n02j2")
-theme_override_font_sizes/normal_font_size = 19
-text = "playerstatstex"
-fit_content = true
-autowrap_mode = 2
-tab_size = 3
-horizontal_alignment = 1
-
 [node name="enemistats" type="TextureRect" parent="CanvasLayer"]
 offset_left = 983.0
 offset_top = 611.0
@@ -102,18 +89,6 @@ offset_bottom = 706.0
 texture = ExtResource("7_n02j2")
 expand_mode = 1
 stretch_mode = 6
-
-[node name="enemiplayetex" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 848.0
-offset_top = 5.0
-offset_right = 1242.0
-offset_bottom = 84.0
-theme_override_colors/default_color = Color(0.5764706, 0.3372549, 0, 1)
-theme_override_fonts/normal_font = ExtResource("6_n02j2")
-theme_override_font_sizes/normal_font_size = 19
-text = "enemyplaytex
-"
-horizontal_alignment = 1
 
 [node name="LabelEnergia" type="Label" parent="CanvasLayer"]
 self_modulate = Color(0, 0, 0, 1)
@@ -124,12 +99,37 @@ offset_bottom = 670.0
 text = "3/3"
 label_settings = SubResource("LabelSettings_f4ggb")
 
+[node name="LabelCombates" type="Label" parent="CanvasLayer"]
+offset_left = 34.0
+offset_top = 662.0
+offset_right = 286.0
+offset_bottom = 703.0
+text = "combates"
+label_settings = SubResource("LabelSettings_wb0gu")
+
 [node name="BtnFinTurno" type="Button" parent="CanvasLayer"]
 offset_left = 1147.0
 offset_top = 637.0
 offset_right = 1252.0
 offset_bottom = 685.0
+
+[node name="Label" type="Label" parent="CanvasLayer/BtnFinTurno"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -24.5
+offset_right = 52.0
+offset_bottom = 24.5
+grow_horizontal = 2
+grow_vertical = 2
 text = "Terminar"
+label_settings = SubResource("LabelSettings_ms847")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Mano" type="HBoxContainer" parent="CanvasLayer"]
 offset_left = 332.0

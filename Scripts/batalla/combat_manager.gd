@@ -94,6 +94,7 @@ func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
 				enemigo.al_atacar()
 		IntentData.Tipo.DEFENDER:
 			enemigo.bloqueo += enemigo.intencion_actual.valor
+			enemigo.actualizar_escudo()
 			descripcion = "%s se defiende y gana %d de bloqueo" % [enemigo.nombre, enemigo.intencion_actual.valor]
 		IntentData.Tipo.HABILIDAD:
 			enemigo.activar_habilidad()

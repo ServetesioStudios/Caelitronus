@@ -4,7 +4,7 @@ extends CombatEntity
 signal energia_actualizada(actual: int, maxima: int)
 
 var tipo_caelius : GameManager.TipoCaelius
-var energia_maxima: int = 3
+var energia_max: int = 3
 var energia_actual: int = 3
 
 func _ready():
@@ -12,7 +12,7 @@ func _ready():
 	nombre = "Caelius"
 	tipo_caelius = GameManager.player_data.tipo_caelius
 	cargar_stats()
-	_definir_energia_maxima()
+	_definir_energia_max()
 	actualizar_barra_vida()
 
 func _process(delta):
@@ -31,18 +31,18 @@ func cargar_stats():
 	if GameManager.player_data.hp_actual >= 0:
 		hp = GameManager.player_data.hp_actual
 
-func _definir_energia_maxima() -> void:
+func _definir_energia_max() -> void:
 	match tipo_caelius:
 		GameManager.TipoCaelius.IRA:
-			energia_maxima = 3
+			energia_max = 3
 		GameManager.TipoCaelius.PENA:
-			energia_maxima = 3
+			energia_max = 3
 		GameManager.TipoCaelius.EGO:
-			energia_maxima = 3
+			energia_max = 3
 
 func resetear_energia() -> void:
-	energia_actual = energia_maxima
-	energia_actualizada.emit(energia_actual, energia_maxima)
+	energia_actual = energia_max
+	energia_actualizada.emit(energia_actual, energia_max)
 	
 func puede_pagar(costo: int) -> bool:
 	return energia_actual >= costo
@@ -51,12 +51,12 @@ func gastar_energia(costo: int) -> bool:
 	if not puede_pagar(costo):
 		return false
 	energia_actual -= costo
-	energia_actualizada.emit(energia_actual, energia_maxima)
+	energia_actualizada.emit(energia_actual, energia_max)
 	return true
 
 func sumar_energia(cantidad: int) -> void: 
-	energia_actual = min(energia_actual + cantidad, energia_maxima)
-	energia_actualizada.emit(energia_actual, energia_maxima)
+	energia_actual = min(energia_actual + cantidad, energia_max)
+	energia_actualizada.emit(energia_actual, energia_max)
 
 func activar_habilidad():
 	if cooldown_habilidad > 0:

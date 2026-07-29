@@ -1,9 +1,169 @@
-[gd_scene load_steps=3 format=3 uid="uid://cuyai5td2vp8s"]
+[gd_scene load_steps=25 format=3 uid="uid://cuyai5td2vp8s"]
 
 [ext_resource type="PackedScene" uid="uid://dtlvudb7gixqy" path="res://Scenes/enemy.tscn" id="1_m364l"]
 [ext_resource type="Script" uid="uid://dk60gg4fnxhdg" path="res://Scripts/enemigos/enemigo_autocuracion_por_contador.gd" id="2_jhelr"]
+[ext_resource type="Texture2D" uid="uid://dxqgr8wqht3m0" path="res://Assets/animaciones/animacionlazaro/ataquefuerte.png" id="3_7mdqy"]
+[ext_resource type="Texture2D" uid="uid://1pgypugc4gfk" path="res://Assets/animaciones/animacionlazaro/blqueo.png" id="4_2gclm"]
+[ext_resource type="Texture2D" uid="uid://be7agqgbna0wd" path="res://Assets/animaciones/animacionlazaro/daño.png" id="5_64p4w"]
+[ext_resource type="Texture2D" uid="uid://jfmog1wdw055" path="res://Assets/animaciones/animacionlazaro/energia.png" id="6_07q52"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfn76"]
+atlas = ExtResource("3_7mdqy")
+region = Rect2(0, 0, 288, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fns0"]
+atlas = ExtResource("3_7mdqy")
+region = Rect2(288, 0, 288, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xcgq2"]
+atlas = ExtResource("3_7mdqy")
+region = Rect2(576, 0, 288, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m22cw"]
+atlas = ExtResource("3_7mdqy")
+region = Rect2(864, 0, 288, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngiid"]
+atlas = ExtResource("3_7mdqy")
+region = Rect2(1152, 0, 288, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vajn4"]
+atlas = ExtResource("4_2gclm")
+region = Rect2(0, 0, 288, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2cn7n"]
+atlas = ExtResource("4_2gclm")
+region = Rect2(288, 0, 288, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0mvu"]
+atlas = ExtResource("4_2gclm")
+region = Rect2(576, 0, 288, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxmu5"]
+atlas = ExtResource("6_07q52")
+region = Rect2(0, 0, 288, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q18io"]
+atlas = ExtResource("6_07q52")
+region = Rect2(288, 0, 288, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u5qno"]
+atlas = ExtResource("6_07q52")
+region = Rect2(576, 0, 288, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6s47r"]
+atlas = ExtResource("5_64p4w")
+region = Rect2(0, 0, 288, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwlya"]
+atlas = ExtResource("5_64p4w")
+region = Rect2(288, 0, 288, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12cy3"]
+atlas = ExtResource("5_64p4w")
+region = Rect2(576, 0, 288, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jx6td"]
+atlas = ExtResource("5_64p4w")
+region = Rect2(864, 0, 288, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifflj"]
+atlas = ExtResource("5_64p4w")
+region = Rect2(1152, 0, 288, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41y8l"]
+atlas = ExtResource("6_07q52")
+region = Rect2(0, 0, 288, 350)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cnknd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfn76")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fns0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xcgq2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m22cw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngiid")
+}],
+"loop": false,
+"name": &"ataque",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vajn4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cn7n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n0mvu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cn7n")
+}],
+"loop": false,
+"name": &"bloqueo",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxmu5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q18io")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5qno")
+}],
+"loop": false,
+"name": &"curacion",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6s47r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iwlya")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_12cy3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jx6td")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ifflj")
+}],
+"loop": false,
+"name": &"daño",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41y8l")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [node name="Node2D" instance=ExtResource("1_m364l")]
 script = ExtResource("2_jhelr")
 incremento_por_ataque = 4
 porcentaje_curacion = 1.0
+
+[node name="Animador" parent="." index="3" node_paths=PackedStringArray("sprite")]
+position = Vector2(143, 216)
+sprite_frames = SubResource("SpriteFrames_cnknd")
+animation = &"bloqueo"
+sprite = NodePath(".")

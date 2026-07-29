@@ -1,6 +1,13 @@
 class_name CombatEntity
 extends Node
 
+@onready var animador: AnimadorPersonaje = get_node_or_null("Animador")
+@onready var barra_vida = $HealthBar
+@onready var texto_barra = $HealthBar/LabelHealth
+@onready var escudo = $Shield
+@onready var texto_escudo = $Shield/LabelShield
+
+
 enum TipoEstado { SANGRADO, VENENO }
 var estados: Dictionary = {}
 var esquive_buff_valor: int = 0
@@ -40,7 +47,9 @@ var tiempo_ataque := 0.0
 var vida_tween = null
 var color_base: Color = Color(1, 1, 1, 1)
 
-
+func _ready() -> void:
+	barra_vida.max_value = max_hp
+	barra_vida.value = hp
 
 func aplicar_stats(s: Stats) -> void:
 	stats = s
@@ -104,28 +113,45 @@ func recibir_daño(cantidad: int, ignora_bloqueo: bool = false) -> void:
 		hp -= daño_restante
 		hp = max(hp, 0)
 	
+	animador.reproducir("daño")
+	
 	actualizar_barra_vida()
+	actualizar_escudo() 
+	
 	if hp <= 0:
 		morir()
 
 func morir() -> void:
 	queue_free()
 
+func actualizar_escudo() -> void:
+	if !has_node("Shield"):
+		return
+	
+	if bloqueo > 0:
+		escudo.visible = true
+		texto_escudo.text = str(bloqueo)
+	else:
+		escudo.visible = false
+		
+	
 func actualizar_barra_vida() -> void:
 	if !has_node("HealthBar"):
 		return
-	var barra = $HealthBar
+		
 	var porcentaje = float(hp) / float(max_hp) * 100.0
+	texto_barra.text = "%d / %d" % [hp, max_hp]
+	
 	if vida_tween != null:
 		vida_tween.kill()
 	vida_tween = create_tween()
-	vida_tween.tween_property(barra, "value", porcentaje, 0.2)
+	vida_tween.tween_property(barra_vida, "value", porcentaje, 0.2)
 	if porcentaje > 50:
-		barra.modulate = Color(0.591, 0.809, 0.51)
+		barra_vida.modulate = Color(0.591, 0.809, 0.51)
 	elif porcentaje > 10:
-		barra.modulate = Color(0.81, 0.692, 0.377)
+		barra_vida.modulate = Color(0.81, 0.692, 0.377)
 	else:
-		barra.modulate = Color(0.907, 0.337, 0.268)
+		barra_vida.modulate = Color(0.907, 0.337, 0.268)
 
 
 
@@ -154,15 +180,6 @@ func procesar_estados() -> void:
 func esquive_efectivo() -> int:
 	return esquive + esquive_buff_valor
 
-func reproducir_animacion(tipo: IntentData.Tipo) -> void:
-	match tipo:
-		IntentData.Tipo.ATACAR:
-			_tween_ataque()
-		IntentData.Tipo.DEFENDER:
-			_tween_defensa()
-		IntentData.Tipo.HABILIDAD:
-			_tween_habilidad()
-
 func _tween_ataque() -> void:
 	var tween = create_tween()
 	var pos_original = self.position
@@ -183,3 +200,15 @@ func _tween_habilidad() -> void:
 	var pos_original = self.position
 	tween.tween_property(self, "position", pos_original + Vector2(0, -20), 0.1)
 	tween.tween_property(self, "position", pos_original, 0.1)
+
+func reproducir_animacion(nombre: String) -> void:
+	if animador != null:
+		animador.reproducir(nombre)
+	else:
+		_reproducir_animacion_fallback(nombre)
+
+func _reproducir_animacion_fallback(nombre: String) -> void:
+	match nombre:
+		"ataque": _tween_ataque()
+		"defensa": _tween_defensa()
+		"habilidad": _tween_habilidad()

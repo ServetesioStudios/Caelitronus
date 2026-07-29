@@ -7,8 +7,8 @@ func _ready():
 		button.pressed.connect(_on_link_pressed.bind(button.get_parent().name))
 
 	# SOLO esto se agrega ↓
-	$ButtonIzq.mouse_entered.connect(_on_hover)
-	$ButtonDer.mouse_entered.connect(_on_hover)
+	$Panel/ButtonIzq.mouse_entered.connect(_on_hover)
+	$Panel/ButtonDer.mouse_entered.connect(_on_hover)
 
 func _on_hover() -> void:
 	if hover_sound.playing:
@@ -22,18 +22,18 @@ func _on_links_pressed() -> void:
 	OS.shell_open("https://linktr.ee/ServentesioStudios")
 
 func _on_button_der_pressed() -> void:
-	$Tipo.text = "ACTORES \nDE VOZ"
-	$ButtonDer.hide()
-	$Desarrolladores.hide()
-	$Voces.show()
-	$ButtonIzq.show()
+	$Panel/Tipo.text = "ACTORES \nDE VOZ"
+	$Panel/ButtonDer.hide()
+	$Panel/Desarrolladores.hide()
+	$Panel/Voces.show()
+	$Panel/ButtonIzq.show()
 
 func _on_button_izq_pressed() -> void:
-	$Tipo.text = "DESARROLLADORES"
-	$ButtonIzq.hide()
-	$Voces.hide()
-	$ButtonDer.show()
-	$Desarrolladores.show()
+	$Panel/Tipo.text = "DESARROLLADORES"
+	$Panel/ButtonIzq.hide()
+	$Panel/Voces.hide()
+	$Panel/ButtonDer.show()
+	$Panel/Desarrolladores.show()
 
 # ⚠️ ESTA FUNCIÓN NO SE TOCA
 func _on_link_pressed(id) -> void:

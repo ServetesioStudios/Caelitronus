@@ -154,6 +154,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [node name="Control" type="Control"]
+custom_minimum_size = Vector2(860, 600)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -334,29 +335,33 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="BtnSeleccionar" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 80)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.010000001
-anchor_top = 0.023000002
-anchor_right = 0.133
-anchor_bottom = 0.12200001
-offset_left = 1033.2
-offset_top = 599.44
-offset_right = 1072.784
-offset_bottom = 605.50397
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -230.0
+offset_top = -100.0
+offset_right = -30.0
+offset_bottom = -19.0
+grow_horizontal = 0
+grow_vertical = 0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_x6bg5")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_tjg0h")
 theme_override_styles/hover = SubResource("StyleBoxFlat_tun08")
 
 [node name="Fondo" type="TextureRect" parent="BtnSeleccionar"]
+custom_minimum_size = Vector2(190, 70)
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
-offset_right = 194.0
-offset_bottom = 72.343994
+offset_right = 195.0
+offset_bottom = 76.0
 texture = ExtResource("3_26w3f")
-expand_mode = 1
+expand_mode = 2
 
 [node name="texto" type="Label" parent="BtnSeleccionar"]
 layout_mode = 0

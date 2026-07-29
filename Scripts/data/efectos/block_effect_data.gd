@@ -5,3 +5,4 @@ extends EffectData
 
 func aplicar(fuente: CombatEntity, objetivo: CombatEntity) -> void:
 	fuente.bloqueo += cantidad
+	fuente.actualizar_escudo()
