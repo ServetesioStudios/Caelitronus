@@ -109,7 +109,7 @@ func _on_button_pressed(id) -> void:
 		$Detalle/Descripcion/texto.text = "Historia"
 		$Detalle/Alma.show()
 		$Detalle/Religion.show()
-		$Detalle/Descripcion.emit_signal("pressed")
+		_on_descripcion_pressed()
 	$Glosario.text = glosariotexto.get_value(id,"nombre")
 	$Detalle.show()
 
