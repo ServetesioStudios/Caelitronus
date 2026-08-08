@@ -175,32 +175,43 @@ offset_bottom = 1.9439697
 texture = ExtResource("2_ya60t")
 expand_mode = 1
 
-[node name="Personajes" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 139.0
-offset_top = 85.0
-offset_right = 1159.0
-offset_bottom = 556.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Personajes" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/separation = 120
 
-[node name="PJ_pena" type="Button" parent="Personajes"]
+[node name="PJ_pena" type="Button" parent="VBoxContainer/Personajes"]
 custom_minimum_size = Vector2(260, 460)
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_qf4rk")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_6hxcj")
 theme_override_styles/hover = SubResource("StyleBoxFlat_rfjjs")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
 
-[node name="Fondo" type="TextureRect" parent="Personajes/PJ_pena"]
+[node name="Fondo" type="TextureRect" parent="VBoxContainer/Personajes/PJ_pena"]
+custom_minimum_size = Vector2(250, 450)
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
 offset_right = 255.0
-offset_bottom = 466.0
+offset_bottom = 455.0
 texture = ExtResource("3_26w3f")
 expand_mode = 1
 
-[node name="Sprite" type="TextureRect" parent="Personajes/PJ_pena"]
+[node name="Sprite" type="TextureRect" parent="VBoxContainer/Personajes/PJ_pena"]
 custom_minimum_size = Vector2(200, 300)
 layout_mode = 0
 offset_left = 9.0
@@ -210,7 +221,7 @@ offset_bottom = 422.0
 texture = ExtResource("4_wtvv2")
 stretch_mode = 5
 
-[node name="Nombre" type="Label" parent="Personajes/PJ_pena"]
+[node name="Nombre" type="Label" parent="VBoxContainer/Personajes/PJ_pena"]
 layout_mode = 0
 offset_left = 21.0
 offset_top = 398.0
@@ -223,7 +234,7 @@ text = "caelius de pena"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="PJ_ira" type="Button" parent="Personajes"]
+[node name="PJ_ira" type="Button" parent="VBoxContainer/Personajes"]
 custom_minimum_size = Vector2(260, 460)
 layout_mode = 2
 focus_mode = 0
@@ -231,16 +242,16 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dr5ty")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_568h8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_pquok")
 
-[node name="Fondo" type="TextureRect" parent="Personajes/PJ_ira"]
+[node name="Fondo" type="TextureRect" parent="VBoxContainer/Personajes/PJ_ira"]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
 offset_right = 255.0
-offset_bottom = 466.0
+offset_bottom = 455.0
 texture = ExtResource("3_26w3f")
-expand_mode = 1
+expand_mode = 5
 
-[node name="Sprite" type="TextureRect" parent="Personajes/PJ_ira"]
+[node name="Sprite" type="TextureRect" parent="VBoxContainer/Personajes/PJ_ira"]
 custom_minimum_size = Vector2(200, 300)
 layout_mode = 0
 offset_left = 8.0
@@ -250,7 +261,7 @@ offset_bottom = 423.0
 texture = ExtResource("6_6ikru")
 stretch_mode = 5
 
-[node name="Nombre" type="Label" parent="Personajes/PJ_ira"]
+[node name="Nombre" type="Label" parent="VBoxContainer/Personajes/PJ_ira"]
 layout_mode = 0
 offset_left = 21.0
 offset_top = 398.0
@@ -263,7 +274,7 @@ text = "caelius de ira"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="PJ_ego" type="Button" parent="Personajes"]
+[node name="PJ_ego" type="Button" parent="VBoxContainer/Personajes"]
 custom_minimum_size = Vector2(260, 460)
 layout_mode = 2
 focus_mode = 0
@@ -271,16 +282,16 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_gnysc")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_r4h0o")
 theme_override_styles/hover = SubResource("StyleBoxFlat_yppg1")
 
-[node name="Fondo" type="TextureRect" parent="Personajes/PJ_ego"]
+[node name="Fondo" type="TextureRect" parent="VBoxContainer/Personajes/PJ_ego"]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
 offset_right = 255.0
-offset_bottom = 466.0
+offset_bottom = 455.0
 texture = ExtResource("3_26w3f")
-expand_mode = 1
+expand_mode = 5
 
-[node name="Sprite" type="TextureRect" parent="Personajes/PJ_ego"]
+[node name="Sprite" type="TextureRect" parent="VBoxContainer/Personajes/PJ_ego"]
 custom_minimum_size = Vector2(200, 300)
 layout_mode = 0
 offset_left = 6.0
@@ -290,7 +301,7 @@ offset_bottom = 422.0
 texture = ExtResource("7_ioxdl")
 stretch_mode = 5
 
-[node name="Nombre" type="Label" parent="Personajes/PJ_ego"]
+[node name="Nombre" type="Label" parent="VBoxContainer/Personajes/PJ_ego"]
 layout_mode = 0
 offset_left = 21.0
 offset_top = 398.0
@@ -303,57 +314,56 @@ text = "caelius de ego"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="PanelInfo" type="Panel" parent="."]
-layout_mode = 0
-offset_left = 45.0
-offset_top = 580.0
-offset_right = 999.0
-offset_bottom = 708.0
+[node name="PanelInferior" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 4
 
-[node name="Titulo" type="Label" parent="PanelInfo"]
-layout_mode = 0
-offset_left = 17.0
-offset_top = 9.0
-offset_right = 942.0
-offset_bottom = 55.0
+[node name="PanelInfo" type="Panel" parent="VBoxContainer/PanelInferior"]
+custom_minimum_size = Vector2(800, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Titulo" type="Label" parent="VBoxContainer/PanelInferior/PanelInfo"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 10.0
+offset_bottom = 56.0
+grow_horizontal = 2
 theme_override_colors/font_color = Color(0.79122466, 0.6596201, 0.14132708, 1)
 theme_override_fonts/font = ExtResource("5_nks3u")
 theme_override_font_sizes/font_size = 36
 horizontal_alignment = 1
+autowrap_mode = 2
 
-[node name="Stats" type="Label" parent="PanelInfo"]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 53.0
-offset_right = 941.0
-offset_bottom = 119.0
+[node name="Stats" type="Label" parent="VBoxContainer/PanelInferior/PanelInfo"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_colors/font_color = Color(0.7921569, 0.65882355, 0.14117648, 1)
 theme_override_fonts/font = ExtResource("5_nks3u")
 theme_override_font_sizes/font_size = 26
 horizontal_alignment = 1
-vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="BtnSeleccionar" type="Button" parent="."]
+[node name="BtnSeleccionar" type="Button" parent="VBoxContainer/PanelInferior"]
 custom_minimum_size = Vector2(200, 80)
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -230.0
-offset_top = -100.0
-offset_right = -30.0
-offset_bottom = -19.0
-grow_horizontal = 0
-grow_vertical = 0
+layout_mode = 2
+size_flags_vertical = 4
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_x6bg5")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_tjg0h")
 theme_override_styles/hover = SubResource("StyleBoxFlat_tun08")
 
-[node name="Fondo" type="TextureRect" parent="BtnSeleccionar"]
+[node name="Fondo" type="TextureRect" parent="VBoxContainer/PanelInferior/BtnSeleccionar"]
 custom_minimum_size = Vector2(190, 70)
 layout_mode = 0
 offset_left = 5.0
@@ -363,7 +373,7 @@ offset_bottom = 76.0
 texture = ExtResource("3_26w3f")
 expand_mode = 2
 
-[node name="texto" type="Label" parent="BtnSeleccionar"]
+[node name="texto" type="Label" parent="VBoxContainer/PanelInferior/BtnSeleccionar"]
 layout_mode = 0
 offset_left = 27.0
 offset_top = 12.343994
@@ -380,6 +390,6 @@ stream = ExtResource("8_egwgt")
 volume_db = -1.0
 bus = &"SFX"
 
-[connection signal="pressed" from="Personajes/PJ_pena" to="." method="_on_pj_pena_pressed"]
-[connection signal="pressed" from="Personajes/PJ_ira" to="." method="_on_pj_ira_pressed"]
-[connection signal="pressed" from="Personajes/PJ_ego" to="." method="_on_pj_ego_pressed"]
+[connection signal="pressed" from="VBoxContainer/Personajes/PJ_pena" to="." method="_on_pj_pena_pressed"]
+[connection signal="pressed" from="VBoxContainer/Personajes/PJ_ira" to="." method="_on_pj_ira_pressed"]
+[connection signal="pressed" from="VBoxContainer/Personajes/PJ_ego" to="." method="_on_pj_ego_pressed"]

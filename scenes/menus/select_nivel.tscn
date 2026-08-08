@@ -65,27 +65,34 @@ layout_mode = 0
 offset_right = 1281.0
 offset_bottom = 720.0
 texture = ExtResource("1_fpbh7")
-expand_mode = 1
 
 [node name="Niveles" type="Control" parent="."]
-anchors_preset = 0
-offset_top = 17.0
-offset_right = 73.0
-offset_bottom = 89.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Lineas" type="Control" parent="Niveles"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Negras" type="Control" parent="Niveles/Lineas"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Negras"]
 modulate = Color(0, 0, 0, 1)
-layout_mode = 0
+layout_mode = 1
 offset_left = 512.0
 offset_top = 137.0
 offset_right = 544.0
@@ -124,9 +131,12 @@ texture = ExtResource("7_aynrb")
 expand_mode = 1
 
 [node name="Rojas" type="Control" parent="Niveles/Lineas"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="1" type="Control" parent="Niveles/Lineas/Rojas"]
 visible = false
@@ -249,9 +259,12 @@ texture = ExtResource("7_aynrb")
 expand_mode = 1
 
 [node name="Botones" type="Control" parent="Niveles"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Serpico" type="Button" parent="Niveles/Botones"]
 layout_mode = 0
