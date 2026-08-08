@@ -1,7 +1,7 @@
 extends Camera2D
 
 @export var distancia: float = 25.0
-@export var velocidad: float = 3.5
+@export var velocidad: float = 4.5
 @export var pausa_min: float = 0.05
 @export var pausa_max: float = 0.15
 
@@ -54,7 +54,7 @@ func _process(delta):
 
 		return
 
-	position = position.move_toward(destino, velocidad * 60 * delta)
+	position = position.move_toward(destino, velocidad * 65 * delta)
 
 	if position.distance_to(destino) < 1.0:
 		esperando = true

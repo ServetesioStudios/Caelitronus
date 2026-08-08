@@ -12,7 +12,6 @@
 [ext_resource type="FontFile" uid="uid://dmrdb1iauee8n" path="res://Assets/Fonts/PirataOne-Regular.ttf" id="9_6p3uw"]
 [ext_resource type="Script" uid="uid://2v0iw7ym86el" path="res://Scripts/menus/camera2d.gd" id="9_g2ta4"]
 [ext_resource type="Texture2D" uid="uid://dhpspa8menhei" path="res://Assets/Images/textur.png" id="11_6p3uw"]
-[ext_resource type="Script" uid="uid://b2gt0rrsihbfm" path="res://Scripts/menus/cursordeluz.gd" id="13_31p0x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tour5"]
 atlas = ExtResource("4_jsnat")
@@ -49,16 +48,6 @@ animations = [{
 "name": &"default",
 "speed": 3.0
 }]
-
-[sub_resource type="Gradient" id="Gradient_jm5kc"]
-offsets = PackedFloat32Array(0.008510638, 0.27659574, 0.45531914, 0.83404255)
-colors = PackedColorArray(1, 0.85723317, 0.8411258, 1, 0.7680851, 0.7680851, 0.7680851, 1, 0.53617024, 0.53617024, 0.53617024, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_60o6i"]
-gradient = SubResource("Gradient_jm5kc")
-fill = 1
-fill_from = Vector2(0.48290598, 0.46581197)
-fill_to = Vector2(0.94017094, 0.16239317)
 
 [node name="MenuPrincipal" type="Control" unique_id=759690313]
 layout_mode = 3
@@ -326,16 +315,6 @@ position = Vector2(594, 363)
 scale = Vector2(2.0029182, 2.0642858)
 sprite_frames = SubResource("SpriteFrames_6yve6")
 script = ExtResource("5_jsnat")
-
-[node name="cursordeluz" type="Node2D" parent="." unique_id=1079837972]
-script = ExtResource("13_31p0x")
-
-[node name="PointLight2D" type="PointLight2D" parent="cursordeluz" unique_id=1448738043]
-position = Vector2(9.536743e-07, 0.9999999)
-scale = Vector2(1.4843736, 1.515626)
-color = Color(1, 0.77819645, 0.79476076, 1)
-energy = 1.5
-texture = SubResource("GradientTexture2D_60o6i")
 
 [connection signal="pressed" from="menubotones/btncontinuar" to="." method="_on_btncontinuar_pressed"]
 [connection signal="pressed" from="menubotones/bntcomenzar" to="." method="_on_bntcomenzar_pressed"]
