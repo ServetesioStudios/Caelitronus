@@ -65,40 +65,31 @@ layout_mode = 0
 offset_right = 1281.0
 offset_bottom = 720.0
 texture = ExtResource("1_fpbh7")
-expand_mode = 4
+expand_mode = 1
 
-[node name="Niveles" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -640.0
-offset_top = -360.0
-offset_right = -640.0
-offset_bottom = -356.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Niveles" type="Control" parent="."]
+anchors_preset = 0
+offset_top = 17.0
+offset_right = 73.0
+offset_bottom = 89.0
 
 [node name="Lineas" type="Control" parent="Niveles"]
-layout_mode = 2
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Negras" type="Control" parent="Niveles/Lineas"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Negras"]
 modulate = Color(0, 0, 0, 1)
-layout_mode = 1
+layout_mode = 0
 offset_left = 512.0
 offset_top = 137.0
 offset_right = 544.0
-offset_bottom = 566.0
+offset_bottom = 547.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
@@ -108,7 +99,7 @@ layout_mode = 0
 offset_left = 139.0
 offset_top = 497.0
 offset_right = 171.0
-offset_bottom = 563.0
+offset_bottom = 547.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
@@ -118,7 +109,7 @@ layout_mode = 0
 offset_left = 886.0
 offset_top = 497.0
 offset_right = 918.0
-offset_bottom = 563.0
+offset_bottom = 547.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
@@ -133,12 +124,9 @@ texture = ExtResource("7_aynrb")
 expand_mode = 1
 
 [node name="Rojas" type="Control" parent="Niveles/Lineas"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="1" type="Control" parent="Niveles/Lineas/Rojas"]
 visible = false
@@ -261,7 +249,9 @@ texture = ExtResource("7_aynrb")
 expand_mode = 1
 
 [node name="Botones" type="Control" parent="Niveles"]
-layout_mode = 2
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Serpico" type="Button" parent="Niveles/Botones"]
 layout_mode = 0
@@ -590,11 +580,11 @@ expand_mode = 1
 
 [node name="Menuprincipal" type="Button" parent="."]
 custom_minimum_size = Vector2(243, 62)
-layout_mode = 1
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 263.0
-offset_bottom = 82.0
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 253.0
+offset_bottom = 72.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")

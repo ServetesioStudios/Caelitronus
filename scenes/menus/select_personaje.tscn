@@ -1,0 +1,385 @@
+[gd_scene load_steps=21 format=3 uid="uid://cqn5eke30ryu"]
+
+[ext_resource type="Script" uid="uid://dv1po6ndd3wa6" path="res://Scripts/menus/select_personaje.gd" id="1_8afk0"]
+[ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://Assets/BckGrnd/Nivel.png" id="2_ya60t"]
+[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="3_26w3f"]
+[ext_resource type="Texture2D" uid="uid://cv3vrjc1xpmbg" path="res://Assets/ChArt/caelius de pena.png" id="4_wtvv2"]
+[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="5_nks3u"]
+[ext_resource type="Texture2D" uid="uid://c03f2guura5ub" path="res://Assets/ChArt/caelius de ira.png" id="6_6ikru"]
+[ext_resource type="Texture2D" uid="uid://pqa2sa1oiqyf" path="res://Assets/ChArt/caelius de ego.png" id="7_ioxdl"]
+[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="8_egwgt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qf4rk"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6hxcj"]
+bg_color = Color(0.015686275, 0.015686275, 0.015686275, 0.39607844)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.78431374, 0, 0.12941177, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rfjjs"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.89411765, 0.8039216, 0.14901961, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dr5ty"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_568h8"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.78431374, 0, 0.12941177, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pquok"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.89411765, 0.8039216, 0.14901961, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gnysc"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r4h0o"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.78431374, 0, 0.12941177, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yppg1"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.89411765, 0.8039216, 0.14901961, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x6bg5"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tjg0h"]
+bg_color = Color(0.6, 0.6, 0.6, 0.023529412)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.78431374, 0, 0.12941177, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tun08"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.8923443, 0.80483663, 0.14891264, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Control" type="Control"]
+custom_minimum_size = Vector2(860, 600)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8afk0")
+
+[node name="Fondo" type="TextureRect" parent="."]
+modulate = Color(1, 0.88235295, 0.7411765, 1)
+visibility_layer = 3
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.001
+anchor_bottom = 0.99700004
+offset_right = -5.1520996
+offset_bottom = 1.9439697
+texture = ExtResource("2_ya60t")
+expand_mode = 1
+
+[node name="Personajes" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 139.0
+offset_top = 85.0
+offset_right = 1159.0
+offset_bottom = 556.0
+theme_override_constants/separation = 120
+
+[node name="PJ_pena" type="Button" parent="Personajes"]
+custom_minimum_size = Vector2(260, 460)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_qf4rk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_6hxcj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rfjjs")
+
+[node name="Fondo" type="TextureRect" parent="Personajes/PJ_pena"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 255.0
+offset_bottom = 466.0
+texture = ExtResource("3_26w3f")
+expand_mode = 1
+
+[node name="Sprite" type="TextureRect" parent="Personajes/PJ_pena"]
+custom_minimum_size = Vector2(200, 300)
+layout_mode = 0
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 258.0
+offset_bottom = 422.0
+texture = ExtResource("4_wtvv2")
+stretch_mode = 5
+
+[node name="Nombre" type="Label" parent="Personajes/PJ_pena"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 398.0
+offset_right = 240.0
+offset_bottom = 444.0
+theme_override_colors/font_color = Color(0.5647059, 0.39607844, 0.007843138, 1)
+theme_override_fonts/font = ExtResource("5_nks3u")
+theme_override_font_sizes/font_size = 36
+text = "caelius de pena"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="PJ_ira" type="Button" parent="Personajes"]
+custom_minimum_size = Vector2(260, 460)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_dr5ty")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_568h8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_pquok")
+
+[node name="Fondo" type="TextureRect" parent="Personajes/PJ_ira"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 255.0
+offset_bottom = 466.0
+texture = ExtResource("3_26w3f")
+expand_mode = 1
+
+[node name="Sprite" type="TextureRect" parent="Personajes/PJ_ira"]
+custom_minimum_size = Vector2(200, 300)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 7.0
+offset_right = 260.0
+offset_bottom = 423.0
+texture = ExtResource("6_6ikru")
+stretch_mode = 5
+
+[node name="Nombre" type="Label" parent="Personajes/PJ_ira"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 398.0
+offset_right = 240.0
+offset_bottom = 444.0
+theme_override_colors/font_color = Color(0.5647059, 0.39607844, 0.007843138, 1)
+theme_override_fonts/font = ExtResource("5_nks3u")
+theme_override_font_sizes/font_size = 36
+text = "caelius de ira"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="PJ_ego" type="Button" parent="Personajes"]
+custom_minimum_size = Vector2(260, 460)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_gnysc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_r4h0o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yppg1")
+
+[node name="Fondo" type="TextureRect" parent="Personajes/PJ_ego"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 255.0
+offset_bottom = 466.0
+texture = ExtResource("3_26w3f")
+expand_mode = 1
+
+[node name="Sprite" type="TextureRect" parent="Personajes/PJ_ego"]
+custom_minimum_size = Vector2(200, 300)
+layout_mode = 0
+offset_left = 6.0
+offset_top = 9.0
+offset_right = 255.0
+offset_bottom = 422.0
+texture = ExtResource("7_ioxdl")
+stretch_mode = 5
+
+[node name="Nombre" type="Label" parent="Personajes/PJ_ego"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 398.0
+offset_right = 240.0
+offset_bottom = 444.0
+theme_override_colors/font_color = Color(0.5647059, 0.39607844, 0.007843138, 1)
+theme_override_fonts/font = ExtResource("5_nks3u")
+theme_override_font_sizes/font_size = 36
+text = "caelius de ego"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="PanelInfo" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 580.0
+offset_right = 999.0
+offset_bottom = 708.0
+
+[node name="Titulo" type="Label" parent="PanelInfo"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 9.0
+offset_right = 942.0
+offset_bottom = 55.0
+theme_override_colors/font_color = Color(0.79122466, 0.6596201, 0.14132708, 1)
+theme_override_fonts/font = ExtResource("5_nks3u")
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+
+[node name="Stats" type="Label" parent="PanelInfo"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 53.0
+offset_right = 941.0
+offset_bottom = 119.0
+theme_override_colors/font_color = Color(0.7921569, 0.65882355, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("5_nks3u")
+theme_override_font_sizes/font_size = 26
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="BtnSeleccionar" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -230.0
+offset_top = -100.0
+offset_right = -30.0
+offset_bottom = -19.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_x6bg5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tjg0h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tun08")
+
+[node name="Fondo" type="TextureRect" parent="BtnSeleccionar"]
+custom_minimum_size = Vector2(190, 70)
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 195.0
+offset_bottom = 76.0
+texture = ExtResource("3_26w3f")
+expand_mode = 2
+
+[node name="texto" type="Label" parent="BtnSeleccionar"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 12.343994
+offset_right = 179.0
+offset_bottom = 63.343994
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("5_nks3u")
+theme_override_font_sizes/font_size = 40
+text = "continuar"
+horizontal_alignment = 1
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_egwgt")
+volume_db = -1.0
+bus = &"SFX"
+
+[connection signal="pressed" from="Personajes/PJ_pena" to="." method="_on_pj_pena_pressed"]
+[connection signal="pressed" from="Personajes/PJ_ira" to="." method="_on_pj_ira_pressed"]
+[connection signal="pressed" from="Personajes/PJ_ego" to="." method="_on_pj_ego_pressed"]
