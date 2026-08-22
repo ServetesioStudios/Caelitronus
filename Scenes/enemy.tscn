@@ -1,0 +1,110 @@
+[gd_scene load_steps=14 format=3 uid="uid://dtlvudb7gixqy"]
+
+[ext_resource type="Script" uid="uid://dyymoxpfdamvl" path="res://Scripts/enemy.gd" id="1_2tsnu"]
+[ext_resource type="Resource" uid="uid://c5frbhsbnmeve" path="res://Data/enemigos/monaguillo_lazaro.tres" id="2_287tu"]
+[ext_resource type="Texture2D" uid="uid://crlis0e7fcf4e" path="res://Assets/ui/lifeGaugeAlpha.png" id="2_wfprl"]
+[ext_resource type="Texture2D" uid="uid://cv6wcbyj6ymdy" path="res://Assets/ui/lifeGaugeLlen.png" id="3_3frmn"]
+[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="5_0830c"]
+[ext_resource type="Script" uid="uid://vrkdj3l7poq7" path="res://Scripts/AnimadorPersonaje.gd" id="6_ghaa6"]
+[ext_resource type="Texture2D" uid="uid://l3giih32665u" path="res://Assets/Icons/Escudo.png" id="7_1dp5w"]
+
+[sub_resource type="Animation" id="Animation_2tsnu"]
+resource_name = "idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wtlmh"]
+_data = {
+&"idle": SubResource("Animation_2tsnu")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_1dp5w"]
+font = ExtResource("5_0830c")
+font_size = 26
+
+[sub_resource type="LabelSettings" id="LabelSettings_ghaa6"]
+font = ExtResource("5_0830c")
+font_size = 20
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0830c"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_auwsv"]
+font_size = 20
+font_color = Color(0, 0, 0, 1)
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(2, -4)
+script = ExtResource("1_2tsnu")
+enemy_data = ExtResource("2_287tu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_wtlmh")
+}
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = 5.0
+offset_top = 7.0
+offset_right = 245.0
+offset_bottom = 54.0
+value = 100.0
+texture_under = ExtResource("2_wfprl")
+texture_progress = ExtResource("3_3frmn")
+
+[node name="LabelHealth" type="Label" parent="HealthBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.5
+offset_top = -17.0
+offset_right = 52.5
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "100/100"
+label_settings = SubResource("LabelSettings_1dp5w")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Intencion" type="Label" parent="."]
+offset_left = 80.0
+offset_top = 65.0
+offset_right = 160.0
+offset_bottom = 91.0
+label_settings = SubResource("LabelSettings_ghaa6")
+
+[node name="Animador" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0830c")
+animation = &"idle"
+flip_h = true
+script = ExtResource("6_ghaa6")
+
+[node name="Shield" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(274, 32)
+scale = Vector2(0.783, 0.8)
+texture = ExtResource("7_1dp5w")
+
+[node name="LabelShield" type="Label" parent="Shield"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -46.0
+offset_right = -12.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "110"
+label_settings = SubResource("LabelSettings_auwsv")
+horizontal_alignment = 1
+vertical_alignment = 1

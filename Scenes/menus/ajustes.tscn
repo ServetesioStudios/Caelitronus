@@ -1,0 +1,183 @@
+[gd_scene load_steps=10 format=3 uid="uid://c2oyq3ropmkte"]
+
+[ext_resource type="Script" uid="uid://y4hv76jfdsq" path="res://Scripts/menus/ajustes.gd" id="1_dojii"]
+[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="2_l0dfj"]
+[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="3_ctf5j"]
+[ext_resource type="Script" uid="uid://b8yohj6agvbay" path="res://Scripts/menus/btn_volver.gd" id="4_p3tvd"]
+[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="5_3v24l"]
+[ext_resource type="AudioStream" uid="uid://b3x4xja0k3xl7" path="res://Assets/Music/Ruins.wav" id="6_bosy1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jg833"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nv4yc"]
+bg_color = Color(0.6, 0.6, 0.6, 0.011764706)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.78431374, 0, 0.12941177, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5kyp"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.8923443, 0.80483663, 0.14891264, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="ajustes" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dojii")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(864, 600)
+layout_mode = 0
+offset_left = 263.0
+offset_top = 71.0
+offset_right = 1012.0
+offset_bottom = 599.0
+
+[node name="Fondo" type="TextureRect" parent="Panel"]
+modulate = Color(0.2533432, 0.2957271, 0.22637159, 1)
+custom_minimum_size = Vector2(864, 600)
+layout_mode = 0
+offset_left = -4.0
+offset_right = 860.0
+offset_bottom = 600.0
+texture = ExtResource("2_l0dfj")
+
+[node name="opciones" type="VBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="music" type="Label" parent="Panel/opciones"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.86315715, 0.84186804, 0.68762344, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ctf5j")
+theme_override_font_sizes/font_size = 40
+text = "Música"
+horizontal_alignment = 1
+
+[node name="SliderMusica" type="HSlider" parent="Panel/opciones"]
+modulate = Color(0.7791886, 0.7833376, 0.51790667, 1)
+layout_mode = 2
+focus_mode = 0
+value = 50.0
+
+[node name="Efectos" type="Label" parent="Panel/opciones"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.86315715, 0.84186804, 0.68762344, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ctf5j")
+theme_override_font_sizes/font_size = 40
+text = "Efectos"
+horizontal_alignment = 1
+
+[node name="SliderEfectos" type="HSlider" parent="Panel/opciones"]
+modulate = Color(0.7791886, 0.7833376, 0.51790667, 1)
+layout_mode = 2
+value = 50.0
+
+[node name="Voces" type="Label" parent="Panel/opciones"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.86315715, 0.84186804, 0.68762344, 1)
+theme_override_fonts/font = ExtResource("3_ctf5j")
+theme_override_font_sizes/font_size = 40
+text = "Voces"
+horizontal_alignment = 1
+
+[node name="SliderVoces" type="HSlider" parent="Panel/opciones"]
+modulate = Color(0.7791886, 0.7833376, 0.51790667, 1)
+layout_mode = 2
+value = 50.0
+
+[node name="BtnVolver" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(185, 80)
+layout_mode = 0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 215.0
+offset_bottom = 110.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_jg833")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nv4yc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_o5kyp")
+script = ExtResource("4_p3tvd")
+
+[node name="Fondo" type="TextureRect" parent="Panel/BtnVolver"]
+custom_minimum_size = Vector2(177, 70)
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 182.0
+offset_bottom = 75.0
+texture = ExtResource("2_l0dfj")
+expand_mode = 2
+
+[node name="texto" type="Label" parent="Panel/BtnVolver"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 12.0
+offset_right = 151.0
+offset_bottom = 63.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_ctf5j")
+theme_override_font_sizes/font_size = 40
+text = "Atrás"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="Panel/BtnVolver"]
+stream = ExtResource("5_3v24l")
+volume_db = -1.0
+bus = &"SFX"
+
+[node name="PreviewMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_bosy1")
+bus = &"Music"
+
+[node name="PreviewEfectos" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="PreviewVoces" type="AudioStreamPlayer" parent="."]
+bus = &"Voces"
+
+[connection signal="pressed" from="Panel/BtnVolver" to="." method="_on_btn_volver_pressed"]

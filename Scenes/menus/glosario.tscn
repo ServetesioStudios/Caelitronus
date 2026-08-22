@@ -1,0 +1,1229 @@
+[gd_scene load_steps=38 format=3 uid="uid://dq5wr8hrd5emr"]
+
+[ext_resource type="Script" uid="uid://dba8kh4oyc4bs" path="res://Scripts/menus/glosario.gd" id="1_d5s7p"]
+[ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://Assets/BckGrnd/Nivel.png" id="2_qwwyx"]
+[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="3_n2kk5"]
+[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="4_314hx"]
+[ext_resource type="Texture2D" uid="uid://c03f2guura5ub" path="res://Assets/ChArt/caelius de ira.png" id="5_uaekf"]
+[ext_resource type="Texture2D" uid="uid://b5pig8s5tbryk" path="res://Assets/ChArt/el papa.png" id="6_e3ce5"]
+[ext_resource type="Texture2D" uid="uid://bge6cdd2b4qqj" path="res://Assets/ChArt/la monja.png" id="7_tlyq4"]
+[ext_resource type="Texture2D" uid="uid://p5kuatt7i836" path="res://Assets/ChArt/los monaquillo.png" id="8_jvg2n"]
+[ext_resource type="Texture2D" uid="uid://bwifvvcioxl2n" path="res://Assets/ChArt/padre espina.png" id="9_ry2mm"]
+[ext_resource type="Texture2D" uid="uid://davjajidu876c" path="res://Assets/ChArt/Obispo Serpico.png" id="10_desce"]
+[ext_resource type="Texture2D" uid="uid://ca0af7od2a11l" path="res://Assets/ChArt/tere.png" id="11_063f0"]
+[ext_resource type="Texture2D" uid="uid://n7lptelqr1bv" path="res://Assets/ChArt/Fray Corvus.png" id="12_1byjr"]
+[ext_resource type="Texture2D" uid="uid://12h547fjdvgq" path="res://Assets/ChArt/galaad.png" id="13_l1lhk"]
+[ext_resource type="Texture2D" uid="uid://d1b5ya65be0bw" path="res://Assets/ChArt/Kapparah.png" id="14_jyx0h"]
+[ext_resource type="Texture2D" uid="uid://b5lyl8p05pq5o" path="res://Assets/ChArt/Devotio.png" id="15_cwgxc"]
+[ext_resource type="Texture2D" uid="uid://dhqpsbk53x1ce" path="res://Assets/ChArt/sintax.png" id="16_ibaqn"]
+[ext_resource type="Texture2D" uid="uid://dw14tuktvxhml" path="res://Assets/ChArt/trono.png" id="17_ka6gi"]
+[ext_resource type="Texture2D" uid="uid://b6aa8xpls4foa" path="res://Assets/BttlSprit/alma.png" id="18_03dkl"]
+[ext_resource type="Texture2D" uid="uid://0v8cge6fmk2k" path="res://Assets/Icons/izq.png" id="19_t728v"]
+[ext_resource type="Texture2D" uid="uid://dnlj1wukc7ad3" path="res://Assets/Icons/der.png" id="20_ix07h"]
+[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="21_1icv2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64hlh"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f222x"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.78431374, 0, 0.12941177, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8i3o"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.8923443, 0.80483663, 0.14891264, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_vs2ju"]
+font = ExtResource("3_n2kk5")
+font_size = 30
+font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o62w7"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4n5e1"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.78431374, 0, 0.12941177, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vsaac"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.89411765, 0.8039216, 0.14901961, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y736b"]
+bg_color = Color(0.6, 0.6, 0.6, 0.003921569)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.0006938975, 0.00069389783, 0.00069389667, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8hu71"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.7841144, 0, 0.1278002, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_smwnv"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.89411765, 0.8039216, 0.14901961, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dg7pb"]
+bg_color = Color(0.8234067, 0.50901353, 0.37285617, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4g640"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.78431374, 0, 0.12941177, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_onirk"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.8923443, 0.80483663, 0.14891264, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ny5s"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vd0mr"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.78431374, 0, 0.12941177, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8uit"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.8923443, 0.80483663, 0.14891264, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Glosario" type="Control"]
+custom_minimum_size = Vector2(864, 600)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d5s7p")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(860, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -637.0
+offset_top = -353.0
+offset_right = 641.0
+offset_bottom = 353.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fondo" type="TextureRect" parent="Panel"]
+modulate = Color(0.90413505, 0.76640046, 0.667267, 1)
+custom_minimum_size = Vector2(864, 600)
+layout_mode = 0
+offset_left = -3.0
+offset_top = -7.0
+offset_right = 1277.0
+offset_bottom = 712.0
+texture = ExtResource("2_qwwyx")
+
+[node name="Glosario" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -3.0
+offset_top = 18.0
+offset_right = -3.0
+offset_bottom = 91.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.9995722, 0.8720149, 0.66100925, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 5
+theme_override_constants/paragraph_spacing = 5
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 8
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 6
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 57
+text = "Glosario"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="General" type="Control" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = -7.0
+offset_right = -3.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Tipo" type="Label" parent="Panel/General"]
+layout_mode = 0
+offset_top = 100.0
+offset_right = 1280.0
+offset_bottom = 190.0
+theme_override_colors/font_color = Color(0.9995722, 0.8720149, 0.66100925, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 44
+text = "Personajes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainerPersonajes" type="ScrollContainer" parent="Panel/General"]
+custom_minimum_size = Vector2(800, 400)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -420.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Personajes" type="HBoxContainer" parent="Panel/General/ScrollContainerPersonajes"]
+custom_minimum_size = Vector2(2700, 380)
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Caelius" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes"]
+custom_minimum_size = Vector2(240, 360)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes/Caelius"]
+layout_mode = 0
+offset_top = 51.199974
+offset_right = 307.6923
+offset_bottom = 448.37952
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("5_uaekf")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/General/ScrollContainerPersonajes/Personajes/Caelius"]
+layout_mode = 0
+offset_left = -5.0
+offset_right = 245.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 32
+text = "Caelius"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/General/ScrollContainerPersonajes/Personajes/Caelius" groups=["GlosarioButton"]]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 245.0
+offset_bottom = 365.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_64hlh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
+
+[node name="Papa" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes"]
+custom_minimum_size = Vector2(240, 360)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes/Papa"]
+layout_mode = 0
+offset_top = 6.9999924
+offset_right = 257.0
+offset_bottom = 400.33337
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("6_e3ce5")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/General/ScrollContainerPersonajes/Personajes/Papa"]
+layout_mode = 0
+offset_left = -5.0
+offset_right = 245.0
+offset_bottom = 67.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 32
+text = "El Papa"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/General/ScrollContainerPersonajes/Personajes/Papa" groups=["GlosarioButton"]]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 245.0
+offset_bottom = 365.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_64hlh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
+
+[node name="Monja" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes"]
+custom_minimum_size = Vector2(240, 360)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes/Monja"]
+layout_mode = 0
+offset_top = 51.199974
+offset_right = 257.0
+offset_bottom = 437.19998
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("7_tlyq4")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/General/ScrollContainerPersonajes/Personajes/Monja"]
+layout_mode = 0
+offset_left = -5.0
+offset_right = 245.0
+offset_bottom = 69.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 32
+text = "La Monja Roja"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/General/ScrollContainerPersonajes/Personajes/Monja" groups=["GlosarioButton"]]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 245.0
+offset_bottom = 365.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_64hlh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
+
+[node name="Monaquillo" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes"]
+custom_minimum_size = Vector2(240, 360)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes/Monaquillo"]
+layout_mode = 0
+offset_top = 51.199974
+offset_right = 300.0
+offset_bottom = 437.19998
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("8_jvg2n")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/General/ScrollContainerPersonajes/Personajes/Monaquillo"]
+layout_mode = 0
+offset_left = -5.0
+offset_right = 245.0
+offset_bottom = 123.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 32
+text = "Los Monaquillos"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/General/ScrollContainerPersonajes/Personajes/Monaquillo" groups=["GlosarioButton"]]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 245.0
+offset_bottom = 365.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_64hlh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
+
+[node name="Espina" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes"]
+custom_minimum_size = Vector2(240, 360)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes/Espina"]
+layout_mode = 0
+offset_top = 51.199974
+offset_right = 300.0
+offset_bottom = 437.19998
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("9_ry2mm")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/General/ScrollContainerPersonajes/Personajes/Espina"]
+layout_mode = 0
+offset_left = -5.0
+offset_right = 245.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 32
+text = "Padre Espina"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/General/ScrollContainerPersonajes/Personajes/Espina" groups=["GlosarioButton"]]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 245.0
+offset_bottom = 365.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_64hlh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
+
+[node name="Serpico" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes"]
+custom_minimum_size = Vector2(240, 360)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes/Serpico"]
+layout_mode = 0
+offset_top = 51.199974
+offset_right = 300.0
+offset_bottom = 437.19998
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("10_desce")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/General/ScrollContainerPersonajes/Personajes/Serpico"]
+layout_mode = 0
+offset_left = -5.0
+offset_right = 245.0
+offset_bottom = 79.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 32
+text = "Obispo Serpico"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/General/ScrollContainerPersonajes/Personajes/Serpico" groups=["GlosarioButton"]]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 245.0
+offset_bottom = 365.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_64hlh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
+
+[node name="Eirene" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes"]
+custom_minimum_size = Vector2(240, 360)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes/Eirene"]
+layout_mode = 0
+offset_top = 68.0
+offset_right = 302.5
+offset_bottom = 418.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("11_063f0")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/General/ScrollContainerPersonajes/Personajes/Eirene"]
+layout_mode = 0
+offset_left = -5.0
+offset_right = 245.0
+offset_bottom = 68.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 32
+text = "Theresa"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/General/ScrollContainerPersonajes/Personajes/Eirene" groups=["GlosarioButton"]]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 245.0
+offset_bottom = 365.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_64hlh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
+
+[node name="Corvus" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes"]
+custom_minimum_size = Vector2(240, 360)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes/Corvus"]
+layout_mode = 0
+offset_left = -6.9999976
+offset_top = 34.999992
+offset_right = 293.0
+offset_bottom = 421.0
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("12_1byjr")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/General/ScrollContainerPersonajes/Personajes/Corvus"]
+layout_mode = 0
+offset_left = -5.0
+offset_right = 245.0
+offset_bottom = 59.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 32
+text = "Fray Corvus"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/General/ScrollContainerPersonajes/Personajes/Corvus" groups=["GlosarioButton"]]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 245.0
+offset_bottom = 365.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_64hlh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
+
+[node name="Galaad" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes"]
+custom_minimum_size = Vector2(240, 360)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes/Galaad"]
+layout_mode = 0
+offset_left = -24.999996
+offset_top = 13.999992
+offset_right = 275.0
+offset_bottom = 400.0
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("13_l1lhk")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/General/ScrollContainerPersonajes/Personajes/Galaad"]
+layout_mode = 0
+offset_left = -5.0
+offset_right = 245.0
+offset_bottom = 67.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 32
+text = "Galaad"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/General/ScrollContainerPersonajes/Personajes/Galaad" groups=["GlosarioButton"]]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 245.0
+offset_bottom = 365.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_64hlh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
+
+[node name="Kapparah" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes"]
+custom_minimum_size = Vector2(240, 360)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/General/ScrollContainerPersonajes/Personajes/Kapparah"]
+layout_mode = 0
+offset_left = -26.0
+offset_top = 75.00001
+offset_right = 307.75
+offset_bottom = 425.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("14_jyx0h")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/General/ScrollContainerPersonajes/Personajes/Kapparah"]
+layout_mode = 0
+offset_left = -5.0
+offset_right = 245.0
+offset_bottom = 84.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 32
+text = "Kapparah"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/General/ScrollContainerPersonajes/Personajes/Kapparah" groups=["GlosarioButton"]]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 245.0
+offset_bottom = 365.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_64hlh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
+
+[node name="ScrollContainerMaldiciones" type="ScrollContainer" parent="Panel/General"]
+visible = false
+custom_minimum_size = Vector2(800, 400)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -420.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Maldiciones" type="HBoxContainer" parent="Panel/General/ScrollContainerMaldiciones"]
+custom_minimum_size = Vector2(1132, 380)
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Devotio" type="TextureRect" parent="Panel/General/ScrollContainerMaldiciones/Maldiciones"]
+custom_minimum_size = Vector2(240, 360)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/General/ScrollContainerMaldiciones/Maldiciones/Devotio"]
+layout_mode = 0
+offset_left = -6.0
+offset_top = 43.999985
+offset_right = 293.99997
+offset_bottom = 470.24994
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("15_cwgxc")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/General/ScrollContainerMaldiciones/Maldiciones/Devotio"]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -17.0
+offset_right = 245.0
+offset_bottom = 117.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 32
+text = "Devotio Aeterna"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/General/ScrollContainerMaldiciones/Maldiciones/Devotio" groups=["GlosarioButton"]]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 245.0
+offset_bottom = 365.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_64hlh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
+
+[node name="Reves" type="TextureRect" parent="Panel/General/ScrollContainerMaldiciones/Maldiciones"]
+custom_minimum_size = Vector2(240, 360)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/General/ScrollContainerMaldiciones/Maldiciones/Reves"]
+layout_mode = 0
+offset_top = 82.99999
+offset_right = 342.85718
+offset_bottom = 480.14282
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("16_ibaqn")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/General/ScrollContainerMaldiciones/Maldiciones/Reves"]
+layout_mode = 0
+offset_left = -5.0
+offset_right = 245.0
+offset_bottom = 103.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 32
+text = "Sintaxis al Revés"
+label_settings = SubResource("LabelSettings_vs2ju")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/General/ScrollContainerMaldiciones/Maldiciones/Reves" groups=["GlosarioButton"]]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 245.0
+offset_bottom = 365.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_64hlh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
+
+[node name="ScrollContainerPoderes" type="ScrollContainer" parent="Panel/General"]
+visible = false
+custom_minimum_size = Vector2(800, 400)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -420.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Poderes" type="HBoxContainer" parent="Panel/General/ScrollContainerPoderes"]
+custom_minimum_size = Vector2(1132, 380)
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Trono" type="TextureRect" parent="Panel/General/ScrollContainerPoderes/Poderes"]
+custom_minimum_size = Vector2(240, 360)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/General/ScrollContainerPoderes/Poderes/Trono"]
+z_index = 1
+layout_mode = 0
+offset_left = 2.0
+offset_top = 35.99997
+offset_right = 259.0
+offset_bottom = 385.99997
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("17_ka6gi")
+
+[node name="Label" type="Label" parent="Panel/General/ScrollContainerPoderes/Poderes/Trono"]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -13.0
+offset_right = 246.0
+offset_bottom = 63.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 32
+text = "Trono Papal"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/General/ScrollContainerPoderes/Poderes/Trono" groups=["GlosarioButton"]]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 245.0
+offset_bottom = 365.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_64hlh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
+
+[node name="Alma" type="TextureRect" parent="Panel/General/ScrollContainerPoderes/Poderes"]
+custom_minimum_size = Vector2(240, 360)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/General/ScrollContainerPoderes/Poderes/Alma"]
+modulate = Color(0.8819366, 0.8819366, 0.88193655, 1)
+layout_mode = 0
+offset_left = -3.0
+offset_top = 40.0
+offset_right = 292.0
+offset_bottom = 426.24997
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("18_03dkl")
+
+[node name="Label" type="Label" parent="Panel/General/ScrollContainerPoderes/Poderes/Alma"]
+layout_mode = 0
+offset_left = -5.0
+offset_right = 245.0
+offset_bottom = 69.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 32
+text = "Las Almas"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/General/ScrollContainerPoderes/Poderes/Alma" groups=["GlosarioButton"]]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 245.0
+offset_bottom = 365.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_64hlh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
+
+[node name="MonjaPoder" type="TextureRect" parent="Panel/General/ScrollContainerPoderes/Poderes"]
+custom_minimum_size = Vector2(240, 360)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/General/ScrollContainerPoderes/Poderes/MonjaPoder"]
+layout_mode = 0
+offset_top = 82.99999
+offset_right = 292.85706
+offset_bottom = 480.14282
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("7_tlyq4")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/General/ScrollContainerPoderes/Poderes/MonjaPoder"]
+layout_mode = 0
+offset_left = -5.0
+offset_right = 245.0
+offset_bottom = 109.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 32
+text = "La MonjaRoja"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/General/ScrollContainerPoderes/Poderes/MonjaPoder" groups=["GlosarioButton"]]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 245.0
+offset_bottom = 365.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_64hlh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f222x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v8i3o")
+
+[node name="ButtonIzq" type="Button" parent="Panel/General"]
+visible = false
+layout_mode = 1
+offset_left = 15.0
+offset_top = 130.0
+offset_right = 87.0
+offset_bottom = 202.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_o62w7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4n5e1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vsaac")
+
+[node name="Fondo" type="TextureRect" parent="Panel/General/ButtonIzq"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 67.0
+offset_bottom = 67.0
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="Fondo2" type="TextureRect" parent="Panel/General/ButtonIzq"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 7.0
+offset_right = 68.0
+offset_bottom = 65.0
+texture = ExtResource("19_t728v")
+expand_mode = 1
+
+[node name="ButtonDer" type="Button" parent="Panel/General"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -95.0
+offset_top = 130.0
+offset_right = -15.0
+offset_bottom = 202.0
+grow_horizontal = 0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_y736b")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8hu71")
+theme_override_styles/hover = SubResource("StyleBoxFlat_smwnv")
+
+[node name="Fondo" type="TextureRect" parent="Panel/General/ButtonDer"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 75.0
+offset_bottom = 67.0
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="Fondo2" type="TextureRect" parent="Panel/General/ButtonDer"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 7.0
+offset_right = 71.0
+offset_bottom = 65.0
+texture = ExtResource("20_ix07h")
+expand_mode = 1
+
+[node name="Detalle" type="Control" parent="Panel"]
+visible = false
+anchors_preset = 0
+offset_left = -3.0
+offset_top = -7.0
+offset_right = 37.0
+offset_bottom = 33.0
+
+[node name="Borde" type="ColorRect" parent="Panel/Detalle"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 200.0
+offset_right = 1130.0
+offset_bottom = 630.0
+color = Color(0, 0, 0, 1)
+
+[node name="Imagen" type="TextureRect" parent="Panel/Detalle"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 205.0
+offset_right = 325.0
+offset_bottom = 625.0
+size_flags_vertical = 4
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/Detalle/Imagen"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 420.0
+texture = ExtResource("5_uaekf")
+stretch_mode = 3
+
+[node name="Texto" type="TextureRect" parent="Panel/Detalle"]
+layout_mode = 0
+offset_left = 325.0
+offset_top = 205.0
+offset_right = 1125.0
+offset_bottom = 625.0
+size_flags_vertical = 4
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/Detalle/Texto"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.029000001
+anchor_top = 0.038000003
+anchor_right = 0.029000001
+anchor_bottom = 0.038000003
+offset_left = 4.799999
+offset_top = 0.03999901
+offset_right = 751.8
+offset_bottom = 388.04
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_n2kk5")
+theme_override_font_sizes/normal_font_size = 30
+
+[node name="Descripcion" type="Button" parent="Panel/Detalle"]
+layout_mode = 0
+offset_left = 950.0
+offset_top = 123.0
+offset_right = 1120.0
+offset_bottom = 191.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_dg7pb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4g640")
+theme_override_styles/hover = SubResource("StyleBoxFlat_onirk")
+
+[node name="Fondo" type="TextureRect" parent="Panel/Detalle/Descripcion"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 5.0
+offset_right = 165.0
+offset_bottom = 63.0
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="texto" type="Label" parent="Panel/Detalle/Descripcion"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 155.0
+offset_bottom = 58.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 40
+text = "Historia"
+horizontal_alignment = 1
+
+[node name="Religion" type="Button" parent="Panel/Detalle"]
+layout_mode = 0
+offset_left = 778.0
+offset_top = 124.0
+offset_right = 945.0
+offset_bottom = 192.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_dg7pb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4g640")
+theme_override_styles/hover = SubResource("StyleBoxFlat_onirk")
+
+[node name="Fondo" type="TextureRect" parent="Panel/Detalle/Religion"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 5.0
+offset_right = 162.0
+offset_bottom = 63.0
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="texto" type="Label" parent="Panel/Detalle/Religion"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 8.0
+offset_right = 158.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 40
+text = "Religion"
+horizontal_alignment = 1
+
+[node name="Alma" type="Button" parent="Panel/Detalle"]
+layout_mode = 0
+offset_left = 635.0
+offset_top = 124.0
+offset_right = 773.0
+offset_bottom = 192.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_dg7pb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4g640")
+theme_override_styles/hover = SubResource("StyleBoxFlat_onirk")
+
+[node name="Fondo" type="TextureRect" parent="Panel/Detalle/Alma"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 5.0
+offset_right = 133.0
+offset_bottom = 63.0
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="texto" type="Label" parent="Panel/Detalle/Alma"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 8.0
+offset_right = 129.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 40
+text = "Alma"
+horizontal_alignment = 1
+
+[node name="Atras" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(150, 70)
+layout_mode = 1
+offset_left = 7.0
+offset_top = 3.0
+offset_right = 157.0
+offset_bottom = 73.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_8ny5s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vd0mr")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i8uit")
+
+[node name="Fondo" type="TextureRect" parent="Panel/Atras"]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 145.0
+offset_bottom = 65.0
+texture = ExtResource("4_314hx")
+expand_mode = 1
+
+[node name="texto" type="Label" parent="Panel/Atras"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 7.0
+offset_right = 126.0
+offset_bottom = 58.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_n2kk5")
+theme_override_font_sizes/font_size = 40
+text = "Atras"
+horizontal_alignment = 1
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_1icv2")
+volume_db = -1.0
+bus = &"SFX"
+
+[connection signal="mouse_entered" from="Panel/General/ScrollContainerPersonajes/Personajes/Caelius/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/General/ScrollContainerPersonajes/Personajes/Papa/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/General/ScrollContainerPersonajes/Personajes/Monja/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/General/ScrollContainerPersonajes/Personajes/Monaquillo/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/General/ScrollContainerPersonajes/Personajes/Espina/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/General/ScrollContainerPersonajes/Personajes/Serpico/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/General/ScrollContainerPersonajes/Personajes/Eirene/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/General/ScrollContainerPersonajes/Personajes/Corvus/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/General/ScrollContainerPersonajes/Personajes/Galaad/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/General/ScrollContainerPersonajes/Personajes/Kapparah/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/General/ScrollContainerMaldiciones/Maldiciones/Devotio/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/General/ScrollContainerMaldiciones/Maldiciones/Reves/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/General/ScrollContainerPoderes/Poderes/Trono/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/General/ScrollContainerPoderes/Poderes/Alma/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/General/ScrollContainerPoderes/Poderes/MonjaPoder/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/General/ButtonIzq" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Panel/General/ButtonIzq" to="." method="_on_button_izq_pressed"]
+[connection signal="mouse_entered" from="Panel/General/ButtonDer" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Panel/General/ButtonDer" to="." method="_on_button_der_pressed"]
+[connection signal="mouse_entered" from="Panel/Detalle/Descripcion" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Panel/Detalle/Descripcion" to="." method="_on_descripcion_pressed"]
+[connection signal="mouse_entered" from="Panel/Detalle/Religion" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Panel/Detalle/Religion" to="." method="_on_religion_pressed"]
+[connection signal="mouse_entered" from="Panel/Detalle/Alma" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Panel/Detalle/Alma" to="." method="_on_alma_pressed"]
+[connection signal="mouse_entered" from="Panel/Atras" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Panel/Atras" to="." method="_on_atras_pressed"]

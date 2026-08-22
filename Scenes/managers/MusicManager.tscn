@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=3 uid="uid://2br5tiwbm017"]
+
+[ext_resource type="Script" uid="uid://davd3fnjepbmn" path="res://Scripts/managers/music_manager.gd" id="1_bco6c"]
+[ext_resource type="AudioStream" uid="uid://b4mer5xptq7kc" path="res://Assets/Music/Adversus.wav" id="2_kgh7q"]
+[ext_resource type="AudioStream" uid="uid://b3x4xja0k3xl7" path="res://Assets/Music/Ruins.wav" id="3_46s0o"]
+[ext_resource type="Script" uid="uid://d348o5wum4nj4" path="res://Scripts/data/audio_library.gd" id="4_s0ydm"]
+
+[sub_resource type="Resource" id="Resource_t6fkc"]
+script = ExtResource("4_s0ydm")
+musica_menu = ExtResource("3_46s0o")
+musica_batalla = ExtResource("2_kgh7q")
+metadata/_custom_type_script = "uid://d348o5wum4nj4"
+
+[node name="MusicManager" type="Node"]
+script = ExtResource("1_bco6c")
+audio_library = SubResource("Resource_t6fkc")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Music"

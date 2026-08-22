@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://cbvk448qnq5ue"]
+
+[ext_resource type="Texture2D" uid="uid://o1j8gtbkbv5m" path="res://Assets/cards/bloqueo.png" id="1_bi2xl"]
+[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/data/effect_data.gd" id="2_2mu7s"]
+[ext_resource type="Script" uid="uid://bg3ykg37brkkc" path="res://Scripts/data/efectos/block_effect_data.gd" id="3_e7ka6"]
+[ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/data/card_data.gd" id="4_q1u1p"]
+
+[sub_resource type="Resource" id="Resource_gmt4k"]
+script = ExtResource("3_e7ka6")
+cantidad = 5
+metadata/_custom_type_script = "uid://bg3ykg37brkkc"
+
+[resource]
+script = ExtResource("4_q1u1p")
+nombre = "Escudo"
+descripcion = "Gana 5 de escudo"
+efectos = Array[ExtResource("2_2mu7s")]([SubResource("Resource_gmt4k")])
+animacion = "bloqueo"
+tipo_objetivo = 0
+arte = ExtResource("1_bi2xl")
+metadata/_custom_type_script = "uid://wr8ukg3kbesn"

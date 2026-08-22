@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=4 format=3 uid="uid://cg2pwu86xrqqy"]
+
+[ext_resource type="Script" uid="uid://5uw7jpiqmd43" path="res://Scripts/data/enemy_data.gd" id="1_t0vnl"]
+[ext_resource type="Script" uid="uid://3jdy5elvqaqm" path="res://Scripts/data/stats.gd" id="3_j2tl8"]
+
+[sub_resource type="Resource" id="Resource_o206c"]
+script = ExtResource("3_j2tl8")
+max_hp = 80
+"daño" = 10
+esquive = 10
+velocidad = 1.2
+fe = 8
+poder = 6
+metadata/_custom_type_script = "uid://3jdy5elvqaqm"
+
+[resource]
+script = ExtResource("1_t0vnl")
+nombre = "Monaguillo Oscuro"
+stats = SubResource("Resource_o206c")
+metadata/_custom_type_script = "uid://5uw7jpiqmd43"

@@ -1,0 +1,211 @@
+[gd_scene load_steps=7 format=3 uid="uid://bh7laq8pxiahu"]
+
+[ext_resource type="Texture2D" uid="uid://dkknsmcypx4pc" path="res://Assets/Images/MainM.png" id="1_kai6n"]
+[ext_resource type="AudioStream" uid="uid://b3x4xja0k3xl7" path="res://Assets/Music/Ruins.wav" id="2_cgkft"]
+[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="4_7vr8x"]
+[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="5_7vr8x"]
+
+[sub_resource type="GDScript" id="GDScript_ocyn2"]
+script/source = "extends Control
+
+@onready var fondo = $fondo
+@onready var cuadro = $Cuadro
+@onready var texto = $Cuadro/Texto
+
+@onready var btnsi = $HBox/btnsi
+@onready var btnno = $HBox/btnno
+
+@onready var musica = $MusicaSalir
+@onready var hover_sound = $HoverSound
+@onready var label_final = $LabelFinal
+
+const FONT_NORMAL := 56
+const FONT_HOVER := 46
+const COLOR_NORMAL := Color(\"#f8f5cb\")
+const COLOR_HOVER := Color(\"#afad95\")
+
+var esperando_input := false
+
+func _ready():
+	texto.text = \"estas seguro???\"
+	label_final.visible = false
+
+	btnsi.mouse_entered.connect(func(): _on_hover(btnsi))
+	btnsi.mouse_exited.connect(func(): _on_hover_exit(btnsi))
+	btnno.mouse_entered.connect(func(): _on_hover(btnno))
+	btnno.mouse_exited.connect(func(): _on_hover_exit(btnno))
+
+func _on_hover(btn: Button):
+	btn.add_theme_font_size_override(\"font_size\", FONT_HOVER)
+	btn.add_theme_color_override(\"font_color\", COLOR_HOVER)
+	btn.scale = Vector2(0.9, 0.9)
+
+	if hover_sound:
+		hover_sound.play()
+
+func _on_hover_exit(btn: Button):
+	btn.add_theme_font_size_override(\"font_size\", FONT_NORMAL)
+	btn.add_theme_color_override(\"font_color\", COLOR_NORMAL)
+	btn.scale = Vector2.ONE
+
+func _on_btnsi_pressed():
+	fondo.modulate = Color.BLACK
+	cuadro.visible = false
+	musica.stop()
+
+	label_final.text = \"no eres digno de luchar por en
+	el trono marica\"
+	label_final.visible = true
+
+	await get_tree().create_timer(3.0).timeout
+	get_tree().quit()
+
+func _on_btnno_pressed():
+	cuadro.visible = false
+	label_final.text = \"eso ve toma el trono a la fuerza\"
+	label_final.visible = true
+	esperando_input = true
+
+func saturar_musica():
+	var bus := AudioServer.get_bus_index(\"Music\")
+	if bus == -1:
+		return
+
+	var vol := AudioServer.get_bus_volume_db(bus)
+	AudioServer.set_bus_volume_db(bus, vol + 4)
+
+func _input(event):
+	if esperando_input and (
+		event.is_action_pressed(\"ui_accept\")
+		or event is InputEventMouseButton
+	):
+		get_tree().change_scene_to_file(\"res://scenes/menu_principal.tscn\")
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_opbo7"]
+bg_color = Color(0.14653647, 0, 0, 0.6392157)
+corner_radius_top_left = 100
+corner_radius_top_right = 50
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 50
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_ocyn2")
+
+[node name="fondo" type="TextureRect" parent="."]
+modulate = Color(0.36817428, 0.3282616, 0.3961132, 1)
+self_modulate = Color(0.5997847, 0.48450378, 0.46885246, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -33.0
+offset_right = 5.0
+offset_bottom = 39.0
+mouse_filter = 2
+texture = ExtResource("1_kai6n")
+
+[node name="Cuadro" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.106000006
+anchor_top = 0.142
+anchor_right = 0.90800005
+anchor_bottom = 0.91
+offset_left = -7.112007
+offset_top = 62.983994
+offset_right = -7.0161133
+offset_bottom = -71.67999
+theme_override_styles/panel = SubResource("StyleBoxFlat_opbo7")
+
+[node name="Texto" type="Label" parent="Cuadro"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.277
+anchor_top = 0.11800001
+anchor_right = 0.697
+anchor_bottom = 0.273
+offset_left = -32.948013
+offset_top = -0.76400375
+offset_right = 63.971985
+offset_bottom = 17.046005
+theme_override_colors/font_color = Color(0.9955804, 0.99558026, 0.99558026, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_7vr8x")
+theme_override_font_sizes/font_size = 75
+text = "estas seguro???"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.0
+offset_top = 8.0
+offset_right = 99.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 150
+
+[node name="btnsi" type="Button" parent="HBox"]
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("4_7vr8x")
+theme_override_font_sizes/font_size = 56
+text = "si"
+flat = true
+
+[node name="btnno" type="Button" parent="HBox"]
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("4_7vr8x")
+theme_override_font_sizes/font_size = 56
+text = "no"
+flat = true
+
+[node name="MusicaSalir" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_cgkft")
+volume_db = 12.0
+pitch_scale = 0.41
+autoplay = true
+bus = &"Music"
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_7vr8x")
+volume_db = -1.0
+bus = &"SFX"
+
+[node name="TimerCerrar" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="LabelFinal" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.277
+anchor_top = 0.11800001
+anchor_right = 0.697
+anchor_bottom = 0.273
+offset_left = -128.104
+offset_top = 36.535995
+offset_right = 189.05597
+offset_bottom = 227.096
+theme_override_colors/font_color = Color(0.9955804, 0.99558026, 0.99558026, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_7vr8x")
+theme_override_font_sizes/font_size = 65
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="HBox/btnsi" to="." method="_on_btnsi_pressed"]
+[connection signal="pressed" from="HBox/btnno" to="." method="_on_btnno_pressed"]
