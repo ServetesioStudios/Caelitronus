@@ -1,0 +1,83 @@
+[gd_scene load_steps=2 format=3 uid="uid://drg18ww011apl"]
+
+[ext_resource type="Script" uid="uid://oxhqxp2xtc50" path="res://addons/resolution_tester/resolution_tester_dock.gd" id="1_6felm"]
+
+[node name="ResolutionTesterDock" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -808.0
+offset_bottom = -393.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6felm")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "⚙️ Resolution Tester"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Resolution" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resolución:"
+horizontal_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PersonalResolution" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resolución personalizada:"
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainerAncho" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainerAncho"]
+layout_mode = 2
+text = "Ancho: "
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/HBoxContainerAncho"]
+layout_mode = 2
+min_value = 320.0
+max_value = 7680.0
+value = 1280.0
+
+[node name="HBoxContainerAlto" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainerAlto"]
+layout_mode = 2
+text = "Alto: "
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/HBoxContainerAlto"]
+layout_mode = 2
+min_value = 240.0
+max_value = 4320.0
+value = 720.0
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "▶ Ejecutar"

@@ -1,3 +1,14 @@
-AudioStreamPlayer
-Node
+HBoxContainer
+VBoxContainer
+Button
+SpinBox
+Label
+OptionButton
+HSeparator
+MarginContainer
 Control
+Sprite2D
+Panel
+AnimatedSprite2D
+Container
+TextureRect

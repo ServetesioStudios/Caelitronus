@@ -1,24 +1,22 @@
-[gd_scene load_steps=36 format=3 uid="uid://cntg2uoiu5u5x"]
+[gd_scene load_steps=38 format=3 uid="uid://cntg2uoiu5u5x"]
 
-[ext_resource type="Script" uid="uid://bft701nfh11r4" path="res://scripts/menus/creditos.gd" id="1_idjxt"]
-[ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://assets/BckGrnd/Nivel.png" id="1_spoww"]
-[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://assets/Fonts/Seagram_tfb.ttf" id="2_ul0vb"]
-[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://assets/BckGrnd/paperallborder.png" id="3_idjxt"]
-[ext_resource type="Texture2D" uid="uid://bneqv0dwag2ma" path="res://assets/credit/Javier.png" id="4_ufadv"]
-[ext_resource type="Script" uid="uid://b8yohj6agvbay" path="res://scripts/menus/btnvolver.gd" id="5_2ove7"]
-[ext_resource type="Texture2D" uid="uid://c6l7la6cvbqe6" path="res://assets/credit/matias.png" id="6_3ghxt"]
-[ext_resource type="Texture2D" uid="uid://l7jtp66nor1v" path="res://assets/credit/adrian.png" id="7_06cy4"]
-[ext_resource type="Texture2D" uid="uid://bl0flil3itppl" path="res://assets/credit/matu.png" id="8_ouidq"]
-[ext_resource type="Texture2D" uid="uid://cnhs7tbwyb3uo" path="res://assets/credit/uri.png" id="9_5dhh5"]
-[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="11_n1vwi"]
-[ext_resource type="Texture2D" uid="uid://83ok324g7k5k" path="res://assets/credit/anto.png" id="12_86gda"]
-[ext_resource type="Texture2D" uid="uid://cyyn2ww3kst4u" path="res://assets/credit/lucio.png" id="13_lo4rr"]
-[ext_resource type="Texture2D" uid="uid://bifdgvhgfwo3i" path="res://assets/credit/thiago.png" id="14_06cy4"]
-[ext_resource type="Texture2D" uid="uid://buujdn5qaymwc" path="res://assets/credit/juaco.png" id="15_5dhh5"]
-[ext_resource type="Texture2D" uid="uid://dnlj1wukc7ad3" path="res://assets/Icons/der.png" id="16_06cy4"]
-[ext_resource type="Texture2D" uid="uid://0v8cge6fmk2k" path="res://assets/Icons/izq.png" id="17_5dhh5"]
-[ext_resource type="AudioStream" uid="uid://b3x4xja0k3xl7" path="res://assets/Music/Ruins.wav" id="18_5dhh5"]
-
+[ext_resource type="Script" uid="uid://bft701nfh11r4" path="res://Scripts/menus/creditos.gd" id="1_215w6"]
+[ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://Assets/BckGrnd/Nivel.png" id="2_tla2k"]
+[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="3_sjgso"]
+[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="4_1sxwp"]
+[ext_resource type="Texture2D" uid="uid://bneqv0dwag2ma" path="res://Assets/credit/Javier.png" id="5_nwsv2"]
+[ext_resource type="Texture2D" uid="uid://c6l7la6cvbqe6" path="res://Assets/credit/matias.png" id="6_xotio"]
+[ext_resource type="Texture2D" uid="uid://l7jtp66nor1v" path="res://Assets/credit/adrian.png" id="7_xl75b"]
+[ext_resource type="Texture2D" uid="uid://bl0flil3itppl" path="res://Assets/credit/matu.png" id="8_wno2b"]
+[ext_resource type="Texture2D" uid="uid://cnhs7tbwyb3uo" path="res://Assets/credit/uri.png" id="9_a2sw1"]
+[ext_resource type="Texture2D" uid="uid://83ok324g7k5k" path="res://Assets/credit/anto.png" id="10_i1s4c"]
+[ext_resource type="Texture2D" uid="uid://cyyn2ww3kst4u" path="res://Assets/credit/lucio.png" id="11_k1aoc"]
+[ext_resource type="Texture2D" uid="uid://bifdgvhgfwo3i" path="res://Assets/credit/thiago.png" id="12_jd85i"]
+[ext_resource type="Texture2D" uid="uid://buujdn5qaymwc" path="res://Assets/credit/juaco.png" id="13_etnac"]
+[ext_resource type="Script" uid="uid://b8yohj6agvbay" path="res://Scripts/menus/btn_volver.gd" id="14_yla4p"]
+[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="15_qsxli"]
+[ext_resource type="Texture2D" uid="uid://dnlj1wukc7ad3" path="res://Assets/Icons/der.png" id="16_itsvs"]
+[ext_resource type="Texture2D" uid="uid://0v8cge6fmk2k" path="res://Assets/Icons/izq.png" id="17_f72fs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lrn2f"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -68,6 +66,11 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="LabelSettings" id="LabelSettings_215w6"]
+font = ExtResource("3_sjgso")
+font_size = 28
+font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xvgel"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 5
@@ -116,6 +119,11 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="LabelSettings" id="LabelSettings_rt6ot"]
+font = ExtResource("3_sjgso")
+font_size = 29
+font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f2a5c"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 5
@@ -127,6 +135,11 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_tla2k"]
+font = ExtResource("3_sjgso")
+font_size = 28
+font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bs8hc"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -225,22 +238,43 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [node name="Creditos" type="Control"]
+custom_minimum_size = Vector2(864, 600)
 layout_mode = 3
-anchors_preset = 0
-script = ExtResource("1_idjxt")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_215w6")
 
-[node name="Fondo" type="TextureRect" parent="."]
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(860, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -357.5
+offset_right = 640.0
+offset_bottom = 357.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fondo" type="TextureRect" parent="Panel"]
 modulate = Color(0.90413505, 0.76640046, 0.667267, 1)
 layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
-texture = ExtResource("1_spoww")
-expand_mode = 1
+offset_right = 1278.0
+offset_bottom = 717.0
+texture = ExtResource("2_tla2k")
 
-[node name="Creditos" type="Label" parent="."]
+[node name="Creditos" type="Label" parent="Panel"]
 layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 100.0
+offset_left = 1.0
+offset_top = 7.0
+offset_right = 1277.0
+offset_bottom = 107.0
 theme_override_colors/font_color = Color(0.9995722, 0.8720149, 0.66100925, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 5
@@ -249,85 +283,91 @@ theme_override_constants/shadow_offset_x = 10
 theme_override_constants/shadow_offset_y = 8
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 6
-theme_override_fonts/font = ExtResource("2_ul0vb")
+theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 50
 text = "CREDITOS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Caelitronus" type="Label" parent="."]
+[node name="Caelitronus" type="Label" parent="Panel"]
 layout_mode = 0
-offset_top = 100.0
-offset_right = 1152.0
-offset_bottom = 205.0
+offset_left = 50.0
+offset_top = 90.0
+offset_right = 1202.0
+offset_bottom = 234.0
 theme_override_colors/font_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9843137)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("2_ul0vb")
+theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 36
 text = "Caelitonus - Trono Celestial
 Realizado por Servetesio Studio"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Tipo" type="Label" parent="."]
+[node name="Tipo" type="Label" parent="Panel"]
 layout_mode = 0
-offset_top = 200.0
-offset_right = 1152.0
-offset_bottom = 300.0
+offset_left = 72.0
+offset_top = 260.0
+offset_right = 1224.0
+offset_bottom = 360.0
 theme_override_colors/font_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("2_ul0vb")
+theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 34
 text = "DESARROLLADORES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Desarrolladores" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_top = 310.0
-offset_right = 1152.0
-offset_bottom = 598.0
+[node name="Desarrolladores" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -300.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Javier" type="TextureRect" parent="Desarrolladores"]
+[node name="Javier" type="TextureRect" parent="Panel/Desarrolladores"]
 custom_minimum_size = Vector2(208, 288)
 layout_mode = 2
-texture = ExtResource("3_idjxt")
+texture = ExtResource("4_1sxwp")
 expand_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="Desarrolladores/Javier"]
+[node name="TextureRect" type="TextureRect" parent="Panel/Desarrolladores/Javier"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 63.999992
 offset_right = 506.0
 offset_bottom = 601.49994
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("4_ufadv")
+texture = ExtResource("5_nwsv2")
 
-[node name="Label" type="Label" parent="Desarrolladores/Javier"]
+[node name="Label" type="Label" parent="Panel/Desarrolladores/Javier"]
 layout_mode = 0
-offset_left = -20.0
+offset_left = 2.0
 offset_top = 1.0
-offset_right = 220.0
+offset_right = 204.0
 offset_bottom = 86.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
-theme_override_fonts/font = ExtResource("2_ul0vb")
+theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 32
-text = "Javier
-Juarez"
+text = "Javier Juarez"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Link" type="Button" parent="Desarrolladores/Javier" groups=["LinkPersonal"]]
+[node name="Link" type="Button" parent="Panel/Desarrolladores/Javier" groups=["LinkPersonal"]]
 layout_mode = 0
 offset_left = -5.0
 offset_top = -5.0
@@ -338,36 +378,35 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_lrn2f")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_8cmxa")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3ghxt")
 
-[node name="Matias" type="TextureRect" parent="Desarrolladores"]
+[node name="Matias" type="TextureRect" parent="Panel/Desarrolladores"]
 custom_minimum_size = Vector2(208, 0)
 layout_mode = 2
-texture = ExtResource("3_idjxt")
+texture = ExtResource("4_1sxwp")
 expand_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="Desarrolladores/Matias"]
+[node name="TextureRect" type="TextureRect" parent="Panel/Desarrolladores/Matias"]
 layout_mode = 0
 offset_left = -20.999998
 offset_top = 44.000015
 offset_right = 538.99994
 offset_bottom = 634.99994
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("6_3ghxt")
+texture = ExtResource("6_xotio")
 
-[node name="Label" type="Label" parent="Desarrolladores/Matias"]
+[node name="Label" type="Label" parent="Panel/Desarrolladores/Matias"]
 layout_mode = 0
-offset_left = 1.0
+offset_left = 11.0
 offset_top = 11.0
 offset_right = 197.0
 offset_bottom = 75.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
-theme_override_fonts/font = ExtResource("2_ul0vb")
+theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 32
-text = "Matias 
-Diaz"
+text = "Matias Diaz"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Link" type="Button" parent="Desarrolladores/Matias" groups=["LinkPersonal"]]
+[node name="Link" type="Button" parent="Panel/Desarrolladores/Matias" groups=["LinkPersonal"]]
 layout_mode = 0
 offset_left = -5.0
 offset_top = -5.0
@@ -378,36 +417,36 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_lrn2f")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_onbuc")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3ghxt")
 
-[node name="Adrian" type="TextureRect" parent="Desarrolladores"]
+[node name="Adrian" type="TextureRect" parent="Panel/Desarrolladores"]
 custom_minimum_size = Vector2(208, 256)
 layout_mode = 2
-texture = ExtResource("3_idjxt")
+texture = ExtResource("4_1sxwp")
 expand_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="Desarrolladores/Adrian"]
+[node name="TextureRect" type="TextureRect" parent="Panel/Desarrolladores/Adrian"]
 layout_mode = 0
 offset_left = 3.0
 offset_top = 80.99999
 offset_right = 503.0
 offset_bottom = 581.0
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("7_06cy4")
+texture = ExtResource("7_xl75b")
 
-[node name="Label" type="Label" parent="Desarrolladores/Adrian"]
+[node name="Label" type="Label" parent="Panel/Desarrolladores/Adrian"]
 layout_mode = 0
-offset_left = 2.0
-offset_top = 11.0
-offset_right = 198.0
-offset_bottom = 96.0
+offset_left = -2.0
+offset_top = -5.0
+offset_right = 213.0
+offset_bottom = 87.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
-theme_override_fonts/font = ExtResource("2_ul0vb")
+theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 32
-text = "Adrian 
-Briosso"
+text = "Adrian Briosso"
+label_settings = SubResource("LabelSettings_215w6")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Link" type="Button" parent="Desarrolladores/Adrian" groups=["LinkPersonal"]]
+[node name="Link" type="Button" parent="Panel/Desarrolladores/Adrian" groups=["LinkPersonal"]]
 layout_mode = 0
 offset_left = -5.0
 offset_top = -5.0
@@ -418,35 +457,35 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_lrn2f")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_xvgel")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3ghxt")
 
-[node name="Matute" type="TextureRect" parent="Desarrolladores"]
+[node name="Matute" type="TextureRect" parent="Panel/Desarrolladores"]
 custom_minimum_size = Vector2(208, 0)
 layout_mode = 2
-texture = ExtResource("3_idjxt")
+texture = ExtResource("4_1sxwp")
 expand_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="Desarrolladores/Matute"]
+[node name="TextureRect" type="TextureRect" parent="Panel/Desarrolladores/Matute"]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 51.000015
 offset_right = 506.0
 offset_bottom = 628.49994
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("8_ouidq")
+texture = ExtResource("8_wno2b")
 
-[node name="Label" type="Label" parent="Desarrolladores/Matute"]
+[node name="Label" type="Label" parent="Panel/Desarrolladores/Matute"]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 5.0
 offset_right = 207.0
 offset_bottom = 69.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
-theme_override_fonts/font = ExtResource("2_ul0vb")
+theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 32
 text = "Matute"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Link" type="Button" parent="Desarrolladores/Matute" groups=["LinkPersonal"]]
+[node name="Link" type="Button" parent="Panel/Desarrolladores/Matute" groups=["LinkPersonal"]]
 layout_mode = 0
 offset_left = -5.0
 offset_top = -5.0
@@ -457,36 +496,35 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_lrn2f")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_wt48b")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3ghxt")
 
-[node name="Uriel" type="TextureRect" parent="Desarrolladores"]
+[node name="Uriel" type="TextureRect" parent="Panel/Desarrolladores"]
 custom_minimum_size = Vector2(208, 0)
 layout_mode = 2
-texture = ExtResource("3_idjxt")
+texture = ExtResource("4_1sxwp")
 expand_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="Desarrolladores/Uriel"]
+[node name="TextureRect" type="TextureRect" parent="Panel/Desarrolladores/Uriel"]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 76.99999
 offset_right = 506.0
 offset_bottom = 577.0
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("9_5dhh5")
+texture = ExtResource("9_a2sw1")
 
-[node name="Label" type="Label" parent="Desarrolladores/Uriel"]
+[node name="Label" type="Label" parent="Panel/Desarrolladores/Uriel"]
 layout_mode = 0
 offset_left = 14.0
 offset_top = 8.0
-offset_right = 210.0
+offset_right = 204.0
 offset_bottom = 93.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
-theme_override_fonts/font = ExtResource("2_ul0vb")
+theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 32
-text = "Uriel 
-Lara"
+text = "Uriel Lara"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Link" type="Button" parent="Desarrolladores/Uriel" groups=["LinkPersonal"]]
+[node name="Link" type="Button" parent="Panel/Desarrolladores/Uriel" groups=["LinkPersonal"]]
 layout_mode = 0
 offset_left = -5.0
 offset_top = -5.0
@@ -497,45 +535,52 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_lrn2f")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_xg8qp")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3ghxt")
 
-[node name="Voces" type="HBoxContainer" parent="."]
+[node name="Voces" type="HBoxContainer" parent="Panel"]
 visible = false
-layout_mode = 0
-offset_top = 310.0
-offset_right = 1152.0
-offset_bottom = 598.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -560.0
+offset_top = -300.0
+offset_right = 560.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Anto" type="TextureRect" parent="Voces"]
+[node name="Anto" type="TextureRect" parent="Panel/Voces"]
 custom_minimum_size = Vector2(208, 288)
 layout_mode = 2
-texture = ExtResource("3_idjxt")
+texture = ExtResource("4_1sxwp")
 expand_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="Voces/Anto"]
+[node name="TextureRect" type="TextureRect" parent="Panel/Voces/Anto"]
 layout_mode = 0
 offset_left = -19.999998
 offset_top = 67.000015
 offset_right = 539.99994
 offset_bottom = 601.99994
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("12_86gda")
+texture = ExtResource("10_i1s4c")
 
-[node name="Label" type="Label" parent="Voces/Anto"]
+[node name="Label" type="Label" parent="Panel/Voces/Anto"]
 layout_mode = 0
 offset_left = -3.0
 offset_top = 7.0
 offset_right = 193.0
 offset_bottom = 71.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
-theme_override_fonts/font = ExtResource("2_ul0vb")
+theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 32
-text = "Anto 
-Fiori"
+text = "Anto Fiori"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Link" type="Button" parent="Voces/Anto" groups=["LinkPersonal"]]
+[node name="Link" type="Button" parent="Panel/Voces/Anto" groups=["LinkPersonal"]]
 layout_mode = 0
 offset_left = -5.0
 offset_top = -5.0
@@ -546,35 +591,35 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_lrn2f")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_rugb1")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3ghxt")
 
-[node name="Lucio" type="TextureRect" parent="Voces"]
+[node name="Lucio" type="TextureRect" parent="Panel/Voces"]
 custom_minimum_size = Vector2(208, 0)
 layout_mode = 2
-texture = ExtResource("3_idjxt")
+texture = ExtResource("4_1sxwp")
 expand_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="Voces/Lucio"]
+[node name="TextureRect" type="TextureRect" parent="Panel/Voces/Lucio"]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 65.0
 offset_right = 537.43243
 offset_bottom = 642.0
 scale = Vector2(0.37, 0.37)
-texture = ExtResource("13_lo4rr")
+texture = ExtResource("11_k1aoc")
 
-[node name="Label" type="Label" parent="Voces/Lucio"]
+[node name="Label" type="Label" parent="Panel/Voces/Lucio"]
 layout_mode = 0
 offset_left = 3.0
 offset_top = 2.0
 offset_right = 199.0
 offset_bottom = 66.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
-theme_override_fonts/font = ExtResource("2_ul0vb")
+theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 32
 text = "Lucio Verdier"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Link" type="Button" parent="Voces/Lucio" groups=["LinkPersonal"]]
+[node name="Link" type="Button" parent="Panel/Voces/Lucio" groups=["LinkPersonal"]]
 layout_mode = 0
 offset_left = -5.0
 offset_top = -5.0
@@ -584,36 +629,36 @@ focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_lrn2f")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3ghxt")
 
-[node name="Thiago" type="TextureRect" parent="Voces"]
+[node name="Thiago" type="TextureRect" parent="Panel/Voces"]
 custom_minimum_size = Vector2(208, 256)
 layout_mode = 2
-texture = ExtResource("3_idjxt")
+texture = ExtResource("4_1sxwp")
 expand_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="Voces/Thiago"]
+[node name="TextureRect" type="TextureRect" parent="Panel/Voces/Thiago"]
 layout_mode = 0
 offset_left = 19.0
 offset_top = 61.999996
 offset_right = 519.0
 offset_bottom = 639.0
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("14_06cy4")
+texture = ExtResource("12_jd85i")
 
-[node name="Label" type="Label" parent="Voces/Thiago"]
+[node name="Label" type="Label" parent="Panel/Voces/Thiago"]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 5.0
-offset_right = 206.0
+offset_right = 205.0
 offset_bottom = 69.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
-theme_override_fonts/font = ExtResource("2_ul0vb")
+theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 32
-text = "Thiago 
-Ferraro"
+text = "Thiago Ferraro"
+label_settings = SubResource("LabelSettings_rt6ot")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Link" type="Button" parent="Voces/Thiago" groups=["LinkPersonal"]]
+[node name="Link" type="Button" parent="Panel/Voces/Thiago" groups=["LinkPersonal"]]
 layout_mode = 0
 offset_left = -5.0
 offset_top = -5.0
@@ -623,35 +668,35 @@ focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_lrn2f")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3ghxt")
 
-[node name="matute" type="TextureRect" parent="Voces"]
+[node name="matute" type="TextureRect" parent="Panel/Voces"]
 custom_minimum_size = Vector2(208, 0)
 layout_mode = 2
-texture = ExtResource("3_idjxt")
+texture = ExtResource("4_1sxwp")
 expand_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="Voces/matute"]
+[node name="TextureRect" type="TextureRect" parent="Panel/Voces/matute"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 46.999996
 offset_right = 536.4325
 offset_bottom = 675.1622
 scale = Vector2(0.37, 0.37)
-texture = ExtResource("8_ouidq")
+texture = ExtResource("8_wno2b")
 
-[node name="Label" type="Label" parent="Voces/matute"]
+[node name="Label" type="Label" parent="Panel/Voces/matute"]
 layout_mode = 0
 offset_left = 6.0
 offset_top = -2.0
 offset_right = 202.0
 offset_bottom = 62.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
-theme_override_fonts/font = ExtResource("2_ul0vb")
+theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 32
 text = "Matute"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Link" type="Button" parent="Voces/matute" groups=["LinkPersonal"]]
+[node name="Link" type="Button" parent="Panel/Voces/matute" groups=["LinkPersonal"]]
 layout_mode = 0
 offset_left = -5.0
 offset_top = -5.0
@@ -662,36 +707,36 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_lrn2f")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_f2a5c")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3ghxt")
 
-[node name="Joaquin" type="TextureRect" parent="Voces"]
+[node name="Joaquin" type="TextureRect" parent="Panel/Voces"]
 custom_minimum_size = Vector2(208, 0)
 layout_mode = 2
-texture = ExtResource("3_idjxt")
+texture = ExtResource("4_1sxwp")
 expand_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="Voces/Joaquin"]
+[node name="TextureRect" type="TextureRect" parent="Panel/Voces/Joaquin"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 80.4
 offset_right = 509.0
 offset_bottom = 580.4
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("15_5dhh5")
+texture = ExtResource("13_etnac")
 
-[node name="Label" type="Label" parent="Voces/Joaquin"]
+[node name="Label" type="Label" parent="Panel/Voces/Joaquin"]
 layout_mode = 0
-offset_left = 9.0
+offset_left = 3.0
 offset_top = 4.0
-offset_right = 205.0
+offset_right = 204.0
 offset_bottom = 89.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
-theme_override_fonts/font = ExtResource("2_ul0vb")
+theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 32
-text = "Joaquin 
-Iglesias"
+text = "Joaquin Iglesias"
+label_settings = SubResource("LabelSettings_tla2k")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Link" type="Button" parent="Voces/Joaquin" groups=["LinkPersonal"]]
+[node name="Link" type="Button" parent="Panel/Voces/Joaquin" groups=["LinkPersonal"]]
 layout_mode = 0
 offset_left = -5.0
 offset_top = -5.0
@@ -701,165 +746,168 @@ focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_lrn2f")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3ghxt")
 
-[node name="Atras" type="Button" parent="."]
+[node name="Atras" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(150, 70)
 layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 158.0
-offset_bottom = 78.0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 180.0
+offset_bottom = 100.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_lrn2f")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_bs8hc")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3ghxt")
 
-[node name="Fondo" type="TextureRect" parent="Atras"]
+[node name="Fondo" type="TextureRect" parent="Panel/Atras"]
+custom_minimum_size = Vector2(140, 60)
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
-offset_right = 143.0
-offset_bottom = 63.0
-texture = ExtResource("3_idjxt")
-expand_mode = 1
+offset_right = 145.0
+offset_bottom = 65.0
+texture = ExtResource("4_1sxwp")
+expand_mode = 2
+flip_h = true
 
-[node name="texto" type="Label" parent="Atras"]
+[node name="texto" type="Label" parent="Panel/Atras"]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 7.0
 offset_right = 126.0
 offset_bottom = 58.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
-theme_override_fonts/font = ExtResource("2_ul0vb")
+theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 40
 text = "Atras"
 horizontal_alignment = 1
 
-[node name="Links" type="Button" parent="."]
+[node name="Links" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(195, 115)
 layout_mode = 0
-offset_left = 950.0
+offset_left = 1067.0
 offset_top = 10.0
-offset_right = 1142.0
-offset_bottom = 122.0
+offset_right = 1262.0
+offset_bottom = 125.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_lrn2f")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ppa0q")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3ghxt")
-script = ExtResource("5_2ove7")
+script = ExtResource("14_yla4p")
 
-[node name="Fondo" type="TextureRect" parent="Links"]
+[node name="Fondo" type="TextureRect" parent="Panel/Links"]
+custom_minimum_size = Vector2(186, 105)
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
-offset_right = 187.0
-offset_bottom = 107.0
-texture = ExtResource("3_idjxt")
-expand_mode = 1
+offset_right = 191.0
+offset_bottom = 110.0
+texture = ExtResource("4_1sxwp")
+expand_mode = 2
 
-[node name="Label" type="Label" parent="Links"]
+[node name="Label" type="Label" parent="Panel/Links"]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 4.0
 offset_right = 188.0
 offset_bottom = 109.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
-theme_override_fonts/font = ExtResource("2_ul0vb")
+theme_override_fonts/font = ExtResource("3_sjgso")
 theme_override_font_sizes/font_size = 40
-text = "Servetesio 
-Studio"
+text = "Servetesio Studio"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="HoverSound" type="AudioStreamPlayer" parent="Links"]
-stream = ExtResource("11_n1vwi")
+[node name="HoverSound" type="AudioStreamPlayer" parent="Panel/Links"]
+stream = ExtResource("15_qsxli")
 volume_db = -1.0
 bus = &"SFX"
 
-[node name="ButtonDer" type="Button" parent="."]
-layout_mode = 0
-offset_left = 888.0
-offset_top = 210.0
-offset_right = 968.0
-offset_bottom = 282.0
+[node name="ButtonDer" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -33.5
+offset_bottom = 38.5
+grow_horizontal = 0
+grow_vertical = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_5dhh5")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_8vhsq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_als81")
 
-[node name="Fondo" type="TextureRect" parent="ButtonDer"]
+[node name="Fondo" type="TextureRect" parent="Panel/ButtonDer"]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
 offset_right = 75.0
 offset_bottom = 67.0
-texture = ExtResource("3_idjxt")
+texture = ExtResource("4_1sxwp")
 expand_mode = 1
 
-[node name="Fondo2" type="TextureRect" parent="ButtonDer"]
+[node name="Fondo2" type="TextureRect" parent="Panel/ButtonDer"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 7.0
 offset_right = 71.0
 offset_bottom = 65.0
-texture = ExtResource("16_06cy4")
+texture = ExtResource("16_itsvs")
 expand_mode = 1
 
-[node name="ButtonIzq" type="Button" parent="."]
+[node name="ButtonIzq" type="Button" parent="Panel"]
 visible = false
-layout_mode = 0
-offset_left = 192.0
-offset_top = 210.0
-offset_right = 264.0
-offset_bottom = 282.0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -33.5
+offset_right = 72.0
+offset_bottom = 38.5
+grow_vertical = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_d5vbh")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_sw4pk")
 theme_override_styles/hover = SubResource("StyleBoxFlat_1uep5")
 
-[node name="Fondo" type="TextureRect" parent="ButtonIzq"]
+[node name="Fondo" type="TextureRect" parent="Panel/ButtonIzq"]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
 offset_right = 67.0
 offset_bottom = 67.0
-texture = ExtResource("3_idjxt")
+texture = ExtResource("4_1sxwp")
 expand_mode = 1
 
-[node name="Fondo2" type="TextureRect" parent="ButtonIzq"]
+[node name="Fondo2" type="TextureRect" parent="Panel/ButtonIzq"]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 7.0
 offset_right = 68.0
 offset_bottom = 65.0
-texture = ExtResource("17_5dhh5")
+texture = ExtResource("17_f72fs")
 expand_mode = 1
 
-[node name="musica" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("18_5dhh5")
-volume_db = -3.0
-autoplay = true
-bus = &"Music"
-
 [node name="HoverSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("11_n1vwi")
+stream = ExtResource("15_qsxli")
 volume_db = -1.0
 bus = &"SFX"
 
-[node name="HoverSound" type="AudioStreamPlayer" parent="HoverSound"]
-stream = ExtResource("11_n1vwi")
-volume_db = -1.0
-bus = &"SFX"
-
-[connection signal="mouse_entered" from="Desarrolladores/Javier/Link" to="." method="_on_link_mouse_entered"]
-[connection signal="mouse_entered" from="Desarrolladores/Matias/Link" to="." method="_on_link_mouse_entered"]
-[connection signal="mouse_entered" from="Desarrolladores/Adrian/Link" to="." method="_on_link_mouse_entered"]
-[connection signal="mouse_entered" from="Desarrolladores/Matute/Link" to="." method="_on_link_mouse_entered"]
-[connection signal="mouse_entered" from="Desarrolladores/Uriel/Link" to="." method="_on_link_mouse_entered"]
-[connection signal="mouse_entered" from="Voces/Anto/Link" to="." method="_on_link_mouse_entered"]
-[connection signal="mouse_entered" from="Voces/Lucio/Link" to="." method="_on_link_mouse_entered"]
-[connection signal="mouse_entered" from="Voces/Thiago/Link" to="." method="_on_link_mouse_entered"]
-[connection signal="mouse_entered" from="Voces/matute/Link" to="." method="_on_link_mouse_entered"]
-[connection signal="mouse_entered" from="Voces/Joaquin/Link" to="." method="_on_link_mouse_entered"]
-[connection signal="mouse_entered" from="Atras" to="." method="_on_link_mouse_entered"]
-[connection signal="pressed" from="Atras" to="." method="_on_atras_pressed"]
-[connection signal="pressed" from="Links" to="." method="_on_links_pressed"]
-[connection signal="pressed" from="ButtonDer" to="." method="_on_button_der_pressed"]
-[connection signal="pressed" from="ButtonIzq" to="." method="_on_button_izq_pressed"]
+[connection signal="mouse_entered" from="Panel/Desarrolladores/Javier/Link" to="." method="_on_link_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/Desarrolladores/Matias/Link" to="." method="_on_link_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/Desarrolladores/Adrian/Link" to="." method="_on_link_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/Desarrolladores/Matute/Link" to="." method="_on_link_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/Desarrolladores/Uriel/Link" to="." method="_on_link_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/Voces/Anto/Link" to="." method="_on_link_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/Voces/Lucio/Link" to="." method="_on_link_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/Voces/Thiago/Link" to="." method="_on_link_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/Voces/matute/Link" to="." method="_on_link_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/Voces/Joaquin/Link" to="." method="_on_link_mouse_entered"]
+[connection signal="mouse_entered" from="Panel/Atras" to="." method="_on_link_mouse_entered"]
+[connection signal="pressed" from="Panel/Atras" to="." method="_on_atras_pressed"]
+[connection signal="pressed" from="Panel/Links" to="." method="_on_links_pressed"]
+[connection signal="pressed" from="Panel/ButtonDer" to="." method="_on_button_der_pressed"]
+[connection signal="pressed" from="Panel/ButtonIzq" to="." method="_on_button_izq_pressed"]

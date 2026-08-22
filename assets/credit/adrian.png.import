@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://l7jtp66nor1v"
-path="res://.godot/imported/adrian.png-9aff7131c8b97674ddbff3721d969e97.ctex"
+path="res://.godot/imported/adrian.png-3ade8399121a0c72fb9c74cfe6b9d3c8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/credit/adrian.png"
-dest_files=["res://.godot/imported/adrian.png-9aff7131c8b97674ddbff3721d969e97.ctex"]
+source_file="res://Assets/credit/adrian.png"
+dest_files=["res://.godot/imported/adrian.png-3ade8399121a0c72fb9c74cfe6b9d3c8.ctex"]
 
 [params]
 

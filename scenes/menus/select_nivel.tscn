@@ -1,18 +1,17 @@
-[gd_scene load_steps=16 format=3 uid="uid://ce8rpi164d7tb"]
+[gd_scene format=3 uid="uid://ce8rpi164d7tb"]
 
-[ext_resource type="Script" uid="uid://dhsmpwf2ndep" path="res://scripts/menus/select_nivel.gd" id="1_58aum"]
-[ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://assets/BckGrnd/Nivel.png" id="1_fpbh7"]
-[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://assets/BckGrnd/paperallborder.png" id="2_cdy6t"]
-[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://assets/Fonts/Seagram_tfb.ttf" id="3_58aum"]
-[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="5_0welv"]
-[ext_resource type="Texture2D" uid="uid://cwx0cjlp6h5yy" path="res://assets/Icons/Serpico.png" id="6_y04hq"]
-[ext_resource type="Texture2D" uid="uid://d311kgi76ulx4" path="res://assets/BckGrnd/paper.png" id="7_aynrb"]
-[ext_resource type="Texture2D" uid="uid://kkshx7n5r6b" path="res://assets/Icons/Espina.png" id="8_vr6hs"]
-[ext_resource type="Texture2D" uid="uid://bujocqjnco2ly" path="res://assets/Icons/tere.png" id="9_3meqc"]
-[ext_resource type="Texture2D" uid="uid://c8478h663nkv7" path="res://assets/Icons/Corvus.png" id="9_wxfgt"]
-[ext_resource type="Texture2D" uid="uid://c7gpx4py1tr4r" path="res://assets/Icons/Galaad.png" id="10_0w2jm"]
-[ext_resource type="Texture2D" uid="uid://ckatdamg27mio" path="res://assets/Icons/kapara.png" id="11_0xiw4"]
-
+[ext_resource type="Script" uid="uid://dhsmpwf2ndep" path="res://Scripts/menus/select_nivel.gd" id="1_58aum"]
+[ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://Assets/BckGrnd/Nivel.png" id="1_fpbh7"]
+[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="2_cdy6t"]
+[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="3_58aum"]
+[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="5_0welv"]
+[ext_resource type="Texture2D" uid="uid://cwx0cjlp6h5yy" path="res://Assets/Icons/Serpico.png" id="6_y04hq"]
+[ext_resource type="Texture2D" uid="uid://d311kgi76ulx4" path="res://Assets/BckGrnd/paper.png" id="7_aynrb"]
+[ext_resource type="Texture2D" uid="uid://kkshx7n5r6b" path="res://Assets/Icons/Espina.png" id="8_vr6hs"]
+[ext_resource type="Texture2D" uid="uid://bujocqjnco2ly" path="res://Assets/Icons/tere.png" id="9_3meqc"]
+[ext_resource type="Texture2D" uid="uid://c8478h663nkv7" path="res://Assets/Icons/Corvus.png" id="9_wxfgt"]
+[ext_resource type="Texture2D" uid="uid://c7gpx4py1tr4r" path="res://Assets/Icons/Galaad.png" id="10_0w2jm"]
+[ext_resource type="Texture2D" uid="uid://ckatdamg27mio" path="res://Assets/Icons/kapara.png" id="11_0xiw4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0welv"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -50,7 +49,8 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=2099167791]
+custom_minimum_size = Vector2(860, 600)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,82 +59,94 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_58aum")
 
-[node name="Fondo" type="TextureRect" parent="."]
+[node name="Fondo" type="TextureRect" parent="." unique_id=1734957041]
 modulate = Color(0.90413505, 0.76640046, 0.667267, 1)
 layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_right = 1281.0
+offset_bottom = 720.0
 texture = ExtResource("1_fpbh7")
-expand_mode = 1
+expand_mode = 4
 
-[node name="Niveles" type="Control" parent="."]
-anchors_preset = 0
-offset_top = 17.0
-offset_right = 1152.0
-offset_bottom = 648.0
+[node name="Niveles" type="VBoxContainer" parent="." unique_id=1768676548]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = -640.0
+offset_bottom = -356.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Lineas" type="Control" parent="Niveles"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Lineas" type="Control" parent="Niveles" unique_id=1534791962]
+layout_mode = 2
 
-[node name="Negras" type="Control" parent="Niveles/Lineas"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Negras" type="Control" parent="Niveles/Lineas" unique_id=1227907975]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Negras"]
+[node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Negras" unique_id=1203182766]
 modulate = Color(0, 0, 0, 1)
-layout_mode = 0
-offset_left = 430.0
-offset_top = 108.0
-offset_right = 462.0
-offset_bottom = 518.0
+layout_mode = 1
+offset_left = 512.0
+offset_top = 137.0
+offset_right = 544.0
+offset_bottom = 566.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="TextureRect2" type="TextureRect" parent="Niveles/Lineas/Negras"]
+[node name="TextureRect2" type="TextureRect" parent="Niveles/Lineas/Negras" unique_id=2036629508]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
-offset_left = 57.0
-offset_top = 468.0
-offset_right = 89.0
-offset_bottom = 518.0
+offset_left = 139.0
+offset_top = 497.0
+offset_right = 171.0
+offset_bottom = 563.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="TextureRect3" type="TextureRect" parent="Niveles/Lineas/Negras"]
+[node name="TextureRect3" type="TextureRect" parent="Niveles/Lineas/Negras" unique_id=110978461]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
-offset_left = 804.0
-offset_top = 468.0
-offset_right = 836.0
-offset_bottom = 518.0
+offset_left = 886.0
+offset_top = 497.0
+offset_right = 918.0
+offset_bottom = 563.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="TextureRect4" type="TextureRect" parent="Niveles/Lineas/Negras"]
+[node name="TextureRect4" type="TextureRect" parent="Niveles/Lineas/Negras" unique_id=244781207]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
-offset_left = 57.0
-offset_top = 436.0
-offset_right = 836.0
-offset_bottom = 468.0
+offset_left = 139.0
+offset_top = 465.0
+offset_right = 918.0
+offset_bottom = 497.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="Rojas" type="Control" parent="Niveles/Lineas"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Rojas" type="Control" parent="Niveles/Lineas" unique_id=1980416571]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="1" type="Control" parent="Niveles/Lineas/Rojas"]
+[node name="1" type="Control" parent="Niveles/Lineas/Rojas" unique_id=439348193]
 visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Rojas/1"]
+[node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Rojas/1" unique_id=1155574018]
 modulate = Color(0.78431374, 0, 0.12941177, 1)
 layout_mode = 0
 offset_left = 63.0
@@ -144,7 +156,7 @@ offset_bottom = 518.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="TextureRect2" type="TextureRect" parent="Niveles/Lineas/Rojas/1"]
+[node name="TextureRect2" type="TextureRect" parent="Niveles/Lineas/Rojas/1" unique_id=1559652807]
 modulate = Color(0.78431374, 0, 0.12941177, 1)
 layout_mode = 0
 offset_left = 810.0
@@ -154,7 +166,7 @@ offset_bottom = 518.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="TextureRect3" type="TextureRect" parent="Niveles/Lineas/Rojas/1"]
+[node name="TextureRect3" type="TextureRect" parent="Niveles/Lineas/Rojas/1" unique_id=1294649629]
 modulate = Color(0.78431374, 0, 0.12941177, 1)
 layout_mode = 0
 offset_left = 436.0
@@ -164,7 +176,7 @@ offset_bottom = 518.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="TextureRect4" type="TextureRect" parent="Niveles/Lineas/Rojas/1"]
+[node name="TextureRect4" type="TextureRect" parent="Niveles/Lineas/Rojas/1" unique_id=190473685]
 modulate = Color(0.78431374, 0, 0.12941177, 1)
 layout_mode = 0
 offset_left = 63.0
@@ -174,13 +186,13 @@ offset_bottom = 462.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="2" type="Control" parent="Niveles/Lineas/Rojas"]
+[node name="2" type="Control" parent="Niveles/Lineas/Rojas" unique_id=2063031188]
 visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextureRect2" type="TextureRect" parent="Niveles/Lineas/Rojas/2"]
+[node name="TextureRect2" type="TextureRect" parent="Niveles/Lineas/Rojas/2" unique_id=1228440356]
 modulate = Color(0.78431374, 0, 0.12941177, 1)
 layout_mode = 0
 offset_left = 63.0
@@ -190,13 +202,13 @@ offset_bottom = 460.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="3" type="Control" parent="Niveles/Lineas/Rojas"]
+[node name="3" type="Control" parent="Niveles/Lineas/Rojas" unique_id=207937315]
 visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Rojas/3"]
+[node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Rojas/3" unique_id=1379892759]
 modulate = Color(0.78431374, 0, 0.12941177, 1)
 layout_mode = 0
 offset_left = 436.0
@@ -206,7 +218,7 @@ offset_bottom = 442.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="TextureRect2" type="TextureRect" parent="Niveles/Lineas/Rojas/3"]
+[node name="TextureRect2" type="TextureRect" parent="Niveles/Lineas/Rojas/3" unique_id=1912154692]
 modulate = Color(0.78431374, 0, 0.12941177, 1)
 layout_mode = 0
 offset_left = 63.0
@@ -216,13 +228,13 @@ offset_bottom = 444.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="corvus" type="Control" parent="Niveles/Lineas/Rojas"]
+[node name="corvus" type="Control" parent="Niveles/Lineas/Rojas" unique_id=372194079]
 visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Rojas/corvus"]
+[node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Rojas/corvus" unique_id=445906258]
 modulate = Color(0.78431374, 0, 0.12941177, 1)
 layout_mode = 0
 offset_left = 436.0
@@ -232,13 +244,13 @@ offset_bottom = 313.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="galaad" type="Control" parent="Niveles/Lineas/Rojas"]
+[node name="galaad" type="Control" parent="Niveles/Lineas/Rojas" unique_id=1298455772]
 visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Rojas/galaad"]
+[node name="TextureRect" type="TextureRect" parent="Niveles/Lineas/Rojas/galaad" unique_id=1284916687]
 modulate = Color(0.78431374, 0, 0.12941177, 1)
 layout_mode = 0
 offset_left = 436.0
@@ -248,23 +260,23 @@ offset_bottom = 173.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="Botones" type="Control" parent="Niveles"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Botones" type="Control" parent="Niveles" unique_id=1793373796]
+layout_mode = 2
 
-[node name="Serpico" type="Button" parent="Niveles/Botones"]
+[node name="Serpico" type="Button" parent="Niveles/Botones" unique_id=2039861545]
 layout_mode = 0
-offset_left = 33.0
-offset_top = 518.0
-offset_right = 373.0
-offset_bottom = 598.0
+offset_left = 115.0
+offset_top = 547.0
+offset_right = 455.0
+offset_bottom = 627.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
+disabled = true
 
-[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Serpico"]
+[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Serpico" unique_id=1094387288]
+modulate = Color(0.6955032, 0.6955031, 0.6955031, 1)
 layout_mode = 0
 offset_left = 75.0
 offset_top = 5.0
@@ -273,7 +285,7 @@ offset_bottom = 75.0
 texture = ExtResource("2_cdy6t")
 expand_mode = 1
 
-[node name="texto" type="Label" parent="Niveles/Botones/Serpico"]
+[node name="texto" type="Label" parent="Niveles/Botones/Serpico" unique_id=640688866]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 5.0
@@ -286,7 +298,7 @@ text = "Obispo Serpico"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="icono" type="TextureRect" parent="Niveles/Botones/Serpico"]
+[node name="icono" type="TextureRect" parent="Niveles/Botones/Serpico" unique_id=1861374664]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
@@ -295,7 +307,7 @@ offset_bottom = 72.0
 texture = ExtResource("6_y04hq")
 stretch_mode = 4
 
-[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Serpico/icono"]
+[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Serpico/icono" unique_id=840084880]
 modulate = Color(0, 0, 0, 1)
 show_behind_parent = true
 layout_mode = 0
@@ -306,18 +318,18 @@ offset_bottom = 67.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="Espina" type="Button" parent="Niveles/Botones"]
+[node name="Espina" type="Button" parent="Niveles/Botones" unique_id=1454065519]
 layout_mode = 0
-offset_left = 406.0
-offset_top = 518.0
-offset_right = 746.0
-offset_bottom = 598.0
+offset_left = 488.0
+offset_top = 547.0
+offset_right = 828.0
+offset_bottom = 627.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
 
-[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Espina"]
+[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Espina" unique_id=2057377555]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 5.0
@@ -326,7 +338,7 @@ offset_bottom = 75.0
 texture = ExtResource("2_cdy6t")
 expand_mode = 1
 
-[node name="texto" type="Label" parent="Niveles/Botones/Espina"]
+[node name="texto" type="Label" parent="Niveles/Botones/Espina" unique_id=394554612]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 5.0
@@ -339,7 +351,7 @@ text = "Padre Espina"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="icono" type="TextureRect" parent="Niveles/Botones/Espina"]
+[node name="icono" type="TextureRect" parent="Niveles/Botones/Espina" unique_id=343114261]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
@@ -348,7 +360,7 @@ offset_bottom = 72.0
 texture = ExtResource("8_vr6hs")
 stretch_mode = 4
 
-[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Espina/icono"]
+[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Espina/icono" unique_id=159701205]
 modulate = Color(0, 0, 0, 1)
 show_behind_parent = true
 layout_mode = 0
@@ -359,18 +371,20 @@ offset_bottom = 67.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="Eirene" type="Button" parent="Niveles/Botones"]
+[node name="Eirene" type="Button" parent="Niveles/Botones" unique_id=216507018]
 layout_mode = 0
-offset_left = 779.0
-offset_top = 518.0
-offset_right = 1119.0
-offset_bottom = 598.0
+offset_left = 861.0
+offset_top = 547.0
+offset_right = 1201.0
+offset_bottom = 627.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
+disabled = true
 
-[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Eirene"]
+[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Eirene" unique_id=1242813877]
+modulate = Color(0.69411767, 0.69411767, 0.69411767, 1)
 layout_mode = 0
 offset_left = 75.0
 offset_top = 5.0
@@ -379,7 +393,7 @@ offset_bottom = 75.0
 texture = ExtResource("2_cdy6t")
 expand_mode = 1
 
-[node name="texto" type="Label" parent="Niveles/Botones/Eirene"]
+[node name="texto" type="Label" parent="Niveles/Botones/Eirene" unique_id=1791143380]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 5.0
@@ -392,7 +406,7 @@ text = "Eirene"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="icono" type="TextureRect" parent="Niveles/Botones/Eirene"]
+[node name="icono" type="TextureRect" parent="Niveles/Botones/Eirene" unique_id=84973315]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
@@ -401,7 +415,7 @@ offset_bottom = 72.0
 texture = ExtResource("9_3meqc")
 stretch_mode = 4
 
-[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Eirene/icono"]
+[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Eirene/icono" unique_id=1281772914]
 modulate = Color(0, 0, 0, 1)
 show_behind_parent = true
 layout_mode = 0
@@ -412,18 +426,19 @@ offset_bottom = 67.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="Corvus" type="Button" parent="Niveles/Botones"]
+[node name="Corvus" type="Button" parent="Niveles/Botones" unique_id=1235954997]
 layout_mode = 0
-offset_left = 406.0
-offset_top = 313.0
-offset_right = 746.0
-offset_bottom = 393.0
+offset_left = 488.0
+offset_top = 342.0
+offset_right = 828.0
+offset_bottom = 422.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
 
-[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Corvus"]
+[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Corvus" unique_id=770775224]
+modulate = Color(0.69411767, 0.69411767, 0.69411767, 1)
 layout_mode = 0
 offset_left = 75.0
 offset_top = 5.0
@@ -432,7 +447,7 @@ offset_bottom = 75.0
 texture = ExtResource("2_cdy6t")
 expand_mode = 1
 
-[node name="texto" type="Label" parent="Niveles/Botones/Corvus"]
+[node name="texto" type="Label" parent="Niveles/Botones/Corvus" unique_id=1311092482]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 5.0
@@ -445,7 +460,7 @@ text = "Fray Corvus"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="icono" type="TextureRect" parent="Niveles/Botones/Corvus"]
+[node name="icono" type="TextureRect" parent="Niveles/Botones/Corvus" unique_id=1973550863]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
@@ -454,7 +469,7 @@ offset_bottom = 72.0
 texture = ExtResource("9_wxfgt")
 stretch_mode = 4
 
-[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Corvus/icono"]
+[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Corvus/icono" unique_id=879395077]
 modulate = Color(0, 0, 0, 1)
 show_behind_parent = true
 layout_mode = 0
@@ -465,18 +480,19 @@ offset_bottom = 67.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="Galaad" type="Button" parent="Niveles/Botones"]
+[node name="Galaad" type="Button" parent="Niveles/Botones" unique_id=47449595]
 layout_mode = 0
-offset_left = 406.0
-offset_top = 173.0
-offset_right = 746.0
-offset_bottom = 253.0
+offset_left = 488.0
+offset_top = 202.0
+offset_right = 828.0
+offset_bottom = 282.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
 
-[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Galaad"]
+[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Galaad" unique_id=1846382375]
+modulate = Color(0.69411767, 0.69411767, 0.69411767, 1)
 layout_mode = 0
 offset_left = 75.0
 offset_top = 5.0
@@ -485,7 +501,7 @@ offset_bottom = 75.0
 texture = ExtResource("2_cdy6t")
 expand_mode = 1
 
-[node name="texto" type="Label" parent="Niveles/Botones/Galaad"]
+[node name="texto" type="Label" parent="Niveles/Botones/Galaad" unique_id=475261204]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 5.0
@@ -498,7 +514,7 @@ text = "Galaad"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="icono" type="TextureRect" parent="Niveles/Botones/Galaad"]
+[node name="icono" type="TextureRect" parent="Niveles/Botones/Galaad" unique_id=1252585630]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
@@ -507,7 +523,7 @@ offset_bottom = 72.0
 texture = ExtResource("10_0w2jm")
 stretch_mode = 4
 
-[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Galaad/icono"]
+[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Galaad/icono" unique_id=1979412492]
 modulate = Color(0, 0, 0, 1)
 show_behind_parent = true
 layout_mode = 0
@@ -518,18 +534,19 @@ offset_bottom = 67.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="Kapparah" type="Button" parent="Niveles/Botones"]
+[node name="Kapparah" type="Button" parent="Niveles/Botones" unique_id=465209909]
 layout_mode = 0
-offset_left = 406.0
-offset_top = 33.0
-offset_right = 746.0
-offset_bottom = 113.0
+offset_left = 488.0
+offset_top = 62.0
+offset_right = 828.0
+offset_bottom = 142.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
 
-[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Kapparah"]
+[node name="Fondo" type="TextureRect" parent="Niveles/Botones/Kapparah" unique_id=1701507911]
+modulate = Color(0.69411767, 0.69411767, 0.69411767, 1)
 layout_mode = 0
 offset_left = 75.0
 offset_top = 5.0
@@ -538,7 +555,7 @@ offset_bottom = 75.0
 texture = ExtResource("2_cdy6t")
 expand_mode = 1
 
-[node name="texto" type="Label" parent="Niveles/Botones/Kapparah"]
+[node name="texto" type="Label" parent="Niveles/Botones/Kapparah" unique_id=997078102]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 5.0
@@ -551,7 +568,7 @@ text = "???"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="icono" type="TextureRect" parent="Niveles/Botones/Kapparah"]
+[node name="icono" type="TextureRect" parent="Niveles/Botones/Kapparah" unique_id=586006195]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
@@ -560,7 +577,7 @@ offset_bottom = 72.0
 texture = ExtResource("11_0xiw4")
 stretch_mode = 4
 
-[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Kapparah/icono"]
+[node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Kapparah/icono" unique_id=363299927]
 modulate = Color(0, 0, 0, 1)
 show_behind_parent = true
 layout_mode = 0
@@ -571,19 +588,19 @@ offset_bottom = 67.0
 texture = ExtResource("7_aynrb")
 expand_mode = 1
 
-[node name="Menuprincipal" type="Button" parent="."]
+[node name="Menuprincipal" type="Button" parent="." unique_id=1819965838]
 custom_minimum_size = Vector2(243, 62)
-layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 253.0
-offset_bottom = 72.0
+layout_mode = 1
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 263.0
+offset_bottom = 82.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_0welv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_y04hq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_aynrb")
 
-[node name="Fondo" type="TextureRect" parent="Menuprincipal"]
+[node name="Fondo" type="TextureRect" parent="Menuprincipal" unique_id=1577463700]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
@@ -592,7 +609,7 @@ offset_bottom = 57.0
 texture = ExtResource("2_cdy6t")
 expand_mode = 1
 
-[node name="texto" type="Label" parent="Menuprincipal"]
+[node name="texto" type="Label" parent="Menuprincipal" unique_id=2146100842]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 5.0
@@ -605,13 +622,14 @@ text = "Menu Principal"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+[node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=1278571276]
 stream = ExtResource("5_0welv")
 volume_db = -1.0
 bus = &"SFX"
 
 [connection signal="mouse_entered" from="Niveles/Botones/Serpico" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_entered" from="Niveles/Botones/Espina" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Niveles/Botones/Espina" to="." method="_on_espina_pressed"]
 [connection signal="mouse_entered" from="Niveles/Botones/Eirene" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_entered" from="Niveles/Botones/Corvus" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_entered" from="Niveles/Botones/Galaad" to="." method="_on_button_mouse_entered"]

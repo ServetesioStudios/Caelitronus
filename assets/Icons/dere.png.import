@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://3cfg4a15l4fx"
-path="res://.godot/imported/dere.png-1ca5cf0900516511e37fc9bbfba57c99.ctex"
+path="res://.godot/imported/dere.png-4a9062d5bed2ee14329a4e3a861562fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Icons/dere.png"
-dest_files=["res://.godot/imported/dere.png-1ca5cf0900516511e37fc9bbfba57c99.ctex"]
+source_file="res://Assets/Icons/dere.png"
+dest_files=["res://.godot/imported/dere.png-4a9062d5bed2ee14329a4e3a861562fd.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://crlis0e7fcf4e"
-path="res://.godot/imported/lifeGaugeAlpha.png-e6c472cd05874243f89f1f153f4e35f6.ctex"
+path="res://.godot/imported/lifeGaugeAlpha.png-d62f87adc214144eb5e758189714c4b4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/lifeGaugeAlpha.png"
-dest_files=["res://.godot/imported/lifeGaugeAlpha.png-e6c472cd05874243f89f1f153f4e35f6.ctex"]
+source_file="res://Assets/ui/lifeGaugeAlpha.png"
+dest_files=["res://.godot/imported/lifeGaugeAlpha.png-d62f87adc214144eb5e758189714c4b4.ctex"]
 
 [params]
 

@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://cinvs4xaxdel0"]
 
-[ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://assets/BckGrnd/Nivel.png" id="1_ibhpi"]
-[ext_resource type="Script" uid="uid://bejfl33gjhhj2" path="res://scripts/subir_nivel.gd" id="1_sej22"]
-[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://assets/Fonts/Seagram_tfb.ttf" id="2_b4tox"]
-[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://assets/BckGrnd/paperallborder.png" id="3_b4tox"]
-[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="3_sej22"]
+[ext_resource type="Script" uid="uid://bejfl33gjhhj2" path="res://Scripts/subir_nivel.gd" id="1_a7ljx"]
+[ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://Assets/BckGrnd/Nivel.png" id="2_eokig"]
+[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="3_32y4f"]
+[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="4_okevw"]
+[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="5_ts3wy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sej22"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -61,14 +61,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_sej22")
+script = ExtResource("1_a7ljx")
 
 [node name="Fondo" type="TextureRect" parent="."]
 modulate = Color(0.90413505, 0.76640046, 0.667267, 1)
 layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
-texture = ExtResource("1_ibhpi")
+offset_right = 1280.0
+offset_bottom = 722.0
+texture = ExtResource("2_eokig")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="."]
@@ -83,7 +83,7 @@ theme_override_constants/shadow_offset_x = 10
 theme_override_constants/shadow_offset_y = 8
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 6
-theme_override_fonts/font = ExtResource("2_b4tox")
+theme_override_fonts/font = ExtResource("3_32y4f")
 theme_override_font_sizes/font_size = 57
 text = "Caelius sube de Nivel"
 horizontal_alignment = 1
@@ -100,7 +100,7 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("2_b4tox")
+theme_override_fonts/font = ExtResource("3_32y4f")
 theme_override_font_sizes/font_size = 36
 text = "Estadisticas Aumentadas"
 horizontal_alignment = 1
@@ -123,7 +123,7 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("2_b4tox")
+theme_override_fonts/font = ExtResource("3_32y4f")
 theme_override_font_sizes/font_size = 34
 text = "Nivel "
 horizontal_alignment = 1
@@ -139,7 +139,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[img=40 color=black]assets/Icons/vida.png[/img] "
@@ -157,7 +157,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[img=40 color=black]assets/Icons/Espada.png[/img] "
@@ -175,7 +175,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[img=40 color=black]assets/Icons/Escudo.png[/img] "
@@ -193,7 +193,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[img=40 color=black]assets/Icons/esquive.png[/img] "
@@ -211,7 +211,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[img=40 color=black]assets/Icons/Velocidad.png[/img] "
@@ -229,7 +229,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[img=40 color=black]assets/Icons/fe.png[/img] "
@@ -247,7 +247,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[img=40 color=black]assets/Icons/poder.png[/img] "
@@ -272,7 +272,7 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("2_b4tox")
+theme_override_fonts/font = ExtResource("3_32y4f")
 theme_override_font_sizes/font_size = 34
 text = "Aumento"
 horizontal_alignment = 1
@@ -289,7 +289,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 fit_content = true
@@ -307,7 +307,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 fit_content = true
@@ -325,7 +325,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 fit_content = true
@@ -343,7 +343,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 fit_content = true
@@ -361,7 +361,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 fit_content = true
@@ -379,7 +379,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 fit_content = true
@@ -397,7 +397,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 fit_content = true
@@ -421,7 +421,7 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("2_b4tox")
+theme_override_fonts/font = ExtResource("3_32y4f")
 theme_override_font_sizes/font_size = 32
 text = "Nivel "
 horizontal_alignment = 1
@@ -437,7 +437,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 fit_content = true
@@ -454,7 +454,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 fit_content = true
@@ -471,7 +471,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 fit_content = true
@@ -488,7 +488,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 fit_content = true
@@ -505,7 +505,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 fit_content = true
@@ -522,7 +522,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 fit_content = true
@@ -539,7 +539,7 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 fit_content = true
@@ -558,7 +558,7 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("2_b4tox")
+theme_override_fonts/font = ExtResource("3_32y4f")
 theme_override_font_sizes/font_size = 36
 text = "Elige una Mejora:"
 horizontal_alignment = 1
@@ -586,7 +586,7 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 225.0
 offset_bottom = 60.0
-texture = ExtResource("3_b4tox")
+texture = ExtResource("4_okevw")
 expand_mode = 1
 
 [node name="Texto" type="RichTextLabel" parent="Botones/Opcion1"]
@@ -598,7 +598,7 @@ offset_bottom = 58.0
 mouse_filter = 1
 theme_override_colors/default_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_constants/line_separation = 3
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 horizontal_alignment = 1
@@ -621,7 +621,7 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 225.0
 offset_bottom = 60.0
-texture = ExtResource("3_b4tox")
+texture = ExtResource("4_okevw")
 expand_mode = 1
 
 [node name="Texto" type="RichTextLabel" parent="Botones/Opcion2"]
@@ -633,7 +633,7 @@ offset_bottom = 58.0
 mouse_filter = 1
 theme_override_colors/default_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_constants/line_separation = 3
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 horizontal_alignment = 1
@@ -656,7 +656,7 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 225.0
 offset_bottom = 60.0
-texture = ExtResource("3_b4tox")
+texture = ExtResource("4_okevw")
 expand_mode = 1
 
 [node name="Texto" type="RichTextLabel" parent="Botones/Opcion3"]
@@ -668,7 +668,7 @@ offset_bottom = 58.0
 mouse_filter = 1
 theme_override_colors/default_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_constants/line_separation = 3
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 horizontal_alignment = 1
@@ -691,7 +691,7 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 265.0
 offset_bottom = 60.0
-texture = ExtResource("3_b4tox")
+texture = ExtResource("4_okevw")
 expand_mode = 1
 
 [node name="Texto" type="RichTextLabel" parent="Botones/Confirmar"]
@@ -703,7 +703,7 @@ offset_bottom = 58.0
 mouse_filter = 1
 theme_override_colors/default_color = Color(0.627451, 0.52156866, 0.105882354, 1)
 theme_override_constants/line_separation = 3
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "Confirmar [img=40 color=a0851b]assets/Icons/dere.png[/img]"
@@ -711,7 +711,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HoverSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_sej22")
+stream = ExtResource("5_ts3wy")
 volume_db = -1.0
 bus = &"SFX"
 
@@ -735,8 +735,8 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_b4tox")
-theme_override_fonts/bold_font = ExtResource("2_b4tox")
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_fonts/bold_font = ExtResource("3_32y4f")
 theme_override_font_sizes/normal_font_size = 20
 theme_override_font_sizes/bold_font_size = 22
 bbcode_enabled = true

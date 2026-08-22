@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://deohthvug7cxx"
-path="res://.godot/imported/fause.png-37943e23752b14057bd25ae3a78ba171.ctex"
+path="res://.godot/imported/fause.png-b3eae70956572a09d8976b73cbc543d3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/BttlSprit/fause.png"
-dest_files=["res://.godot/imported/fause.png-37943e23752b14057bd25ae3a78ba171.ctex"]
+source_file="res://Assets/BttlSprit/fause.png"
+dest_files=["res://.godot/imported/fause.png-b3eae70956572a09d8976b73cbc543d3.ctex"]
 
 [params]
 

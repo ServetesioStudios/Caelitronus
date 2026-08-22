@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Stats" load_steps=2 format=3 uid="uid://c6bbko3yx2nga"]
+
+[ext_resource type="Script" uid="uid://3jdy5elvqaqm" path="res://Scripts/data/stats.gd" id="1_eulfw"]
+
+[resource]
+script = ExtResource("1_eulfw")
+max_hp = 95
+"daño" = 7
+defensa = 4
+fe = 8
+poder = 8
+metadata/_custom_type_script = "uid://3jdy5elvqaqm"

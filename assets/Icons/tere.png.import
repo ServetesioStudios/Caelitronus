@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bujocqjnco2ly"
-path="res://.godot/imported/tere.png-d066ff7223a86f8df799ee49e175da5b.ctex"
+path="res://.godot/imported/tere.png-d4668e9bc0cea4dbe0c9db1b010b9586.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Icons/tere.png"
-dest_files=["res://.godot/imported/tere.png-d066ff7223a86f8df799ee49e175da5b.ctex"]
+source_file="res://Assets/Icons/tere.png"
+dest_files=["res://.godot/imported/tere.png-d4668e9bc0cea4dbe0c9db1b010b9586.ctex"]
 
 [params]
 

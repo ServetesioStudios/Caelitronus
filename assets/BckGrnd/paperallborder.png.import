@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8m4k5tnnhfda"
-path="res://.godot/imported/paperallborder.png-ca78fc1a0318893b6e6597cfd01e26c0.ctex"
+path="res://.godot/imported/paperallborder.png-f9745b19faab5b8fc13e19834eb782d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/BckGrnd/paperallborder.png"
-dest_files=["res://.godot/imported/paperallborder.png-ca78fc1a0318893b6e6597cfd01e26c0.ctex"]
+source_file="res://Assets/BckGrnd/paperallborder.png"
+dest_files=["res://.godot/imported/paperallborder.png-f9745b19faab5b8fc13e19834eb782d7.ctex"]
 
 [params]
 

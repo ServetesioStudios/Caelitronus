@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bl0flil3itppl"
-path="res://.godot/imported/matu.png-5bf0de242186e0a50a63e57c3f462c65.ctex"
+path="res://.godot/imported/matu.png-761229a1b4bb1c52ac8e5664b082efc3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/credit/matu.png"
-dest_files=["res://.godot/imported/matu.png-5bf0de242186e0a50a63e57c3f462c65.ctex"]
+source_file="res://Assets/credit/matu.png"
+dest_files=["res://.godot/imported/matu.png-761229a1b4bb1c52ac8e5664b082efc3.ctex"]
 
 [params]
 

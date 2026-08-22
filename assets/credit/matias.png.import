@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c6l7la6cvbqe6"
-path="res://.godot/imported/matias.png-8142f3ac771f7ee70670de33e9ae15ab.ctex"
+path="res://.godot/imported/matias.png-7e6f0c2f53e292adb40db056131e5c10.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/credit/matias.png"
-dest_files=["res://.godot/imported/matias.png-8142f3ac771f7ee70670de33e9ae15ab.ctex"]
+source_file="res://Assets/credit/matias.png"
+dest_files=["res://.godot/imported/matias.png-7e6f0c2f53e292adb40db056131e5c10.ctex"]
 
 [params]
 

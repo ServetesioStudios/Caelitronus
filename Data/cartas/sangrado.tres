@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=7 format=3 uid="uid://bggcfhh8irjxr"]
+
+[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/data/effect_data.gd" id="1_vxdug"]
+[ext_resource type="Script" uid="uid://p8nj01mbfxt2" path="res://Scripts/data/efectos/estado_effect_data.gd" id="2_8gwff"]
+[ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/data/card_data.gd" id="2_cn6fq"]
+[ext_resource type="Script" uid="uid://dsoesbabr1uya" path="res://Scripts/data/efectos/damage_effect_data.gd" id="3_8gwff"]
+
+[sub_resource type="Resource" id="Resource_wj70o"]
+script = ExtResource("2_8gwff")
+metadata/_custom_type_script = "uid://p8nj01mbfxt2"
+
+[sub_resource type="Resource" id="Resource_8gwff"]
+script = ExtResource("3_8gwff")
+cantidad = 2
+ignora_bloqueo = true
+metadata/_custom_type_script = "uid://dsoesbabr1uya"
+
+[resource]
+script = ExtResource("2_cn6fq")
+nombre = "Sangrado"
+descripcion = "Inflige 2 de daño ignorando bloqueo y aplica 2 de Sangrado"
+efectos = Array[ExtResource("1_vxdug")]([SubResource("Resource_wj70o"), SubResource("Resource_8gwff")])
+metadata/_custom_type_script = "uid://wr8ukg3kbesn"

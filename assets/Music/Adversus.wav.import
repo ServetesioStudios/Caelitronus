@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://b4mer5xptq7kc"
-path="res://.godot/imported/Adversus.wav-8d1f4dbfeb38f294ad134a6696a8b9c9.sample"
+path="res://.godot/imported/Adversus.wav-89aa197c5e7ae99dde13a1d9882c77f8.sample"
 
 [deps]
 
-source_file="res://assets/Music/Adversus.wav"
-dest_files=["res://.godot/imported/Adversus.wav-8d1f4dbfeb38f294ad134a6696a8b9c9.sample"]
+source_file="res://Assets/Music/Adversus.wav"
+dest_files=["res://.godot/imported/Adversus.wav-89aa197c5e7ae99dde13a1d9882c77f8.sample"]
 
 [params]
 
@@ -18,7 +18,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false
 edit/normalize=false
-edit/loop_mode=0
+edit/loop_mode=2
 edit/loop_begin=0
 edit/loop_end=-1
 compress/mode=2

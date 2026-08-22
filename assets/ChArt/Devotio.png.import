@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5lyl8p05pq5o"
-path="res://.godot/imported/Devotio.png-691e3146c7a4de5b1700ed8f124bb038.ctex"
+path="res://.godot/imported/Devotio.png-7d1ac192b40b16b51ab80d1fdd5c7df7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ChArt/Devotio.png"
-dest_files=["res://.godot/imported/Devotio.png-691e3146c7a4de5b1700ed8f124bb038.ctex"]
+source_file="res://Assets/ChArt/Devotio.png"
+dest_files=["res://.godot/imported/Devotio.png-7d1ac192b40b16b51ab80d1fdd5c7df7.ctex"]
 
 [params]
 

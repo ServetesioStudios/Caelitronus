@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://d2d8wn2a1ld8s"
-path="res://.godot/imported/prologo.wav-3236815802796b24b49786e50f4fb061.sample"
+path="res://.godot/imported/prologo.wav-8587ce761ac996bc054d158d2748928d.sample"
 
 [deps]
 
-source_file="res://assets/Movie/inicio/prologo.wav"
-dest_files=["res://.godot/imported/prologo.wav-3236815802796b24b49786e50f4fb061.sample"]
+source_file="res://Assets/Movie/inicio/prologo.wav"
+dest_files=["res://.godot/imported/prologo.wav-8587ce761ac996bc054d158d2748928d.sample"]
 
 [params]
 

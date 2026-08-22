@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://pqa2sa1oiqyf"
-path="res://.godot/imported/caelius de ego.png-6fe507a9638a53de0c68c27861047122.ctex"
+path="res://.godot/imported/caelius de ego.png-c938a8d353ddd67925aef3bd48153815.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ChArt/caelius de ego.png"
-dest_files=["res://.godot/imported/caelius de ego.png-6fe507a9638a53de0c68c27861047122.ctex"]
+source_file="res://Assets/ChArt/caelius de ego.png"
+dest_files=["res://.godot/imported/caelius de ego.png-c938a8d353ddd67925aef3bd48153815.ctex"]
 
 [params]
 

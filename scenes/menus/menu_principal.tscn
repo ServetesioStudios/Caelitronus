@@ -1,11 +1,55 @@
-[gd_scene load_steps=5 format=3 uid="uid://tw8spa7qddqp"]
+[gd_scene format=3 uid="uid://tw8spa7qddqp"]
 
-[ext_resource type="Script" uid="uid://8putwlrtuq0a" path="res://scripts/menus/menu_principal.gd" id="1_mwt4b"]
-[ext_resource type="Texture2D" uid="uid://dkknsmcypx4pc" path="res://assets/Images/MainM.png" id="2_gvws0"]
-[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://assets/Fonts/Seagram_tfb.ttf" id="4_pxfs1"]
-[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="5_yenkw"]
+[ext_resource type="Script" uid="uid://8putwlrtuq0a" path="res://Scripts/menus/menu_principal.gd" id="1_mwt4b"]
+[ext_resource type="Resource" uid="uid://n1a80ggx16sq" path="res://Data/ui/tema_menu.tres" id="2_tjyuf"]
+[ext_resource type="Texture2D" uid="uid://dp5qkdiyn0ip" path="res://Assets/Images/fondo.png" id="3_tjyuf"]
+[ext_resource type="Texture2D" uid="uid://delote2rg0y81" path="res://Assets/animaciones/menus/monjainto.png" id="4_jsnat"]
+[ext_resource type="Texture2D" uid="uid://x6hgifcq3qoq" path="res://Assets/Images/logotipo.png" id="4_ovoqb"]
+[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="4_pxfs1"]
+[ext_resource type="Script" uid="uid://brvu1ew7v1up7" path="res://Scripts/menus/loopdemenint.gd" id="5_jsnat"]
+[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="5_yenkw"]
+[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="7_tour5"]
+[ext_resource type="FontFile" uid="uid://dmrdb1iauee8n" path="res://Assets/Fonts/PirataOne-Regular.ttf" id="9_6p3uw"]
+[ext_resource type="Script" uid="uid://2v0iw7ym86el" path="res://Scripts/menus/camera2d.gd" id="9_g2ta4"]
+[ext_resource type="Texture2D" uid="uid://dhpspa8menhei" path="res://Assets/Images/textur.png" id="11_6p3uw"]
 
-[node name="MenuPrincipal" type="Control"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_tour5"]
+atlas = ExtResource("4_jsnat")
+region = Rect2(0, 0, 257, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2ta4"]
+atlas = ExtResource("4_jsnat")
+region = Rect2(257, 0, 257, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5wl3"]
+atlas = ExtResource("4_jsnat")
+region = Rect2(514, 0, 257, 350)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovoqb"]
+atlas = ExtResource("4_jsnat")
+region = Rect2(771, 0, 257, 350)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6yve6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tour5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2ta4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x5wl3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovoqb")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="MenuPrincipal" type="Control" unique_id=759690313]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,91 +57,264 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mwt4b")
+theme_data = ExtResource("2_tjyuf")
 
-[node name="fondo" type="TextureRect" parent="."]
+[node name="fondo" type="TextureRect" parent="." unique_id=866037079]
 self_modulate = Color(0.90588236, 0.8039216, 0.5764706, 0.8156863)
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -33.0
-offset_right = 5.0
-offset_bottom = 39.0
+offset_left = -300.0
+offset_top = -263.0
+offset_right = 290.0
+offset_bottom = 270.0
 mouse_filter = 2
-texture = ExtResource("2_gvws0")
+texture = ExtResource("3_tjyuf")
 
-[node name="menubotones" type="VBoxContainer" parent="."]
+[node name="logotipo" type="TextureRect" parent="." unique_id=490225839]
+modulate = Color(0.86616683, 0.42350638, 0, 1)
+self_modulate = Color(0.90588236, 0.8039216, 0.5764706, 0.8156863)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.34800002
-anchor_top = 0.377
-anchor_right = 0.646
-anchor_bottom = 0.99500006
-offset_left = 0.10397339
-offset_top = -0.29600525
-offset_right = -0.1920166
-offset_bottom = 0.2399292
-theme_override_constants/separation = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 758.0
+offset_top = 11.0
+offset_right = 14.0
+offset_bottom = -341.0
+mouse_filter = 2
+texture = ExtResource("4_ovoqb")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="menubotones" type="VBoxContainer" parent="." unique_id=1246830698]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -304.0
+offset_right = 320.0
+offset_bottom = 261.0
+grow_vertical = 2
+theme_override_constants/separation = 22
 alignment = 1
 
-[node name="btncontinuar" type="Button" parent="menubotones"]
+[node name="btncontinuar" type="Button" parent="menubotones" unique_id=1193383975]
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0.14391401, 0.10457852, 0.029176127, 1)
 theme_override_fonts/font = ExtResource("4_pxfs1")
 theme_override_font_sizes/font_size = 45
-text = "continuar"
+text = "c"
 flat = true
 
-[node name="bntcomenzar" type="Button" parent="menubotones"]
+[node name="Fondo" type="TextureRect" parent="menubotones/btncontinuar" unique_id=2021940246]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 0
+offset_left = -257.0
+offset_top = 5.0
+offset_right = 229.0
+offset_bottom = 65.0
+texture = ExtResource("7_tour5")
+expand_mode = 1
+
+[node name="texto" type="Label" parent="menubotones/btncontinuar" unique_id=834335671]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 8.0
+offset_right = 189.0
+offset_bottom = 61.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("9_6p3uw")
+theme_override_font_sizes/font_size = 40
+text = "Continuar"
+horizontal_alignment = 1
+
+[node name="bntcomenzar" type="Button" parent="menubotones" unique_id=1477140852]
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0.14509805, 0.105882354, 0.02745098, 1)
 theme_override_fonts/font = ExtResource("4_pxfs1")
 theme_override_font_sizes/font_size = 45
-text = "comenzar partida"
+text = "c"
 flat = true
 
-[node name="bntajustes" type="Button" parent="menubotones"]
+[node name="Fondo" type="TextureRect" parent="menubotones/bntcomenzar" unique_id=1624997129]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 0
+offset_left = -256.0
+offset_top = 9.0
+offset_right = 287.0
+offset_bottom = 69.0
+texture = ExtResource("7_tour5")
+expand_mode = 1
+
+[node name="texto" type="Label" parent="menubotones/bntcomenzar" unique_id=1420284645]
+layout_mode = 0
+offset_left = -20.0
+offset_top = 9.0
+offset_right = 269.0
+offset_bottom = 62.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("9_6p3uw")
+theme_override_font_sizes/font_size = 40
+text = "Nueva Partida"
+horizontal_alignment = 1
+
+[node name="bntajustes" type="Button" parent="menubotones" unique_id=1872141929]
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0.14509805, 0.105882354, 0.02745098, 1)
 theme_override_fonts/font = ExtResource("4_pxfs1")
 theme_override_font_sizes/font_size = 45
-text = "ajustes"
+text = "a"
 flat = true
 
-[node name="btnglosario" type="Button" parent="menubotones"]
+[node name="Fondo" type="TextureRect" parent="menubotones/bntajustes" unique_id=243134834]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 0
+offset_left = -255.0
+offset_top = 7.0
+offset_right = 196.0
+offset_bottom = 67.0
+texture = ExtResource("7_tour5")
+expand_mode = 1
+
+[node name="texto" type="Label" parent="menubotones/bntajustes" unique_id=1069701550]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 10.0
+offset_right = 150.0
+offset_bottom = 63.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("9_6p3uw")
+theme_override_font_sizes/font_size = 40
+text = "Ajustes"
+horizontal_alignment = 1
+
+[node name="btnglosario" type="Button" parent="menubotones" unique_id=776446303]
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0.14509805, 0.105882354, 0.02745098, 1)
 theme_override_fonts/font = ExtResource("4_pxfs1")
 theme_override_font_sizes/font_size = 45
-text = "glosario"
+text = "g"
 flat = true
 
-[node name="btncreditos" type="Button" parent="menubotones"]
+[node name="Fondo" type="TextureRect" parent="menubotones/btnglosario" unique_id=971810171]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 0
+offset_left = -255.0
+offset_top = 7.0
+offset_right = 204.0
+offset_bottom = 67.0
+texture = ExtResource("7_tour5")
+expand_mode = 1
+
+[node name="texto" type="Label" parent="menubotones/btnglosario" unique_id=1648528470]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 173.0
+offset_bottom = 61.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("9_6p3uw")
+theme_override_font_sizes/font_size = 40
+text = "Glosario"
+horizontal_alignment = 1
+
+[node name="btncreditos" type="Button" parent="menubotones" unique_id=1800671927]
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0.14509805, 0.105882354, 0.02745098, 1)
 theme_override_fonts/font = ExtResource("4_pxfs1")
 theme_override_font_sizes/font_size = 45
-text = "creditos"
+text = "c"
 flat = true
 
-[node name="btnsalir" type="Button" parent="menubotones"]
+[node name="Fondo" type="TextureRect" parent="menubotones/btncreditos" unique_id=1748093699]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 0
+offset_left = -255.0
+offset_top = 7.0
+offset_right = 204.0
+offset_bottom = 67.0
+texture = ExtResource("7_tour5")
+expand_mode = 1
+
+[node name="texto" type="Label" parent="menubotones/btncreditos" unique_id=872596210]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 8.0
+offset_right = 176.0
+offset_bottom = 61.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("9_6p3uw")
+theme_override_font_sizes/font_size = 40
+text = "Creditos"
+horizontal_alignment = 1
+
+[node name="btnsalir" type="Button" parent="menubotones" unique_id=1981537582]
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0.14509805, 0.105882354, 0.02745098, 1)
 theme_override_fonts/font = ExtResource("4_pxfs1")
 theme_override_font_sizes/font_size = 45
-text = "salir"
+text = "0"
 flat = true
 
-[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+[node name="Fondo" type="TextureRect" parent="menubotones/btnsalir" unique_id=2140792968]
+custom_minimum_size = Vector2(140, 60)
+layout_mode = 0
+offset_left = -255.0
+offset_top = 7.0
+offset_right = 202.0
+offset_bottom = 67.0
+texture = ExtResource("7_tour5")
+expand_mode = 1
+
+[node name="texto" type="Label" parent="menubotones/btnsalir" unique_id=1845593786]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 12.0
+offset_right = 176.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("9_6p3uw")
+theme_override_font_sizes/font_size = 40
+text = "Salir???"
+horizontal_alignment = 1
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=1723387070]
 stream = ExtResource("5_yenkw")
 volume_db = -1.0
 bus = &"SFX"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=130991760]
+position = Vector2(641, 360)
+script = ExtResource("9_g2ta4")
+
+[node name="fondo2" type="TextureRect" parent="." unique_id=2147024032]
+modulate = Color(0.66217554, 0, 0.11207495, 0.60200006)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -295.0
+offset_top = -258.0
+offset_right = 295.0
+offset_bottom = 275.0
+mouse_filter = 2
+texture = ExtResource("11_6p3uw")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="monja" type="AnimatedSprite2D" parent="." unique_id=1453772039]
+position = Vector2(594, 363)
+scale = Vector2(2.0029182, 2.0642858)
+sprite_frames = SubResource("SpriteFrames_6yve6")
+script = ExtResource("5_jsnat")
 
 [connection signal="pressed" from="menubotones/btncontinuar" to="." method="_on_btncontinuar_pressed"]
 [connection signal="pressed" from="menubotones/bntcomenzar" to="." method="_on_bntcomenzar_pressed"]

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6aa8xpls4foa"
-path="res://.godot/imported/alma.png-fedc79c13b577a171f668a341d23396b.ctex"
+path="res://.godot/imported/alma.png-c4eceb4c7d871a69c6ae1603976934aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/BttlSprit/alma.png"
-dest_files=["res://.godot/imported/alma.png-fedc79c13b577a171f668a341d23396b.ctex"]
+source_file="res://Assets/BttlSprit/alma.png"
+dest_files=["res://.godot/imported/alma.png-c4eceb4c7d871a69c6ae1603976934aa.ctex"]
 
 [params]
 
