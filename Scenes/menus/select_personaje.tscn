@@ -1,13 +1,90 @@
-[gd_scene load_steps=21 format=3 uid="uid://cqn5eke30ryu"]
+[gd_scene format=3 uid="uid://cqn5eke30ryu"]
 
 [ext_resource type="Script" uid="uid://dv1po6ndd3wa6" path="res://Scripts/menus/select_personaje.gd" id="1_8afk0"]
-[ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://Assets/BckGrnd/Nivel.png" id="2_ya60t"]
+[ext_resource type="Texture2D" uid="uid://ychi5ogy5pku" path="res://Assets/Images/fondo.png" id="2_qr1lh"]
+[ext_resource type="Texture2D" uid="uid://3qefaqpb0i21" path="res://Assets/Images/textur.png" id="3_0hg5g"]
 [ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="3_26w3f"]
+[ext_resource type="Texture2D" uid="uid://dchilsxgyumub" path="res://Assets/animaciones/menus/explotaenu.png" id="3_onv3m"]
+[ext_resource type="Script" uid="uid://bubdo0ul1ccm8" path="res://Scripts/menus/enmenuexplocion.gd" id="4_8oeju"]
 [ext_resource type="Texture2D" uid="uid://cv3vrjc1xpmbg" path="res://Assets/ChArt/caelius de pena.png" id="4_wtvv2"]
-[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="5_nks3u"]
 [ext_resource type="Texture2D" uid="uid://c03f2guura5ub" path="res://Assets/ChArt/caelius de ira.png" id="6_6ikru"]
+[ext_resource type="Script" uid="uid://bmc7s0c8twmvy" path="res://Scripts/menus/pj_pena.gd" id="6_8oeju"]
+[ext_resource type="FontFile" uid="uid://dxuqp4jcmwft0" path="res://Assets/Fonts/PirataOne-Regular.ttf" id="6_onv3m"]
 [ext_resource type="Texture2D" uid="uid://pqa2sa1oiqyf" path="res://Assets/ChArt/caelius de ego.png" id="7_ioxdl"]
 [ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="8_egwgt"]
+[ext_resource type="Script" uid="uid://cghmmlhp123bq" path="res://Scripts/menus/pj_ira.gd" id="10_cauci"]
+[ext_resource type="Script" uid="uid://d0e7gafg0n5g1" path="res://Scripts/menus/pj_ego.gd" id="12_3cmwm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42c30"]
+atlas = ExtResource("3_onv3m")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u43vg"]
+atlas = ExtResource("3_onv3m")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktrud"]
+atlas = ExtResource("3_onv3m")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkkv2"]
+atlas = ExtResource("3_onv3m")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tjg3"]
+atlas = ExtResource("3_onv3m")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_be718"]
+atlas = ExtResource("3_onv3m")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8ivy"]
+atlas = ExtResource("3_onv3m")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j54fx"]
+atlas = ExtResource("3_onv3m")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hp83f"]
+atlas = ExtResource("3_onv3m")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cauci"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42c30")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u43vg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktrud")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkkv2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8tjg3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_be718")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f8ivy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j54fx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hp83f")
+}],
+"loop": 0,
+"name": &"exolocion",
+"speed": 8.0
+}]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qf4rk"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -27,7 +104,7 @@ border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.78431374, 0, 0.12941177, 1)
+border_color = Color(0.48543864, 0, 0.063731596, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -63,7 +140,7 @@ border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.78431374, 0, 0.12941177, 1)
+border_color = Color(0.4862745, 0, 0.0627451, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -99,7 +176,7 @@ border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.78431374, 0, 0.12941177, 1)
+border_color = Color(0.4862745, 0, 0.0627451, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -153,7 +230,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=722039621]
 custom_minimum_size = Vector2(860, 600)
 layout_mode = 3
 anchors_preset = 15
@@ -163,19 +240,43 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8afk0")
 
-[node name="Fondo" type="TextureRect" parent="."]
-modulate = Color(1, 0.88235295, 0.7411765, 1)
-visibility_layer = 3
+[node name="fondo" type="TextureRect" parent="." unique_id=826556325]
+self_modulate = Color(0.90588236, 0.8039216, 0.5764706, 0.8156863)
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.001
-anchor_bottom = 0.99700004
-offset_right = -5.1520996
-offset_bottom = 1.9439697
-texture = ExtResource("2_ya60t")
-expand_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -263.0
+offset_right = 290.0
+offset_bottom = 270.0
+mouse_filter = 2
+texture = ExtResource("2_qr1lh")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="explocion" type="AnimatedSprite2D" parent="." unique_id=775637224]
+modulate = Color(0.59658647, 0.86871666, 0.12879461, 1)
+position = Vector2(107.000046, 171.00002)
+scale = Vector2(4.127144, 4.153309)
+sprite_frames = SubResource("SpriteFrames_cauci")
+animation = &"exolocion"
+script = ExtResource("4_8oeju")
+
+[node name="fondo3" type="TextureRect" parent="." unique_id=913368428]
+modulate = Color(0.66217554, 0, 0.11207495, 0.60200006)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -295.0
+offset_top = -258.0
+offset_right = 295.0
+offset_bottom = 275.0
+mouse_filter = 2
+texture = ExtResource("3_0hg5g")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=694610317]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -185,14 +286,17 @@ grow_vertical = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Personajes" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Personajes" type="Control" parent="VBoxContainer" unique_id=1568836245]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 120
 
-[node name="PJ_pena" type="Button" parent="VBoxContainer/Personajes"]
+[node name="PJ_pena" type="Button" parent="VBoxContainer/Personajes" unique_id=1219019657]
 custom_minimum_size = Vector2(260, 460)
-layout_mode = 2
+layout_mode = 0
+offset_left = 56.000015
+offset_top = -274.00003
+offset_right = 316.0
+offset_bottom = 185.99997
+rotation = -0.2146755
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_qf4rk")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_6hxcj")
@@ -200,49 +304,61 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_rfjjs")
 icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
+script = ExtResource("6_8oeju")
 
-[node name="Fondo" type="TextureRect" parent="VBoxContainer/Personajes/PJ_pena"]
+[node name="Fondo" type="TextureRect" parent="VBoxContainer/Personajes/PJ_pena" unique_id=2139218038]
+modulate = Color(0.69135684, 0.6913568, 0.69135684, 1)
 custom_minimum_size = Vector2(250, 450)
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
 offset_right = 255.0
 offset_bottom = 455.0
+mouse_filter = 2
 texture = ExtResource("3_26w3f")
 expand_mode = 1
 
-[node name="Sprite" type="TextureRect" parent="VBoxContainer/Personajes/PJ_pena"]
+[node name="Sprite" type="TextureRect" parent="VBoxContainer/Personajes/PJ_pena" unique_id=755981941]
+modulate = Color(0.76240367, 0.76240367, 0.76240367, 1)
 custom_minimum_size = Vector2(200, 300)
 layout_mode = 0
-offset_left = 9.0
-offset_top = 9.0
-offset_right = 258.0
-offset_bottom = 422.0
+offset_left = 4.0
+offset_top = -1.0
+offset_right = 253.0
+offset_bottom = 412.0
+mouse_filter = 2
 texture = ExtResource("4_wtvv2")
 stretch_mode = 5
+flip_h = true
 
-[node name="Nombre" type="Label" parent="VBoxContainer/Personajes/PJ_pena"]
+[node name="Nombre" type="Label" parent="VBoxContainer/Personajes/PJ_pena" unique_id=2082304683]
 layout_mode = 0
 offset_left = 21.0
-offset_top = 398.0
+offset_top = 386.0
 offset_right = 240.0
-offset_bottom = 444.0
+offset_bottom = 439.0
 theme_override_colors/font_color = Color(0.5647059, 0.39607844, 0.007843138, 1)
-theme_override_fonts/font = ExtResource("5_nks3u")
-theme_override_font_sizes/font_size = 36
-text = "caelius de pena"
+theme_override_fonts/font = ExtResource("6_onv3m")
+theme_override_font_sizes/font_size = 40
+text = "Caelius de Pena"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="PJ_ira" type="Button" parent="VBoxContainer/Personajes"]
+[node name="PJ_ira" type="Button" parent="VBoxContainer/Personajes" unique_id=2011933722]
 custom_minimum_size = Vector2(260, 460)
-layout_mode = 2
+layout_mode = 0
+offset_left = 516.0
+offset_top = -334.0
+offset_right = 776.0
+offset_bottom = 126.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_dr5ty")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_568h8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_pquok")
+script = ExtResource("10_cauci")
 
-[node name="Fondo" type="TextureRect" parent="VBoxContainer/Personajes/PJ_ira"]
+[node name="Fondo" type="TextureRect" parent="VBoxContainer/Personajes/PJ_ira" unique_id=344955847]
+modulate = Color(0.7892062, 0.8380953, 1, 1)
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
@@ -251,38 +367,46 @@ offset_bottom = 455.0
 texture = ExtResource("3_26w3f")
 expand_mode = 5
 
-[node name="Sprite" type="TextureRect" parent="VBoxContainer/Personajes/PJ_ira"]
+[node name="Sprite" type="TextureRect" parent="VBoxContainer/Personajes/PJ_ira" unique_id=1791364193]
+modulate = Color(0.7162962, 0.7162962, 0.7162962, 1)
 custom_minimum_size = Vector2(200, 300)
 layout_mode = 0
-offset_left = 8.0
-offset_top = 7.0
-offset_right = 260.0
-offset_bottom = 423.0
+offset_left = 5.0
+offset_top = 1.0
+offset_right = 257.0
+offset_bottom = 417.0
 texture = ExtResource("6_6ikru")
 stretch_mode = 5
 
-[node name="Nombre" type="Label" parent="VBoxContainer/Personajes/PJ_ira"]
+[node name="Nombre" type="Label" parent="VBoxContainer/Personajes/PJ_ira" unique_id=788352555]
 layout_mode = 0
 offset_left = 21.0
-offset_top = 398.0
+offset_top = 392.0
 offset_right = 240.0
-offset_bottom = 444.0
+offset_bottom = 445.0
 theme_override_colors/font_color = Color(0.5647059, 0.39607844, 0.007843138, 1)
-theme_override_fonts/font = ExtResource("5_nks3u")
-theme_override_font_sizes/font_size = 36
-text = "caelius de ira"
+theme_override_fonts/font = ExtResource("6_onv3m")
+theme_override_font_sizes/font_size = 40
+text = "Caelius de Ira"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="PJ_ego" type="Button" parent="VBoxContainer/Personajes"]
+[node name="PJ_ego" type="Button" parent="VBoxContainer/Personajes" unique_id=624529013]
 custom_minimum_size = Vector2(260, 460)
-layout_mode = 2
+layout_mode = 0
+offset_left = 960.00006
+offset_top = -316.0
+offset_right = 1220.0
+offset_bottom = 144.0
+rotation = 0.2146755
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_gnysc")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_r4h0o")
 theme_override_styles/hover = SubResource("StyleBoxFlat_yppg1")
+script = ExtResource("12_3cmwm")
 
-[node name="Fondo" type="TextureRect" parent="VBoxContainer/Personajes/PJ_ego"]
+[node name="Fondo" type="TextureRect" parent="VBoxContainer/Personajes/PJ_ego" unique_id=1252279545]
+modulate = Color(1, 0.75014615, 0.73577297, 1)
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
@@ -291,40 +415,43 @@ offset_bottom = 455.0
 texture = ExtResource("3_26w3f")
 expand_mode = 5
 
-[node name="Sprite" type="TextureRect" parent="VBoxContainer/Personajes/PJ_ego"]
+[node name="Sprite" type="TextureRect" parent="VBoxContainer/Personajes/PJ_ego" unique_id=225935098]
+modulate = Color(0.7121294, 0.7121294, 0.71212935, 1)
 custom_minimum_size = Vector2(200, 300)
 layout_mode = 0
 offset_left = 6.0
-offset_top = 9.0
+offset_top = 1.0
 offset_right = 255.0
-offset_bottom = 422.0
+offset_bottom = 414.0
 texture = ExtResource("7_ioxdl")
 stretch_mode = 5
 
-[node name="Nombre" type="Label" parent="VBoxContainer/Personajes/PJ_ego"]
+[node name="Nombre" type="Label" parent="VBoxContainer/Personajes/PJ_ego" unique_id=1222775295]
 layout_mode = 0
 offset_left = 21.0
-offset_top = 398.0
+offset_top = 391.0
 offset_right = 240.0
 offset_bottom = 444.0
 theme_override_colors/font_color = Color(0.5647059, 0.39607844, 0.007843138, 1)
-theme_override_fonts/font = ExtResource("5_nks3u")
-theme_override_font_sizes/font_size = 36
-text = "caelius de ego"
+theme_override_fonts/font = ExtResource("6_onv3m")
+theme_override_font_sizes/font_size = 40
+text = "Caelius de Ego"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="PanelInferior" type="HBoxContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 150)
+[node name="PanelInferior" type="Control" parent="VBoxContainer" unique_id=666582692]
 layout_mode = 2
-size_flags_horizontal = 4
 
-[node name="PanelInfo" type="Panel" parent="VBoxContainer/PanelInferior"]
+[node name="PanelInfo" type="Panel" parent="VBoxContainer/PanelInferior" unique_id=921861713]
 custom_minimum_size = Vector2(800, 80)
-layout_mode = 2
+layout_mode = 0
+offset_left = 196.0
+offset_top = 138.0
+offset_right = 996.0
+offset_bottom = 288.0
 size_flags_horizontal = 3
 
-[node name="Titulo" type="Label" parent="VBoxContainer/PanelInferior/PanelInfo"]
+[node name="Titulo" type="Label" parent="VBoxContainer/PanelInferior/PanelInfo" unique_id=588911552]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -332,12 +459,12 @@ offset_top = 10.0
 offset_bottom = 56.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.79122466, 0.6596201, 0.14132708, 1)
-theme_override_fonts/font = ExtResource("5_nks3u")
-theme_override_font_sizes/font_size = 36
+theme_override_fonts/font = ExtResource("6_onv3m")
+theme_override_font_sizes/font_size = 40
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Stats" type="Label" parent="VBoxContainer/PanelInferior/PanelInfo"]
+[node name="Stats" type="Label" parent="VBoxContainer/PanelInferior/PanelInfo" unique_id=1088931150]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 1
 anchors_preset = 12
@@ -349,21 +476,25 @@ offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.7921569, 0.65882355, 0.14117648, 1)
-theme_override_fonts/font = ExtResource("5_nks3u")
-theme_override_font_sizes/font_size = 26
+theme_override_fonts/font = ExtResource("6_onv3m")
+theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="BtnSeleccionar" type="Button" parent="VBoxContainer/PanelInferior"]
+[node name="BtnSeleccionar" type="Button" parent="VBoxContainer/PanelInferior" unique_id=1017241216]
 custom_minimum_size = Vector2(200, 80)
-layout_mode = 2
+layout_mode = 0
+offset_left = 1029.0
+offset_top = 175.0
+offset_right = 1229.0
+offset_bottom = 255.0
 size_flags_vertical = 4
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_x6bg5")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_tjg0h")
 theme_override_styles/hover = SubResource("StyleBoxFlat_tun08")
 
-[node name="Fondo" type="TextureRect" parent="VBoxContainer/PanelInferior/BtnSeleccionar"]
+[node name="Fondo" type="TextureRect" parent="VBoxContainer/PanelInferior/BtnSeleccionar" unique_id=803195658]
 custom_minimum_size = Vector2(190, 70)
 layout_mode = 0
 offset_left = 5.0
@@ -373,19 +504,19 @@ offset_bottom = 76.0
 texture = ExtResource("3_26w3f")
 expand_mode = 2
 
-[node name="texto" type="Label" parent="VBoxContainer/PanelInferior/BtnSeleccionar"]
+[node name="texto" type="Label" parent="VBoxContainer/PanelInferior/BtnSeleccionar" unique_id=1314199415]
 layout_mode = 0
 offset_left = 27.0
-offset_top = 12.343994
+offset_top = 10.343994
 offset_right = 179.0
-offset_bottom = 63.343994
+offset_bottom = 69.343994
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
-theme_override_fonts/font = ExtResource("5_nks3u")
-theme_override_font_sizes/font_size = 40
+theme_override_fonts/font = ExtResource("6_onv3m")
+theme_override_font_sizes/font_size = 45
 text = "continuar"
 horizontal_alignment = 1
 
-[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+[node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=1697848508]
 stream = ExtResource("8_egwgt")
 volume_db = -1.0
 bus = &"SFX"
