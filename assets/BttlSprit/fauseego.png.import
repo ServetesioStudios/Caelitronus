@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkdls7uamjg4p"
-path="res://.godot/imported/fause.png-b3eae70956572a09d8976b73cbc543d3.ctex"
+uid="uid://bbt1gp4x270ck"
+path="res://.godot/imported/fauseego.png-581d03f6bab7713016cd2503719c37bc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/BttlSprit/fause.png"
-dest_files=["res://.godot/imported/fause.png-b3eae70956572a09d8976b73cbc543d3.ctex"]
+source_file="res://Assets/BttlSprit/fauseego.png"
+dest_files=["res://.godot/imported/fauseego.png-581d03f6bab7713016cd2503719c37bc.ctex"]
 
 [params]
 
