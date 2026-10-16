@@ -7,3 +7,6 @@
 # Archivos temporales del sistema
 .DS_Store
 Thumbs.db
+
+# Documento privado de desarrollo
+/PROJECT_STATUS.md

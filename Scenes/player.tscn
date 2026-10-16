@@ -1,6 +1,6 @@
-[gd_scene load_steps=65 format=3 uid="uid://bjsf3q6hvbyji"]
+[gd_scene format=3 uid="uid://bjsf3q6hvbyji"]
 
-[ext_resource type="Texture2D" uid="uid://deohthvug7cxx" path="res://Assets/BttlSprit/fause.png" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://bkdls7uamjg4p" path="res://Assets/BttlSprit/fause.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dimsfxq4ijnuj" path="res://Scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://crlis0e7fcf4e" path="res://Assets/ui/lifeGaugeAlpha.png" id="3_dqkch"]
 [ext_resource type="Texture2D" uid="uid://dfhmn2j5ogg8f" path="res://Assets/animaciones/animacionfausedefe/ataquefuerte.png" id="4_fkybt"]
@@ -10,7 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://b4f03w5koqt6q" path="res://Assets/animaciones/animacionfausedefe/curacion.png" id="6_tx1dd"]
 [ext_resource type="Texture2D" uid="uid://dngg6jd3gctni" path="res://Assets/animaciones/animacionfausedefe/daño.png" id="7_gymyn"]
 [ext_resource type="Texture2D" uid="uid://detr264eer0vq" path="res://Assets/animaciones/animacionfausedefe/energia.png" id="8_pu2lt"]
+[ext_resource type="Texture2D" uid="uid://bbt1gp4x270ck" path="res://Assets/BttlSprit/fauseego.png" id="10_7dp3o"]
 [ext_resource type="Script" uid="uid://vrkdj3l7poq7" path="res://Scripts/AnimadorPersonaje.gd" id="10_tx1dd"]
+[ext_resource type="Texture2D" uid="uid://bwvo001txkcjj" path="res://Assets/BttlSprit/fauseira.png" id="11_h4iuc"]
 [ext_resource type="Texture2D" uid="uid://l3giih32665u" path="res://Assets/Icons/Escudo.png" id="12_pu2lt"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ukyrk"]
@@ -282,7 +284,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vfarp")
 }],
-"loop": false,
+"loop": 0,
 "name": &"ataquefuerte",
 "speed": 50.0
 }, {
@@ -305,7 +307,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_36dho")
 }],
-"loop": false,
+"loop": 0,
 "name": &"bloqueo",
 "speed": 20.0
 }, {
@@ -328,7 +330,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sbwqj")
 }],
-"loop": false,
+"loop": 0,
 "name": &"curacion",
 "speed": 10.0
 }, {
@@ -348,7 +350,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_r7t2e")
 }],
-"loop": false,
+"loop": 0,
 "name": &"daño",
 "speed": 10.0
 }, {
@@ -374,16 +376,32 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e6mvm")
 }],
-"loop": false,
+"loop": 0,
 "name": &"energia",
 "speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("10_7dp3o")
+}],
+"loop": 1,
+"name": &"idle_ego",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_h4iuc")
+}],
+"loop": 1,
+"name": &"idle_ira",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("1_3vyb7")
 }],
-"loop": false,
-"name": &"idle",
+"loop": 0,
+"name": &"idle_pena",
 "speed": 5.0
 }]
 
@@ -392,10 +410,10 @@ font = ExtResource("4_pu2lt")
 font_size = 22
 font_color = Color(0, 0, 0, 1)
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" unique_id=491344222]
 script = ExtResource("1_g2els")
 
-[node name="HealthBar" type="TextureProgressBar" parent="."]
+[node name="HealthBar" type="TextureProgressBar" parent="." unique_id=604517254]
 offset_left = 30.0
 offset_top = 3.0
 offset_right = 273.0
@@ -405,7 +423,7 @@ value = 95.0
 texture_under = ExtResource("3_dqkch")
 texture_progress = ExtResource("4_qlg0r")
 
-[node name="LabelHealth" type="Label" parent="HealthBar"]
+[node name="LabelHealth" type="Label" parent="HealthBar" unique_id=2038214597]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -423,27 +441,25 @@ label_settings = SubResource("LabelSettings_ukyrk")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_qhqgy")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=120835735]
+libraries/ = SubResource("AnimationLibrary_qhqgy")
 
-[node name="AttackTimer" type="Timer" parent="."]
+[node name="AttackTimer" type="Timer" parent="." unique_id=1768030033]
 
-[node name="Animador" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("sprite")]
+[node name="Animador" type="AnimatedSprite2D" parent="." unique_id=33599498 node_paths=PackedStringArray("sprite")]
 position = Vector2(150, 258)
 sprite_frames = SubResource("SpriteFrames_y6uwr")
-animation = &"energia"
+animation = &"idle_ego"
 script = ExtResource("10_tx1dd")
 sprite = NodePath(".")
 
-[node name="Shield" type="Sprite2D" parent="."]
+[node name="Shield" type="Sprite2D" parent="." unique_id=1459614113]
 visible = false
 position = Vector2(300, 27)
 scale = Vector2(0.769, 0.8)
 texture = ExtResource("12_pu2lt")
 
-[node name="LabelShield" type="Label" parent="Shield"]
+[node name="LabelShield" type="Label" parent="Shield" unique_id=1093324037]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dmu6hcrme284g"]
+[gd_scene format=3 uid="uid://dmu6hcrme284g"]
 
 [ext_resource type="Texture2D" uid="uid://1ujq4vhia20d" path="res://Assets/BckGrnd/Bonefield_mvt.png" id="1_bxpjm"]
 [ext_resource type="Script" uid="uid://ta11uy1xj5dd" path="res://Scripts/batalla/battle_scene.gd" id="1_qf52c"]
@@ -25,18 +25,18 @@ font_color = Color(0, 0, 0, 1)
 font = ExtResource("6_n02j2")
 font_size = 20
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" unique_id=1257884240]
 script = ExtResource("1_qf52c")
 
-[node name="CombatManager" type="Node" parent="."]
+[node name="CombatManager" type="Node" parent="." unique_id=1525832342]
 script = ExtResource("8_w4764")
 
-[node name="DeckManager" type="Node" parent="."]
+[node name="DeckManager" type="Node" parent="." unique_id=2064364899]
 script = ExtResource("9_ed262")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=713179635]
 
-[node name="DropZone" type="Control" parent="CanvasLayer" groups=["DropZones"]]
+[node name="DropZone" type="Control" parent="CanvasLayer" unique_id=1675579401 groups=["DropZones"]]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 3.0
@@ -45,15 +45,15 @@ offset_right = 1284.0
 offset_bottom = 476.0
 script = ExtResource("8_ms847")
 
-[node name="BonefieldMvt" type="Sprite2D" parent="CanvasLayer"]
+[node name="BonefieldMvt" type="Sprite2D" parent="CanvasLayer" unique_id=180617224]
 position = Vector2(642, 358.5)
 scale = Vector2(1.2859999, 0.97432435)
 texture = ExtResource("1_bxpjm")
 
-[node name="player" parent="CanvasLayer" instance=ExtResource("2_4ohde")]
+[node name="player" parent="CanvasLayer" unique_id=182385245 instance=ExtResource("2_4ohde")]
 position = Vector2(72, 72)
 
-[node name="papelcombate" type="TextureRect" parent="CanvasLayer"]
+[node name="papelcombate" type="TextureRect" parent="CanvasLayer" unique_id=172119596]
 offset_left = 306.0
 offset_top = 460.0
 offset_right = 980.0
@@ -61,7 +61,8 @@ offset_bottom = 701.0
 texture = ExtResource("5_fowxk")
 expand_mode = 1
 
-[node name="textocombate" type="RichTextLabel" parent="CanvasLayer"]
+[node name="textocombate" type="RichTextLabel" parent="CanvasLayer" unique_id=1844615471]
+visible = false
 offset_left = 490.0
 offset_top = 2.0
 offset_right = 823.0
@@ -72,7 +73,7 @@ theme_override_font_sizes/normal_font_size = 22
 autowrap_mode = 2
 horizontal_alignment = 2
 
-[node name="playerstats" type="TextureRect" parent="CanvasLayer"]
+[node name="playerstats" type="TextureRect" parent="CanvasLayer" unique_id=783502019]
 offset_left = 16.0
 offset_top = 610.0
 offset_right = 305.0
@@ -81,7 +82,7 @@ texture = ExtResource("7_n02j2")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="enemistats" type="TextureRect" parent="CanvasLayer"]
+[node name="enemistats" type="TextureRect" parent="CanvasLayer" unique_id=1818720501]
 offset_left = 983.0
 offset_top = 611.0
 offset_right = 1262.0
@@ -90,7 +91,7 @@ texture = ExtResource("7_n02j2")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="LabelEnergia" type="Label" parent="CanvasLayer"]
+[node name="LabelEnergia" type="Label" parent="CanvasLayer" unique_id=1982336341]
 self_modulate = Color(0, 0, 0, 1)
 offset_left = 39.0
 offset_top = 628.0
@@ -99,7 +100,7 @@ offset_bottom = 670.0
 text = "3/3"
 label_settings = SubResource("LabelSettings_f4ggb")
 
-[node name="LabelCombates" type="Label" parent="CanvasLayer"]
+[node name="LabelCombates" type="Label" parent="CanvasLayer" unique_id=1305828321]
 offset_left = 34.0
 offset_top = 662.0
 offset_right = 286.0
@@ -107,13 +108,13 @@ offset_bottom = 703.0
 text = "combates"
 label_settings = SubResource("LabelSettings_wb0gu")
 
-[node name="BtnFinTurno" type="Button" parent="CanvasLayer"]
+[node name="BtnFinTurno" type="Button" parent="CanvasLayer" unique_id=1579586428]
 offset_left = 1147.0
 offset_top = 637.0
 offset_right = 1252.0
 offset_bottom = 685.0
 
-[node name="Label" type="Label" parent="CanvasLayer/BtnFinTurno"]
+[node name="Label" type="Label" parent="CanvasLayer/BtnFinTurno" unique_id=1516580355]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -131,7 +132,7 @@ label_settings = SubResource("LabelSettings_ms847")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Mano" type="HBoxContainer" parent="CanvasLayer"]
+[node name="Mano" type="HBoxContainer" parent="CanvasLayer" unique_id=469343033]
 offset_left = 332.0
 offset_top = 470.0
 offset_right = 956.0
