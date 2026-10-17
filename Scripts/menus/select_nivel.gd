@@ -12,6 +12,11 @@ const JEFES_INICIALES := {
 func _ready():
 	MusicManager.play_menu()
 	
+	for boton in $Niveles/Botones.get_children():
+		if boton is Button:
+			boton.mouse_entered.connect(
+				func(): _on_button_mouse_entered(boton))
+	
 	var jefes := 0
 	for jefe_id in JEFES_INICIALES.keys():
 		if GameManager.es_jefe_derrotado(jefe_id):
@@ -48,9 +53,13 @@ func _ready():
 			$Niveles/Botones/Kapparah.set_block_signals(1)
 				
 
-func _on_button_mouse_entered() -> void:
-	if hover_sound.playing == true:
+func _on_button_mouse_entered(boton: Button) -> void:
+	if boton.disabled:
+		return
+
+	if hover_sound.playing:
 		hover_sound.stop()
+
 	hover_sound.play()
 
 func _on_menuprincipal_pressed() -> void:

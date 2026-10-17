@@ -628,11 +628,6 @@ volume_db = -1.0
 bus = &"SFX"
 
 [connection signal="mouse_entered" from="Niveles/Botones/Serpico" to="." method="_on_button_mouse_entered"]
-[connection signal="mouse_entered" from="Niveles/Botones/Espina" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="Niveles/Botones/Espina" to="." method="_on_espina_pressed"]
-[connection signal="mouse_entered" from="Niveles/Botones/Eirene" to="." method="_on_button_mouse_entered"]
-[connection signal="mouse_entered" from="Niveles/Botones/Corvus" to="." method="_on_button_mouse_entered"]
-[connection signal="mouse_entered" from="Niveles/Botones/Galaad" to="." method="_on_button_mouse_entered"]
-[connection signal="mouse_entered" from="Niveles/Botones/Kapparah" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_entered" from="Menuprincipal" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="Menuprincipal" to="." method="_on_menuprincipal_pressed"]
