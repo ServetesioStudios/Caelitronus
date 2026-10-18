@@ -1,0 +1,780 @@
+[gd_scene load_steps=10 format=3 uid="uid://cinvs4xaxdel0"]
+
+[ext_resource type="Script" uid="uid://bejfl33gjhhj2" path="res://Scripts/subir_nivel.gd" id="1_a7ljx"]
+[ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://Assets/BckGrnd/Nivel.png" id="2_eokig"]
+[ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="3_32y4f"]
+[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="4_okevw"]
+[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="5_ts3wy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sej22"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ubdk4"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.78431374, 0, 0.12941177, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6q6r"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.89411765, 0.8039216, 0.14901961, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ichb"]
+bg_color = Color(0, 0, 0, 0.6862745)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[node name="SubirNivel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a7ljx")
+
+[node name="Fondo" type="TextureRect" parent="."]
+modulate = Color(0.90413505, 0.76640046, 0.667267, 1)
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 722.0
+texture = ExtResource("2_eokig")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 120.0
+theme_override_colors/font_color = Color(0.9995722, 0.8720149, 0.66100925, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 5
+theme_override_constants/paragraph_spacing = 5
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 8
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 6
+theme_override_fonts/font = ExtResource("3_32y4f")
+theme_override_font_sizes/font_size = 57
+text = "Caelius sube de Nivel"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_top = 115.0
+offset_right = 1152.0
+offset_bottom = 165.0
+theme_override_colors/font_color = Color(0.9995722, 0.8720149, 0.66100925, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("3_32y4f")
+theme_override_font_sizes/font_size = 36
+text = "Estadisticas Aumentadas"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Nivelanterior" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 190.0
+offset_right = 250.0
+offset_bottom = 607.0
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Nivelanterior"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9995722, 0.8720149, 0.66100925, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("3_32y4f")
+theme_override_font_sizes/font_size = 34
+text = "Nivel "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Vida" type="RichTextLabel" parent="Nivelanterior"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[img=40 color=black]assets/Icons/vida.png[/img] "
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ataque" type="RichTextLabel" parent="Nivelanterior"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[img=40 color=black]assets/Icons/Espada.png[/img] "
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Defensa" type="RichTextLabel" parent="Nivelanterior"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[img=40 color=black]assets/Icons/Escudo.png[/img] "
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Esquive" type="RichTextLabel" parent="Nivelanterior"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[img=40 color=black]assets/Icons/esquive.png[/img] "
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Velocidad" type="RichTextLabel" parent="Nivelanterior"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[img=40 color=black]assets/Icons/Velocidad.png[/img] "
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fe" type="RichTextLabel" parent="Nivelanterior"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[img=40 color=black]assets/Icons/fe.png[/img] "
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Poder" type="RichTextLabel" parent="Nivelanterior"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[img=40 color=black]assets/Icons/poder.png[/img] "
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Aumento" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 225.0
+offset_top = 190.0
+offset_right = 497.0
+offset_bottom = 607.0
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Aumento"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9995722, 0.8720149, 0.66100925, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("3_32y4f")
+theme_override_font_sizes/font_size = 34
+text = "Aumento"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Vida" type="RichTextLabel" parent="Aumento"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ataque" type="RichTextLabel" parent="Aumento"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Defensa" type="RichTextLabel" parent="Aumento"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Esquive" type="RichTextLabel" parent="Aumento"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Velocidad" type="RichTextLabel" parent="Aumento"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fe" type="RichTextLabel" parent="Aumento"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Poder" type="RichTextLabel" parent="Aumento"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Nivelactual" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 472.0
+offset_top = 190.0
+offset_right = 622.0
+offset_bottom = 607.0
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Nivelactual"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("3_32y4f")
+theme_override_font_sizes/font_size = 32
+text = "Nivel "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Vida" type="RichTextLabel" parent="Nivelactual"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ataque" type="RichTextLabel" parent="Nivelactual"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Defensa" type="RichTextLabel" parent="Nivelactual"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Esquive" type="RichTextLabel" parent="Nivelactual"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Velocidad" type="RichTextLabel" parent="Nivelactual"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fe" type="RichTextLabel" parent="Nivelactual"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Poder" type="RichTextLabel" parent="Nivelactual"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 652.0
+offset_top = 195.0
+offset_right = 1102.0
+offset_bottom = 245.0
+theme_override_colors/font_color = Color(0.9995722, 0.8720149, 0.66100925, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("3_32y4f")
+theme_override_font_sizes/font_size = 36
+text = "Elige una Mejora:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Botones" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Opcion1" type="Button" parent="Botones"]
+layout_mode = 0
+offset_left = 762.0
+offset_top = 270.0
+offset_right = 992.0
+offset_bottom = 335.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_sej22")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ubdk4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_l6q6r")
+
+[node name="Fondo" type="TextureRect" parent="Botones/Opcion1"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 225.0
+offset_bottom = 60.0
+texture = ExtResource("4_okevw")
+expand_mode = 1
+
+[node name="Texto" type="RichTextLabel" parent="Botones/Opcion1"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 7.0
+offset_right = 220.0
+offset_bottom = 58.0
+mouse_filter = 1
+theme_override_colors/default_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_constants/line_separation = 3
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Opcion2" type="Button" parent="Botones"]
+layout_mode = 0
+offset_left = 762.0
+offset_top = 355.0
+offset_right = 992.0
+offset_bottom = 420.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_sej22")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ubdk4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_l6q6r")
+
+[node name="Fondo" type="TextureRect" parent="Botones/Opcion2"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 225.0
+offset_bottom = 60.0
+texture = ExtResource("4_okevw")
+expand_mode = 1
+
+[node name="Texto" type="RichTextLabel" parent="Botones/Opcion2"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 7.0
+offset_right = 220.0
+offset_bottom = 58.0
+mouse_filter = 1
+theme_override_colors/default_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_constants/line_separation = 3
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Opcion3" type="Button" parent="Botones"]
+layout_mode = 0
+offset_left = 762.0
+offset_top = 440.0
+offset_right = 992.0
+offset_bottom = 505.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_sej22")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ubdk4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_l6q6r")
+
+[node name="Fondo" type="TextureRect" parent="Botones/Opcion3"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 225.0
+offset_bottom = 60.0
+texture = ExtResource("4_okevw")
+expand_mode = 1
+
+[node name="Texto" type="RichTextLabel" parent="Botones/Opcion3"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 7.0
+offset_right = 220.0
+offset_bottom = 58.0
+mouse_filter = 1
+theme_override_colors/default_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_constants/line_separation = 3
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Confirmar" type="Button" parent="Botones"]
+layout_mode = 0
+offset_left = 742.0
+offset_top = 545.0
+offset_right = 1012.0
+offset_bottom = 610.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_sej22")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ubdk4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_l6q6r")
+
+[node name="Fondo" type="TextureRect" parent="Botones/Confirmar"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 265.0
+offset_bottom = 60.0
+texture = ExtResource("4_okevw")
+expand_mode = 1
+
+[node name="Texto" type="RichTextLabel" parent="Botones/Confirmar"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 7.0
+offset_right = 260.0
+offset_bottom = 58.0
+mouse_filter = 1
+theme_override_colors/default_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_constants/line_separation = 3
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "Confirmar [img=40 color=a0851b]assets/Icons/dere.png[/img]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_ts3wy")
+volume_db = -1.0
+bus = &"SFX"
+
+[node name="Tooltip" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 10.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1ichb")
+
+[node name="Texto" type="RichTextLabel" parent="Tooltip"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_32y4f")
+theme_override_fonts/bold_font = ExtResource("3_32y4f")
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 22
+bbcode_enabled = true
+fit_content = true
+
+[connection signal="mouse_entered" from="Nivelanterior/Vida" to="." method="_on_vida_mouse_entered"]
+[connection signal="mouse_exited" from="Nivelanterior/Vida" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Nivelanterior/Ataque" to="." method="_on_ataque_mouse_entered"]
+[connection signal="mouse_exited" from="Nivelanterior/Ataque" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Nivelanterior/Defensa" to="." method="_on_defensa_mouse_entered"]
+[connection signal="mouse_exited" from="Nivelanterior/Defensa" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Nivelanterior/Esquive" to="." method="_on_esquive_mouse_entered"]
+[connection signal="mouse_exited" from="Nivelanterior/Esquive" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Nivelanterior/Velocidad" to="." method="_on_velocidad_mouse_entered"]
+[connection signal="mouse_exited" from="Nivelanterior/Velocidad" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Nivelanterior/Fe" to="." method="_on_fe_mouse_entered"]
+[connection signal="mouse_exited" from="Nivelanterior/Fe" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Nivelanterior/Poder" to="." method="_on_poder_mouse_entered"]
+[connection signal="mouse_exited" from="Nivelanterior/Poder" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Nivelactual/Vida" to="." method="_on_vida_mouse_entered"]
+[connection signal="mouse_exited" from="Nivelactual/Vida" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Nivelactual/Ataque" to="." method="_on_ataque_mouse_entered"]
+[connection signal="mouse_exited" from="Nivelactual/Ataque" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Nivelactual/Defensa" to="." method="_on_defensa_mouse_entered"]
+[connection signal="mouse_exited" from="Nivelactual/Defensa" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Nivelactual/Esquive" to="." method="_on_esquive_mouse_entered"]
+[connection signal="mouse_exited" from="Nivelactual/Esquive" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Nivelactual/Velocidad" to="." method="_on_velocidad_mouse_entered"]
+[connection signal="mouse_exited" from="Nivelactual/Velocidad" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Nivelactual/Fe" to="." method="_on_fe_mouse_entered"]
+[connection signal="mouse_exited" from="Nivelactual/Fe" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Nivelactual/Poder" to="." method="_on_poder_mouse_entered"]
+[connection signal="mouse_exited" from="Nivelactual/Poder" to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Botones/Opcion1" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Botones/Opcion1" to="." method="_on_opcion_1_pressed"]
+[connection signal="mouse_entered" from="Botones/Opcion2" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Botones/Opcion2" to="." method="_on_opcion_2_pressed"]
+[connection signal="mouse_entered" from="Botones/Opcion3" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Botones/Opcion3" to="." method="_on_opcion_3_pressed"]
+[connection signal="mouse_entered" from="Botones/Confirmar" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Botones/Confirmar" to="." method="_on_confirmar_pressed"]

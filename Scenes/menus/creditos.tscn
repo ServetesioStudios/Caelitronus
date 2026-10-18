@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://3qefaqpb0i21" path="res://Assets/Images/textur.png" id="4_nwsv2"]
 [ext_resource type="Script" uid="uid://b3s4o41yps4u5" path="res://Scripts/menus/loopdemenint.gd" id="4_xotio"]
 [ext_resource type="Texture2D" uid="uid://bneqv0dwag2ma" path="res://Assets/credit/Javier.png" id="5_nwsv2"]
+[ext_resource type="Texture2D" uid="uid://dchilsxgyumub" path="res://Assets/animaciones/menus/explotaenu.png" id="5_xl75b"]
+[ext_resource type="Script" uid="uid://bubdo0ul1ccm8" path="res://Scripts/menus/enmenuexplocion.gd" id="6_wno2b"]
 [ext_resource type="Texture2D" uid="uid://c6l7la6cvbqe6" path="res://Assets/credit/matias.png" id="6_xotio"]
 [ext_resource type="Texture2D" uid="uid://l7jtp66nor1v" path="res://Assets/credit/adrian.png" id="7_xl75b"]
 [ext_resource type="Texture2D" uid="uid://bl0flil3itppl" path="res://Assets/credit/matu.png" id="8_wno2b"]
@@ -22,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://fohscnrptnpt" path="res://Assets/credit/espe.png" id="15_xl75b"]
 [ext_resource type="Texture2D" uid="uid://dnlj1wukc7ad3" path="res://Assets/Icons/der.png" id="16_itsvs"]
 [ext_resource type="Texture2D" uid="uid://0v8cge6fmk2k" path="res://Assets/Icons/izq.png" id="17_f72fs"]
+[ext_resource type="Shader" uid="uid://bc6edhg8iskh4" path="res://Assets/shaders/chromatic aberration.gdshader" id="25_wno2b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tour5"]
 atlas = ExtResource("3_nwsv2")
@@ -58,6 +61,86 @@ animations = [{
 "name": &"default",
 "speed": 8.0
 }]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42c30"]
+atlas = ExtResource("5_xl75b")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u43vg"]
+atlas = ExtResource("5_xl75b")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktrud"]
+atlas = ExtResource("5_xl75b")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkkv2"]
+atlas = ExtResource("5_xl75b")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tjg3"]
+atlas = ExtResource("5_xl75b")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_be718"]
+atlas = ExtResource("5_xl75b")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8ivy"]
+atlas = ExtResource("5_xl75b")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j54fx"]
+atlas = ExtResource("5_xl75b")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hp83f"]
+atlas = ExtResource("5_xl75b")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a2sw1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42c30")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u43vg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktrud")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkkv2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8tjg3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_be718")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f8ivy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j54fx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hp83f")
+}],
+"loop": 0,
+"name": &"exolocion",
+"speed": 8.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a2sw1"]
+shader = ExtResource("25_wno2b")
+shader_parameter/blur_amount = 0.7370001300075
+shader_parameter/mix_amount = 0.0
+shader_parameter/color_over = Color(0.61745477, 0.61745477, 0.6174547, 1)
+shader_parameter/r_displacement = Vector2(-10.09, 5.775)
+shader_parameter/g_displacement = Vector2(1.745, -1.875)
+shader_parameter/b_displacement = Vector2(4.49, 1.56)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lrn2f"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -322,6 +405,22 @@ scale = Vector2(3.159533, 2.9207141)
 sprite_frames = SubResource("SpriteFrames_wno2b")
 script = ExtResource("4_xotio")
 
+[node name="explocion" type="AnimatedSprite2D" parent="Panel" unique_id=1065828248]
+modulate = Color(0.59658647, 0.86871666, 0.12879461, 1)
+position = Vector2(107.000046, 168.50002)
+scale = Vector2(4.127144, 4.153309)
+sprite_frames = SubResource("SpriteFrames_a2sw1")
+animation = &"exolocion"
+script = ExtResource("6_wno2b")
+
+[node name="ColorRect" type="ColorRect" parent="Panel" unique_id=1388524603]
+material = SubResource("ShaderMaterial_a2sw1")
+layout_mode = 0
+offset_top = -2.5
+offset_right = 1277.0
+offset_bottom = 715.5
+mouse_filter = 2
+
 [node name="Creditos" type="Label" parent="Panel" unique_id=1701748587]
 layout_mode = 0
 offset_left = 354.0
@@ -378,16 +477,16 @@ text = "Desarrolladores"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="fondo2" type="TextureRect" parent="Panel" unique_id=1887368140]
-modulate = Color(0.6553385, 0.36074692, 0.106126174, 0.69900006)
+[node name="fondo3" type="TextureRect" parent="Panel" unique_id=2072363420]
+modulate = Color(0.26666668, 0.16470589, 0.14117648, 0.7411765)
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -303.0
-offset_top = -279.5
-offset_right = 287.0
-offset_bottom = 253.5
+offset_left = -295.0
+offset_top = -258.0
+offset_right = 295.0
+offset_bottom = 275.0
 mouse_filter = 2
 texture = ExtResource("4_nwsv2")
 expand_mode = 1
