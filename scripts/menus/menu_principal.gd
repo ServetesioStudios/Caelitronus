@@ -7,7 +7,11 @@ extends Control
 @onready var botones = $menubotones.get_children()
 @onready var hover_sound = $HoverSound
 
-var btn_pos_orig = [];
+var color_normal := Color(0.19, 0.19, 0.19, 1.0)
+var color_hover := Color(1.15, 1.15, 1.05, 1.0)
+
+var btn_pos_orig = []
+var tweens_hover: Dictionary = {}
 
 func _ready():
 	MusicManager.play_menu()
@@ -21,29 +25,37 @@ func _ready():
 	await get_tree().process_frame
 	for btn in botones:
 		btn_pos_orig.append(btn.position)
+
 		if btn is Button:
+			btn.modulate = color_normal
+
 			btn.mouse_entered.connect(func(): _on_hover(btn))
 			btn.mouse_exited.connect(func(): _on_hover_exit(btn))
 
-func _on_hover(btn: Button):
-	var tween = create_tween()
-	tween.parallel().tween_property(btn, "scale", Vector2(0.9, 0.9), 0.15)
-	tween.parallel().tween_property(btn, "position:x", btn.position.x + 20, 0.15)
-	
-	btn.modulate = theme_data.color_hover
-	
+func _on_hover(btn: Button) -> void:
+	animar_color_boton(btn, color_hover)
+
 	if hover_sound:
 		hover_sound.play()
 
-func _on_hover_exit(btn: Button):
+func _on_hover_exit(btn: Button) -> void:
+	animar_color_boton(btn, color_normal)
+	
+func animar_color_boton(btn: Button, color_destino: Color) -> void:
+	if tweens_hover.has(btn):
+		var tween_anterior: Tween = tweens_hover[btn]
+
+		if tween_anterior.is_running():
+			tween_anterior.kill()
+
 	var tween = create_tween()
-	var indice = botones.find(btn)
-	var vectorOriginal = btn_pos_orig[indice]
-	
-	tween.parallel().tween_property(btn, "scale", Vector2.ONE, 0.15)
-	tween.parallel().tween_property(btn, "position:x", vectorOriginal.x, 0.15)
-	
-	btn.modulate = theme_data.color_normal
+	tweens_hover[btn] = tween
+
+	tween.tween_property(
+		btn,
+		"modulate",
+		color_destino,
+		0.20).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 func _on_btncontinuar_pressed():
 	GameManager.cargar_partida()
