@@ -11,19 +11,19 @@
 [ext_resource type="Script" uid="uid://eg85yacwhx1v" path="res://Scripts/batalla/deck_manager.gd" id="9_ed262"]
 [ext_resource type="Script" uid="uid://3hhe153qj06q" path="res://Scripts/ui/mano.gd" id="12_wb0gu"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_f4ggb"]
-font = ExtResource("6_n02j2")
-font_size = 20
-font_color = Color(1, 0, 1, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_wb0gu"]
 font = ExtResource("6_n02j2")
-font_size = 22
-font_color = Color(0, 0, 0, 1)
+font_size = 25
+font_color = Color(0.6934027, 0, 0.15527377, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ms847"]
 font = ExtResource("6_n02j2")
 font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_f4ggb"]
+font = ExtResource("6_n02j2")
+font_size = 20
+font_color = Color(1, 0, 1, 1)
 
 [node name="Node2D" type="Node2D" unique_id=1257884240]
 script = ExtResource("1_qf52c")
@@ -91,28 +91,20 @@ texture = ExtResource("7_n02j2")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="LabelEnergia" type="Label" parent="CanvasLayer" unique_id=1982336341]
-self_modulate = Color(0, 0, 0, 1)
-offset_left = 39.0
-offset_top = 628.0
-offset_right = 178.0
-offset_bottom = 670.0
-text = "3/3"
-label_settings = SubResource("LabelSettings_f4ggb")
-
 [node name="LabelCombates" type="Label" parent="CanvasLayer" unique_id=1305828321]
-offset_left = 34.0
-offset_top = 662.0
-offset_right = 286.0
-offset_bottom = 703.0
+offset_left = 532.0
+offset_top = 23.0
+offset_right = 784.0
+offset_bottom = 64.0
 text = "combates"
 label_settings = SubResource("LabelSettings_wb0gu")
+horizontal_alignment = 1
 
 [node name="BtnFinTurno" type="Button" parent="CanvasLayer" unique_id=1579586428]
-offset_left = 1147.0
-offset_top = 637.0
-offset_right = 1252.0
-offset_bottom = 685.0
+offset_left = 1067.0
+offset_top = 635.0
+offset_right = 1172.0
+offset_bottom = 683.0
 
 [node name="Label" type="Label" parent="CanvasLayer/BtnFinTurno" unique_id=1516580355]
 layout_mode = 1
@@ -138,3 +130,19 @@ offset_top = 470.0
 offset_right = 956.0
 offset_bottom = 694.0
 script = ExtResource("12_wb0gu")
+
+[node name="LabelEnergia" type="Label" parent="CanvasLayer" unique_id=1982336341]
+self_modulate = Color(0, 0, 0, 1)
+offset_left = 24.0
+offset_top = 612.0
+offset_right = 97.0
+offset_bottom = 638.0
+text = "Energía:"
+label_settings = SubResource("LabelSettings_f4ggb")
+
+[node name="EnergiaContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1497337344]
+offset_left = 32.0
+offset_top = 639.0
+offset_right = 283.0
+offset_bottom = 693.0
+alignment = 1

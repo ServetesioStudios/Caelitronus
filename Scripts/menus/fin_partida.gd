@@ -5,13 +5,13 @@ extends Control
 
 func configurar(victoria: bool, es_ultimo_combate: bool) -> void:
 	if not victoria:
-		label_mensaje.text = "Derrota. \nGracias por jugar"
+		label_mensaje.text = "Derrota."
 		btn_accion.text = "Volver"
 		btn_accion.pressed.connect(_volver_al_mapa)
 	elif es_ultimo_combate:
-		label_mensaje.text = "¡Ganaste! \nGracias por jugar"
+		label_mensaje.text = "¡Ganaste!"
 		btn_accion.text = "Volver"
-		btn_accion.pressed.connect(_volver_al_menu_principal)
+		btn_accion.pressed.connect(_volver_al_mapa)
 	else:
 		label_mensaje.text = "¡Victoria!"
 		btn_accion.text = "Siguiente"

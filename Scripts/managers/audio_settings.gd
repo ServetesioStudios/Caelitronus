@@ -21,11 +21,14 @@ func set_bus_volume(bus_name: String, value: float):
 		push_warning("Bus no encontrado: " + bus_name)
 		return
 
-	AudioServer.set_bus_volume_db(
-		bus,
-		linear_to_db(value / 100.0)
-	)
+	var volumen_lineal := clampf(value / 100.0, 0.0, 1.0)
+	var volumen_ajustado := pow(volumen_lineal, 2.0)
 
+	AudioServer.set_bus_volume_db(
+	bus,
+	linear_to_db(maxf(volumen_ajustado, 0.0001)) - 15.0
+	)
+	
 func guardar():
 	var data := {
 		"music": music,

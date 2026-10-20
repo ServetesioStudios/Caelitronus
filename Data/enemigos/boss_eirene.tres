@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://cawjn1ooikn1j"]
+
+[ext_resource type="Script" uid="uid://5uw7jpiqmd43" path="res://Scripts/data/enemy_data.gd" id="1_hvp8u"]
+[ext_resource type="Script" uid="uid://3jdy5elvqaqm" path="res://Scripts/data/stats.gd" id="2_e7jni"]
+
+[sub_resource type="Resource" id="Resource_e7jni"]
+script = ExtResource("2_e7jni")
+max_hp = 130
+"daño" = 13
+defensa = 3
+fe = 18
+poder = 10
+metadata/_custom_type_script = "uid://3jdy5elvqaqm"
+
+[resource]
+script = ExtResource("1_hvp8u")
+nombre = "Eirene Koryphé"
+stats = SubResource("Resource_e7jni")
+metadata/_custom_type_script = "uid://5uw7jpiqmd43"

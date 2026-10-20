@@ -12,8 +12,6 @@ var texto_hover = ""
 
 
 func _ready():
-	print("Personaje detectado: ", name)
-
 	match name:
 		"Anto":
 			sprite_normal = preload("res://Assets/credit/anto.png")

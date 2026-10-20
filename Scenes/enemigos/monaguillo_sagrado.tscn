@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dhd7iecexs0bb"]
+[gd_scene format=3 uid="uid://dhd7iecexs0bb"]
 
 [ext_resource type="PackedScene" uid="uid://dtlvudb7gixqy" path="res://Scenes/enemy.tscn" id="1_rwk6a"]
 [ext_resource type="Script" uid="uid://cc6kyaccrscaf" path="res://Scripts/enemigos/enemigo_curacion_por_umbral.gd" id="2_7o5df"]
@@ -84,8 +84,17 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_w4uxw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w4uxw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w4uxw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8k2b")
 }],
-"loop": false,
+"loop": 0,
 "name": &"ataque",
 "speed": 10.0
 }, {
@@ -102,7 +111,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6t6i0")
 }],
-"loop": false,
+"loop": 0,
 "name": &"bloqueo",
 "speed": 10.0
 }, {
@@ -118,8 +127,11 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qc1cc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3kosr")
 }],
-"loop": false,
+"loop": 0,
 "name": &"curacion",
 "speed": 10.0
 }, {
@@ -139,7 +151,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0asc5")
 }],
-"loop": false,
+"loop": 0,
 "name": &"daño",
 "speed": 15.0
 }, {
@@ -147,12 +159,13 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_uyr1t")
 }],
-"loop": false,
+"loop": 0,
 "name": &"idle",
 "speed": 5.0
 }]
 
-[node name="Node2D" instance=ExtResource("1_rwk6a")]
+[node name="Node2D" unique_id=1778302160 instance=ExtResource("1_rwk6a")]
+position = Vector2(0, 0)
 script = ExtResource("2_7o5df")
 umbral_hp_porcentaje = 0.45
 porcentaje_curacion = 0.15
@@ -163,5 +176,4 @@ enemy_data = ExtResource("3_cxml8")
 [node name="Animador" parent="." index="3" node_paths=PackedStringArray("sprite")]
 position = Vector2(151, 219)
 sprite_frames = SubResource("SpriteFrames_0bup4")
-animation = &"daño"
 sprite = NodePath(".")

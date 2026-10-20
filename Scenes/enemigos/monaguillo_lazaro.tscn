@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cuyai5td2vp8s"]
+[gd_scene format=3 uid="uid://cuyai5td2vp8s"]
 
 [ext_resource type="PackedScene" uid="uid://dtlvudb7gixqy" path="res://Scenes/enemy.tscn" id="1_m364l"]
 [ext_resource type="Script" uid="uid://dk60gg4fnxhdg" path="res://Scripts/enemigos/enemigo_autocuracion_por_contador.gd" id="2_jhelr"]
@@ -93,7 +93,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ngiid")
 }],
-"loop": false,
+"loop": 0,
 "name": &"ataque",
 "speed": 15.0
 }, {
@@ -109,8 +109,11 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2cn7n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vajn4")
 }],
-"loop": false,
+"loop": 0,
 "name": &"bloqueo",
 "speed": 15.0
 }, {
@@ -123,8 +126,14 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_u5qno")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5qno")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxmu5")
 }],
-"loop": false,
+"loop": 0,
 "name": &"curacion",
 "speed": 10.0
 }, {
@@ -144,7 +153,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ifflj")
 }],
-"loop": false,
+"loop": 0,
 "name": &"daño",
 "speed": 15.0
 }, {
@@ -152,12 +161,13 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_41y8l")
 }],
-"loop": false,
+"loop": 0,
 "name": &"idle",
 "speed": 5.0
 }]
 
-[node name="Node2D" instance=ExtResource("1_m364l")]
+[node name="Node2D" unique_id=1745865419 instance=ExtResource("1_m364l")]
+position = Vector2(0, 0)
 script = ExtResource("2_jhelr")
 incremento_por_ataque = 4
 porcentaje_curacion = 1.0

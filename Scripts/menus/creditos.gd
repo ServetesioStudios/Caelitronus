@@ -6,13 +6,25 @@ func _ready():
 	for button in get_tree().get_nodes_in_group("LinkPersonal"):
 		button.pressed.connect(_on_link_pressed.bind(button.get_parent().name))
 
-	# SOLO esto se agrega ↓
-	$Panel/ButtonIzq.mouse_entered.connect(_on_hover)
-	$Panel/ButtonDer.mouse_entered.connect(_on_hover)
+	# Conectar el hover de los botones de créditos
+	var botones_hover = [
+		$Panel/Atras,
+		$Panel/Links,
+		$Panel/ButtonIzq,
+		$Panel/ButtonDer
+	]
 
-func _on_hover() -> void:
+	for boton in botones_hover:
+		boton.mouse_entered.connect(_on_hover.bind(boton))
+		
+
+func _on_hover(boton: BaseButton) -> void:
+	if boton.disabled:
+		return
+
 	if hover_sound.playing:
 		hover_sound.stop()
+
 	hover_sound.play()
 
 func _on_atras_pressed() -> void:
@@ -56,6 +68,3 @@ func _on_link_pressed(id) -> void:
 			OS.shell_open("https://linktr.ee/ServentesioStudios")
 		"Joaquin":
 			OS.shell_open("https://linktr.ee/ServentesioStudios")
-
-func _on_link_mouse_entered() -> void:
-	hover_sound.play()

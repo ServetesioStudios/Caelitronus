@@ -148,7 +148,7 @@ func _on_alma_pressed() -> void:
 				$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"almaira")
 			GameManager.TipoCaelius.PENA:
 				$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"almapena")
-		$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/fause.png")
+		$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/fausepena.png")
 	else:
 		$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"alma")
 	match glosarioid:

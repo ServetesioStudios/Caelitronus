@@ -7,20 +7,23 @@ var contador: int = 0
 
 func decidir_intencion() -> void:
 	var nueva_intencion := IntentData.new()
+
 	if contador >= fe:
 		nueva_intencion.tipo = IntentData.Tipo.HABILIDAD
 		nueva_intencion.valor = int(fe * porcentaje_curacion)
 		nueva_intencion.animacion = "curacion"
 	else:
-		var accion = randi() % 2
-		match accion:
-			0:
-				nueva_intencion.tipo = IntentData.Tipo.ATACAR
-				nueva_intencion.valor = daño
-			1:
-				nueva_intencion.tipo = IntentData.Tipo.DEFENDER
-				nueva_intencion.valor = 5
+		var accion = randi_range(1, 100)
+
+		if accion <= 70:
+			nueva_intencion.tipo = IntentData.Tipo.ATACAR
+			nueva_intencion.valor = daño
+		else:
+			nueva_intencion.tipo = IntentData.Tipo.DEFENDER
+			nueva_intencion.valor = 5
+
 	intencion_actual = nueva_intencion
+
 
 func al_atacar() -> void:
 	contador = min(contador + incremento_por_ataque, fe)

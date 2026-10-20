@@ -12,7 +12,7 @@ func _ready():
 		"Caelius":
 			sprite_normal = preload("res://Assets/ChArt/caelius de ira.png")
 			sprites_hover = [
-				preload("res://Assets/BttlSprit/fause.png")
+				preload("res://Assets/BttlSprit/fausepena.png")
 			]
 
 		"Papa":
@@ -85,7 +85,7 @@ func _ready():
 		"Alma":
 			sprite_normal = preload("res://Assets/BttlSprit/alma.png")
 			sprites_hover = [
-				preload("res://Assets/BttlSprit/fause.png"),
+				preload("res://Assets/BttlSprit/fausepena.png"),
 				preload("res://Assets/BttlSprit/almamonaquillos.png"),
 				preload("res://Assets/BttlSprit/Kamathra.png"),
 				preload("res://Assets/BttlSprit/vahruksha.png"),

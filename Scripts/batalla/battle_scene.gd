@@ -14,8 +14,9 @@ extends Node2D
 @onready var zona_drop := $CanvasLayer/DropZone
 
 @onready var texto_combate := $CanvasLayer/textocombate
-@onready var label_energia := $CanvasLayer/LabelEnergia
 @onready var label_combates := $CanvasLayer/LabelCombates
+@onready var label_energia := $CanvasLayer/LabelEnergia
+@onready var iconos_energia: HBoxContainer = $CanvasLayer/EnergiaContainer
 
 
 # ============================================================
@@ -29,6 +30,7 @@ var max_lineas := 18
 
 var arrastrando_carta := false
 
+const ICONO_ENERGIA := preload("res://Assets/Icons/poder.png")
 
 # ============================================================
 # INICIALIZACIÓN
@@ -43,17 +45,17 @@ func _ready() -> void:
 
 	var ruta_enemigo := GameManager.obtener_escena_enemigo_actual()
 
-	label_combates.text = "Combate actual: %d / %d" % [
+	label_combates.text = "Batalla %d / %d" % [
 			GameManager.combate_actual,
 			GameManager.secuencia_combates.size()]
-	print(
-		"Combate actual: %d / %d | Ruta: %s"
-		% [
-			GameManager.combate_actual,
-			GameManager.secuencia_combates.size(),
-			ruta_enemigo
-		]
-	)
+	#print(
+		#"Combate actual: %d / %d | Ruta: %s"
+		#% [
+			#GameManager.combate_actual,
+			#GameManager.secuencia_combates.size(),
+			#ruta_enemigo
+		#]
+	#)
 
 	var escena: PackedScene = load(ruta_enemigo)
 
@@ -162,6 +164,8 @@ func _ready() -> void:
 		player,
 		enemigos
 	)
+	
+	_actualizar_label_energia(player.energia_actual, player.energia_max)
 
 
 # ============================================================
@@ -302,7 +306,7 @@ func _entidad_mas_cercana(
 func intentar_jugar_carta(carta: CardData, objetivo: CombatEntity) -> void:
 
 	if not combat_manager.es_turno_jugador():
-		print("No es tu turno")
+		#print("No es tu turno")
 		return
 
 
@@ -408,10 +412,24 @@ func mostrar_texto(texto: String) -> void:
 # ============================================================
 
 func _actualizar_label_energia(actual: int, maxima: int) -> void:
-	
-	label_energia.text = (
-		"Energía: %d / %d" % [actual,maxima])
+	for hijo in iconos_energia.get_children():
+		iconos_energia.remove_child(hijo)
+		hijo.queue_free()
 
+	for i in range(maxima):
+		var icono := TextureRect.new()
+
+		icono.texture = ICONO_ENERGIA
+		icono.custom_minimum_size = Vector2(45, 45)
+		icono.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icono.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+
+		if i >= actual:
+			icono.modulate = Color(0.3, 0.3, 0.3, 0.5)
+		else:
+			icono.modulate = Color("#800020")
+
+		iconos_energia.add_child(icono)
 
 # ============================================================
 # EVENTOS DEL COMBATE

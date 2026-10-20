@@ -22,8 +22,23 @@ func _actualizar_disponibilidad(card_ui: CardUI) -> void:
 	if card_ui.carta == null:
 		print("Carta nula encontrada en:", card_ui.name)
 		return
-		
-	if player_ref.puede_pagar(card_ui.carta.costo):
-		card_ui.modulate = Color(1, 1, 1, 1)
-	else:
+
+	var carta: CardData = card_ui.carta
+
+	var energia_insuficiente: bool = not player_ref.puede_pagar(carta.costo)
+
+	var es_carta_energia: bool = (
+		carta.efectos.size() == 1
+		and carta.efectos[0] is EnergyEffectData
+	)
+
+	var energia_completa: bool = player_ref.energia_actual >= player_ref.energia_max
+
+	var carta_bloqueada: bool = energia_insuficiente or (
+		es_carta_energia and energia_completa
+	)
+
+	if carta_bloqueada:
 		card_ui.modulate = Color(0.5, 0.5, 0.5, 0.6)
+	else:
+		card_ui.modulate = Color(1, 1, 1, 1)

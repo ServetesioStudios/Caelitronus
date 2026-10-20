@@ -1,4 +1,3 @@
-#GAME_MANAGER
 extends Node
 
 const SAVE_PATH := "user://save.tres"
@@ -16,8 +15,11 @@ const MONAGUILLOS :  Array[String] = [
 	"res://Scenes/enemigos/monaguillo_oscuro.tscn",
 	"res://Scenes/enemigos/monaguillo_lazaro.tscn",
 ]
-const BOSS_SCENE := "res://Scenes/enemigos/boss_padre_espina.tscn"
 
+const ESCENAS_JEFES := {
+	Jefe.ESPINA: "res://Scenes/enemigos/boss_padre_espina.tscn",
+	Jefe.EIRENE: "res://Scenes/enemigos/boss_eirene.tscn"
+}
 
 const MAZOS_INICIALES := {
 	TipoCaelius.IRA: {
@@ -36,6 +38,8 @@ const MAZOS_INICIALES := {
 var player_data: PlayerData
 enum TipoCaelius { PENA, IRA, EGO }
 enum Jefe { ESPINA, SERPICO, EIRENE, CORVUS, GALAAD, KAPPARAH }
+
+var jefe_seleccionado: Jefe = Jefe.ESPINA
 
 var secuencia_combates: Array[String] = []
 var combate_actual: int = 1
@@ -104,14 +108,26 @@ func avanzar_combate() -> void:
 	
 func reiniciar_secuencia_combates() -> void:
 	iniciar_secuencia_combates()
+	
+func seleccionar_jefe(jefe: Jefe) -> void:
+	jefe_seleccionado = jefe
+	iniciar_secuencia_combates()
 
 func iniciar_secuencia_combates() -> void:
 	secuencia_combates.clear()
+
 	var monaguillos_mezclados := MONAGUILLOS.duplicate()
 	monaguillos_mezclados.shuffle()
-	#secuencia_combates = monaguillos_mezclados #para agregar todos los monaguillos 
+
 	secuencia_combates.append_array(monaguillos_mezclados.slice(0, CANTIDAD_MONAGUILLOS_POR_RUN))
-	secuencia_combates.append(BOSS_SCENE)
+
+	var escena_jefe: String = ESCENAS_JEFES.get(jefe_seleccionado, "")
+
+	if escena_jefe.is_empty():
+		push_error("GameManager: no hay escena para el jefe seleccionado")
+		return
+
+	secuencia_combates.append(escena_jefe)
 	combate_actual = 1
 
 func obtener_escena_enemigo_actual() -> String:
@@ -130,19 +146,3 @@ func crear_mazo_inicial(tipo: TipoCaelius) -> Array[CardData]:
 		for i in cantidad:
 			mazo.append(carta)
 	return mazo
-
-#DECK DE PRUEBA
-#func crear_mazo_inicial() -> Array[CardData]:
-	#var mazo: Array[CardData] = []
-	#var ruta = "res://Data/cartas/"
-	#for i in 3: 
-		#mazo.append(load(ruta + "/golpe_basico.tres"))
-	#for i in 3:
-		#mazo.append(load(ruta + "/golpe_fuerte.tres"))
-	#for i in 2: 
-		#mazo.append(load(ruta+"/escudo.tres"))
-	#for i in 2: 
-		#mazo.append(load(ruta + "recuperar_energia.tres"))
-	##for i in 2: 
-		##mazo.append(load(ruta+"/sangrado.tres"))
-	#return mazo

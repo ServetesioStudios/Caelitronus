@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bwcqpjd6438sc"]
+[gd_scene format=3 uid="uid://bwcqpjd6438sc"]
 
 [ext_resource type="PackedScene" uid="uid://dtlvudb7gixqy" path="res://Scenes/enemy.tscn" id="1_5cn86"]
 [ext_resource type="Script" uid="uid://osjuc83k0fdx" path="res://Scripts/enemigos/enemigo_robo_vida_temporal.gd" id="2_0lwpp"]
@@ -101,8 +101,11 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dtk4r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v7jcn")
 }],
-"loop": false,
+"loop": 0,
 "name": &"ataque",
 "speed": 20.0
 }, {
@@ -122,7 +125,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dtogp")
 }],
-"loop": false,
+"loop": 0,
 "name": &"bloqueo",
 "speed": 10.0
 }, {
@@ -132,8 +135,14 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7psqi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7psqi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sc432")
 }],
-"loop": false,
+"loop": 0,
 "name": &"curacion",
 "speed": 10.0
 }, {
@@ -149,8 +158,11 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_q17lg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dbd3a")
 }],
-"loop": false,
+"loop": 0,
 "name": &"daño",
 "speed": 15.0
 }, {
@@ -158,12 +170,13 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4d1nb")
 }],
-"loop": false,
+"loop": 0,
 "name": &"idle",
 "speed": 5.0
 }]
 
-[node name="Node2D" instance=ExtResource("1_5cn86")]
+[node name="Node2D" unique_id=2030510468 instance=ExtResource("1_5cn86")]
+position = Vector2(0, 0)
 script = ExtResource("2_0lwpp")
 "bonus_daño_habilidad" = 2.0
 duracion_turnos = 3
@@ -171,6 +184,6 @@ turnos_cooldown = 5
 enemy_data = ExtResource("3_18825")
 
 [node name="Animador" parent="." index="3" node_paths=PackedStringArray("sprite")]
-position = Vector2(144, 227)
+position = Vector2(141, 182)
 sprite_frames = SubResource("SpriteFrames_m0cf5")
 sprite = NodePath(".")

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bjsf3q6hvbyji"]
 
-[ext_resource type="Texture2D" uid="uid://bkdls7uamjg4p" path="res://Assets/BttlSprit/fause.png" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://bkdls7uamjg4p" path="res://Assets/BttlSprit/fausepena.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dimsfxq4ijnuj" path="res://Scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://crlis0e7fcf4e" path="res://Assets/ui/lifeGaugeAlpha.png" id="3_dqkch"]
 [ext_resource type="Texture2D" uid="uid://dfhmn2j5ogg8f" path="res://Assets/animaciones/animacionfausedefe/ataquefuerte.png" id="4_fkybt"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://vrkdj3l7poq7" path="res://Scripts/AnimadorPersonaje.gd" id="10_tx1dd"]
 [ext_resource type="Texture2D" uid="uid://bwvo001txkcjj" path="res://Assets/BttlSprit/fauseira.png" id="11_h4iuc"]
 [ext_resource type="Texture2D" uid="uid://l3giih32665u" path="res://Assets/Icons/Escudo.png" id="12_pu2lt"]
+
 
 [sub_resource type="LabelSettings" id="LabelSettings_ukyrk"]
 font = ExtResource("4_pu2lt")
