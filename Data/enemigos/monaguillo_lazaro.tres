@@ -15,6 +15,7 @@ metadata/_custom_type_script = "uid://3jdy5elvqaqm"
 
 [resource]
 script = ExtResource("1_op4wl")
+id = &"monaguillo_lazaro"
 nombre = "Monaguillo Lazaro"
 stats = SubResource("Resource_v51al")
 metadata/_custom_type_script = "uid://5uw7jpiqmd43"

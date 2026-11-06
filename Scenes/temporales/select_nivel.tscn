@@ -1,22 +1,22 @@
 [gd_scene format=3 uid="uid://ce8rpi164d7tb"]
 
-[ext_resource type="Script" uid="uid://dhsmpwf2ndep" path="res://Scripts/menus/select_nivel.gd" id="1_58aum"]
-[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="2_cdy6t"]
-[ext_resource type="Texture2D" uid="uid://ychi5ogy5pku" path="res://Assets/Images/fondo.png" id="2_wqaao"]
-[ext_resource type="Texture2D" uid="uid://3qefaqpb0i21" path="res://Assets/Images/textur.png" id="3_ik0aj"]
-[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="5_0welv"]
-[ext_resource type="FontFile" uid="uid://dxuqp4jcmwft0" path="res://Assets/Fonts/PirataOne-Regular.ttf" id="6_e3ev4"]
-[ext_resource type="Texture2D" uid="uid://cwx0cjlp6h5yy" path="res://Assets/Icons/Serpico.png" id="6_y04hq"]
-[ext_resource type="Texture2D" uid="uid://d311kgi76ulx4" path="res://Assets/BckGrnd/paper.png" id="7_aynrb"]
-[ext_resource type="Texture2D" uid="uid://kkshx7n5r6b" path="res://Assets/Icons/Espina.png" id="8_vr6hs"]
-[ext_resource type="Texture2D" uid="uid://bujocqjnco2ly" path="res://Assets/Icons/tere.png" id="9_3meqc"]
-[ext_resource type="Texture2D" uid="uid://c8478h663nkv7" path="res://Assets/Icons/Corvus.png" id="9_wxfgt"]
-[ext_resource type="Texture2D" uid="uid://c7gpx4py1tr4r" path="res://Assets/Icons/Galaad.png" id="10_0w2jm"]
-[ext_resource type="Texture2D" uid="uid://ckatdamg27mio" path="res://Assets/Icons/kapara.png" id="11_0xiw4"]
-[ext_resource type="Shader" uid="uid://bc6edhg8iskh4" path="res://Assets/shaders/chromatic aberration.gdshader" id="14_ik0aj"]
+[ext_resource type="Script" uid="uid://dhsmpwf2ndep" path="res://Scripts/temporales/select_nivel.gd" id="1_r28ew"]
+[ext_resource type="Texture2D" uid="uid://ychi5ogy5pku" path="res://Assets/Images/fondo.png" id="2_nnv7p"]
+[ext_resource type="Texture2D" uid="uid://3qefaqpb0i21" path="res://Assets/Images/textur.png" id="3_xnng7"]
+[ext_resource type="Shader" uid="uid://bc6edhg8iskh4" path="res://Assets/shaders/chromatic aberration.gdshader" id="4_6beu6"]
+[ext_resource type="Texture2D" uid="uid://d311kgi76ulx4" path="res://Assets/BckGrnd/paper.png" id="5_s3omy"]
+[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="6_l2oah"]
+[ext_resource type="FontFile" uid="uid://dxuqp4jcmwft0" path="res://Assets/Fonts/PirataOne-Regular.ttf" id="7_l5u25"]
+[ext_resource type="Texture2D" uid="uid://cwx0cjlp6h5yy" path="res://Assets/Icons/Serpico.png" id="8_4jchu"]
+[ext_resource type="Texture2D" uid="uid://kkshx7n5r6b" path="res://Assets/Icons/Espina.png" id="9_v2r6m"]
+[ext_resource type="Texture2D" uid="uid://bujocqjnco2ly" path="res://Assets/Icons/tere.png" id="10_qsr44"]
+[ext_resource type="Texture2D" uid="uid://c8478h663nkv7" path="res://Assets/Icons/Corvus.png" id="11_ax3hd"]
+[ext_resource type="Texture2D" uid="uid://ckatdamg27mio" path="res://Assets/Icons/kapara.png" id="12_ra1hq"]
+[ext_resource type="Texture2D" uid="uid://c7gpx4py1tr4r" path="res://Assets/Icons/Galaad.png" id="13_sy8wv"]
+[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="14_vqk2o"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ik0aj"]
-shader = ExtResource("14_ik0aj")
+shader = ExtResource("4_6beu6")
 shader_parameter/blur_amount = 10.0
 shader_parameter/mix_amount = 0.0
 shader_parameter/color_over = Color(0.61745477, 0.61745477, 0.6174547, 1)
@@ -68,7 +68,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_58aum")
+script = ExtResource("1_r28ew")
 
 [node name="fondo" type="TextureRect" parent="." unique_id=1563929650]
 self_modulate = Color(0.90588236, 0.8039216, 0.5764706, 0.8156863)
@@ -81,7 +81,7 @@ offset_top = -263.0
 offset_right = 290.0
 offset_bottom = 305.0
 mouse_filter = 2
-texture = ExtResource("2_wqaao")
+texture = ExtResource("2_nnv7p")
 
 [node name="fondo2" type="TextureRect" parent="." unique_id=1599228920]
 modulate = Color(0.26666668, 0.16470589, 0.14117648, 0.79607844)
@@ -94,7 +94,7 @@ offset_top = -251.0
 offset_right = 288.0
 offset_bottom = 282.0
 mouse_filter = 2
-texture = ExtResource("3_ik0aj")
+texture = ExtResource("3_xnng7")
 expand_mode = 1
 stretch_mode = 6
 
@@ -110,7 +110,7 @@ offset_top = -562.0
 offset_right = 286.0
 offset_bottom = -202.0
 mouse_filter = 2
-texture = ExtResource("2_wqaao")
+texture = ExtResource("2_nnv7p")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=980292787]
 material = SubResource("ShaderMaterial_ik0aj")
@@ -153,7 +153,7 @@ offset_left = 512.0
 offset_top = 137.0
 offset_right = 544.0
 offset_bottom = 566.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="Niveles/Lineas/Negras" unique_id=2036629508]
@@ -163,7 +163,7 @@ offset_left = 139.0
 offset_top = 497.0
 offset_right = 171.0
 offset_bottom = 563.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="TextureRect3" type="TextureRect" parent="Niveles/Lineas/Negras" unique_id=110978461]
@@ -173,7 +173,7 @@ offset_left = 886.0
 offset_top = 497.0
 offset_right = 918.0
 offset_bottom = 563.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="TextureRect4" type="TextureRect" parent="Niveles/Lineas/Negras" unique_id=244781207]
@@ -183,7 +183,7 @@ offset_left = 139.0
 offset_top = 465.0
 offset_right = 918.0
 offset_bottom = 497.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="Rojas" type="Control" parent="Niveles/Lineas" unique_id=1980416571]
@@ -207,7 +207,7 @@ offset_left = 63.0
 offset_top = 462.0
 offset_right = 83.0
 offset_bottom = 518.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="Niveles/Lineas/Rojas/1" unique_id=1559652807]
@@ -217,7 +217,7 @@ offset_left = 810.0
 offset_top = 462.0
 offset_right = 830.0
 offset_bottom = 518.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="TextureRect3" type="TextureRect" parent="Niveles/Lineas/Rojas/1" unique_id=1294649629]
@@ -227,7 +227,7 @@ offset_left = 436.0
 offset_top = 462.0
 offset_right = 456.0
 offset_bottom = 518.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="TextureRect4" type="TextureRect" parent="Niveles/Lineas/Rojas/1" unique_id=190473685]
@@ -237,7 +237,7 @@ offset_left = 63.0
 offset_top = 460.0
 offset_right = 830.0
 offset_bottom = 462.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="2" type="Control" parent="Niveles/Lineas/Rojas" unique_id=2063031188]
@@ -253,7 +253,7 @@ offset_left = 63.0
 offset_top = 444.0
 offset_right = 830.0
 offset_bottom = 460.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="3" type="Control" parent="Niveles/Lineas/Rojas" unique_id=207937315]
@@ -269,7 +269,7 @@ offset_left = 436.0
 offset_top = 393.0
 offset_right = 456.0
 offset_bottom = 442.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="Niveles/Lineas/Rojas/3" unique_id=1912154692]
@@ -279,7 +279,7 @@ offset_left = 63.0
 offset_top = 442.0
 offset_right = 830.0
 offset_bottom = 444.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="corvus" type="Control" parent="Niveles/Lineas/Rojas" unique_id=372194079]
@@ -295,7 +295,7 @@ offset_left = 436.0
 offset_top = 253.0
 offset_right = 456.0
 offset_bottom = 313.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="galaad" type="Control" parent="Niveles/Lineas/Rojas" unique_id=1298455772]
@@ -311,7 +311,7 @@ offset_left = 436.0
 offset_top = 113.0
 offset_right = 456.0
 offset_bottom = 173.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="Botones" type="Control" parent="Niveles" unique_id=1793373796]
@@ -335,7 +335,7 @@ offset_left = 75.0
 offset_top = 5.0
 offset_right = 335.0
 offset_bottom = 75.0
-texture = ExtResource("2_cdy6t")
+texture = ExtResource("6_l2oah")
 expand_mode = 1
 
 [node name="texto" type="Label" parent="Niveles/Botones/Serpico" unique_id=640688866]
@@ -345,7 +345,7 @@ offset_top = 5.0
 offset_right = 335.0
 offset_bottom = 75.0
 theme_override_colors/font_color = Color(0.14324635, 0.30856943, 0.3474136, 1)
-theme_override_fonts/font = ExtResource("6_e3ev4")
+theme_override_fonts/font = ExtResource("7_l5u25")
 theme_override_font_sizes/font_size = 45
 text = "Obispo Serpico"
 horizontal_alignment = 1
@@ -358,7 +358,7 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 72.0
 offset_bottom = 72.0
-texture = ExtResource("6_y04hq")
+texture = ExtResource("8_4jchu")
 stretch_mode = 4
 
 [node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Serpico/icono" unique_id=840084880]
@@ -369,7 +369,7 @@ offset_left = -3.0
 offset_top = -3.0
 offset_right = 67.0
 offset_bottom = 67.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="Espina" type="Button" parent="Niveles/Botones" unique_id=1454065519]
@@ -389,7 +389,7 @@ offset_left = 75.0
 offset_top = 5.0
 offset_right = 335.0
 offset_bottom = 75.0
-texture = ExtResource("2_cdy6t")
+texture = ExtResource("6_l2oah")
 expand_mode = 1
 
 [node name="texto" type="Label" parent="Niveles/Botones/Espina" unique_id=394554612]
@@ -399,7 +399,7 @@ offset_top = 5.0
 offset_right = 335.0
 offset_bottom = 75.0
 theme_override_colors/font_color = Color(0.80571645, 0.320261, 0, 1)
-theme_override_fonts/font = ExtResource("6_e3ev4")
+theme_override_fonts/font = ExtResource("7_l5u25")
 theme_override_font_sizes/font_size = 45
 text = "Padre Espina"
 horizontal_alignment = 1
@@ -412,7 +412,7 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 72.0
 offset_bottom = 72.0
-texture = ExtResource("8_vr6hs")
+texture = ExtResource("9_v2r6m")
 stretch_mode = 4
 
 [node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Espina/icono" unique_id=159701205]
@@ -423,7 +423,7 @@ offset_left = -3.0
 offset_top = -3.0
 offset_right = 67.0
 offset_bottom = 67.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="Eirene" type="Button" parent="Niveles/Botones" unique_id=216507018]
@@ -444,7 +444,7 @@ offset_left = 75.0
 offset_top = 5.0
 offset_right = 335.0
 offset_bottom = 75.0
-texture = ExtResource("2_cdy6t")
+texture = ExtResource("6_l2oah")
 expand_mode = 1
 
 [node name="texto" type="Label" parent="Niveles/Botones/Eirene" unique_id=1791143380]
@@ -454,7 +454,7 @@ offset_top = 5.0
 offset_right = 335.0
 offset_bottom = 75.0
 theme_override_colors/font_color = Color(0.59172523, 0.39356297, 0, 1)
-theme_override_fonts/font = ExtResource("6_e3ev4")
+theme_override_fonts/font = ExtResource("7_l5u25")
 theme_override_font_sizes/font_size = 45
 text = "Eirene Koryphé"
 horizontal_alignment = 1
@@ -467,7 +467,7 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 72.0
 offset_bottom = 72.0
-texture = ExtResource("9_3meqc")
+texture = ExtResource("10_qsr44")
 stretch_mode = 4
 
 [node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Eirene/icono" unique_id=1281772914]
@@ -478,7 +478,7 @@ offset_left = -3.0
 offset_top = -3.0
 offset_right = 67.0
 offset_bottom = 67.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="Corvus" type="Button" parent="Niveles/Botones" unique_id=1235954997]
@@ -498,7 +498,7 @@ offset_left = 75.0
 offset_top = 5.0
 offset_right = 335.0
 offset_bottom = 75.0
-texture = ExtResource("2_cdy6t")
+texture = ExtResource("6_l2oah")
 expand_mode = 1
 
 [node name="texto" type="Label" parent="Niveles/Botones/Corvus" unique_id=1311092482]
@@ -508,7 +508,7 @@ offset_top = 5.0
 offset_right = 335.0
 offset_bottom = 75.0
 theme_override_colors/font_color = Color(0.49131554, 0.2639672, 0.14451402, 1)
-theme_override_fonts/font = ExtResource("6_e3ev4")
+theme_override_fonts/font = ExtResource("7_l5u25")
 theme_override_font_sizes/font_size = 45
 text = "Fray Corvus"
 horizontal_alignment = 1
@@ -521,7 +521,7 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 72.0
 offset_bottom = 72.0
-texture = ExtResource("9_wxfgt")
+texture = ExtResource("11_ax3hd")
 stretch_mode = 4
 
 [node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Corvus/icono" unique_id=879395077]
@@ -532,7 +532,7 @@ offset_left = -3.0
 offset_top = -3.0
 offset_right = 67.0
 offset_bottom = 67.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="Kapparah" type="Button" parent="Niveles/Botones" unique_id=47449595]
@@ -552,7 +552,7 @@ offset_left = 75.0
 offset_top = 5.0
 offset_right = 335.0
 offset_bottom = 75.0
-texture = ExtResource("2_cdy6t")
+texture = ExtResource("6_l2oah")
 expand_mode = 1
 
 [node name="texto" type="Label" parent="Niveles/Botones/Kapparah" unique_id=475261204]
@@ -562,7 +562,7 @@ offset_top = 5.0
 offset_right = 335.0
 offset_bottom = 75.0
 theme_override_colors/font_color = Color(0.3851929, 0.31073797, 9.62615e-08, 1)
-theme_override_fonts/font = ExtResource("6_e3ev4")
+theme_override_fonts/font = ExtResource("7_l5u25")
 theme_override_font_sizes/font_size = 45
 text = "Kapparah"
 horizontal_alignment = 1
@@ -575,7 +575,7 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 72.0
 offset_bottom = 72.0
-texture = ExtResource("11_0xiw4")
+texture = ExtResource("12_ra1hq")
 stretch_mode = 4
 
 [node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Kapparah/icono2" unique_id=741495640]
@@ -586,7 +586,7 @@ offset_left = -3.0
 offset_top = -3.0
 offset_right = 67.0
 offset_bottom = 67.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="Galaad" type="Button" parent="Niveles/Botones" unique_id=465209909]
@@ -606,7 +606,7 @@ offset_left = 75.0
 offset_top = 5.0
 offset_right = 335.0
 offset_bottom = 75.0
-texture = ExtResource("2_cdy6t")
+texture = ExtResource("6_l2oah")
 expand_mode = 1
 
 [node name="texto" type="Label" parent="Niveles/Botones/Galaad" unique_id=997078102]
@@ -616,7 +616,7 @@ offset_top = 5.0
 offset_right = 335.0
 offset_bottom = 75.0
 theme_override_colors/font_color = Color(0.017556582, 0, 0.28120795, 1)
-theme_override_fonts/font = ExtResource("6_e3ev4")
+theme_override_fonts/font = ExtResource("7_l5u25")
 theme_override_font_sizes/font_size = 45
 text = "Galaad"
 horizontal_alignment = 1
@@ -629,7 +629,7 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 72.0
 offset_bottom = 72.0
-texture = ExtResource("10_0w2jm")
+texture = ExtResource("13_sy8wv")
 stretch_mode = 4
 
 [node name="TextureRect" type="TextureRect" parent="Niveles/Botones/Galaad/icono2" unique_id=155242472]
@@ -640,7 +640,7 @@ offset_left = -3.0
 offset_top = -3.0
 offset_right = 67.0
 offset_bottom = 67.0
-texture = ExtResource("7_aynrb")
+texture = ExtResource("5_s3omy")
 expand_mode = 1
 
 [node name="Menuprincipal" type="Button" parent="." unique_id=1819965838]
@@ -661,7 +661,7 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 238.0
 offset_bottom = 57.0
-texture = ExtResource("2_cdy6t")
+texture = ExtResource("6_l2oah")
 expand_mode = 1
 
 [node name="texto" type="Label" parent="Menuprincipal" unique_id=2146100842]
@@ -671,14 +671,14 @@ offset_top = 5.0
 offset_right = 232.0
 offset_bottom = 57.0
 theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
-theme_override_fonts/font = ExtResource("6_e3ev4")
+theme_override_fonts/font = ExtResource("7_l5u25")
 theme_override_font_sizes/font_size = 40
 text = "Menu Principal"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=1278571276]
-stream = ExtResource("5_0welv")
+stream = ExtResource("14_vqk2o")
 volume_db = -1.0
 bus = &"SFX"
 

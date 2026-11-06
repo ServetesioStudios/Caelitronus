@@ -5,6 +5,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_l1myo"]
 radius = 32.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l1myo"]
+size = Vector2(16, 16)
+
 [sub_resource type="LabelSettings" id="LabelSettings_yu38o"]
 font_size = 10
 
@@ -19,6 +22,11 @@ polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaInteraccion" unique_id=1203579127]
 shape = SubResource("CircleShape2D_l1myo")
+
+[node name="AreaClic" type="Area2D" parent="." unique_id=1602713188]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaClic" unique_id=1930889859]
+shape = SubResource("RectangleShape2D_l1myo")
 
 [node name="IndicadorInteraccion" type="Label" parent="." unique_id=1766647034]
 visible = false

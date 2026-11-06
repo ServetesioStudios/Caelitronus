@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://cinvs4xaxdel0"]
+[gd_scene format=3 uid="uid://cinvs4xaxdel0"]
 
-[ext_resource type="Script" uid="uid://bejfl33gjhhj2" path="res://Scripts/subir_nivel.gd" id="1_a7ljx"]
+[ext_resource type="Script" uid="uid://bejfl33gjhhj2" path="res://Scripts/temporales/subir_nivel.gd" id="1_a7ljx"]
 [ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://Assets/BckGrnd/Nivel.png" id="2_eokig"]
 [ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="3_32y4f"]
 [ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="4_okevw"]
@@ -54,7 +54,7 @@ expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
-[node name="SubirNivel" type="Control"]
+[node name="SubirNivel" type="Control" unique_id=1754398549]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,7 +63,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_a7ljx")
 
-[node name="Fondo" type="TextureRect" parent="."]
+[node name="Fondo" type="TextureRect" parent="." unique_id=1664263550]
 modulate = Color(0.90413505, 0.76640046, 0.667267, 1)
 layout_mode = 0
 offset_right = 1280.0
@@ -71,7 +71,7 @@ offset_bottom = 722.0
 texture = ExtResource("2_eokig")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=458745397]
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 120.0
@@ -89,7 +89,7 @@ text = "Caelius sube de Nivel"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="."]
+[node name="Label2" type="Label" parent="." unique_id=2120821354]
 layout_mode = 0
 offset_top = 115.0
 offset_right = 1152.0
@@ -106,7 +106,7 @@ text = "Estadisticas Aumentadas"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Nivelanterior" type="VBoxContainer" parent="."]
+[node name="Nivelanterior" type="VBoxContainer" parent="." unique_id=373323860]
 layout_mode = 0
 offset_left = 100.0
 offset_top = 190.0
@@ -114,7 +114,7 @@ offset_right = 250.0
 offset_bottom = 607.0
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="Nivelanterior"]
+[node name="Label" type="Label" parent="Nivelanterior" unique_id=969067918]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9995722, 0.8720149, 0.66100925, 1)
@@ -129,7 +129,7 @@ text = "Nivel "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Vida" type="RichTextLabel" parent="Nivelanterior"]
+[node name="Vida" type="RichTextLabel" parent="Nivelanterior" unique_id=1897706189]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -147,7 +147,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Ataque" type="RichTextLabel" parent="Nivelanterior"]
+[node name="Ataque" type="RichTextLabel" parent="Nivelanterior" unique_id=321327111]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -165,7 +165,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Defensa" type="RichTextLabel" parent="Nivelanterior"]
+[node name="Defensa" type="RichTextLabel" parent="Nivelanterior" unique_id=2003345440]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -183,7 +183,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Esquive" type="RichTextLabel" parent="Nivelanterior"]
+[node name="Esquive" type="RichTextLabel" parent="Nivelanterior" unique_id=1277452088]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -201,7 +201,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Velocidad" type="RichTextLabel" parent="Nivelanterior"]
+[node name="Velocidad" type="RichTextLabel" parent="Nivelanterior" unique_id=1798211014]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -219,7 +219,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Fe" type="RichTextLabel" parent="Nivelanterior"]
+[node name="Fe" type="RichTextLabel" parent="Nivelanterior" unique_id=900608503]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -237,7 +237,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Poder" type="RichTextLabel" parent="Nivelanterior"]
+[node name="Poder" type="RichTextLabel" parent="Nivelanterior" unique_id=2098090577]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -255,7 +255,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Aumento" type="VBoxContainer" parent="."]
+[node name="Aumento" type="VBoxContainer" parent="." unique_id=1469401759]
 layout_mode = 0
 offset_left = 225.0
 offset_top = 190.0
@@ -263,7 +263,7 @@ offset_right = 497.0
 offset_bottom = 607.0
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="Aumento"]
+[node name="Label" type="Label" parent="Aumento" unique_id=1589839881]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9995722, 0.8720149, 0.66100925, 1)
@@ -278,7 +278,7 @@ text = "Aumento"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Vida" type="RichTextLabel" parent="Aumento"]
+[node name="Vida" type="RichTextLabel" parent="Aumento" unique_id=944382250]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
@@ -296,7 +296,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Ataque" type="RichTextLabel" parent="Aumento"]
+[node name="Ataque" type="RichTextLabel" parent="Aumento" unique_id=1357622465]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
@@ -314,7 +314,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Defensa" type="RichTextLabel" parent="Aumento"]
+[node name="Defensa" type="RichTextLabel" parent="Aumento" unique_id=937328295]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
@@ -332,7 +332,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Esquive" type="RichTextLabel" parent="Aumento"]
+[node name="Esquive" type="RichTextLabel" parent="Aumento" unique_id=1894964889]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
@@ -350,7 +350,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Velocidad" type="RichTextLabel" parent="Aumento"]
+[node name="Velocidad" type="RichTextLabel" parent="Aumento" unique_id=110977532]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
@@ -368,7 +368,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Fe" type="RichTextLabel" parent="Aumento"]
+[node name="Fe" type="RichTextLabel" parent="Aumento" unique_id=708753268]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
@@ -386,7 +386,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Poder" type="RichTextLabel" parent="Aumento"]
+[node name="Poder" type="RichTextLabel" parent="Aumento" unique_id=1003422778]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
@@ -404,7 +404,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Nivelactual" type="VBoxContainer" parent="."]
+[node name="Nivelactual" type="VBoxContainer" parent="." unique_id=427536049]
 layout_mode = 0
 offset_left = 472.0
 offset_top = 190.0
@@ -412,7 +412,7 @@ offset_right = 622.0
 offset_bottom = 607.0
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="Nivelactual"]
+[node name="Label" type="Label" parent="Nivelactual" unique_id=1998591347]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.87058824, 0.6627451, 1)
@@ -427,7 +427,7 @@ text = "Nivel "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Vida" type="RichTextLabel" parent="Nivelactual"]
+[node name="Vida" type="RichTextLabel" parent="Nivelactual" unique_id=85649953]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -444,7 +444,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Ataque" type="RichTextLabel" parent="Nivelactual"]
+[node name="Ataque" type="RichTextLabel" parent="Nivelactual" unique_id=321726955]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -461,7 +461,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Defensa" type="RichTextLabel" parent="Nivelactual"]
+[node name="Defensa" type="RichTextLabel" parent="Nivelactual" unique_id=1581810181]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -478,7 +478,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Esquive" type="RichTextLabel" parent="Nivelactual"]
+[node name="Esquive" type="RichTextLabel" parent="Nivelactual" unique_id=651117054]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -495,7 +495,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Velocidad" type="RichTextLabel" parent="Nivelactual"]
+[node name="Velocidad" type="RichTextLabel" parent="Nivelactual" unique_id=709676479]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -512,7 +512,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Fe" type="RichTextLabel" parent="Nivelactual"]
+[node name="Fe" type="RichTextLabel" parent="Nivelactual" unique_id=913307835]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -529,7 +529,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Poder" type="RichTextLabel" parent="Nivelactual"]
+[node name="Poder" type="RichTextLabel" parent="Nivelactual" unique_id=1560258438]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -546,7 +546,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label3" type="Label" parent="."]
+[node name="Label3" type="Label" parent="." unique_id=80611229]
 layout_mode = 0
 offset_left = 652.0
 offset_top = 195.0
@@ -564,12 +564,12 @@ text = "Elige una Mejora:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Botones" type="Control" parent="."]
+[node name="Botones" type="Control" parent="." unique_id=835561378]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Opcion1" type="Button" parent="Botones"]
+[node name="Opcion1" type="Button" parent="Botones" unique_id=912689788]
 layout_mode = 0
 offset_left = 762.0
 offset_top = 270.0
@@ -580,7 +580,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_sej22")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ubdk4")
 theme_override_styles/hover = SubResource("StyleBoxFlat_l6q6r")
 
-[node name="Fondo" type="TextureRect" parent="Botones/Opcion1"]
+[node name="Fondo" type="TextureRect" parent="Botones/Opcion1" unique_id=525138907]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
@@ -589,7 +589,7 @@ offset_bottom = 60.0
 texture = ExtResource("4_okevw")
 expand_mode = 1
 
-[node name="Texto" type="RichTextLabel" parent="Botones/Opcion1"]
+[node name="Texto" type="RichTextLabel" parent="Botones/Opcion1" unique_id=1288179031]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 7.0
@@ -604,7 +604,7 @@ bbcode_enabled = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Opcion2" type="Button" parent="Botones"]
+[node name="Opcion2" type="Button" parent="Botones" unique_id=1597249971]
 layout_mode = 0
 offset_left = 762.0
 offset_top = 355.0
@@ -615,7 +615,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_sej22")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ubdk4")
 theme_override_styles/hover = SubResource("StyleBoxFlat_l6q6r")
 
-[node name="Fondo" type="TextureRect" parent="Botones/Opcion2"]
+[node name="Fondo" type="TextureRect" parent="Botones/Opcion2" unique_id=2145973253]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
@@ -624,7 +624,7 @@ offset_bottom = 60.0
 texture = ExtResource("4_okevw")
 expand_mode = 1
 
-[node name="Texto" type="RichTextLabel" parent="Botones/Opcion2"]
+[node name="Texto" type="RichTextLabel" parent="Botones/Opcion2" unique_id=1968681035]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 7.0
@@ -639,7 +639,7 @@ bbcode_enabled = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Opcion3" type="Button" parent="Botones"]
+[node name="Opcion3" type="Button" parent="Botones" unique_id=1570842180]
 layout_mode = 0
 offset_left = 762.0
 offset_top = 440.0
@@ -650,7 +650,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_sej22")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ubdk4")
 theme_override_styles/hover = SubResource("StyleBoxFlat_l6q6r")
 
-[node name="Fondo" type="TextureRect" parent="Botones/Opcion3"]
+[node name="Fondo" type="TextureRect" parent="Botones/Opcion3" unique_id=645620241]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
@@ -659,7 +659,7 @@ offset_bottom = 60.0
 texture = ExtResource("4_okevw")
 expand_mode = 1
 
-[node name="Texto" type="RichTextLabel" parent="Botones/Opcion3"]
+[node name="Texto" type="RichTextLabel" parent="Botones/Opcion3" unique_id=282765284]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 7.0
@@ -674,7 +674,7 @@ bbcode_enabled = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Confirmar" type="Button" parent="Botones"]
+[node name="Confirmar" type="Button" parent="Botones" unique_id=357535779]
 layout_mode = 0
 offset_left = 742.0
 offset_top = 545.0
@@ -685,7 +685,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_sej22")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ubdk4")
 theme_override_styles/hover = SubResource("StyleBoxFlat_l6q6r")
 
-[node name="Fondo" type="TextureRect" parent="Botones/Confirmar"]
+[node name="Fondo" type="TextureRect" parent="Botones/Confirmar" unique_id=822223839]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
@@ -694,7 +694,7 @@ offset_bottom = 60.0
 texture = ExtResource("4_okevw")
 expand_mode = 1
 
-[node name="Texto" type="RichTextLabel" parent="Botones/Confirmar"]
+[node name="Texto" type="RichTextLabel" parent="Botones/Confirmar" unique_id=1862164647]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 7.0
@@ -710,12 +710,12 @@ text = "Confirmar [img=40 color=a0851b]assets/Icons/dere.png[/img]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+[node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=1559652346]
 stream = ExtResource("5_ts3wy")
 volume_db = -1.0
 bus = &"SFX"
 
-[node name="Tooltip" type="PanelContainer" parent="."]
+[node name="Tooltip" type="PanelContainer" parent="." unique_id=1529451566]
 visible = false
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 0
@@ -724,7 +724,7 @@ offset_bottom = 10.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1ichb")
 
-[node name="Texto" type="RichTextLabel" parent="Tooltip"]
+[node name="Texto" type="RichTextLabel" parent="Tooltip" unique_id=2146078053]
 layout_mode = 2
 mouse_filter = 2
 theme_override_colors/default_color = Color(1, 0.87058824, 0.6627451, 1)

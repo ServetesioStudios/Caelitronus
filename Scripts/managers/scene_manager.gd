@@ -11,7 +11,8 @@ enum SceneID {
 	CREDITOS,
 	GLOSARIO,
 	FIN_PARTIDA,
-	SALIR
+	SALIR, 
+	ZONA_ROJA
 }
 
 const SCENE_PATHS := {
@@ -25,7 +26,8 @@ const SCENE_PATHS := {
 	SceneID.SALIR: "res://Scenes/menus/salir.tscn",
 	SceneID.SUBIR_NIVEL: "res://Scenes/subir_nivel.tscn",
 	SceneID.GLOSARIO: "res://Scenes/menus/glosario.tscn", 
-	SceneID.FIN_PARTIDA: "res://Scenes/menus/fin_partida.tscn"
+	SceneID.FIN_PARTIDA: "res://Scenes/menus/fin_partida.tscn",
+	SceneID.ZONA_ROJA: "res://Scenes/mundo/Zona_roja.tscn",
 }
 
 func change_scene(id: SceneID) -> void:
