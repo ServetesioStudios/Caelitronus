@@ -9,7 +9,6 @@ var animacion_idle= ""
 
 func _ready():
 	tipo_caelius = GameManager.player_data.tipo_caelius
-	
 	match tipo_caelius:
 		GameManager.TipoCaelius.PENA: animacion_idle = "idle_pena"
 		GameManager.TipoCaelius.IRA: animacion_idle = "idle_ira"

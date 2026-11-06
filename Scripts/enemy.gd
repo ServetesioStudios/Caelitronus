@@ -6,16 +6,30 @@ extends CombatEntity
 
 var intencion_actual: IntentData
 
-func _ready():
+func _ready() -> void:
+	if enemy_data == null:
+		push_error("Enemy: no se asignó EnemyData antes de inicializar el enemigo")
+		return
+
 	cargar_desde_data()
 	actualizar_barra_vida()
 
-func cargar_desde_data():
+func configurar(datos: EnemyData) -> void:
+	enemy_data = datos
+
+
+func cargar_desde_data() -> void:
 	if enemy_data == null:
-		push_error("Enemy: falta asignar enemy_data en el Inspector")
+		push_error("Enemy: faltan datos del enemigo")
 		return
+
+	if enemy_data.stats == null:
+		push_error("Enemy: faltan estadísticas para %s" % enemy_data.nombre)
+		return
+
 	nombre = enemy_data.nombre
 	aplicar_stats(enemy_data.stats.duplicate())
+
 
 func decidir_intencion() -> void:
 	var nueva_intencion := IntentData.new()

@@ -36,34 +36,58 @@ const ICONO_ENERGIA := preload("res://Assets/Icons/poder.png")
 # INICIALIZACIÓN
 # ============================================================
 
+func crear_enemigo_combate() -> Enemy:
+	var datos: EnemyData = GameManager.enemy_data_encuentro
+	var escena: PackedScene
+
+	if datos != null:
+		if datos.escena_combate == null:
+			push_error("Batalla: el enemigo %s no tiene escena de combate." % datos.nombre)
+			return null
+
+		escena = datos.escena_combate
+		label_combates.text = ""
+
+	else:
+		var ruta: String = GameManager.obtener_escena_enemigo_actual()
+		escena = load(ruta)
+
+		label_combates.text = "Batalla %d / %d" % [
+			GameManager.combate_actual,
+			GameManager.secuencia_combates.size()
+		]
+
+	if escena == null:
+		push_error("Batalla: no se pudo cargar la escena del enemigo.")
+		return null
+
+	var nuevo_enemigo := escena.instantiate() as Enemy
+
+	if nuevo_enemigo == null:
+		push_error("Batalla: la escena no contiene un Enemy válido.")
+		return null
+
+	if datos != null:
+		nuevo_enemigo.configurar(datos)
+
+	$CanvasLayer.add_child(nuevo_enemigo)
+	nuevo_enemigo.position = Vector2(965, 100)
+
+	return nuevo_enemigo
+
+
 func _ready() -> void:
 	MusicManager.play_battle()
-
+	
 	# --------------------------------------------------------
 	# Crear enemigo
 	# --------------------------------------------------------
 
-	var ruta_enemigo := GameManager.obtener_escena_enemigo_actual()
+	enemy = crear_enemigo_combate()
 
-	label_combates.text = "Batalla %d / %d" % [
-			GameManager.combate_actual,
-			GameManager.secuencia_combates.size()]
-	#print(
-		#"Combate actual: %d / %d | Ruta: %s"
-		#% [
-			#GameManager.combate_actual,
-			#GameManager.secuencia_combates.size(),
-			#ruta_enemigo
-		#]
-	#)
-
-	var escena: PackedScene = load(ruta_enemigo)
-
-	enemy = escena.instantiate()
-	$CanvasLayer.add_child(enemy)
-
-	enemy.position = Vector2(965, 100)
-
+	if enemy == null:
+		push_error("Batalla: no se pudo iniciar el combate.")
+		return
 
 	# --------------------------------------------------------
 	# Conectar DropZone

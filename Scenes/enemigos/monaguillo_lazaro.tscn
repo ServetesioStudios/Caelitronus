@@ -172,7 +172,7 @@ script = ExtResource("2_jhelr")
 incremento_por_ataque = 4
 porcentaje_curacion = 1.0
 
-[node name="Animador" parent="." index="3" node_paths=PackedStringArray("sprite")]
+[node name="Animador" parent="." index="3" unique_id=1767477017 node_paths=PackedStringArray("sprite")]
 position = Vector2(143, 216)
 sprite_frames = SubResource("SpriteFrames_cnknd")
 animation = &"bloqueo"

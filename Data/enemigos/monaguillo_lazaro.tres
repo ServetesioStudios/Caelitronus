@@ -1,21 +1,19 @@
 [gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://c5frbhsbnmeve"]
 
 [ext_resource type="Script" uid="uid://5uw7jpiqmd43" path="res://Scripts/data/enemy_data.gd" id="1_op4wl"]
-[ext_resource type="Script" uid="uid://3jdy5elvqaqm" path="res://Scripts/data/stats.gd" id="3_8bopv"]
+[ext_resource type="PackedScene" uid="uid://cuyai5td2vp8s" path="res://Scenes/enemigos/monaguillo_lazaro.tscn" id="1_qro0k"]
+[ext_resource type="Script" uid="uid://3jdy5elvqaqm" path="res://Scripts/data/stats.gd" id="3_xkipm"]
 
-[sub_resource type="Resource" id="Resource_v51al"]
-script = ExtResource("3_8bopv")
-"daño" = 10
-defensa = 7
-esquive = 4
-velocidad = 2
-fe = 15
-poder = 4
+[sub_resource type="Resource" id="Resource_ms847"]
+script = ExtResource("3_xkipm")
+fe = 2
+poder = 3
 metadata/_custom_type_script = "uid://3jdy5elvqaqm"
 
 [resource]
 script = ExtResource("1_op4wl")
 id = &"monaguillo_lazaro"
 nombre = "Monaguillo Lazaro"
-stats = SubResource("Resource_v51al")
+stats = SubResource("Resource_ms847")
+escena_combate = ExtResource("1_qro0k")
 metadata/_custom_type_script = "uid://5uw7jpiqmd43"
