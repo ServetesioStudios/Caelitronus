@@ -6,6 +6,17 @@
 [ext_resource type="Resource" uid="uid://cg2pwu86xrqqy" path="res://Data/enemigos/monaguillo_oscuro.tres" id="4_md4xh"]
 [ext_resource type="Resource" uid="uid://c5frbhsbnmeve" path="res://Data/enemigos/monaguillo_lazaro.tres" id="5_yt6qf"]
 [ext_resource type="Script" uid="uid://lwvx5fcf5xvy" path="res://Scripts/mundo/generador_zona.gd" id="6_5hu1g"]
+[ext_resource type="PackedScene" uid="uid://rcw6wnl6s033" path="res://Scenes/mundo/MarcadorJefe.tscn" id="6_yt6qf"]
+[ext_resource type="Resource" uid="uid://cawjn1ooikn1j" path="res://Data/enemigos/boss_eirene.tres" id="7_lni82"]
+[ext_resource type="PackedScene" uid="uid://cdyev2twyk6p8" path="res://Scenes/mundo/MarcadorReliquia.tscn" id="8_lni82"]
+[ext_resource type="PackedScene" uid="uid://b5jpshwmcylmy" path="res://Scenes/mundo/EnemigoMundo.tscn" id="10_ahi8a"]
+[ext_resource type="PackedScene" uid="uid://el67pa5dtw7h" path="res://Scenes/mundo/miniplayer.tscn" id="11_uc47x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vunlk"]
+size = Vector2(1280, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uc47x"]
+size = Vector2(32, 784)
 
 [sub_resource type="Resource" id="Resource_f46mo"]
 script = ExtResource("2_jo2gy")
@@ -27,21 +38,58 @@ metadata/_custom_type_script = "uid://e02oajuxw41y"
 
 [node name="Mapa" type="Node2D" parent="." unique_id=1413288785]
 
+[node name="LimitesProvisionales" type="Node2D" parent="Mapa" unique_id=916167007]
+
+[node name="Superior" type="StaticBody2D" parent="Mapa/LimitesProvisionales" unique_id=2127712604]
+position = Vector2(640, -16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mapa/LimitesProvisionales/Superior" unique_id=1570915396]
+shape = SubResource("RectangleShape2D_vunlk")
+debug_color = Color(1, 1, 1, 0.41960785)
+
+[node name="Inferior" type="StaticBody2D" parent="Mapa/LimitesProvisionales" unique_id=468575490]
+position = Vector2(640, 736)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mapa/LimitesProvisionales/Inferior" unique_id=913635864]
+shape = SubResource("RectangleShape2D_vunlk")
+debug_color = Color(1, 1, 1, 0.41960785)
+
+[node name="Izquierda" type="StaticBody2D" parent="Mapa/LimitesProvisionales" unique_id=443269662]
+position = Vector2(-16, 360)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mapa/LimitesProvisionales/Izquierda" unique_id=213145649]
+shape = SubResource("RectangleShape2D_uc47x")
+debug_color = Color(1, 1, 1, 0.41960785)
+
+[node name="Derecha" type="StaticBody2D" parent="Mapa/LimitesProvisionales" unique_id=180162503]
+position = Vector2(1296, 360)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mapa/LimitesProvisionales/Derecha" unique_id=1292285387]
+shape = SubResource("RectangleShape2D_uc47x")
+debug_color = Color(1, 1, 1, 0.41960785)
+
 [node name="AreasAparicion" type="Node2D" parent="." unique_id=1274851460]
 
 [node name="AreaA" parent="AreasAparicion" unique_id=304987019 instance=ExtResource("1_1crbl")]
-position = Vector2(924, 158)
+position = Vector2(158, 581)
 area_id = "zona_roja_area_a"
 enemigos = Array[ExtResource("2_jo2gy")]([SubResource("Resource_f46mo"), SubResource("Resource_0ugf7")])
 
 [node name="AreaB" parent="AreasAparicion" unique_id=1242136343 instance=ExtResource("1_1crbl")]
-position = Vector2(216, 522)
+position = Vector2(920, 193)
 area_id = "zona_roja_area_b"
 enemigos = Array[ExtResource("2_jo2gy")]([SubResource("Resource_grsv5")])
 
 [node name="Jefe" type="Node2D" parent="." unique_id=697104401]
 
+[node name="MarcadorJefe" parent="Jefe" unique_id=552315538 instance=ExtResource("6_yt6qf")]
+position = Vector2(520, 49)
+jefe_id = "zona_roja_jefe_01"
+enemy_data = ExtResource("7_lni82")
+
 [node name="Objetos" type="Node2D" parent="." unique_id=1407773950]
+
+[node name="MarcadorReliquia" parent="Objetos" unique_id=2120118393 instance=ExtResource("8_lni82")]
 
 [node name="EnemigosGenerados" type="Node2D" parent="." unique_id=239457790]
 
@@ -49,3 +97,7 @@ enemigos = Array[ExtResource("2_jo2gy")]([SubResource("Resource_grsv5")])
 script = ExtResource("6_5hu1g")
 areas_aparicion = NodePath("../AreasAparicion")
 contenedor_enemigos = NodePath("../EnemigosGenerados")
+escena_enemigo_mundo = ExtResource("10_ahi8a")
+
+[node name="miniplayer" parent="." unique_id=61477703 instance=ExtResource("11_uc47x")]
+position = Vector2(20, 20)

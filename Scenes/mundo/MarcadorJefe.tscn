@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://rcw6wnl6s033"]
+
+[ext_resource type="Script" uid="uid://bxnvyy4gu222t" path="res://Scripts/mundo/marcador_jefe.gd" id="1_mephp"]
+
+[node name="MarcadorJefe" type="Marker2D" unique_id=552315538]
+modulate = Color(1, 0.27058825, 0.27058825, 1)
+gizmo_extents = 20.0
+script = ExtResource("1_mephp")

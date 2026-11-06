@@ -310,7 +310,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_mlymm")
 }],
 "loop": 1,
-"name": &"idle_righ",
+"name": &"idle_right",
 "speed": 12.0
 }, {
 "frames": [{
@@ -384,7 +384,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_qxrco")
 }],
 "loop": 1,
-"name": &"invo_righ",
+"name": &"invo_right",
 "speed": 12.0
 }, {
 "frames": [{
@@ -470,7 +470,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_6tx0n")
 }],
 "loop": 1,
-"name": &"walk_righ",
+"name": &"walk_right",
 "speed": 12.0
 }, {
 "frames": [{
@@ -503,9 +503,17 @@ size = Vector2(18, 31)
 [node name="miniplayer" type="CharacterBody2D" unique_id=61477703]
 script = ExtResource("1_y6mxk")
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=373364385]
+zoom = Vector2(2, 2)
+limit_left = 0
+limit_top = 0
+limit_right = 1280
+limit_bottom = 720
+position_smoothing_enabled = true
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=337142517]
 sprite_frames = SubResource("SpriteFrames_6yve6")
-animation = &"walk_up"
+animation = &"idle_right"
 autoplay = "idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=482280125]

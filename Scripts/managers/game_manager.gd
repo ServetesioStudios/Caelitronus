@@ -36,6 +36,8 @@ const MAZOS_INICIALES := {
 
 
 var player_data: PlayerData
+var estado_expedicion: EstadoExpedicion = EstadoExpedicion.new()
+
 enum TipoCaelius { PENA, IRA, EGO }
 enum Jefe { ESPINA, SERPICO, EIRENE, CORVUS, GALAAD, KAPPARAH }
 
@@ -63,6 +65,9 @@ func iniciar_nueva_partida(tipo: TipoCaelius) -> void:
 	player_data.tipo_caelius = tipo
 	player_data.nivel = 1
 	player_data.hp_actual = -1
+	
+	estado_expedicion = EstadoExpedicion.new()
+	
 	iniciar_secuencia_combates()
 	guardar_partida()
 	

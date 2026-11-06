@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://b5jpshwmcylmy"]
+
+[ext_resource type="Script" uid="uid://cu7iwnentjgpv" path="res://Scripts/mundo/enemigo_mundo.gd" id="1_yu38o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l1myo"]
+radius = 32.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_yu38o"]
+font_size = 10
+
+[node name="EnemigoMundo" type="Node2D" unique_id=1139138637]
+script = ExtResource("1_yu38o")
+
+[node name="Visual" type="Polygon2D" parent="." unique_id=1751969689]
+color = Color(0.9019608, 0.3019608, 0.3019608, 1)
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[node name="AreaInteraccion" type="Area2D" parent="." unique_id=2116327727]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaInteraccion" unique_id=1203579127]
+shape = SubResource("CircleShape2D_l1myo")
+
+[node name="IndicadorInteraccion" type="Label" parent="." unique_id=1766647034]
+visible = false
+offset_left = -65.0
+offset_top = -40.0
+offset_right = 110.0
+offset_bottom = -15.0
+text = "Iniciar batalla [E / Clic]"
+label_settings = SubResource("LabelSettings_yu38o")

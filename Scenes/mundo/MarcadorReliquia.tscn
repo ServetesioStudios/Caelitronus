@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cdyev2twyk6p8"]
+
+[ext_resource type="Script" uid="uid://cnfd8riwq2sr8" path="res://Scripts/mundo/marcador_reliquia.gd" id="1_n32ls"]
+
+[node name="MarcadorReliquia" type="Marker2D" unique_id=2120118393]
+modulate = Color(1, 0.8352941, 0.30980393, 1)
+gizmo_extents = 20.0
+script = ExtResource("1_n32ls")
