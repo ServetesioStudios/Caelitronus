@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cu0x086twdawi"]
+
+[ext_resource type="Script" uid="uid://bs4w814qj7f0v" path="res://Scripts/mundo/area_aparicion.gd" id="1_mauek"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l1myo"]
+size = Vector2(240, 160)
+
+[node name="AreaAparicion" type="Area2D" unique_id=365563830]
+script = ExtResource("1_mauek")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1785836216]
+shape = SubResource("RectangleShape2D_l1myo")

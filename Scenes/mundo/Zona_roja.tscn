@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://dopum5gjpxmxx"]
+
+[ext_resource type="PackedScene" uid="uid://cu0x086twdawi" path="res://Scenes/mundo/AreaAparicion.tscn" id="1_1crbl"]
+[ext_resource type="Script" uid="uid://e02oajuxw41y" path="res://Scripts/mundo/configuracion_enemigo.gd" id="2_jo2gy"]
+[ext_resource type="Resource" uid="uid://ldlpdqj8nje5" path="res://Data/enemigos/monaguillo_sagrado.tres" id="3_5hu1g"]
+[ext_resource type="Resource" uid="uid://cg2pwu86xrqqy" path="res://Data/enemigos/monaguillo_oscuro.tres" id="4_md4xh"]
+[ext_resource type="Resource" uid="uid://c5frbhsbnmeve" path="res://Data/enemigos/monaguillo_lazaro.tres" id="5_yt6qf"]
+[ext_resource type="Script" uid="uid://lwvx5fcf5xvy" path="res://Scripts/mundo/generador_zona.gd" id="6_5hu1g"]
+
+[sub_resource type="Resource" id="Resource_f46mo"]
+script = ExtResource("2_jo2gy")
+enemy_data = ExtResource("3_5hu1g")
+cantidad = 2
+metadata/_custom_type_script = "uid://e02oajuxw41y"
+
+[sub_resource type="Resource" id="Resource_0ugf7"]
+script = ExtResource("2_jo2gy")
+enemy_data = ExtResource("4_md4xh")
+metadata/_custom_type_script = "uid://e02oajuxw41y"
+
+[sub_resource type="Resource" id="Resource_grsv5"]
+script = ExtResource("2_jo2gy")
+enemy_data = ExtResource("5_yt6qf")
+metadata/_custom_type_script = "uid://e02oajuxw41y"
+
+[node name="ZonaRoja" type="Node2D" unique_id=1434169328]
+
+[node name="Mapa" type="Node2D" parent="." unique_id=1413288785]
+
+[node name="AreasAparicion" type="Node2D" parent="." unique_id=1274851460]
+
+[node name="AreaA" parent="AreasAparicion" unique_id=304987019 instance=ExtResource("1_1crbl")]
+position = Vector2(924, 158)
+area_id = "zona_roja_area_a"
+enemigos = Array[ExtResource("2_jo2gy")]([SubResource("Resource_f46mo"), SubResource("Resource_0ugf7")])
+
+[node name="AreaB" parent="AreasAparicion" unique_id=1242136343 instance=ExtResource("1_1crbl")]
+position = Vector2(216, 522)
+area_id = "zona_roja_area_b"
+enemigos = Array[ExtResource("2_jo2gy")]([SubResource("Resource_grsv5")])
+
+[node name="Jefe" type="Node2D" parent="." unique_id=697104401]
+
+[node name="Objetos" type="Node2D" parent="." unique_id=1407773950]
+
+[node name="EnemigosGenerados" type="Node2D" parent="." unique_id=239457790]
+
+[node name="Generador" type="Node" parent="." unique_id=1124363136 node_paths=PackedStringArray("areas_aparicion", "contenedor_enemigos")]
+script = ExtResource("6_5hu1g")
+areas_aparicion = NodePath("../AreasAparicion")
+contenedor_enemigos = NodePath("../EnemigosGenerados")
