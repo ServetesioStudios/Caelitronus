@@ -4,6 +4,7 @@ extends Node
 @export var areas_aparicion: Node2D
 @export var contenedor_enemigos: Node2D
 @export var escena_enemigo_mundo: PackedScene
+@export var jugador: CharacterBody2D
 @export var zona_id: String = "zona_roja"
 
 var enemigos_generados: Array[Dictionary] = []
@@ -16,6 +17,14 @@ const TAMANO_MARCADOR := Vector2(16.0, 16.0)
 
 func _ready() -> void:
 	await get_tree().physics_frame
+
+	if GameManager.zona_id_encuentro == zona_id:
+		if is_instance_valid(jugador):
+			jugador.global_position = GameManager.posicion_jugador_encuentro
+			GameManager.limpiar_encuentro()
+		else:
+			push_error("Generador: no se pudo restaurar la posición del jugador.")
+
 	generar_enemigos()
 
 
@@ -166,6 +175,10 @@ func crear_enemigo_mundo(datos: EnemyData, posicion: Vector2, id: String) -> voi
 	contenedor_enemigos.add_child(enemigo)
 	enemigo.global_position = posicion
 	enemigo.configurar(datos, id)
+	
+	enemigo.interaccion_solicitada.connect(
+		_on_enemigo_interaccion_solicitada
+	)
 
 
 func restaurar_enemigos() -> void: 
@@ -183,3 +196,34 @@ func restaurar_enemigos() -> void:
 
 	print("Generador: enemigos restaurados en %s" % zona_id)
 	
+
+
+func _on_enemigo_interaccion_solicitada(enemigo: EnemigoMundo) -> void:
+	if enemigo.enemy_data == null:
+		push_error("Generador: el enemigo no tiene EnemyData.")
+		return
+	
+	if not is_instance_valid(jugador):
+		push_error("Generador: falta la referencia al jugador.")
+		return
+
+	if enemigo.enemy_data.escena_combate == null:
+		push_error(
+			"Generador: %s no tiene escena de combate." %
+			enemigo.enemy_data.nombre
+		)
+		return
+
+	GameManager.preparar_encuentro(
+		enemigo.enemy_data,
+		zona_id,
+		enemigo.enemigo_id,
+		jugador.global_position
+	)
+
+
+	print("Zona: ", GameManager.zona_id_encuentro)
+	print("Enemigo: ", GameManager.enemigo_id_encuentro)
+	print("Posición jugador: ", GameManager.posicion_jugador_encuentro)
+
+	SceneManager.change_scene(SceneManager.SceneID.BATALLA)

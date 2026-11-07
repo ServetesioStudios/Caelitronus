@@ -37,6 +37,11 @@ const MAZOS_INICIALES := {
 
 var player_data: PlayerData
 var enemy_data_encuentro: EnemyData = null
+
+var zona_id_encuentro: String = ""
+var enemigo_id_encuentro: String = ""
+var posicion_jugador_encuentro: Vector2 = Vector2.ZERO
+
 var estado_expedicion: EstadoExpedicion = EstadoExpedicion.new()
 
 enum TipoCaelius { PENA, IRA, EGO }
@@ -156,9 +161,17 @@ func crear_mazo_inicial(tipo: TipoCaelius) -> Array[CardData]:
 
 
 
-func preparar_encuentro(datos: EnemyData) -> void:
+
+func preparar_encuentro(datos: EnemyData, zona_id: String, 
+			enemigo_id: String, posicion_jugador: Vector2) -> void:
 	enemy_data_encuentro = datos
+	zona_id_encuentro = zona_id
+	enemigo_id_encuentro = enemigo_id
+	posicion_jugador_encuentro = posicion_jugador
 
 
 func limpiar_encuentro() -> void:
 	enemy_data_encuentro = null
+	zona_id_encuentro = ""
+	enemigo_id_encuentro = ""
+	posicion_jugador_encuentro = Vector2.ZERO

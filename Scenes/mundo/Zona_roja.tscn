@@ -76,7 +76,7 @@ area_id = "zona_roja_area_a"
 enemigos = Array[ExtResource("2_jo2gy")]([SubResource("Resource_f46mo"), SubResource("Resource_0ugf7")])
 
 [node name="AreaB" parent="AreasAparicion" unique_id=1242136343 instance=ExtResource("1_1crbl")]
-position = Vector2(920, 193)
+position = Vector2(170, 84)
 area_id = "zona_roja_area_b"
 enemigos = Array[ExtResource("2_jo2gy")]([SubResource("Resource_grsv5")])
 
@@ -93,11 +93,12 @@ enemy_data = ExtResource("7_lni82")
 
 [node name="EnemigosGenerados" type="Node2D" parent="." unique_id=239457790]
 
-[node name="Generador" type="Node" parent="." unique_id=1124363136 node_paths=PackedStringArray("areas_aparicion", "contenedor_enemigos")]
+[node name="Generador" type="Node" parent="." unique_id=1124363136 node_paths=PackedStringArray("areas_aparicion", "contenedor_enemigos", "jugador")]
 script = ExtResource("6_5hu1g")
 areas_aparicion = NodePath("../AreasAparicion")
 contenedor_enemigos = NodePath("../EnemigosGenerados")
 escena_enemigo_mundo = ExtResource("10_ahi8a")
+jugador = NodePath("../miniplayer")
 
 [node name="miniplayer" parent="." unique_id=61477703 instance=ExtResource("11_uc47x")]
 position = Vector2(20, 20)

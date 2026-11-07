@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://dtlvudb7gixqy" path="res://Scenes/enemy.tscn" id="1_5cn86"]
 [ext_resource type="Script" uid="uid://osjuc83k0fdx" path="res://Scripts/enemigos/enemigo_robo_vida_temporal.gd" id="2_0lwpp"]
-[ext_resource type="Resource" uid="uid://cg2pwu86xrqqy" path="res://Data/enemigos/monaguillo_oscuro.tres" id="3_18825"]
 [ext_resource type="Texture2D" uid="uid://bxpplrjonmy0k" path="res://Assets/animaciones/animacionoscuro/ataquefuerte.png" id="4_b0wmb"]
 [ext_resource type="Texture2D" uid="uid://dv65vk3ok3wwf" path="res://Assets/animaciones/animacionoscuro/blqueo.png" id="5_6wdo4"]
 [ext_resource type="Texture2D" uid="uid://bppu7imojp0mn" path="res://Assets/animaciones/animacionoscuro/daño.png" id="6_au3xn"]
@@ -181,9 +180,8 @@ script = ExtResource("2_0lwpp")
 "bonus_daño_habilidad" = 2.0
 duracion_turnos = 3
 turnos_cooldown = 5
-enemy_data = ExtResource("3_18825")
 
-[node name="Animador" parent="." index="3" node_paths=PackedStringArray("sprite")]
+[node name="Animador" parent="." index="3" unique_id=1767477017 node_paths=PackedStringArray("sprite")]
 position = Vector2(141, 182)
 sprite_frames = SubResource("SpriteFrames_m0cf5")
 sprite = NodePath(".")

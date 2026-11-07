@@ -472,6 +472,31 @@ func _on_combate_terminado(
 	victoria: bool
 ) -> void:
 
+
+	if victoria and GameManager.enemy_data_encuentro != null:
+		var zona_id: String = GameManager.zona_id_encuentro
+		var enemigo_id: String = GameManager.enemigo_id_encuentro
+
+		if zona_id.is_empty() or enemigo_id.is_empty():
+			push_error("Batalla: faltan datos del encuentro para regresar al mundo.")
+			return
+
+		var registrado := GameManager.estado_expedicion.marcar_enemigo_derrotado(
+			zona_id,
+			enemigo_id
+		)
+
+		if not registrado:
+			push_error("Batalla: no se pudo registrar al enemigo derrotado.")
+			return
+
+		GameManager.player_data.hp_actual = player.max_hp
+		GameManager.guardar_partida()
+
+		SceneManager.change_scene(SceneManager.SceneID.ZONA_ROJA)
+		return
+
+
 	if victoria:
 		#Si queremos después agregar que se cure fuera de combate: GameManager.player_data.hp_actual = player.hp
 		GameManager.player_data.hp_actual = player.max_hp 
@@ -491,3 +516,32 @@ func _on_combate_terminado(
 		victoria,
 		es_ultimo_combate
 	)
+	
+	
+# ============================================================
+# DEBUG
+# ============================================================
+	
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not OS.is_debug_build():
+		return
+
+	if event.is_action_pressed("debug_victoria") and not event.is_echo():
+		get_viewport().set_input_as_handled()
+		print("DEBUG: victoria forzada")
+		_forzar_victoria_debug()
+
+
+func _forzar_victoria_debug() -> void:
+	if combat_manager.estado == CombatManager.Estado.VICTORIA \
+	or combat_manager.estado == CombatManager.Estado.DERROTA:
+		return
+
+	if not is_instance_valid(enemy):
+		push_warning("DEBUG: no hay enemigo válido.")
+		return
+
+	enemy.hp = 0
+	enemy.actualizar_barra_vida()
+
+	combat_manager.verificar_fin_combate()
