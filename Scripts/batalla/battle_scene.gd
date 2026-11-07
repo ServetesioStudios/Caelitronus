@@ -522,6 +522,7 @@ func _on_combate_terminado(
 # DEBUG
 # ============================================================
 	
+
 func _unhandled_key_input(event: InputEvent) -> void:
 	if not OS.is_debug_build():
 		return
@@ -530,6 +531,11 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		print("DEBUG: victoria forzada")
 		_forzar_victoria_debug()
+
+	elif event.is_action_pressed("debug_derrota") and not event.is_echo():
+		get_viewport().set_input_as_handled()
+		print("DEBUG: derrota forzada")
+		_forzar_derrota_debug()
 
 
 func _forzar_victoria_debug() -> void:
@@ -543,5 +549,21 @@ func _forzar_victoria_debug() -> void:
 
 	enemy.hp = 0
 	enemy.actualizar_barra_vida()
+
+	combat_manager.verificar_fin_combate()
+
+
+
+func _forzar_derrota_debug() -> void:
+	if combat_manager.estado == CombatManager.Estado.VICTORIA \
+	or combat_manager.estado == CombatManager.Estado.DERROTA:
+		return
+
+	if not is_instance_valid(player):
+		push_warning("DEBUG: no hay jugador válido.")
+		return
+
+	player.hp = 0
+	player.actualizar_barra_vida()
 
 	combat_manager.verificar_fin_combate()

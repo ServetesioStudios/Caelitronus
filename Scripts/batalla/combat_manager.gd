@@ -27,16 +27,30 @@ func iniciar_combate(p: CombatEntity, e: Array[Enemy]) -> void:
 
 
 func es_turno_jugador() -> bool:
-	if not is_instance_valid(player) or player.hp <= 0:
-		return estado == Estado.DERROTA
-	return estado == Estado.TURNO_JUGADOR
-	
+	return (
+		estado == Estado.TURNO_JUGADOR
+		and is_instance_valid(player)
+		and player.hp > 0
+	)
+
+
 func _iniciar_turno_jugador() -> void:
+	if estado == Estado.VICTORIA or estado == Estado.DERROTA:
+		return
+
+	if not is_instance_valid(player):
+		push_error("CombatManager: jugador inválido al iniciar turno.")
+		return
+
 	estado = Estado.TURNO_JUGADOR
 	player.procesar_estados()
+
 	if _verificar_fin_combate():
 		return
+
 	turno_jugador_iniciado.emit()
+
+
 	
 func finalizar_turno_jugador() -> void:
 	if estado != Estado.TURNO_JUGADOR:
@@ -50,22 +64,42 @@ func _iniciar_turno_enemigo() -> void:
 	turno_enemigo_iniciado.emit()
 	await _ejecutar_turno_enemigo()
 
+
+
 func _ejecutar_turno_enemigo() -> void:
 	for enemigo in enemigos:
+		if estado != Estado.TURNO_ENEMIGO:
+			return
+
 		if not is_instance_valid(enemigo) or enemigo.hp <= 0:
 			continue
 
 		enemigo.procesar_estados()
-		if enemigo.hp <= 0:
-			if _verificar_fin_combate():
-				return
-			continue
-		await _ejecutar_accion_enemigo(enemigo)
+
 		if _verificar_fin_combate():
 			return
-		_actualizar_intencion(enemigo)
+
+		if enemigo.hp <= 0:
+			continue
+
+		await _ejecutar_accion_enemigo(enemigo)
+
+		if not is_inside_tree() or estado != Estado.TURNO_ENEMIGO:
+			return
+
+		if _verificar_fin_combate():
+			return
+
+		if is_instance_valid(enemigo) and enemigo.hp > 0:
+			_actualizar_intencion(enemigo)
+
+	if estado != Estado.TURNO_ENEMIGO:
+		return
+
 	if not _verificar_fin_combate():
 		_iniciar_turno_jugador()
+
+
 
 func _actualizar_intencion(enemigo: Enemy) -> void:
 	enemigo.decidir_intencion()
@@ -131,13 +165,18 @@ func _calcular_daño_enemigo(atacante: CombatEntity, defensor: CombatEntity) -> 
 func verificar_fin_combate() -> bool:
 	return _verificar_fin_combate()
 
+
 func _verificar_fin_combate() -> bool:
+	if estado == Estado.VICTORIA or estado == Estado.DERROTA:
+		return true
+
 	if is_instance_valid(player) and player.hp <= 0:
 		estado = Estado.DERROTA
 		combate_terminado.emit(false)
 		return true
 
 	var alguno_vivo := false
+
 	for enemigo in enemigos:
 		if is_instance_valid(enemigo) and enemigo.hp > 0:
 			alguno_vivo = true
@@ -147,4 +186,5 @@ func _verificar_fin_combate() -> bool:
 		estado = Estado.VICTORIA
 		combate_terminado.emit(true)
 		return true
+
 	return false
