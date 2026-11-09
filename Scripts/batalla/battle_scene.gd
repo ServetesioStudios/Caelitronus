@@ -506,18 +506,15 @@ func _on_combate_terminado(victoria: bool) -> void:
 		SceneManager.change_scene(SceneManager.SceneID.ZONA_ROJA)
 		return
 
+	
 	if victoria:
-		GameManager.player_data.hp_actual = player.max_hp
-		GameManager.guardar_partida()
+		push_warning("Batalla: victoria sin encuentro de mundo registrado.")
+		return
 
-	var overlay = SceneManager.add_overlay(
+	SceneManager.add_overlay(
 		SceneManager.SceneID.FIN_PARTIDA,
 		$CanvasLayer
 	)
-
-	var es_ultimo_combate = GameManager.combate_actual_es_ultimo()
-
-	overlay.configurar(victoria, es_ultimo_combate)
 
 	
 # ============================================================
