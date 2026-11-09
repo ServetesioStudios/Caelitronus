@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bwcqpjd6438sc" path="res://Scenes/enemigos/monaguillo_oscuro.tscn" id="1_dijqb"]
 [ext_resource type="Script" uid="uid://5uw7jpiqmd43" path="res://Scripts/data/enemy_data.gd" id="1_t0vnl"]
+[ext_resource type="SpriteFrames" uid="uid://x307pubisr3i" path="res://Assets/animaciones/SpriteFrames/Monaguillos/monaguillo_oscuro_frames.tres" id="3_bnb2t"]
 [ext_resource type="Script" uid="uid://3jdy5elvqaqm" path="res://Scripts/data/stats.gd" id="3_j2tl8"]
 
 [sub_resource type="Resource" id="Resource_o206c"]
@@ -20,4 +21,6 @@ id = &"monaguillo_oscuro"
 nombre = "Monaguillo Oscuro"
 stats = SubResource("Resource_o206c")
 escena_combate = ExtResource("1_dijqb")
+sprite_frames_mundo = ExtResource("3_bnb2t")
+escala_mundo = 0.1
 metadata/_custom_type_script = "uid://5uw7jpiqmd43"

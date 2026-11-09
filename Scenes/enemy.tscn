@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://crlis0e7fcf4e" path="res://Assets/ui/lifeGaugeAlpha.png" id="2_wfprl"]
 [ext_resource type="Texture2D" uid="uid://cv6wcbyj6ymdy" path="res://Assets/ui/lifeGaugeLlen.png" id="3_3frmn"]
 [ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="5_0830c"]
-[ext_resource type="Script" uid="uid://vrkdj3l7poq7" path="res://Scripts/AnimadorPersonaje.gd" id="6_ghaa6"]
+[ext_resource type="Script" uid="uid://vrkdj3l7poq7" path="res://Scripts/animador_personaje.gd" id="6_ghaa6"]
 [ext_resource type="Texture2D" uid="uid://l3giih32665u" path="res://Assets/Icons/Escudo.png" id="7_1dp5w"]
 
 [sub_resource type="Animation" id="Animation_2tsnu"]

@@ -15,6 +15,8 @@ var jugador_en_rango: bool = false
 @onready var area_interaccion: Area2D = $AreaInteraccion
 @onready var area_clic: Area2D = $AreaClic
 @onready var indicador_interaccion: Label = $IndicadorInteraccion
+@onready var visual: AnimatedSprite2D = $Visual
+
 
 
 func _ready() -> void:
@@ -25,11 +27,42 @@ func _ready() -> void:
 	
 
 
+
 func configurar(datos: EnemyData, id: String, esta_derrotado: bool = false) -> void:
+	if datos == null:
+		push_error("EnemigoMundo: EnemyData no puede ser null.")
+		return
+
 	enemy_data = datos
 	enemigo_id = id
 	derrotado = esta_derrotado
 	name = datos.nombre
+
+	configurar_visual()
+
+
+func configurar_visual() -> void:
+	visual.stop()
+
+	if enemy_data.sprite_frames_mundo == null:
+		visual.sprite_frames = null
+		push_warning(
+			"EnemigoMundo: %s no tiene SpriteFrames de mundo." %
+			enemy_data.nombre
+		)
+		return
+
+	visual.sprite_frames = enemy_data.sprite_frames_mundo
+	visual.scale = Vector2.ONE * enemy_data.escala_mundo
+
+	if visual.sprite_frames.has_animation("idle"):
+		visual.play("idle")
+	else:
+		push_warning(
+			"EnemigoMundo: %s no tiene animación idle." %
+			enemy_data.nombre
+		)
+
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:

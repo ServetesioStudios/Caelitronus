@@ -31,3 +31,20 @@ func marcar_enemigo_derrotado(zona_id: String, enemigo_id: String) -> bool:
 
 	push_warning("EstadoExpedicion: enemigo no encontrado: %s" % enemigo_id)
 	return false
+	
+
+
+func todos_enemigos_derrotados(zona_id: String) -> bool:
+	if not zona_generada(zona_id):
+		return false
+
+	var enemigos: Array = enemigos_por_zona[zona_id]
+
+	if enemigos.is_empty():
+		return false
+
+	for enemigo in enemigos:
+		if not enemigo.get("derrotado", false):
+			return false
+
+	return true

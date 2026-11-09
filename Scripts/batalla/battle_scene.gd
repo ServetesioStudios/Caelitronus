@@ -468,11 +468,7 @@ func _on_accion_enemigo_realizada(
 		descripcion
 	)
 
-func _on_combate_terminado(
-	victoria: bool
-) -> void:
-
-
+func _on_combate_terminado(victoria: bool) -> void:
 	if victoria and GameManager.enemy_data_encuentro != null:
 		var zona_id: String = GameManager.zona_id_encuentro
 		var enemigo_id: String = GameManager.enemigo_id_encuentro
@@ -489,6 +485,14 @@ func _on_combate_terminado(
 		if not registrado:
 			push_error("Batalla: no se pudo registrar al enemigo derrotado.")
 			return
+			
+		var zona_despejada := GameManager.estado_expedicion.todos_enemigos_derrotados(zona_id)
+
+		if zona_despejada:
+			print("DEBUG: zona despejada: ", zona_id)
+		else:
+			print("DEBUG: todavía quedan enemigos en ", zona_id)
+
 
 		GameManager.player_data.hp_actual = player.max_hp
 		GameManager.guardar_partida()
@@ -498,7 +502,6 @@ func _on_combate_terminado(
 
 
 	if victoria:
-		#Si queremos después agregar que se cure fuera de combate: GameManager.player_data.hp_actual = player.hp
 		GameManager.player_data.hp_actual = player.max_hp 
 		GameManager.guardar_partida()
 

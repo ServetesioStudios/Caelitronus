@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dhd7iecexs0bb" path="res://Scenes/enemigos/monaguillo_sagrado.tscn" id="1_e15aq"]
 [ext_resource type="Script" uid="uid://5uw7jpiqmd43" path="res://Scripts/data/enemy_data.gd" id="1_khx7f"]
+[ext_resource type="SpriteFrames" uid="uid://ccu0dv3akcdm3" path="res://Assets/animaciones/SpriteFrames/Monaguillos/monaguillo_sagrado_frames.tres" id="3_f67lu"]
 [ext_resource type="Script" uid="uid://3jdy5elvqaqm" path="res://Scripts/data/stats.gd" id="3_u5ler"]
 
 [sub_resource type="Resource" id="Resource_20tst"]
@@ -20,4 +21,6 @@ id = &"monaguillo_sagrado"
 nombre = "Monaguillo Sagrado"
 stats = SubResource("Resource_20tst")
 escena_combate = ExtResource("1_e15aq")
+sprite_frames_mundo = ExtResource("3_f67lu")
+escala_mundo = 0.1
 metadata/_custom_type_script = "uid://5uw7jpiqmd43"

@@ -2,6 +2,14 @@
 
 [ext_resource type="Script" uid="uid://cu7iwnentjgpv" path="res://Scripts/mundo/enemigo_mundo.gd" id="1_yu38o"]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_l1myo"]
+animations = [{
+"frames": [],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_l1myo"]
 radius = 32.0
 
@@ -14,9 +22,9 @@ font_size = 10
 [node name="EnemigoMundo" type="Node2D" unique_id=1139138637]
 script = ExtResource("1_yu38o")
 
-[node name="Visual" type="Polygon2D" parent="." unique_id=1751969689]
-color = Color(0.9019608, 0.3019608, 0.3019608, 1)
-polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+[node name="Visual" type="AnimatedSprite2D" parent="." unique_id=755997310]
+sprite_frames = SubResource("SpriteFrames_l1myo")
+animation = &"idle"
 
 [node name="AreaInteraccion" type="Area2D" parent="." unique_id=2116327727]
 

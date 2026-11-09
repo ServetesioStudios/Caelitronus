@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://5uw7jpiqmd43" path="res://Scripts/data/enemy_data.gd" id="1_op4wl"]
 [ext_resource type="PackedScene" uid="uid://cuyai5td2vp8s" path="res://Scenes/enemigos/monaguillo_lazaro.tscn" id="1_qro0k"]
+[ext_resource type="SpriteFrames" uid="uid://cv6xbja16t5m6" path="res://Assets/animaciones/SpriteFrames/Monaguillos/monaguillo_lazaro_frames.tres" id="3_wirxk"]
 [ext_resource type="Script" uid="uid://3jdy5elvqaqm" path="res://Scripts/data/stats.gd" id="3_xkipm"]
 
 [sub_resource type="Resource" id="Resource_ms847"]
@@ -16,4 +17,6 @@ id = &"monaguillo_lazaro"
 nombre = "Monaguillo Lazaro"
 stats = SubResource("Resource_ms847")
 escena_combate = ExtResource("1_qro0k")
+sprite_frames_mundo = ExtResource("3_wirxk")
+escala_mundo = 0.1
 metadata/_custom_type_script = "uid://5uw7jpiqmd43"

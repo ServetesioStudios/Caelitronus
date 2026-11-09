@@ -11,9 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://dngg6jd3gctni" path="res://Assets/animaciones/animacionfausedefe/daño.png" id="7_gymyn"]
 [ext_resource type="Texture2D" uid="uid://detr264eer0vq" path="res://Assets/animaciones/animacionfausedefe/energia.png" id="8_pu2lt"]
 [ext_resource type="Texture2D" uid="uid://bbt1gp4x270ck" path="res://Assets/BttlSprit/fauseego.png" id="10_7dp3o"]
-[ext_resource type="Script" uid="uid://vrkdj3l7poq7" path="res://Scripts/AnimadorPersonaje.gd" id="10_tx1dd"]
+[ext_resource type="Script" uid="uid://vrkdj3l7poq7" path="res://Scripts/animador_personaje.gd" id="10_tx1dd"]
 [ext_resource type="Texture2D" uid="uid://bwvo001txkcjj" path="res://Assets/BttlSprit/fauseira.png" id="11_h4iuc"]
 [ext_resource type="Texture2D" uid="uid://l3giih32665u" path="res://Assets/Icons/Escudo.png" id="12_pu2lt"]
+
 
 
 [sub_resource type="LabelSettings" id="LabelSettings_ukyrk"]

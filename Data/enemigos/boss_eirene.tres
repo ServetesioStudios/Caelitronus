@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://cawjn1ooikn1j"]
 
+[ext_resource type="PackedScene" uid="uid://b3qj4n135uja7" path="res://Scenes/enemigos/boss_eirene.tscn" id="1_3vbev"]
 [ext_resource type="Script" uid="uid://5uw7jpiqmd43" path="res://Scripts/data/enemy_data.gd" id="1_hvp8u"]
 [ext_resource type="Script" uid="uid://3jdy5elvqaqm" path="res://Scripts/data/stats.gd" id="2_e7jni"]
 
@@ -14,6 +15,8 @@ metadata/_custom_type_script = "uid://3jdy5elvqaqm"
 
 [resource]
 script = ExtResource("1_hvp8u")
+id = &"boss_eirene"
 nombre = "Eirene Koryphé"
 stats = SubResource("Resource_e7jni")
+escena_combate = ExtResource("1_3vbev")
 metadata/_custom_type_script = "uid://5uw7jpiqmd43"

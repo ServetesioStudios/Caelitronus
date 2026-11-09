@@ -1,7 +1,6 @@
 extends Control
 
 @export var theme_data: UIThemeData
-#@export var audio_library: AudioLibrary
 
 @onready var btn_continuar = $menubotones/btncontinuar
 @onready var botones = $menubotones.get_children()
