@@ -2,6 +2,8 @@ extends RefCounted
 class_name EstadoExpedicion
 
 var enemigos_por_zona: Dictionary = {}
+var jefes_derrotados_por_zona: Dictionary = {}
+
 
 
 func guardar_enemigos(zona_id: String, enemigos: Array) -> void:
@@ -48,3 +50,26 @@ func todos_enemigos_derrotados(zona_id: String) -> bool:
 			return false
 
 	return true
+	
+
+
+func jefe_derrotado(zona_id: String, jefe_id: String) -> bool:
+	if jefe_id.strip_edges().is_empty():
+		push_error("EstadoExpedicion: no se puede consultar un jefe sin ID.")
+		return false
+		
+	var jefes: Dictionary = jefes_derrotados_por_zona.get(zona_id, {})
+	return jefes.get(jefe_id, false)
+
+
+func marcar_jefe_derrotado(zona_id: String, jefe_id: String) -> void:
+	if jefe_id.strip_edges().is_empty():
+		push_error("EstadoExpedicion: no se puede marcar un jefe derrotado sin ID.")
+		return
+	
+	if not jefes_derrotados_por_zona.has(zona_id):
+		jefes_derrotados_por_zona[zona_id] = {}
+
+	jefes_derrotados_por_zona[zona_id][jefe_id] = true
+
+	print("EstadoExpedicion: jefe derrotado: ", jefe_id)

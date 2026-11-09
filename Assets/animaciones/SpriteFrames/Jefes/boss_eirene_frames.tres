@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://n53br8quq5fm"]
+
+[ext_resource type="Texture2D" uid="uid://dg0palog6hmva" path="res://Assets/BttlSprit/Artemisia.png" id="1_jkapb"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_jkapb")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]

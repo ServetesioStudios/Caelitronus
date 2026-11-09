@@ -468,31 +468,37 @@ func _on_accion_enemigo_realizada(
 		descripcion
 	)
 
+
 func _on_combate_terminado(victoria: bool) -> void:
 	if victoria and GameManager.enemy_data_encuentro != null:
 		var zona_id: String = GameManager.zona_id_encuentro
 		var enemigo_id: String = GameManager.enemigo_id_encuentro
 
 		if zona_id.is_empty() or enemigo_id.is_empty():
-			push_error("Batalla: faltan datos del encuentro para regresar al mundo.")
+			push_error("Batalla: faltan datos del encuentro.")
 			return
 
-		var registrado := GameManager.estado_expedicion.marcar_enemigo_derrotado(
-			zona_id,
-			enemigo_id
-		)
+		match GameManager.tipo_encuentro:
+			GameManager.TipoEncuentro.NORMAL:
+				var registrado := GameManager.estado_expedicion.marcar_enemigo_derrotado(
+					zona_id,
+					enemigo_id
+				)
 
-		if not registrado:
-			push_error("Batalla: no se pudo registrar al enemigo derrotado.")
-			return
-			
-		var zona_despejada := GameManager.estado_expedicion.todos_enemigos_derrotados(zona_id)
+				if not registrado:
+					push_error("Batalla: no se pudo registrar al enemigo derrotado.")
+					return
 
-		if zona_despejada:
-			print("DEBUG: zona despejada: ", zona_id)
-		else:
-			print("DEBUG: todavía quedan enemigos en ", zona_id)
+				if GameManager.estado_expedicion.todos_enemigos_derrotados(zona_id):
+					print("Batalla: zona despejada: ", zona_id)
 
+			GameManager.TipoEncuentro.JEFE:
+				GameManager.estado_expedicion.marcar_jefe_derrotado(
+					zona_id,
+					enemigo_id
+				)
+
+				print("Batalla: jefe derrotado: ", enemigo_id)
 
 		GameManager.player_data.hp_actual = player.max_hp
 		GameManager.guardar_partida()
@@ -500,26 +506,19 @@ func _on_combate_terminado(victoria: bool) -> void:
 		SceneManager.change_scene(SceneManager.SceneID.ZONA_ROJA)
 		return
 
-
 	if victoria:
-		GameManager.player_data.hp_actual = player.max_hp 
+		GameManager.player_data.hp_actual = player.max_hp
 		GameManager.guardar_partida()
-
 
 	var overlay = SceneManager.add_overlay(
 		SceneManager.SceneID.FIN_PARTIDA,
 		$CanvasLayer
 	)
 
-	var es_ultimo_combate = (
-		GameManager.combate_actual_es_ultimo()
-	)
+	var es_ultimo_combate = GameManager.combate_actual_es_ultimo()
 
-	overlay.configurar(
-		victoria,
-		es_ultimo_combate
-	)
-	
+	overlay.configurar(victoria, es_ultimo_combate)
+
 	
 # ============================================================
 # DEBUG

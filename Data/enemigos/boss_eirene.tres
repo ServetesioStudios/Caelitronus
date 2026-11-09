@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b3qj4n135uja7" path="res://Scenes/enemigos/boss_eirene.tscn" id="1_3vbev"]
 [ext_resource type="Script" uid="uid://5uw7jpiqmd43" path="res://Scripts/data/enemy_data.gd" id="1_hvp8u"]
 [ext_resource type="Script" uid="uid://3jdy5elvqaqm" path="res://Scripts/data/stats.gd" id="2_e7jni"]
+[ext_resource type="SpriteFrames" uid="uid://n53br8quq5fm" path="res://Assets/animaciones/SpriteFrames/Jefes/boss_eirene_frames.tres" id="3_1wmxc"]
 
 [sub_resource type="Resource" id="Resource_e7jni"]
 script = ExtResource("2_e7jni")
@@ -19,4 +20,6 @@ id = &"boss_eirene"
 nombre = "Eirene Koryphé"
 stats = SubResource("Resource_e7jni")
 escena_combate = ExtResource("1_3vbev")
+sprite_frames_mundo = ExtResource("3_1wmxc")
+escala_mundo = 0.1
 metadata/_custom_type_script = "uid://5uw7jpiqmd43"

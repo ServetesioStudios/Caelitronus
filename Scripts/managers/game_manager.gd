@@ -2,24 +2,23 @@ extends Node
 
 const SAVE_PATH := "user://save.tres"
 
-
 const STATS_PATHS := {
 	TipoCaelius.PENA: "res://Data/characters/stats_pena.tres",
 	TipoCaelius.IRA: "res://Data/characters/stats_ira.tres",
 	TipoCaelius.EGO: "res://Data/characters/stats_ego.tres",
 }
 
-const CANTIDAD_MONAGUILLOS_POR_RUN := 2
-const MONAGUILLOS :  Array[String] = [
-	"res://Scenes/enemigos/monaguillo_sagrado.tscn",
-	"res://Scenes/enemigos/monaguillo_oscuro.tscn",
-	"res://Scenes/enemigos/monaguillo_lazaro.tscn",
-]
-
-const ESCENAS_JEFES := {
-	Jefe.ESPINA: "res://Scenes/enemigos/boss_padre_espina.tscn",
-	Jefe.EIRENE: "res://Scenes/enemigos/boss_eirene.tscn"
-}
+#const CANTIDAD_MONAGUILLOS_POR_RUN := 2
+#const MONAGUILLOS :  Array[String] = [
+	#"res://Scenes/enemigos/monaguillo_sagrado.tscn",
+	#"res://Scenes/enemigos/monaguillo_oscuro.tscn",
+	#"res://Scenes/enemigos/monaguillo_lazaro.tscn",
+#]
+#
+#const ESCENAS_JEFES := {
+	#Jefe.ESPINA: "res://Scenes/enemigos/boss_padre_espina.tscn",
+	#Jefe.EIRENE: "res://Scenes/enemigos/boss_eirene.tscn"
+#}
 
 const MAZOS_INICIALES := {
 	TipoCaelius.IRA: {
@@ -47,8 +46,13 @@ var estado_expedicion: EstadoExpedicion = EstadoExpedicion.new()
 enum TipoCaelius { PENA, IRA, EGO }
 enum Jefe { ESPINA, SERPICO, EIRENE, CORVUS, GALAAD, KAPPARAH }
 
-var jefe_seleccionado: Jefe = Jefe.ESPINA
+enum TipoEncuentro {
+	NORMAL,
+	JEFE
+}
 
+#var jefe_seleccionado: Jefe = Jefe.ESPINA
+var tipo_encuentro: TipoEncuentro = TipoEncuentro.NORMAL
 var secuencia_combates: Array[String] = []
 var combate_actual: int = 1
 
@@ -75,7 +79,7 @@ func iniciar_nueva_partida(tipo: TipoCaelius) -> void:
 	estado_expedicion = EstadoExpedicion.new()
 	
 	limpiar_encuentro()
-	iniciar_secuencia_combates()
+	#iniciar_secuencia_combates()
 	guardar_partida()
 	
 func hay_partida_guardada() -> bool:
@@ -115,32 +119,32 @@ func marcar_jefe_derrotado(id: Jefe) -> void:
 	player_data.jefes_derrotados[id] = true
 	guardar_partida()
 
-func avanzar_combate() -> void: 
-	combate_actual += 1
+#func avanzar_combate() -> void: 
+	#combate_actual += 1
 	
-func reiniciar_secuencia_combates() -> void:
-	iniciar_secuencia_combates()
+#func reiniciar_secuencia_combates() -> void:
+#	iniciar_secuencia_combates()
 	
-func seleccionar_jefe(jefe: Jefe) -> void:
-	jefe_seleccionado = jefe
-	iniciar_secuencia_combates()
-
-func iniciar_secuencia_combates() -> void:
-	secuencia_combates.clear()
-
-	var monaguillos_mezclados := MONAGUILLOS.duplicate()
-	monaguillos_mezclados.shuffle()
-
-	secuencia_combates.append_array(monaguillos_mezclados.slice(0, CANTIDAD_MONAGUILLOS_POR_RUN))
-
-	var escena_jefe: String = ESCENAS_JEFES.get(jefe_seleccionado, "")
-
-	if escena_jefe.is_empty():
-		push_error("GameManager: no hay escena para el jefe seleccionado")
-		return
-
-	secuencia_combates.append(escena_jefe)
-	combate_actual = 1
+#func seleccionar_jefe(jefe: Jefe) -> void:
+#	jefe_seleccionado = jefe
+#	iniciar_secuencia_combates()
+#
+#func iniciar_secuencia_combates() -> void:
+	#secuencia_combates.clear()
+#
+	#var monaguillos_mezclados := MONAGUILLOS.duplicate()
+	#monaguillos_mezclados.shuffle()
+#
+	#secuencia_combates.append_array(monaguillos_mezclados.slice(0, CANTIDAD_MONAGUILLOS_POR_RUN))
+#
+	#var escena_jefe: String = ESCENAS_JEFES.get(jefe_seleccionado, "")
+#
+	#if escena_jefe.is_empty():
+		#push_error("GameManager: no hay escena para el jefe seleccionado")
+		#return
+#
+	#secuencia_combates.append(escena_jefe)
+	#combate_actual = 1
 
 func obtener_escena_enemigo_actual() -> String:
 	return secuencia_combates[combate_actual - 1]
@@ -160,14 +164,18 @@ func crear_mazo_inicial(tipo: TipoCaelius) -> Array[CardData]:
 	return mazo
 
 
-
-
-func preparar_encuentro(datos: EnemyData, zona_id: String, 
-			enemigo_id: String, posicion_jugador: Vector2) -> void:
+func preparar_encuentro(
+	datos: EnemyData,
+	zona_id: String,
+	enemigo_id: String,
+	posicion_jugador: Vector2,
+	tipo: TipoEncuentro = TipoEncuentro.NORMAL
+) -> void:
 	enemy_data_encuentro = datos
 	zona_id_encuentro = zona_id
 	enemigo_id_encuentro = enemigo_id
 	posicion_jugador_encuentro = posicion_jugador
+	tipo_encuentro = tipo
 
 
 func limpiar_encuentro() -> void:
@@ -175,3 +183,4 @@ func limpiar_encuentro() -> void:
 	zona_id_encuentro = ""
 	enemigo_id_encuentro = ""
 	posicion_jugador_encuentro = Vector2.ZERO
+	tipo_encuentro = TipoEncuentro.NORMAL

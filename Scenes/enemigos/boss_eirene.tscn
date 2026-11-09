@@ -1,19 +1,8 @@
 [gd_scene format=3 uid="uid://b3qj4n135uja7"]
 
 [ext_resource type="PackedScene" uid="uid://dtlvudb7gixqy" path="res://Scenes/enemy.tscn" id="1_l2lxy"]
-[ext_resource type="Texture2D" uid="uid://dg0palog6hmva" path="res://Assets/BttlSprit/Artemisia.png" id="2_50bl1"]
 [ext_resource type="Script" uid="uid://dk60gg4fnxhdg" path="res://Scripts/enemigos/enemigo_autocuracion_por_contador.gd" id="2_tvyqn"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_q40vs"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_50bl1")
-}],
-"loop": 1,
-"name": &"idle",
-"speed": 5.0
-}]
+[ext_resource type="SpriteFrames" uid="uid://n53br8quq5fm" path="res://Assets/animaciones/SpriteFrames/Jefes/boss_eirene_frames.tres" id="3_q40vs"]
 
 [node name="Node2D" unique_id=98256722 instance=ExtResource("1_l2lxy")]
 position = Vector2(0, 0)
@@ -23,5 +12,5 @@ porcentaje_curacion = 1.0
 
 [node name="Animador" parent="." index="3" unique_id=1767477017 node_paths=PackedStringArray("sprite")]
 position = Vector2(133, 274)
-sprite_frames = SubResource("SpriteFrames_q40vs")
+sprite_frames = ExtResource("3_q40vs")
 sprite = NodePath(".")
