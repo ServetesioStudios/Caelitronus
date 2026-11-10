@@ -6,6 +6,17 @@ var glosariotexto = ConfigFile.new()
 var glosarioid: String = ""
 
 
+const JEFES_GLOSARIO: Dictionary = {
+	"Espina": "espina",
+	"Serpico": "serpico",
+	"Eirene": "zona_roja_jefe_01",
+	"Corvus": "corvus",
+	"Galaad": "galaad",
+	"Kapparah": "kapparah"
+}
+
+
+
 func _ready():
 	for button in get_tree().get_nodes_in_group("GlosarioButton"):
 		button.pressed.connect(_on_button_pressed.bind(button.get_parent().name))
@@ -25,10 +36,19 @@ func _ready():
 		$Panel/General/ScrollContainerMaldiciones/Maldiciones/Reves/Button.disabled = true
 		$Panel/General/ScrollContainerMaldiciones/Maldiciones/Reves/Button.set_block_signals(1)
 
-	for jefe_nombre in GameManager.Jefe.keys():
-		var jefe_id = GameManager.Jefe[jefe_nombre]
-		if not GameManager.es_jefe_derrotado(jefe_id):
-			ocultar(jefe_nombre.capitalize())	
+	
+	for jefe_nombre in JEFES_GLOSARIO:
+		var jefe_id: String = JEFES_GLOSARIO[jefe_nombre]
+		var derrotado := false
+
+		for zona_id in GameManager.estado_expedicion.jefes_derrotados_por_zona:
+			if GameManager.estado_expedicion.jefe_derrotado(zona_id, jefe_id):
+				derrotado = true
+				break
+
+		if not derrotado:
+			ocultar(jefe_nombre)
+
 		
 func ocultar(nombre):
 	$Panel/General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/TextureRect").modulate = Color()

@@ -1,3 +1,4 @@
+
 extends Node
 
 enum SceneID {
@@ -11,8 +12,9 @@ enum SceneID {
 	CREDITOS,
 	GLOSARIO,
 	FIN_PARTIDA,
-	SALIR, 
-	ZONA_ROJA
+	SALIR,
+	ZONA_ROJA,
+	FIN_ZONA
 }
 
 const SCENE_PATHS := {
@@ -25,37 +27,44 @@ const SCENE_PATHS := {
 	SceneID.CREDITOS: "res://Scenes/menus/creditos.tscn",
 	SceneID.SALIR: "res://Scenes/menus/salir.tscn",
 	SceneID.SUBIR_NIVEL: "res://Scenes/subir_nivel.tscn",
-	SceneID.GLOSARIO: "res://Scenes/menus/glosario.tscn", 
+	SceneID.GLOSARIO: "res://Scenes/menus/glosario.tscn",
 	SceneID.FIN_PARTIDA: "res://Scenes/menus/fin_partida.tscn",
 	SceneID.ZONA_ROJA: "res://Scenes/mundo/Zona_roja.tscn",
+	SceneID.FIN_ZONA: "res://Scenes/menus/fin_zona.tscn",
 }
+
 
 func change_scene(id: SceneID) -> void:
 	var path: String = SCENE_PATHS.get(id, "")
+
 	if path == "":
 		push_error("SceneManager: no hay path registrado para el ID %s" % SceneID.keys()[id])
 		return
-	
+
 	var err := get_tree().change_scene_to_file(path)
+
 	if err != OK:
 		push_error("SceneManager: fallo al cargar %s (error %s)" % [path, err])
-		
+
+
 func add_overlay(id: SceneID, parent: Node) -> Node:
 	var path: String = SCENE_PATHS.get(id, "")
+
 	if path == "":
 		push_error("SceneManager: no hay path registrado para el ID %s" % SceneID.keys()[id])
 		return null
 
 	var scene_resource: PackedScene = load(path)
-	
+
 	if scene_resource == null:
 		push_error("SceneManager: fallo al cargar %s" % path)
 		return null
-		
+
 	for child in parent.get_children():
 		if child.scene_file_path == path:
-			return child 
+			return child
 
 	var instance := scene_resource.instantiate()
 	parent.add_child(instance)
+
 	return instance

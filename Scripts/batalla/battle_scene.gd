@@ -491,9 +491,21 @@ func _on_combate_terminado(victoria: bool) -> void:
 		GameManager.player_data.hp_actual = player.max_hp
 		GameManager.guardar_partida()
 
+		if GameManager.tipo_encuentro == GameManager.TipoEncuentro.JEFE:
+			var pantalla_final = SceneManager.add_overlay(
+				SceneManager.SceneID.FIN_PARTIDA,
+				$CanvasLayer
+			)
+
+			if pantalla_final != null:
+				pantalla_final.configurar(
+					pantalla_final.TipoFinal.CONTINUARA
+				)
+
+			return
+
 		SceneManager.change_scene(SceneManager.SceneID.ZONA_ROJA)
 		return
-
 	
 	if victoria:
 		push_warning("Batalla: victoria sin encuentro de mundo registrado.")

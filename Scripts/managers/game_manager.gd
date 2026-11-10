@@ -33,7 +33,6 @@ const MAZOS_INICIALES := {
 
 
 enum TipoCaelius { PENA, IRA, EGO }
-enum Jefe { ESPINA, SERPICO, EIRENE, CORVUS, GALAAD, KAPPARAH }
 enum TipoEncuentro { NORMAL, JEFE }
 
 
@@ -125,24 +124,6 @@ func borrar_partida() -> void:
 			return
 
 	player_data = null
-
-
-# PROGRESO PERMANENTE DE JEFES
-# Conservar hasta revisar las referencias externas.
-
-func es_jefe_derrotado(id: int) -> bool:
-	if player_data == null:
-		return false
-
-	return player_data.jefes_derrotados.get(id, false)
-
-
-func marcar_jefe_derrotado(id: Jefe) -> void:
-	if player_data == null:
-		return
-
-	player_data.jefes_derrotados[id] = true
-	guardar_partida()
 
 
 # MAZO INICIAL
