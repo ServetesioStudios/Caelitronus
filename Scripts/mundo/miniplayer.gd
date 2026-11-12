@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export var sprites_pena: SpriteFrames
 @export var sprites_ego: SpriteFrames
 
-var speed = 100.0
+var speed := 100.0
 var last_direction = "down"
 
 @onready var animated_sprite = $AnimatedSprite2D

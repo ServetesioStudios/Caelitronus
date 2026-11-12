@@ -4,7 +4,7 @@
 [ext_resource type="SpriteFrames" uid="uid://72uoy0udyu70" path="res://Assets/animaciones/SpriteFrames/Caelius/ira_sprite_frames.tres" id="2_gktca"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_60o6i"]
-size = Vector2(18, 31)
+size = Vector2(15, 30)
 
 [node name="miniplayer" type="CharacterBody2D" unique_id=61477703]
 script = ExtResource("1_y6mxk")
