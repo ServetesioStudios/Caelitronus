@@ -94,4 +94,4 @@ func seleccionar_personaje(tipo: GameManager.TipoCaelius) -> void:
 
 func _on_btn_seleccionar_pressed() -> void:
 	GameManager.iniciar_nueva_partida(personaje_actual)
-	SceneManager.change_scene(SceneManager.SceneID.ZONA_ROJA)
+	SceneManager.change_scene(SceneManager.SceneID.ZONA_EIRENE)

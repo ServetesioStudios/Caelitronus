@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://0au6a5l8eie0" path="res://Scripts/mundo/miniplayer.gd" id="1_y6mxk"]
 [ext_resource type="SpriteFrames" uid="uid://72uoy0udyu70" path="res://Assets/animaciones/SpriteFrames/Caelius/ira_sprite_frames.tres" id="2_gktca"]
+[ext_resource type="SpriteFrames" uid="uid://c3gaekhmc3b38" path="res://Assets/animaciones/SpriteFrames/Caelius/pena_sprite_frames.tres" id="3_2se86"]
+[ext_resource type="SpriteFrames" uid="uid://d1mrw7ktddvkm" path="res://Assets/animaciones/SpriteFrames/Caelius/ego_sprite_frames.tres" id="3_jainw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_60o6i"]
 size = Vector2(15, 30)
@@ -9,9 +11,11 @@ size = Vector2(15, 30)
 [node name="miniplayer" type="CharacterBody2D" unique_id=61477703]
 script = ExtResource("1_y6mxk")
 sprites_ira = ExtResource("2_gktca")
+sprites_pena = ExtResource("3_2se86")
+sprites_ego = ExtResource("3_jainw")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=373364385]
-zoom = Vector2(2, 2)
+zoom = Vector2(2.5, 2.5)
 limit_left = 0
 limit_top = 0
 limit_right = 2048
@@ -19,9 +23,8 @@ limit_bottom = 1536
 position_smoothing_enabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=337142517]
-sprite_frames = ExtResource("2_gktca")
-animation = &"idle_right"
-autoplay = "idle_down"
+sprite_frames = ExtResource("3_2se86")
+animation = &"walk_up"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=482280125]
 position = Vector2(1, 0.5)

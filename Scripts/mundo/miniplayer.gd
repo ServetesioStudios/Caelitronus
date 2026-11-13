@@ -14,7 +14,7 @@ func _ready() -> void:
 	configurar_apariencia()
 
 func configurar_apariencia() -> void:
-	var sprites_seleccionados: SpriteFrames = sprites_ira #temporal, hasta tener sprites de todos los caelius
+	var sprites_seleccionados: SpriteFrames 
 
 	match GameManager.player_data.tipo_caelius:
 		GameManager.TipoCaelius.PENA:

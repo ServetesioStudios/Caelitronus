@@ -504,7 +504,7 @@ func _on_combate_terminado(victoria: bool) -> void:
 
 			return
 
-		SceneManager.change_scene(SceneManager.SceneID.ZONA_ROJA)
+		SceneManager.change_scene(SceneManager.SceneID.ZONA_EIRENE)
 		return
 	
 	if victoria:

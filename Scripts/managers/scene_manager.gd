@@ -13,7 +13,7 @@ enum SceneID {
 	GLOSARIO,
 	FIN_PARTIDA,
 	SALIR,
-	ZONA_ROJA,
+	ZONA_EIRENE,
 	FIN_ZONA
 }
 
@@ -29,7 +29,7 @@ const SCENE_PATHS := {
 	SceneID.SUBIR_NIVEL: "res://Scenes/subir_nivel.tscn",
 	SceneID.GLOSARIO: "res://Scenes/menus/glosario.tscn",
 	SceneID.FIN_PARTIDA: "res://Scenes/menus/fin_partida.tscn",
-	SceneID.ZONA_ROJA: "res://Scenes/mundo/Zona_roja.tscn",
+	SceneID.ZONA_EIRENE: "res://Scenes/mundo/Zona_Eirene.tscn",
 	SceneID.FIN_ZONA: "res://Scenes/menus/fin_zona.tscn",
 }
 

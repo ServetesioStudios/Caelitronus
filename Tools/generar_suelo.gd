@@ -1,11 +1,14 @@
 @tool
 extends Node
 
+@export_group("Referencias")
 @export var suelo: TileMapLayer
 
-@export var ancho: int = 128
-@export var alto: int = 96
+@export_group("Dimensiones")
+@export_range(1, 512, 1) var ancho: int = 64
+@export_range(1, 512, 1) var alto: int = 48
 
+@export_group("Configuración del TileSet")
 @export var source_id: int = 0
 @export var atlas_coords: Vector2i = Vector2i(0, 0)
 
@@ -26,18 +29,30 @@ func generar_suelo() -> void:
 		push_error("El suelo no tiene un TileSet asignado.")
 		return
 
+	# Verificar que exista el source_id.
+	if not suelo.tile_set.has_source(source_id):
+		push_error("El source_id no existe en el TileSet: %d" % source_id)
+		return
+
 	var source := suelo.tile_set.get_source(source_id)
 
+	# Verificar que sea un atlas.
 	if not source is TileSetAtlasSource:
-		push_error("El source_id no corresponde a un atlas.")
+		push_error("El source_id no corresponde a un TileSetAtlasSource.")
 		return
 
+	# Verificar que el tile exista.
 	if not source.has_tile(atlas_coords):
-		push_error("Las coordenadas no corresponden a un tile válido.")
+		push_error(
+			"El atlas no contiene un tile en las coordenadas: %s"
+			% atlas_coords
+		)
 		return
 
+	# Limpiar el suelo anterior.
 	suelo.clear()
 
+	# Generar el nuevo suelo.
 	for y in range(alto):
 		for x in range(ancho):
 			suelo.set_cell(
@@ -46,4 +61,16 @@ func generar_suelo() -> void:
 				atlas_coords
 			)
 
-	print("Suelo generado: ", ancho, " x ", alto)
+	# Actualizar el TileMapLayer.
+	suelo.notify_runtime_tile_data_update()
+
+	print(
+		"Suelo generado correctamente: ",
+		ancho,
+		" x ",
+		alto,
+		" | Source: ",
+		source_id,
+		" | Atlas: ",
+		atlas_coords
+	)
