@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2vtruyogl3dt"]
+[gd_scene format=3 uid="uid://c2vtruyogl3dt"]
 
 [ext_resource type="Script" uid="uid://roqk3ngjxk4i" path="res://Scripts/ui/card_ui.gd" id="1_obeoo"]
-[ext_resource type="Texture2D" uid="uid://btbd381k8rpt6" path="res://Assets/Cartas/cardbloqueo.png" id="2_4xatn"]
+[ext_resource type="Texture2D" uid="uid://btbd381k8rpt6" path="res://Assets/xtemporales/Cartas/cardbloqueo.png" id="2_4xatn"]
 [ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="3_o66yc"]
+
 
 [sub_resource type="LabelSettings" id="LabelSettings_adlcx"]
 font = ExtResource("3_o66yc")

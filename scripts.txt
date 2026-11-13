@@ -1,0 +1,4086 @@
+﻿===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\animador_personaje.gd =====
+class_name AnimadorPersonaje
+extends Node
+
+signal animacion_terminada(nombre: String)
+
+@export var sprite: AnimatedSprite2D
+
+var animacion_idle: String = ""
+
+
+func _ready() -> void:
+	if sprite == null or sprite.sprite_frames == null:
+		push_warning("AnimadorPersonaje: SpriteFrames no configurado.")
+		return
+
+	configurar_idle()
+	reproducir_idle()
+
+
+func configurar_idle() -> void:
+	var frames := sprite.sprite_frames
+
+	if frames.has_animation("idle"):
+		animacion_idle = "idle"
+		return
+
+	if GameManager.player_data == null:
+		push_warning("AnimadorPersonaje: no hay PlayerData para determinar el idle.")
+		return
+
+	match GameManager.player_data.tipo_caelius:
+		GameManager.TipoCaelius.PENA:
+			animacion_idle = "idle_pena"
+		GameManager.TipoCaelius.IRA:
+			animacion_idle = "idle_ira"
+		GameManager.TipoCaelius.EGO:
+			animacion_idle = "idle_ego"
+
+	if not frames.has_animation(animacion_idle):
+		push_warning("AnimadorPersonaje: no existe la animaciÃ³n %s." % animacion_idle)
+		animacion_idle = ""
+
+
+func reproducir_idle() -> void:
+	if not is_instance_valid(sprite):
+		return
+
+	if sprite.sprite_frames == null or animacion_idle.is_empty():
+		return
+
+	if not sprite.sprite_frames.has_animation(animacion_idle):
+		return
+
+	sprite.play(animacion_idle)
+
+
+func reproducir(nombre: String) -> void:
+	if not is_instance_valid(sprite) or sprite.sprite_frames == null:
+		push_warning("AnimadorPersonaje: sprite no configurado.")
+		return
+
+	if not sprite.sprite_frames.has_animation(nombre):
+		push_warning("AnimadorPersonaje: animaciÃ³n '%s' no encontrada." % nombre)
+		return
+
+	sprite.play(nombre)
+
+	if sprite.sprite_frames.get_animation_loop(nombre):
+		push_warning("AnimadorPersonaje: la animaciÃ³n '%s' estÃ¡ configurada en bucle." % nombre)
+		return
+
+	await sprite.animation_finished
+
+	if not is_instance_valid(sprite):
+		return
+
+	if sprite.animation != nombre:
+		return
+
+	animacion_terminada.emit(nombre)
+	reproducir_idle()
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\enemy.gd =====
+class_name Enemy
+extends CombatEntity
+
+@export var enemy_data: EnemyData
+@onready var intencion_texto = $Intencion
+
+var intencion_actual: IntentData
+
+func _ready() -> void:
+	if enemy_data == null:
+		push_error("Enemy: no se asignÃ³ EnemyData antes de inicializar el enemigo")
+		return
+
+	cargar_desde_data()
+	actualizar_barra_vida()
+
+func configurar(datos: EnemyData) -> void:
+	enemy_data = datos
+
+
+func cargar_desde_data() -> void:
+	if enemy_data == null:
+		push_error("Enemy: faltan datos del enemigo")
+		return
+
+	if enemy_data.stats == null:
+		push_error("Enemy: faltan estadÃ­sticas para %s" % enemy_data.nombre)
+		return
+
+	nombre = enemy_data.nombre
+	aplicar_stats(enemy_data.stats.duplicate())
+
+
+func decidir_intencion() -> void:
+	var nueva_intencion := IntentData.new()
+	var accion = randi() % 2
+	match accion:
+		0:
+			nueva_intencion.tipo = IntentData.Tipo.ATACAR
+			nueva_intencion.valor = daÃ±o
+
+		1:
+			nueva_intencion.tipo = IntentData.Tipo.DEFENDER
+			nueva_intencion.valor = 5
+	intencion_actual = nueva_intencion
+	
+func actualizar_intencion_ui() -> void:
+	match intencion_actual.tipo:
+		IntentData.Tipo.ATACAR:
+			intencion_texto.text = "Ataque * %s" %str(intencion_actual.valor)
+		IntentData.Tipo.DEFENDER:
+			intencion_texto.text = "Defensa * %s" %str(intencion_actual.valor)
+		IntentData.Tipo.HABILIDAD:
+			intencion_texto.text = "Habilidad * %s" %str(intencion_actual.valor)
+
+func al_atacar() -> void: 
+	pass
+
+func aplicar_efecto_habilidad_a_objetivo(objetivo: CombatEntity) -> void:
+	pass
+	
+func activar_habilidad() -> void:
+	super()
+	
+	
+func obtener_nombre_animacion_intencion() -> String:
+	if intencion_actual.animacion != "":
+		return intencion_actual.animacion
+	match intencion_actual.tipo:
+		IntentData.Tipo.ATACAR:
+			return "ataque"
+		IntentData.Tipo.DEFENDER:
+			return "bloqueo"
+	return ""
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\player.gd =====
+class_name Player
+extends CombatEntity
+
+signal energia_actualizada(actual: int, maxima: int)
+
+var tipo_caelius : GameManager.TipoCaelius
+var energia_max: int = 3
+var energia_actual: int = 3
+
+func _ready():
+	randomize()
+	nombre = "Caelius"
+	tipo_caelius = GameManager.player_data.tipo_caelius
+	cargar_stats()
+	_definir_energia_max()
+	actualizar_barra_vida()
+
+func _process(delta):
+	super._process(delta)
+	
+	if Input.is_action_just_pressed("ui_accept"):
+		activar_habilidad()
+		
+func cargar_stats():
+	var stats: Stats = GameManager.get_stats_for(tipo_caelius)
+	if stats == null:
+		push_error("Player: no se pudieron cargar los stats")
+		return
+	aplicar_stats(stats)
+	
+	if GameManager.player_data.hp_actual >= 0:
+		hp = GameManager.player_data.hp_actual
+
+func _definir_energia_max() -> void:
+	match tipo_caelius:
+		GameManager.TipoCaelius.IRA:
+			energia_max = 3
+		GameManager.TipoCaelius.PENA:
+			energia_max = 3
+		GameManager.TipoCaelius.EGO:
+			energia_max = 3
+
+func resetear_energia() -> void:
+	energia_actual = energia_max
+	energia_actualizada.emit(energia_actual, energia_max)
+	
+func puede_pagar(costo: int) -> bool:
+	return energia_actual >= costo
+
+func gastar_energia(costo: int) -> bool:
+	if not puede_pagar(costo):
+		return false
+	energia_actual -= costo
+	energia_actualizada.emit(energia_actual, energia_max)
+	return true
+
+func sumar_energia(cantidad: int) -> void: 
+	energia_actual = min(energia_actual + cantidad, energia_max)
+	energia_actualizada.emit(energia_actual, energia_max)
+
+func activar_habilidad():
+	if cooldown_habilidad > 0:
+		return
+	if habilidad_activa:
+		return
+	
+	super.activar_habilidad()
+	#match tipo_caelius:
+		#GameManager.TipoCaelius.IRA:
+			#habilidad_nombre = "Ira del Depredador"
+			#habilidad_timer = 5.0
+			#bonus_daÃ±o = 1.25
+			#bonus_defensa = 1.2
+			#bonus_velocidad = 1.15
+		#GameManager.TipoCaelius.PENA:
+			#habilidad_nombre = "Lamento Parasitario"
+			#habilidad_timer = 5.0
+			#robo_vida = true
+		#GameManager.TipoCaelius.EGO:
+			#habilidad_nombre = "Dominio Absoluto"
+			#habilidad_timer = 4.0
+			#inmune = true
+			#doble_golpe = true
+	#cooldown_habilidad = max(18.0 - (fe * 0.08), 10.0)
+
+func morir() -> void:
+	pass
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\batalla\battle_scene.gd =====
+extends Node2D
+
+
+# ============================================================
+# REFERENCIAS A NODOS
+# ============================================================
+
+@onready var combat_manager := $CombatManager
+@onready var deck_manager := $DeckManager
+
+@onready var btn_fin_turno := $CanvasLayer/BtnFinTurno
+@onready var player := $CanvasLayer/player
+@onready var mano_ui := $CanvasLayer/Mano
+@onready var zona_drop := $CanvasLayer/DropZone
+
+@onready var texto_combate := $CanvasLayer/textocombate
+@onready var label_combates := $CanvasLayer/LabelCombates
+@onready var label_energia := $CanvasLayer/LabelEnergia
+@onready var iconos_energia: HBoxContainer = $CanvasLayer/EnergiaContainer
+
+
+# ============================================================
+# VARIABLES
+# ============================================================
+
+var enemy: Enemy
+
+var historial_texto := ""
+var max_lineas := 18
+
+var arrastrando_carta := false
+
+const ICONO_ENERGIA := preload("res://Assets/Icons/poder.png")
+
+# ============================================================
+# INICIALIZACIÃ“N
+# ============================================================
+
+func crear_enemigo_combate() -> Enemy:
+	var datos: EnemyData = GameManager.enemy_data_encuentro
+
+	if datos == null:
+		push_error("Batalla: no hay un encuentro preparado en GameManager.")
+		return null
+
+	if datos.escena_combate == null:
+		push_error("Batalla: %s no tiene escena de combate." % datos.nombre)
+		return null
+
+	label_combates.text = ""
+
+	var nuevo_enemigo := datos.escena_combate.instantiate() as Enemy
+
+	if nuevo_enemigo == null:
+		push_error("Batalla: la escena no contiene un Enemy vÃ¡lido.")
+		return null
+
+	nuevo_enemigo.configurar(datos)
+
+	$CanvasLayer.add_child(nuevo_enemigo)
+	nuevo_enemigo.position = Vector2(965, 100)
+
+	return nuevo_enemigo
+
+
+
+func _ready() -> void:
+	MusicManager.play_battle()
+	
+	# --------------------------------------------------------
+	# Crear enemigo
+	# --------------------------------------------------------
+
+	enemy = crear_enemigo_combate()
+
+	if enemy == null:
+		push_error("Batalla: no se pudo iniciar el combate.")
+		return
+
+	# --------------------------------------------------------
+	# Conectar DropZone
+	# --------------------------------------------------------
+
+	zona_drop.carta_soltada.connect(_on_carta_soltada)
+
+
+	# --------------------------------------------------------
+	# Configurar enemigos
+	# --------------------------------------------------------
+
+	var enemigos: Array[Enemy] = [enemy]
+
+
+	# --------------------------------------------------------
+	# Configurar mazo y mano
+	# --------------------------------------------------------
+
+	deck_manager.iniciar_mazo(
+		GameManager.crear_mazo_inicial(player.tipo_caelius)
+	)
+
+	mano_ui.player_ref = player
+
+	deck_manager.mano_actualizada.connect(
+		mano_ui.mostrar_mano
+	)
+
+
+	# --------------------------------------------------------
+	# Eventos del turno
+	# --------------------------------------------------------
+
+	combat_manager.turno_jugador_iniciado.connect(
+		deck_manager.iniciar_turno
+	)
+
+	combat_manager.turno_jugador_iniciado.connect(
+		func():
+			btn_fin_turno.disabled = false
+	)
+
+	combat_manager.turno_enemigo_iniciado.connect(
+		func():
+			btn_fin_turno.disabled = true
+	)
+
+
+	# --------------------------------------------------------
+	# Eventos del combate
+	# --------------------------------------------------------
+
+	combat_manager.combate_terminado.connect(
+		_on_combate_terminado
+	)
+
+	combat_manager.enemigo_actuo.connect(
+		func(enemigo):
+			enemigo.reproducir_animacion(
+				enemigo.obtener_nombre_animacion_intencion()
+			)
+	)
+
+	combat_manager.accion_enemigo_realizada.connect(
+		_on_accion_enemigo_realizada
+	)
+
+
+	# --------------------------------------------------------
+	# Eventos del jugador
+	# --------------------------------------------------------
+
+	player.energia_actualizada.connect(
+		_actualizar_label_energia
+	)
+
+	player.energia_actualizada.connect(
+		func(_a, _m):
+			mano_ui.actualizar_disponibilidad_todas()
+	)
+
+
+	# --------------------------------------------------------
+	# BotÃ³n finalizar turno
+	# --------------------------------------------------------
+
+	btn_fin_turno.pressed.connect(
+		combat_manager.finalizar_turno_jugador
+	)
+
+
+	# --------------------------------------------------------
+	# Iniciar combate
+	# --------------------------------------------------------
+
+	combat_manager.iniciar_combate(
+		player,
+		enemigos
+	)
+	
+	_actualizar_label_energia(player.energia_actual, player.energia_max)
+
+
+# ============================================================
+# PROCESAMIENTO DEL DRAG DE CARTAS
+# ============================================================
+
+func _process(_delta: float) -> void:
+	var drag_data = get_viewport().gui_get_drag_data()
+
+	if drag_data is CardData:
+		if not arrastrando_carta:
+			arrastrando_carta = true
+			_actualizar_gris_por_carta(drag_data)
+
+	else:
+		if arrastrando_carta:
+			arrastrando_carta = false
+			_resetear_gris()
+
+
+# ============================================================
+# INDICADOR VISUAL DE OBJETIVOS VÃLIDOS
+# ============================================================
+
+func _actualizar_gris_por_carta(carta: CardData) -> void:
+	match carta.tipo_objetivo:
+
+		CardData.TipoObjetivo.PROPIO:
+			_set_gris(enemy, true)
+			_set_gris(player, false)
+
+
+		CardData.TipoObjetivo.ENEMIGO_FIJO, \
+		CardData.TipoObjetivo.ENEMIGO_CUALQUIERA:
+			_set_gris(player, true)
+			_set_gris(enemy, false)
+
+
+		CardData.TipoObjetivo.LIBRE:
+			_set_gris(player, false)
+			_set_gris(enemy, false)
+
+
+func _resetear_gris() -> void:
+	if player != null:
+		_set_gris(player, false)
+	if enemy != null:
+		_set_gris(enemy, false)
+
+
+func _set_gris(entidad: CombatEntity, activar: bool) -> void:
+	if not is_instance_valid(entidad):
+		return
+
+	entidad.modulate = (
+		Color(0.5, 0.5, 0.5, 1.0)
+		if activar
+		else entidad.color_base
+	)
+
+
+# ============================================================
+# LÃ“GICA DE CARTAS
+# ============================================================
+
+func _on_carta_soltada(carta: CardData, posicion_global: Vector2) -> void:
+
+	var objetivo := _resolver_objetivo(
+		carta,
+		posicion_global
+	)
+
+	if objetivo == null:
+		return
+
+	intentar_jugar_carta(
+		carta,
+		objetivo
+	)
+
+
+func _resolver_objetivo(
+	carta: CardData,
+	posicion_global: Vector2
+) -> CombatEntity:
+
+	match carta.tipo_objetivo:
+
+		CardData.TipoObjetivo.PROPIO:
+			return player
+
+
+		CardData.TipoObjetivo.ENEMIGO_FIJO:
+			return enemy
+
+
+		CardData.TipoObjetivo.ENEMIGO_CUALQUIERA:
+			return _entidad_mas_cercana(
+				posicion_global,
+				[enemy]
+			)
+
+
+		CardData.TipoObjetivo.LIBRE:
+			return _entidad_mas_cercana(
+				posicion_global,
+				[player, enemy]
+			)
+
+
+	return null
+
+
+func _entidad_mas_cercana(
+	posicion_global: Vector2,
+	candidatos: Array
+) -> CombatEntity:
+
+	var mejor: CombatEntity = null
+	var mejor_dist := INF
+
+	for c in candidatos:
+
+		if not is_instance_valid(c):
+			continue
+
+		var dist = c.global_position.distance_to(
+			posicion_global
+		)
+
+		if dist < mejor_dist:
+			mejor_dist = dist
+			mejor = c
+
+	return mejor
+
+
+func intentar_jugar_carta(carta: CardData, objetivo: CombatEntity) -> void:
+
+	if not combat_manager.es_turno_jugador():
+		#print("No es tu turno")
+		return
+
+
+	if not player.puede_pagar(carta.costo):
+		print(
+			"No tienes energÃ­a suficiente para %s"
+			% carta.nombre
+		)
+		return
+
+	if carta.efectos.size() == 1 and carta.efectos[0] is EnergyEffectData:
+		if player.energia_actual >= player.energia_max:
+			return
+	# --------------------------------------------------------
+	# Pagar carta
+	# --------------------------------------------------------
+
+	player.gastar_energia(carta.costo)
+
+
+	# --------------------------------------------------------
+	# Ejecutar carta
+	# --------------------------------------------------------
+
+	carta.jugar(player,objetivo)
+
+
+	# --------------------------------------------------------
+	# Eliminar carta de la mano
+	# --------------------------------------------------------
+
+	deck_manager.jugar_carta(carta)
+
+
+	# --------------------------------------------------------
+	# AnimaciÃ³n del jugador
+	# --------------------------------------------------------
+
+	player.reproducir_animacion(carta.animacion)
+
+
+	# --------------------------------------------------------
+	# Actualizar UI
+	# --------------------------------------------------------
+
+	mostrar_texto(
+		"%s juega %s"
+		% [
+			player.nombre,
+			carta.nombre
+		]
+	)
+
+	# --------------------------------------------------------
+	# Comprobar fin de combate
+	# --------------------------------------------------------
+
+	if combat_manager.verificar_fin_combate():
+		return
+
+
+# ============================================================
+# TEXTO DEL COMBATE
+# ============================================================
+
+func mostrar_texto(texto: String) -> void:
+	if texto_combate == null:
+		return
+
+	historial_texto += texto + "\n\n"
+
+	var lineas = historial_texto.split("\n")
+
+	if lineas.size() > max_lineas:
+
+		var nuevas_lineas = []
+
+		for i in range(
+			lineas.size() - max_lineas,
+			lineas.size()
+		):
+			nuevas_lineas.append(
+				lineas[i]
+			)
+
+		historial_texto = "\n".join(
+			nuevas_lineas
+		)
+
+
+	texto_combate.text = historial_texto
+
+	await get_tree().process_frame
+
+	if is_instance_valid(texto_combate):
+		texto_combate.scroll_to_line(
+			texto_combate.get_line_count()
+		)
+
+
+# ============================================================
+# UI - ENERGÃA
+# ============================================================
+
+func _actualizar_label_energia(actual: int, maxima: int) -> void:
+	for hijo in iconos_energia.get_children():
+		iconos_energia.remove_child(hijo)
+		hijo.queue_free()
+
+	for i in range(maxima):
+		var icono := TextureRect.new()
+
+		icono.texture = ICONO_ENERGIA
+		icono.custom_minimum_size = Vector2(45, 45)
+		icono.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icono.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+
+		if i >= actual:
+			icono.modulate = Color(0.3, 0.3, 0.3, 0.5)
+		else:
+			icono.modulate = Color("#800020")
+
+		iconos_energia.add_child(icono)
+
+# ============================================================
+# EVENTOS DEL COMBATE
+# ============================================================
+
+func _on_accion_enemigo_realizada(
+	enemigo: Enemy,
+	descripcion: String
+) -> void:
+
+	mostrar_texto(
+		descripcion
+	)
+
+
+func _on_combate_terminado(victoria: bool) -> void:
+	if victoria and GameManager.enemy_data_encuentro != null:
+		var zona_id: String = GameManager.zona_id_encuentro
+		var enemigo_id: String = GameManager.enemigo_id_encuentro
+
+		if zona_id.is_empty() or enemigo_id.is_empty():
+			push_error("Batalla: faltan datos del encuentro.")
+			return
+
+		match GameManager.tipo_encuentro:
+			GameManager.TipoEncuentro.NORMAL:
+				var registrado := GameManager.estado_expedicion.marcar_enemigo_derrotado(
+					zona_id,
+					enemigo_id
+				)
+
+				if not registrado:
+					push_error("Batalla: no se pudo registrar al enemigo derrotado.")
+					return
+
+				if GameManager.estado_expedicion.todos_enemigos_derrotados(zona_id):
+					print("Batalla: zona despejada: ", zona_id)
+
+			GameManager.TipoEncuentro.JEFE:
+				GameManager.estado_expedicion.marcar_jefe_derrotado(
+					zona_id,
+					enemigo_id
+				)
+
+				print("Batalla: jefe derrotado: ", enemigo_id)
+
+		GameManager.player_data.hp_actual = player.max_hp
+		GameManager.guardar_partida()
+
+		if GameManager.tipo_encuentro == GameManager.TipoEncuentro.JEFE:
+			var pantalla_final = SceneManager.add_overlay(
+				SceneManager.SceneID.FIN_PARTIDA,
+				$CanvasLayer
+			)
+
+			if pantalla_final != null:
+				pantalla_final.configurar(
+					pantalla_final.TipoFinal.CONTINUARA
+				)
+
+			return
+
+		SceneManager.change_scene(SceneManager.SceneID.ZONA_ROJA)
+		return
+	
+	if victoria:
+		push_warning("Batalla: victoria sin encuentro de mundo registrado.")
+		return
+
+	SceneManager.add_overlay(
+		SceneManager.SceneID.FIN_PARTIDA,
+		$CanvasLayer
+	)
+
+	
+# ============================================================
+# DEBUG
+# ============================================================
+	
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not OS.is_debug_build():
+		return
+
+	if event.is_action_pressed("debug_victoria") and not event.is_echo():
+		get_viewport().set_input_as_handled()
+		print("DEBUG: victoria forzada")
+		_forzar_victoria_debug()
+
+	elif event.is_action_pressed("debug_derrota") and not event.is_echo():
+		get_viewport().set_input_as_handled()
+		print("DEBUG: derrota forzada")
+		_forzar_derrota_debug()
+
+
+func _forzar_victoria_debug() -> void:
+	if combat_manager.estado == CombatManager.Estado.VICTORIA \
+	or combat_manager.estado == CombatManager.Estado.DERROTA:
+		return
+
+	if not is_instance_valid(enemy):
+		push_warning("DEBUG: no hay enemigo vÃ¡lido.")
+		return
+
+	enemy.hp = 0
+	enemy.actualizar_barra_vida()
+
+	combat_manager.verificar_fin_combate()
+
+
+
+func _forzar_derrota_debug() -> void:
+	if combat_manager.estado == CombatManager.Estado.VICTORIA \
+	or combat_manager.estado == CombatManager.Estado.DERROTA:
+		return
+
+	if not is_instance_valid(player):
+		push_warning("DEBUG: no hay jugador vÃ¡lido.")
+		return
+
+	player.hp = 0
+	player.actualizar_barra_vida()
+
+	combat_manager.verificar_fin_combate()
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\batalla\combat_entity.gd =====
+class_name CombatEntity
+extends Node
+
+@onready var animador: AnimadorPersonaje = get_node_or_null("Animador")
+@onready var barra_vida = $HealthBar
+@onready var texto_barra = $HealthBar/LabelHealth
+@onready var escudo = $Shield
+@onready var texto_escudo = $Shield/LabelShield
+
+
+enum TipoEstado { SANGRADO, VENENO }
+var estados: Dictionary = {}
+var esquive_buff_valor: int = 0
+var esquive_buff_turnos: int = 0
+
+var nombre: String
+var stats: Stats
+
+var hp: int
+var max_hp: int
+
+var daÃ±o: int
+var defensa: int
+var esquive: int
+var velocidad: int
+var fe: int
+var poder: int
+
+var bloqueo: int = 0
+
+var bonus_daÃ±o := 1.0
+var bonus_defensa := 1.0
+var bonus_velocidad := 1.0
+
+var robo_vida := false
+var porcentaje_robo_vida := 0.5
+var doble_golpe := false
+var inmune := false
+
+var base_tiempo_ataque := 0.0
+var habilidad_activa := false
+#var habilidad_timer := 0.0
+var cooldown_habilidad := 0.0
+var habilidad_nombre := ""
+
+var tiempo_ataque := 0.0
+var vida_tween = null
+var color_base: Color = Color(1, 1, 1, 1)
+
+func _ready() -> void:
+	barra_vida.max_value = max_hp
+	barra_vida.value = hp
+
+func aplicar_stats(s: Stats) -> void:
+	stats = s
+	max_hp = s.max_hp
+	hp = s.max_hp
+	daÃ±o = s.daÃ±o
+	defensa = s.defensa
+	esquive = s.esquive
+	velocidad = s.velocidad
+	fe = s.fe
+	poder = s.poder
+	base_tiempo_ataque = s.base_tiempo_ataque
+
+func _process(delta):
+	tiempo_ataque -= delta
+	#if cooldown_habilidad > 0:
+		#cooldown_habilidad -= delta
+	#if habilidad_activa:
+		#habilidad_timer -= delta
+		#if habilidad_timer <= 0:
+			#desactivar_habilidad()
+	#if hp > 0 and cooldown_habilidad <= 0:
+		#evaluar_activacion_habilidad()
+
+
+
+#func evaluar_activacion_habilidad() -> void:
+	#pass
+
+func activar_habilidad() -> void:
+	habilidad_activa = true
+	
+func desactivar_habilidad() -> void:
+	habilidad_activa = false
+	bonus_daÃ±o = 1.0
+	bonus_defensa = 1.0
+	bonus_velocidad = 1.0
+	robo_vida = false
+	doble_golpe = false
+	inmune = false
+
+
+
+func puede_atacar() -> bool:
+	return tiempo_ataque <= 0 and hp > 0
+
+func reiniciar_tiempo() -> void:
+	tiempo_ataque = base_tiempo_ataque / (float(velocidad) * bonus_velocidad)
+
+func recibir_daÃ±o(cantidad: int, ignora_bloqueo: bool = false) -> void:
+	if hp <= 0 or inmune:
+		return
+		
+	var daÃ±o_restante := cantidad
+	#BLOQUEO
+	if not ignora_bloqueo and bloqueo > 0:
+		var absorbido = min(bloqueo, daÃ±o_restante)
+		bloqueo -= absorbido
+		daÃ±o_restante -= absorbido
+	if daÃ±o_restante > 0:
+		hp -= daÃ±o_restante
+		hp = max(hp, 0)
+	
+	animador.reproducir("daÃ±o")
+	
+	actualizar_barra_vida()
+	actualizar_escudo() 
+	
+	if hp <= 0:
+		morir()
+
+func morir() -> void:
+	queue_free()
+
+func actualizar_escudo() -> void:
+	if !has_node("Shield"):
+		return
+	
+	if bloqueo > 0:
+		escudo.visible = true
+		texto_escudo.text = str(bloqueo)
+	else:
+		escudo.visible = false
+		
+	
+func actualizar_barra_vida() -> void:
+	if !has_node("HealthBar"):
+		return
+		
+	var porcentaje = float(hp) / float(max_hp) * 100.0
+	texto_barra.text = "%d / %d" % [hp, max_hp]
+	
+	if vida_tween != null:
+		vida_tween.kill()
+	vida_tween = create_tween()
+	vida_tween.tween_property(barra_vida, "value", porcentaje, 0.2)
+	if porcentaje > 50:
+		barra_vida.modulate = Color(0.591, 0.809, 0.51)
+	elif porcentaje > 10:
+		barra_vida.modulate = Color(0.81, 0.692, 0.377)
+	else:
+		barra_vida.modulate = Color(0.907, 0.337, 0.268)
+
+
+
+func aplicar_estado(tipo: TipoEstado, cantidad: int) -> void:
+	estados[tipo] = estados.get(tipo, 0) + cantidad
+
+func tiene_estado(tipo: TipoEstado) -> bool:
+	return estados.get(tipo, 0) > 0
+	
+func procesar_estados() -> void:
+	if tiene_estado(TipoEstado.SANGRADO):
+		var stacks = estados[TipoEstado.SANGRADO]
+		recibir_daÃ±o(stacks, true)
+		estados[TipoEstado.SANGRADO] = max(stacks - 1, 0)
+
+	if tiene_estado(TipoEstado.VENENO):
+		var stacks = estados[TipoEstado.VENENO]
+		recibir_daÃ±o(stacks, false)
+		estados[TipoEstado.VENENO] = max(stacks - 1, 0)
+
+	if esquive_buff_turnos > 0:
+		esquive_buff_turnos -= 1
+		if esquive_buff_turnos <= 0:
+			esquive_buff_valor = 0
+
+func esquive_efectivo() -> int:
+	return esquive + esquive_buff_valor
+
+func _tween_ataque() -> void:
+	var tween = create_tween()
+	var pos_original = self.position
+	var distancia = 40
+	var pos_ataque = pos_original + (Vector2(distancia, 0) if self == Player else Vector2(distancia, 0))
+	tween.tween_property(self, "position", pos_ataque, 0.1)
+	tween.tween_property(self, "position", pos_original, 0.1)
+	
+
+func _tween_defensa() -> void:
+	var tween = create_tween()
+	var pos_original = self.position
+	tween.tween_property(self, "position", pos_original + Vector2(0, -40), 0.1)
+	tween.tween_property(self, "position", pos_original, 0.1)
+
+func _tween_habilidad() -> void:
+	var tween = create_tween()
+	var pos_original = self.position
+	tween.tween_property(self, "position", pos_original + Vector2(0, -20), 0.1)
+	tween.tween_property(self, "position", pos_original, 0.1)
+
+func reproducir_animacion(nombre: String) -> void:
+	if animador != null:
+		animador.reproducir(nombre)
+	else:
+		_reproducir_animacion_fallback(nombre)
+
+func _reproducir_animacion_fallback(nombre: String) -> void:
+	match nombre:
+		"ataque": _tween_ataque()
+		"defensa": _tween_defensa()
+		"habilidad": _tween_habilidad()
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\batalla\combat_manager.gd =====
+class_name CombatManager
+extends Node
+
+var player: Player
+
+signal turno_jugador_iniciado
+signal turno_enemigo_iniciado
+signal enemigo_actuo(enemigo: Enemy)
+signal combate_terminado(victoria: bool)
+signal energia_actualizada(actual: int, maxima: int)
+signal accion_enemigo_realizada(enemigo: Enemy, descripcion: String)
+
+enum Estado { INICIO, TURNO_JUGADOR, TURNO_ENEMIGO, VICTORIA, DERROTA }
+var estado: Estado = Estado.INICIO
+var enemigos: Array[Enemy] = []
+
+func iniciar_combate(p: CombatEntity, e: Array[Enemy]) -> void:
+	player = p
+	enemigos = e
+	player.resetear_energia()
+	
+	for enemigo in enemigos:
+		if is_instance_valid(enemigo) and enemigo.hp > 0:
+			_actualizar_intencion(enemigo)
+			
+	_iniciar_turno_jugador()
+
+
+func es_turno_jugador() -> bool:
+	return (
+		estado == Estado.TURNO_JUGADOR
+		and is_instance_valid(player)
+		and player.hp > 0
+	)
+
+
+func _iniciar_turno_jugador() -> void:
+	if estado == Estado.VICTORIA or estado == Estado.DERROTA:
+		return
+
+	if not is_instance_valid(player):
+		push_error("CombatManager: jugador invÃ¡lido al iniciar turno.")
+		return
+
+	estado = Estado.TURNO_JUGADOR
+	player.procesar_estados()
+
+	if _verificar_fin_combate():
+		return
+
+	turno_jugador_iniciado.emit()
+
+
+	
+func finalizar_turno_jugador() -> void:
+	if estado != Estado.TURNO_JUGADOR:
+		return
+	_iniciar_turno_enemigo()
+
+
+
+func _iniciar_turno_enemigo() -> void:
+	estado = Estado.TURNO_ENEMIGO
+	turno_enemigo_iniciado.emit()
+	await _ejecutar_turno_enemigo()
+
+
+
+func _ejecutar_turno_enemigo() -> void:
+	for enemigo in enemigos:
+		if estado != Estado.TURNO_ENEMIGO:
+			return
+
+		if not is_instance_valid(enemigo) or enemigo.hp <= 0:
+			continue
+
+		enemigo.procesar_estados()
+
+		if _verificar_fin_combate():
+			return
+
+		if enemigo.hp <= 0:
+			continue
+
+		await _ejecutar_accion_enemigo(enemigo)
+
+		if not is_inside_tree() or estado != Estado.TURNO_ENEMIGO:
+			return
+
+		if _verificar_fin_combate():
+			return
+
+		if is_instance_valid(enemigo) and enemigo.hp > 0:
+			_actualizar_intencion(enemigo)
+
+	if estado != Estado.TURNO_ENEMIGO:
+		return
+
+	if not _verificar_fin_combate():
+		_iniciar_turno_jugador()
+
+
+
+func _actualizar_intencion(enemigo: Enemy) -> void:
+	enemigo.decidir_intencion()
+	if enemigo.intencion_actual.tipo == IntentData.Tipo.ATACAR:
+		enemigo.intencion_actual.valor = _calcular_daÃ±o_predicho(enemigo, player)
+	enemigo.actualizar_intencion_ui()
+	
+func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
+	enemigo_actuo.emit(enemigo)
+	var descripcion := ""
+
+	match enemigo.intencion_actual.tipo:
+		IntentData.Tipo.ATACAR:
+			if is_instance_valid(player) and player.hp > 0:
+				var daÃ±o = _calcular_daÃ±o_enemigo(enemigo, player)
+				if daÃ±o > 0:
+					player.recibir_daÃ±o(daÃ±o)
+					descripcion = "%s ataca e inflige %d de daÃ±o" % [enemigo.nombre, daÃ±o]
+					if enemigo.robo_vida:
+						var vida_robada = int(daÃ±o * enemigo.porcentaje_robo_vida)
+						enemigo.hp = min(enemigo.hp + vida_robada, enemigo.max_hp)
+						enemigo.actualizar_barra_vida()
+						descripcion += " y roba %d de vida" % vida_robada
+				else:
+					descripcion = "%s atacÃ³, pero fue esquivado" % enemigo.nombre
+				enemigo.al_atacar()
+		IntentData.Tipo.DEFENDER:
+			enemigo.bloqueo += enemigo.intencion_actual.valor
+			enemigo.actualizar_escudo()
+			descripcion = "%s se defiende y gana %d de bloqueo" % [enemigo.nombre, enemigo.intencion_actual.valor]
+		IntentData.Tipo.HABILIDAD:
+			enemigo.activar_habilidad()
+			descripcion = "%s usa %s" % [enemigo.nombre, enemigo.habilidad_nombre]
+			enemigo.aplicar_efecto_habilidad_a_objetivo(player) 
+			
+	accion_enemigo_realizada.emit(enemigo, descripcion)
+	await get_tree().create_timer(0.6).timeout
+	
+	
+func _calcular_daÃ±o_predicho(atacante: CombatEntity, defensor: CombatEntity) -> int:
+	var daÃ±o_base = atacante.daÃ±o * atacante.bonus_daÃ±o
+	var defensa_base = defensor.defensa * defensor.bonus_defensa
+	var reduccion = defensa_base / (defensa_base + 10.0)
+	var daÃ±o = daÃ±o_base * (1.0 - reduccion)
+	return max(int(daÃ±o), 1)
+	
+func _calcular_daÃ±o_enemigo(atacante: CombatEntity, defensor: CombatEntity) -> int:
+	var chance = randi() % 100
+	if chance < defensor.esquive_efectivo() or defensor.inmune:
+		return 0
+	
+	var daÃ±o_base = atacante.daÃ±o * atacante.bonus_daÃ±o
+	var defensa_base = defensor.defensa * defensor.bonus_defensa
+	
+	var reduccion = defensa_base / (defensa_base + 10.0)
+	var daÃ±o = daÃ±o_base * (1.0 - reduccion)
+	
+	var variacion = randf_range(0.85, 1.05)
+	daÃ±o *= variacion
+	return max(int(daÃ±o), 1)
+
+
+func verificar_fin_combate() -> bool:
+	return _verificar_fin_combate()
+
+
+func _verificar_fin_combate() -> bool:
+	if estado == Estado.VICTORIA or estado == Estado.DERROTA:
+		return true
+
+	if is_instance_valid(player) and player.hp <= 0:
+		estado = Estado.DERROTA
+		combate_terminado.emit(false)
+		return true
+
+	var alguno_vivo := false
+
+	for enemigo in enemigos:
+		if is_instance_valid(enemigo) and enemigo.hp > 0:
+			alguno_vivo = true
+			break
+
+	if not alguno_vivo:
+		estado = Estado.VICTORIA
+		combate_terminado.emit(true)
+		return true
+
+	return false
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\batalla\deck_manager.gd =====
+class_name DeckManager
+extends Node
+
+signal mano_actualizada(mano: Array[CardData])
+
+const TAMANO_MANO := 5
+
+var mazo_robo: Array[CardData] = []
+var mazo_descarte: Array[CardData] = []
+var mano: Array[CardData] = []
+
+func iniciar_mazo(deck_original: Array[CardData]) -> void:
+	mazo_robo = deck_original.duplicate()
+	mazo_robo.shuffle()
+	mazo_descarte.clear()
+	mano.clear()
+
+func iniciar_turno() -> void:
+	_descartar_mano()
+	_robar(TAMANO_MANO)
+
+func jugar_carta(carta: CardData) -> void:
+	if carta in mano:
+		mano.erase(carta)
+		mazo_descarte.append(carta)
+		mano_actualizada.emit(mano)
+
+func _robar(cantidad: int) -> void:
+	for i in cantidad:
+		if mazo_robo.is_empty():
+			_reciclar_descarte()
+			if mazo_robo.is_empty():
+				break 
+		mano.append(mazo_robo.pop_back())
+	mano_actualizada.emit(mano)
+
+func _descartar_mano() -> void:
+	mazo_descarte.append_array(mano)
+	mano.clear()
+
+func _reciclar_descarte() -> void:
+	mazo_robo = mazo_descarte.duplicate()
+	mazo_robo.shuffle()
+	mazo_descarte.clear()
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\cinematicas\cinematica_inicio.gd =====
+extends Control
+
+@onready var video := $inicio
+@onready var audio := $voces
+
+func _ready():
+	video.play()
+	audio.play()
+
+func _input(event):
+	if event.is_action_pressed("ui_accept") or event is InputEventMouseButton:
+		_iniciar_Juego()
+
+func _on_inicio_finished() -> void:
+	_iniciar_Juego()
+	
+func _iniciar_Juego():
+	SceneManager.change_scene(SceneManager.SceneID.SELECT_PERSONAJE)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\audio_library.gd =====
+class_name AudioLibrary
+extends Resource
+
+@export var musica_menu: AudioStream
+@export var musica_batalla: AudioStream
+@export var musica_boss: AudioStream
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\card_data.gd =====
+class_name CardData
+extends Resource
+
+enum TipoObjetivo {
+	PROPIO,               # escudo: siempre te lo aplicÃ¡s a vos, sin importar dÃ³nde soltÃ¡s
+	ENEMIGO_FIJO,         # ataques que siempre pegan al mismo enemigo (ej. "el del frente")
+	ENEMIGO_CUALQUIERA,   # tenÃ©s que soltar sobre un enemigo especÃ­fico para elegir cuÃ¡l
+	LIBRE,                # podÃ©s soltarla sobre vos o sobre cualquier enemigo
+}
+
+@export var nombre: String
+@export_multiline var descripcion: String
+@export var efectos: Array[EffectData] = []
+@export var animacion: String = ""
+@export var tipo_objetivo: TipoObjetivo = TipoObjetivo.ENEMIGO_CUALQUIERA
+@export var costo: int = 1
+@export var arte: Texture2D
+
+
+func jugar(fuente: CombatEntity, objetivo: CombatEntity) -> void:
+	for efecto in efectos:
+		efecto.aplicar(fuente, objetivo)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\effect_data.gd =====
+class_name EffectData
+extends Resource
+
+func aplicar(fuente: CombatEntity, objetivo: CombatEntity) -> void:
+	pass
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\enemy_data.gd =====
+class_name EnemyData
+extends Resource
+
+enum Religion { NINGUNA, SAGRADA, OSCURA }
+
+@export_group("IdentificaciÃ³n")
+@export var id: StringName
+@export var nombre: String
+@export var religion: Religion = Religion.NINGUNA
+
+@export_group("Combate")
+@export var stats: Stats
+@export var escena_combate: PackedScene
+
+@export_group("RepresentaciÃ³n en el mundo")
+@export var sprite_frames_mundo: SpriteFrames
+@export_range(0.05, 2.0, 0.05) var escala_mundo: float = 1.0
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\intent_data.gd =====
+class_name IntentData
+extends Resource
+
+enum Tipo {ATACAR, DEFENDER, HABILIDAD}
+
+@export var tipo: Tipo = Tipo.ATACAR
+@export var valor: int = 0 
+@export var icono: Texture2D
+@export var animacion: String = ""
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\player_data.gd =====
+class_name PlayerData
+extends Resource
+
+@export var tipo_caelius: GameManager.TipoCaelius = GameManager.TipoCaelius.PENA
+@export var nivel: int = 1
+@export var gold: int = 0
+@export var hp_actual: int = -1
+@export var deck: Array[CardData] = []
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\relic_data.gd =====
+class_name RelicData
+extends Resource
+
+@export var relic_name: String
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\stats.gd =====
+class_name Stats
+extends Resource
+
+@export var base_tiempo_ataque := 10.0
+@export var max_hp: int = 100
+@export var daÃ±o: int = 6
+@export var defensa: int = 5
+@export var esquive: int = 5
+@export var velocidad: int = 10
+@export var fe: int = 0
+@export var poder: int = 0
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\ui_theme_data.gd =====
+class_name UIThemeData
+extends Resource
+
+@export var color_normal: Color = Color("#251b07")
+@export var color_hover: Color = Color("#f8f5cb")
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\efectos\block_effect_data.gd =====
+class_name BlockEffectData
+extends EffectData
+
+@export var cantidad: int = 1
+
+func aplicar(fuente: CombatEntity, objetivo: CombatEntity) -> void:
+	fuente.bloqueo += cantidad
+	fuente.actualizar_escudo()
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\efectos\damage_effect_data.gd =====
+class_name DamageEffectData
+extends EffectData
+
+@export var cantidad: int = 1
+@export var ignora_bloqueo: bool = false
+
+func aplicar(fuente: CombatEntity, objetivo: CombatEntity) -> void:
+	objetivo.recibir_daÃ±o(cantidad, ignora_bloqueo)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\efectos\energy_effect_data.gd =====
+class_name EnergyEffectData
+extends EffectData
+
+@export var cantidad: int = 1
+
+func aplicar(fuente: CombatEntity, objetivo: CombatEntity) -> void: 
+	if fuente is Player and fuente.energia_actual < fuente.energia_max: 
+		#print("energia actual: %d" % fuente.energia_actual)
+		#print("energia max: %d" % fuente.energia_max)
+		fuente.sumar_energia(cantidad)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\efectos\esquive_buff_effect_data.gd =====
+class_name EsquiveBuffEffectData
+extends EffectData
+
+@export var cantidad: int = 5
+@export var duracion_turnos: int = 3
+@export var aplicar_a_uno_mismo: bool = true
+
+func aplicar(fuente: CombatEntity, objetivo: CombatEntity) -> void: 
+	var destino = fuente if aplicar_a_uno_mismo else objetivo
+	destino.esquive_buff_valor = cantidad
+	destino.esquive_buff_turnos = duracion_turnos
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\efectos\estado_effect_data.gd =====
+class_name EstadoEffectData
+extends EffectData
+
+@export var tipo: CombatEntity.TipoEstado
+@export var cantidad: int = 2
+@export var aplicar_a_uno_mismo: bool = false
+
+func aplicar(fuente: CombatEntity, objetivo: CombatEntity) -> void: 
+	var destino = fuente if aplicar_a_uno_mismo else objetivo
+	destino.aplicar_estado(tipo, cantidad)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\efectos\heal_effect_data.gd =====
+class_name HealEffectData
+extends EffectData
+
+@export var cantidad: int = 4
+
+func aplicar(fuente: CombatEntity, objetivo: CombatEntity) -> void:
+	fuente.hp = min(fuente.hp + cantidad, fuente.max_hp)
+	fuente.actualizar_barra_vida()
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\enemigos\boss.gd =====
+extends Enemy
+class_name Boss
+
+@export var nombre_habilidad: String = "Ã‰xtasis Prohibido"
+@export var cooldown_turnos: int = 3
+@export var duracion_buff_turnos: int = 2
+@export var bonus_daÃ±o_habilidad: float = 1.3
+@export var veneno_aplicado: int = 3
+@export var umbral_fase_desesperacion: float = 0.25
+@export var bonus_daÃ±o_fase_desesperacion: float = 1.2
+
+var turnos_restantes_cooldown: int = 0
+var turnos_restantes_buff: int = 0
+var fase_desesperacion: bool = false
+
+func decidir_intencion() -> void:
+	var nueva_intencion := IntentData.new()
+	if turnos_restantes_cooldown <= 0:
+		nueva_intencion.tipo = IntentData.Tipo.HABILIDAD
+		nueva_intencion.valor = veneno_aplicado
+	else:
+		var accion = randi() % 2
+		match accion:
+			0:
+				nueva_intencion.tipo = IntentData.Tipo.ATACAR
+				nueva_intencion.valor = daÃ±o
+			1:
+				nueva_intencion.tipo = IntentData.Tipo.DEFENDER
+				nueva_intencion.valor = 5
+	intencion_actual = nueva_intencion
+
+func activar_habilidad() -> void:
+	super()
+	habilidad_nombre = nombre_habilidad
+	bonus_daÃ±o = bonus_daÃ±o_habilidad
+	turnos_restantes_buff = duracion_buff_turnos
+	turnos_restantes_cooldown = cooldown_turnos
+
+func aplicar_efecto_habilidad_a_objetivo(objetivo: CombatEntity) -> void:
+	objetivo.aplicar_estado(CombatEntity.TipoEstado.VENENO, veneno_aplicado)
+
+func procesar_estados() -> void:
+	super.procesar_estados()
+
+	if turnos_restantes_cooldown > 0:
+		turnos_restantes_cooldown -= 1
+
+	if turnos_restantes_buff > 0:
+		turnos_restantes_buff -= 1
+		if turnos_restantes_buff <= 0:
+			bonus_daÃ±o = 1.0
+
+	if not fase_desesperacion and hp <= max_hp * umbral_fase_desesperacion:
+		fase_desesperacion = true
+		bonus_daÃ±o *= bonus_daÃ±o_fase_desesperacion
+		color_base = Color(1.0, 0.7, 0.8, 1.0)
+		self.modulate = color_base
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\enemigos\boss_padre_espina.gd =====
+extends Boss
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\enemigos\enemigo_autocuracion_por_contador.gd =====
+extends Enemy
+
+@export var incremento_por_ataque: int = 4
+@export var porcentaje_curacion: float = 1.0  # 1.0 = cura el valor del umbral completo
+
+var contador: int = 0
+
+func decidir_intencion() -> void:
+	var nueva_intencion := IntentData.new()
+
+	if contador >= fe:
+		nueva_intencion.tipo = IntentData.Tipo.HABILIDAD
+		nueva_intencion.valor = int(fe * porcentaje_curacion)
+		nueva_intencion.animacion = "curacion"
+	else:
+		var accion = randi_range(1, 100)
+
+		if accion <= 70:
+			nueva_intencion.tipo = IntentData.Tipo.ATACAR
+			nueva_intencion.valor = daÃ±o
+		else:
+			nueva_intencion.tipo = IntentData.Tipo.DEFENDER
+			nueva_intencion.valor = 5
+
+	intencion_actual = nueva_intencion
+
+
+func al_atacar() -> void:
+	contador = min(contador + incremento_por_ataque, fe)
+
+func activar_habilidad() -> void:
+	super()
+	habilidad_nombre = "Rezo y se cura"
+	var curacion = int(fe * porcentaje_curacion)
+	hp = min(hp + curacion, max_hp)
+	actualizar_barra_vida()
+	contador = 0
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\enemigos\enemigo_curacion_por_umbral.gd =====
+extends Enemy
+
+@export var umbral_hp_porcentaje: float = 0.45
+@export var porcentaje_curacion: float = 0.15
+@export var bonus_defensa_habilidad: float = 1.3
+@export var duracion_turnos: int = 3
+
+var turnos_restantes_buff: int = 0
+
+func decidir_intencion() -> void:
+	var nueva_intencion := IntentData.new()
+	if hp < max_hp * umbral_hp_porcentaje and turnos_restantes_buff <= 0:
+		nueva_intencion.tipo = IntentData.Tipo.HABILIDAD
+		nueva_intencion.valor = int(max_hp * porcentaje_curacion)
+		nueva_intencion.animacion = "curacion"
+	else:
+		var accion = randi() % 2
+		match accion:
+			0:
+				nueva_intencion.tipo = IntentData.Tipo.ATACAR
+				nueva_intencion.valor = daÃ±o
+			1:
+				nueva_intencion.tipo = IntentData.Tipo.DEFENDER
+				nueva_intencion.valor = 5
+	intencion_actual = nueva_intencion
+
+func activar_habilidad() -> void:
+	super()
+	habilidad_nombre = "Ãšltimo Consuelo y se cura"
+	var curacion = int(max_hp * porcentaje_curacion)
+	hp = min(hp + curacion, max_hp)
+	bonus_defensa = bonus_defensa_habilidad
+	turnos_restantes_buff = duracion_turnos
+	actualizar_barra_vida()
+
+func procesar_estados() -> void:
+	super.procesar_estados()
+	if turnos_restantes_buff > 0:
+		turnos_restantes_buff -= 1
+		if turnos_restantes_buff <= 0:
+			bonus_defensa = 1.0
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\enemigos\enemigo_robo_vida_temporal.gd =====
+extends Enemy
+
+@export var bonus_daÃ±o_habilidad: float = 1.25
+@export var duracion_turnos: int = 3
+@export var turnos_cooldown: int = 4
+
+var turnos_restantes_buff: int = 0
+var turnos_restantes_cooldown: int = 0
+
+func decidir_intencion() -> void:
+	var nueva_intencion := IntentData.new()
+	
+	if turnos_restantes_cooldown <= 0:
+		nueva_intencion.tipo = IntentData.Tipo.HABILIDAD
+		nueva_intencion.valor = 0
+		nueva_intencion.animacion = "curacion"
+	else:
+		nueva_intencion.tipo = IntentData.Tipo.ATACAR
+		nueva_intencion.valor = daÃ±o
+		#var accion = randi() % 2
+		#match accion:
+			#0:
+				#nueva_intencion.tipo = IntentData.Tipo.ATACAR
+				#nueva_intencion.valor = daÃ±o
+			#1:
+				#nueva_intencion.tipo = IntentData.Tipo.DEFENDER
+				#nueva_intencion.valor = 5
+	intencion_actual = nueva_intencion
+
+func activar_habilidad() -> void:
+	super()
+	habilidad_nombre = "Hambre" 
+	robo_vida = true
+	
+	bonus_daÃ±o = bonus_daÃ±o_habilidad
+	turnos_restantes_buff = duracion_turnos
+	turnos_restantes_cooldown = turnos_cooldown
+
+func procesar_estados() -> void:
+	super.procesar_estados()
+	
+	
+	if turnos_restantes_cooldown > 0:
+		turnos_restantes_cooldown -= 1
+	if turnos_restantes_buff > 0:
+		turnos_restantes_buff -= 1
+		if turnos_restantes_buff <= 0:
+			robo_vida = false
+			bonus_daÃ±o = 1.0
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\managers\audio_settings.gd =====
+extends Node
+
+const SETTINGS_PATH := "user://settings.dat"
+
+var music := 100.0
+var sfx := 100.0
+var voces := 100.0
+
+func _ready():
+	cargar()
+	aplicar()
+
+func aplicar():
+	set_bus_volume("Music", music)
+	set_bus_volume("SFX", sfx)
+	set_bus_volume("Voces", voces)
+
+func set_bus_volume(bus_name: String, value: float):
+	var bus := AudioServer.get_bus_index(bus_name)
+	if bus == -1:
+		push_warning("Bus no encontrado: " + bus_name)
+		return
+
+	var volumen_lineal := clampf(value / 100.0, 0.0, 1.0)
+	var volumen_ajustado := pow(volumen_lineal, 2.0)
+
+	AudioServer.set_bus_volume_db(
+	bus,
+	linear_to_db(maxf(volumen_ajustado, 0.0001)) - 15.0
+	)
+	
+func guardar():
+	var data := {
+		"music": music,
+		"sfx": sfx,
+		"voces": voces
+	}
+
+	var file := FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)
+	if file == null:
+		push_error("AudioSettings: no se pudo abrir %s para escribir" % SETTINGS_PATH)
+		return
+	file.store_var(data)
+	file.close()
+
+func cargar():
+	if not FileAccess.file_exists(SETTINGS_PATH):
+		return
+
+	var file := FileAccess.open(SETTINGS_PATH, FileAccess.READ)
+	if file == null:
+		push_error("AudioSettings: no se pudo abrir %s para leer" % SETTINGS_PATH)
+		return
+	var data: Dictionary = file.get_var()
+	file.close()
+
+	music = data.get("music", 100.0)
+	sfx = data.get("sfx", 100.0)
+	voces = data.get("voces", 100.0)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\managers\game_manager.gd =====
+
+extends Node
+
+const SAVE_PATH := "user://save.tres"
+
+const STATS_PATHS := {
+	TipoCaelius.PENA: "res://Data/characters/stats_pena.tres",
+	TipoCaelius.IRA: "res://Data/characters/stats_ira.tres",
+	TipoCaelius.EGO: "res://Data/characters/stats_ego.tres",
+}
+
+const MAZOS_INICIALES := {
+	TipoCaelius.IRA: {
+		"golpe_basico": 2,
+		"golpe_fuerte": 4,
+		"escudo": 1,
+		"recuperar_energia": 3,
+	},
+	TipoCaelius.EGO: {
+		"golpe_basico": 3,
+		"golpe_fuerte": 1,
+		"escudo": 4,
+		"recuperar_energia": 2,
+	},
+	TipoCaelius.PENA: {
+		"golpe_basico": 3,
+		"golpe_fuerte": 2,
+		"escudo": 1,
+		"recuperar_energia": 2,
+		"curacion_menor": 2,
+	},
+}
+
+
+enum TipoCaelius { PENA, IRA, EGO }
+enum TipoEncuentro { NORMAL, JEFE }
+
+
+# DATOS DEL JUGADOR Y EXPEDICIÃ“N
+
+var player_data: PlayerData
+var estado_expedicion: EstadoExpedicion = EstadoExpedicion.new()
+
+
+# DATOS DEL ENCUENTRO ACTUAL
+
+var enemy_data_encuentro: EnemyData = null
+var zona_id_encuentro: String = ""
+var enemigo_id_encuentro: String = ""
+var posicion_jugador_encuentro: Vector2 = Vector2.ZERO
+var tipo_encuentro: TipoEncuentro = TipoEncuentro.NORMAL
+
+
+func _ready() -> void:
+	MusicManager.play_menu()
+
+
+# ESTADÃSTICAS DEL CAELIUS
+
+func get_stats_for(tipo: TipoCaelius) -> Stats:
+	var path: String = STATS_PATHS.get(tipo, "")
+
+	if path.is_empty():
+		push_error("GameManager: no hay Stats registrado para el tipo %s." % tipo)
+		return null
+
+	var recurso := load(path) as Stats
+
+	if recurso == null:
+		push_error("GameManager: no se pudo cargar %s." % path)
+		return null
+
+	return recurso.duplicate()
+
+
+# GESTIÃ“N DE PARTIDAS
+
+func iniciar_nueva_partida(tipo: TipoCaelius) -> void:
+	player_data = PlayerData.new()
+	player_data.tipo_caelius = tipo
+	player_data.nivel = 1
+	player_data.hp_actual = -1
+
+	estado_expedicion = EstadoExpedicion.new()
+
+	limpiar_encuentro()
+	guardar_partida()
+
+
+func hay_partida_guardada() -> bool:
+	return FileAccess.file_exists(SAVE_PATH)
+
+
+func guardar_partida() -> void:
+	if player_data == null:
+		push_error("GameManager: no hay PlayerData para guardar.")
+		return
+
+	var error := ResourceSaver.save(player_data, SAVE_PATH)
+
+	if error != OK:
+		push_error("GameManager: fallo al guardar partida (error %s)." % error)
+
+
+func cargar_partida() -> void:
+	if not hay_partida_guardada():
+		push_error("GameManager: no hay partida guardada.")
+		return
+
+	var recurso := ResourceLoader.load(SAVE_PATH)
+
+	if recurso is PlayerData:
+		player_data = recurso
+	else:
+		push_error("GameManager: el guardado no es un PlayerData vÃ¡lido.")
+
+
+func borrar_partida() -> void:
+	if hay_partida_guardada():
+		var error := DirAccess.remove_absolute(SAVE_PATH)
+
+		if error != OK:
+			push_error("GameManager: no se pudo borrar la partida.")
+			return
+
+	player_data = null
+
+
+# MAZO INICIAL
+
+func crear_mazo_inicial(tipo: TipoCaelius) -> Array[CardData]:
+	var mazo: Array[CardData] = []
+	var composicion: Dictionary = MAZOS_INICIALES.get(tipo, {})
+
+	for nombre_carta in composicion.keys():
+		var cantidad: int = composicion[nombre_carta]
+		var carta := load("res://Data/cartas/%s.tres" % nombre_carta) as CardData
+
+		if carta == null:
+			push_error("GameManager: no se pudo cargar la carta %s." % nombre_carta)
+			continue
+
+		for i in range(cantidad):
+			mazo.append(carta)
+
+	return mazo
+
+
+# GESTIÃ“N DE ENCUENTROS
+
+func preparar_encuentro(
+	datos: EnemyData,
+	zona_id: String,
+	enemigo_id: String,
+	posicion_jugador: Vector2,
+	tipo: TipoEncuentro = TipoEncuentro.NORMAL
+) -> void:
+	if datos == null:
+		push_error("GameManager: no se puede iniciar un encuentro sin EnemyData.")
+		return
+
+	if zona_id.strip_edges().is_empty() or enemigo_id.strip_edges().is_empty():
+		push_error("GameManager: el encuentro necesita una zona y un ID vÃ¡lidos.")
+		return
+
+	enemy_data_encuentro = datos
+	zona_id_encuentro = zona_id
+	enemigo_id_encuentro = enemigo_id
+	posicion_jugador_encuentro = posicion_jugador
+	tipo_encuentro = tipo
+
+
+func limpiar_encuentro() -> void:
+	enemy_data_encuentro = null
+	zona_id_encuentro = ""
+	enemigo_id_encuentro = ""
+	posicion_jugador_encuentro = Vector2.ZERO
+	tipo_encuentro = TipoEncuentro.NORMAL
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\managers\music_manager.gd =====
+extends Node
+
+@onready var music = $AudioStreamPlayer
+var current_track: AudioStream = null
+
+@export var audio_library: AudioLibrary 
+
+
+func play_music(track: AudioStream):
+	if current_track == track and music.playing:
+		return
+
+	current_track = track
+	music.stream = track
+	music.play()
+
+func stop_music():
+	music.stop()
+
+func pause_music():
+	music.stream_paused = true
+
+func resume_music():
+	music.stream_paused = false
+
+#ATAJOS
+func play_menu():
+	play_music(audio_library.musica_menu)
+
+func play_battle():
+	play_music(audio_library.musica_batalla)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\managers\scene_manager.gd =====
+
+extends Node
+
+enum SceneID {
+	MENU_PRINCIPAL,
+	CINEMATICA_INICIO,
+	SELECT_PERSONAJE,
+	SELECT_NIVEL,
+	SUBIR_NIVEL,
+	BATALLA,
+	AJUSTES,
+	CREDITOS,
+	GLOSARIO,
+	FIN_PARTIDA,
+	SALIR,
+	ZONA_ROJA,
+	FIN_ZONA
+}
+
+const SCENE_PATHS := {
+	SceneID.MENU_PRINCIPAL: "res://Scenes/menus/menu_principal.tscn",
+	SceneID.SELECT_PERSONAJE: "res://Scenes/menus/select_personaje.tscn",
+	SceneID.SELECT_NIVEL: "res://Scenes/menus/select_nivel.tscn",
+	SceneID.BATALLA: "res://Scenes/battle_scene.tscn",
+	SceneID.CINEMATICA_INICIO: "res://Scenes/cinematicas/cinematica_inicio.tscn",
+	SceneID.AJUSTES: "res://Scenes/menus/ajustes.tscn",
+	SceneID.CREDITOS: "res://Scenes/menus/creditos.tscn",
+	SceneID.SALIR: "res://Scenes/menus/salir.tscn",
+	SceneID.SUBIR_NIVEL: "res://Scenes/subir_nivel.tscn",
+	SceneID.GLOSARIO: "res://Scenes/menus/glosario.tscn",
+	SceneID.FIN_PARTIDA: "res://Scenes/menus/fin_partida.tscn",
+	SceneID.ZONA_ROJA: "res://Scenes/mundo/Zona_roja.tscn",
+	SceneID.FIN_ZONA: "res://Scenes/menus/fin_zona.tscn",
+}
+
+
+func change_scene(id: SceneID) -> void:
+	var path: String = SCENE_PATHS.get(id, "")
+
+	if path == "":
+		push_error("SceneManager: no hay path registrado para el ID %s" % SceneID.keys()[id])
+		return
+
+	var err := get_tree().change_scene_to_file(path)
+
+	if err != OK:
+		push_error("SceneManager: fallo al cargar %s (error %s)" % [path, err])
+
+
+func add_overlay(id: SceneID, parent: Node) -> Node:
+	var path: String = SCENE_PATHS.get(id, "")
+
+	if path == "":
+		push_error("SceneManager: no hay path registrado para el ID %s" % SceneID.keys()[id])
+		return null
+
+	var scene_resource: PackedScene = load(path)
+
+	if scene_resource == null:
+		push_error("SceneManager: fallo al cargar %s" % path)
+		return null
+
+	for child in parent.get_children():
+		if child.scene_file_path == path:
+			return child
+
+	var instance := scene_resource.instantiate()
+	parent.add_child(instance)
+
+	return instance
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\menus\ajustes.gd =====
+extends Control
+
+@onready var slider_musica = $Panel/opciones/SliderMusica
+@onready var slider_efectos = $Panel/opciones/SliderEfectos
+@onready var slider_voces = $Panel/opciones/SliderVoces
+
+#@onready var preview_music = $PreviewMusic
+@onready var preview_sfx = $PreviewEfectos
+@onready var preview_voces = $PreviewVoces
+
+func _ready():
+	slider_musica.value = AudioSettings.music
+	slider_efectos.value = AudioSettings.sfx
+	slider_voces.value = AudioSettings.voces
+
+	slider_musica.value_changed.connect(func(v): _cambiar_volumen("music", v))
+	slider_efectos.value_changed.connect(func(v): _cambiar_volumen("sfx", v))
+	slider_voces.value_changed.connect(func(v): _cambiar_volumen("voces", v))
+
+	slider_efectos.drag_started.connect(func(): preview_sfx.play())
+	slider_efectos.drag_ended.connect(func(_c=false): preview_sfx.stop())
+
+	slider_voces.drag_started.connect(func(): preview_voces.play())
+	slider_voces.drag_ended.connect(func(_c=false): preview_voces.stop())
+	
+	slider_musica.drag_ended.connect(func(_c=false): AudioSettings.guardar())
+	slider_efectos.drag_ended.connect(func(_c=false): AudioSettings.guardar())
+	slider_voces.drag_ended.connect(func(_c=false): AudioSettings.guardar())
+
+func _cambiar_volumen(canal: String, value: float):
+	match canal:
+		"music": AudioSettings.music = value
+		"sfx": AudioSettings.sfx = value
+		"voces": AudioSettings.voces = value
+	AudioSettings.aplicar()
+
+func _on_btn_volver_pressed():
+	AudioSettings.guardar()
+	queue_free()
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\menus\btn_volver.gd =====
+extends Button
+
+@onready var hover_sound = $HoverSound
+
+func _ready():
+	mouse_entered.connect(_on_mouse_entered)
+
+func _on_mouse_entered():
+	if not disabled and hover_sound:
+		hover_sound.play()
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\menus\camera2d.gd =====
+extends Camera2D
+
+@export var distancia: float = 25.0
+@export var velocidad: float = 4.5
+@export var pausa_min: float = 0.05
+@export var pausa_max: float = 0.15
+
+var origen: Vector2
+var destino: Vector2
+
+var esperando := false
+var tiempo_pausa := 0.0
+
+var ultimo_indice := -1
+
+var posiciones := [
+	Vector2( 0.8, -0.3), # â†—
+	Vector2( 0.9,  0.8), # â†˜
+	Vector2( 0.3, -1.0), # â†–
+	Vector2(-0.2, -1.0), # â†™
+
+	Vector2(-0.9, -0.4),
+	Vector2(-1.0,  0.2),
+	Vector2(-0.7,  0.8),
+	Vector2(-0.3,  1.0),
+
+	Vector2( 0.2,  1.0),
+	Vector2( 0.8,  0.7),
+	Vector2( 1.0,  0.3),
+	Vector2( 0.6, -0.9),
+
+	Vector2( 1.2,  0.0),
+	Vector2(-1.2,  0.0),
+	Vector2( 0.0, -1.2),
+	Vector2( 0.0,  1.2)
+]
+
+func _ready():
+	randomize()
+
+	origen = position
+
+	elegir_nuevo_destino()
+
+
+func _process(delta):
+
+	if esperando:
+		tiempo_pausa -= delta
+
+		if tiempo_pausa <= 0:
+			esperando = false
+			elegir_nuevo_destino()
+
+		return
+
+	position = position.move_toward(destino, velocidad * 65 * delta)
+
+	if position.distance_to(destino) < 1.0:
+		esperando = true
+		tiempo_pausa = randf_range(pausa_min, pausa_max)
+
+
+func elegir_nuevo_destino():
+
+	var indice = randi() % posiciones.size()
+
+	while indice == ultimo_indice:
+		indice = randi() % posiciones.size()
+
+	ultimo_indice = indice
+
+	var dir = posiciones[indice].normalized()
+
+	var distancia_real = randf_range(distancia * 0.5, distancia)
+
+	destino = origen + dir * distancia_real
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\menus\cardglosarios.gd =====
+extends TextureRect
+
+@onready var sprite = $TextureRect
+@onready var button = $Button
+
+var sprite_normal
+var sprites_hover: Array[Texture2D] = []
+
+
+func _ready():
+	match name:
+		"Caelius":
+			sprite_normal = preload("res://Assets/ChArt/caelius de ira.png")
+			sprites_hover = [
+				preload("res://Assets/BttlSprit/fausepena.png")
+			]
+
+		"Papa":
+			sprite_normal = preload("res://Assets/ChArt/el papa.png")
+			sprites_hover = [
+				preload("res://Assets/ChArt/trono.png")
+			]
+			
+		"Monja":
+			sprite_normal = preload("res://Assets/ChArt/monjasenta.png")
+			sprites_hover = [
+				preload("res://Assets/ChArt/la monja.png")
+			]
+		
+		"Monaquillo":
+			sprite_normal = preload("res://Assets/ChArt/los monaquillo.png")
+			sprites_hover = [
+				preload("res://Assets/BttlSprit/almamonaquillos.png")
+			]
+			
+		"Espina":
+			sprite_normal = preload("res://Assets/ChArt/padre espina.png")
+			sprites_hover = [
+				preload("res://Assets/BttlSprit/Kamathra.png")
+			]
+			
+		"Serpico":
+			sprite_normal = preload("res://Assets/ChArt/Obispo Serpico.png")
+			sprites_hover = [
+				preload("res://Assets/BttlSprit/vahruksha.png")
+			]
+			
+		"Eirene":
+			sprite_normal = preload("res://Assets/ChArt/Eirene KoryphÃ©.png")
+			sprites_hover = [
+				preload("res://Assets/BttlSprit/Artemisia.png")
+			]
+			
+		"Corvus":
+			sprite_normal = preload("res://Assets/ChArt/Fray Corvus.png")
+			sprites_hover = [
+				preload("res://Assets/BttlSprit/Nzolukaya.png")
+			]
+		
+		"Galaad":
+			sprite_normal = preload("res://Assets/ChArt/galaad.png")
+			sprites_hover = [
+				preload("res://Assets/BttlSprit/Eliadran.png")
+			]
+			
+		"Kapparah":
+			sprite_normal = preload("res://Assets/ChArt/Kapparah.png")
+			sprites_hover = [
+				preload("res://Assets/BttlSprit/Tzafiel.png")
+			]
+			
+		"Devotio":
+			sprite_normal = preload("res://Assets/ChArt/Devotio.png")
+			sprites_hover = [
+				preload("res://Assets/ChArt/los monaquillo.png")
+			]
+			
+		"Trono":
+			sprite_normal = preload("res://Assets/ChArt/trono.png")
+			sprites_hover = [
+				preload("res://Assets/ChArt/monjasenta.png"),
+				preload("res://Assets/ChArt/el papa.png")
+			]
+			
+		"Alma":
+			sprite_normal = preload("res://Assets/BttlSprit/alma.png")
+			sprites_hover = [
+				preload("res://Assets/BttlSprit/fausepena.png"),
+				preload("res://Assets/BttlSprit/almamonaquillos.png"),
+				preload("res://Assets/BttlSprit/Kamathra.png"),
+				preload("res://Assets/BttlSprit/vahruksha.png"),
+				preload("res://Assets/BttlSprit/Artemisia.png"),
+				preload("res://Assets/BttlSprit/Nzolukaya.png"),
+				preload("res://Assets/BttlSprit/Eliadran.png"),
+				preload("res://Assets/BttlSprit/Tzafiel.png")
+			]
+
+
+	sprite.texture = sprite_normal
+
+	button.mouse_entered.connect(_on_mouse_entered)
+	button.mouse_exited.connect(_on_mouse_exited)
+
+
+func _on_mouse_entered():
+	if sprites_hover.size() > 0:
+		sprite.texture = sprites_hover.pick_random()
+
+
+func _on_mouse_exited():
+	sprite.texture = sprite_normal
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\menus\carta_caelius.gd =====
+extends Button
+
+@export_group("Imagenes del Caelius")
+@export var textura_personaje: Texture2D
+@export var textura_alma: Texture2D
+
+@onready var fondo: TextureRect = $Fondo
+@onready var sprite: TextureRect = $Sprite
+@onready var nombre: Label = $Nombre
+
+const FONDO_NORMAL = preload("res://Assets/BckGrnd/paperallborder.png")
+const FONDO_HOVER = preload("res://Assets/BckGrnd/paperallborderrojo.png")
+
+const COLOR_NOMBRE_NORMAL = Color("#906502")
+const COLOR_NOMBRE_HOVER = Color("#500009")
+
+
+func _ready() -> void:
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
+
+	mostrar_personaje_normal()
+
+
+func _on_mouse_entered() -> void:
+	fondo.texture = FONDO_HOVER
+	sprite.texture = textura_alma
+	nombre.modulate = COLOR_NOMBRE_HOVER
+
+
+func _on_mouse_exited() -> void:
+	mostrar_personaje_normal()
+
+
+func mostrar_personaje_normal() -> void:
+	fondo.texture = FONDO_NORMAL
+	sprite.texture = textura_personaje
+	nombre.modulate = COLOR_NOMBRE_NORMAL
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\menus\creditcard.gd =====
+extends TextureRect
+
+@onready var sprite = $TextureRect
+@onready var button = $Link
+@onready var label = $Label
+
+var sprite_normal
+var sprite_hover
+
+var texto_normal = ""
+var texto_hover = ""
+
+
+func _ready():
+	match name:
+		"Anto":
+			sprite_normal = preload("res://Assets/credit/anto.png")
+			sprite_hover = preload("res://Assets/ChArt/monjasenta.png")
+
+		"Esperanza":
+			sprite_normal = preload("res://Assets/credit/espe.png")
+			sprite_hover = preload("res://Assets/ChArt/Eirene KoryphÃ©.png")
+
+		"matute":
+			sprite_normal = preload("res://Assets/credit/matu.png")
+			sprite_hover = preload("res://Assets/ChArt/sintax.png")
+
+		"Javier":
+			sprite_normal = preload("res://Assets/credit/Javier.png")
+			texto_normal = "Javier Juarez"
+			texto_hover = "Programador"
+
+		"Matias":
+			sprite_normal = preload("res://Assets/credit/matias.png")
+			texto_normal = "Matias Diaz"
+			texto_hover = "Programador"
+
+		"Uriel":
+			sprite_normal = preload("res://Assets/credit/uri.png")
+			texto_normal = "Uriel Lara"
+			texto_hover = "Programador"
+		
+		"Matute":
+			sprite_normal = preload("res://Assets/credit/matu.png")
+			texto_normal = "Matute"
+			texto_hover = "Game Desing"
+
+
+	sprite.texture = sprite_normal
+
+	if texto_normal != "":
+		label.text = texto_normal
+
+	button.mouse_entered.connect(_on_mouse_entered)
+	button.mouse_exited.connect(_on_mouse_exited)
+
+
+func _on_mouse_entered():
+	if texto_hover != "":
+		label.text = texto_hover
+	else:
+		sprite.texture = sprite_hover
+
+
+func _on_mouse_exited():
+	if texto_normal != "":
+		label.text = texto_normal
+	else:
+		sprite.texture = sprite_normal
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\menus\creditos.gd =====
+extends Control
+
+@onready var hover_sound = $HoverSound
+
+func _ready():
+	for button in get_tree().get_nodes_in_group("LinkPersonal"):
+		button.pressed.connect(_on_link_pressed.bind(button.get_parent().name))
+
+	# Conectar el hover de los botones de crÃ©ditos
+	var botones_hover = [
+		$Panel/Atras,
+		$Panel/Links,
+		$Panel/ButtonIzq,
+		$Panel/ButtonDer
+	]
+
+	for boton in botones_hover:
+		boton.mouse_entered.connect(_on_hover.bind(boton))
+		
+
+func _on_hover(boton: BaseButton) -> void:
+	if boton.disabled:
+		return
+
+	if hover_sound.playing:
+		hover_sound.stop()
+
+	hover_sound.play()
+
+func _on_atras_pressed() -> void:
+	queue_free()
+
+func _on_links_pressed() -> void:
+	OS.shell_open("https://linktr.ee/ServentesioStudios")
+
+func _on_button_der_pressed() -> void:
+	$Panel/Tipo.text = "ACTORES \nDE VOZ"
+	$Panel/ButtonDer.hide()
+	$Panel/Desarrolladores.hide()
+	$Panel/Voces.show()
+	$Panel/ButtonIzq.show()
+
+func _on_button_izq_pressed() -> void:
+	$Panel/Tipo.text = "DESARROLLADORES"
+	$Panel/ButtonIzq.hide()
+	$Panel/Voces.hide()
+	$Panel/ButtonDer.show()
+	$Panel/Desarrolladores.show()
+
+# âš ï¸ ESTA FUNCIÃ“N NO SE TOCA
+func _on_link_pressed(id) -> void:
+	match id:
+		"Javier":
+			OS.shell_open("https://www.linkedin.com/in/javier-david-juarez/")
+		"Matias":
+			OS.shell_open("https://tredarnos.itch.io/")
+		"Adrian":
+			OS.shell_open("https://www.linkedin.com/in/adrianrobertobriosso/")
+		"Matute":
+			OS.shell_open("https://linktr.ee/Matute.fk2")
+		"Uriel":
+			OS.shell_open("https://www.linkedin.com/in/urielara")
+		"Anto":
+			OS.shell_open("https://linktr.ee/ServentesioStudios")
+		"Lucio":
+			OS.shell_open("https://linktr.ee/ServentesioStudios")
+		"Thiago":
+			OS.shell_open("https://linktr.ee/ServentesioStudios")
+		"Joaquin":
+			OS.shell_open("https://linktr.ee/ServentesioStudios")
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\menus\cursordeluz.gd =====
+extends Node2D
+
+func _process(_delta):
+	global_position = get_global_mouse_position()
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\menus\enmenuexplocion.gd =====
+extends AnimatedSprite2D
+
+@export var posiciones: Array[Vector2] =[
+	Vector2(220, 100),
+	Vector2(1000, 300),
+	Vector2(1100, 200),
+	Vector2(1200, 50),
+	Vector2(220, 620),
+	Vector2(1100, 620),
+	Vector2(550, 190)
+]
+
+var  posicion_actual := -1
+
+func _ready(): 
+	randomize()
+	
+	animation_finished.connect(_cuando_termina)
+	
+	cambiar_posicion()
+	
+	frame = 0
+	play("exolocion")
+	
+func _cuando_termina():
+	cambiar_posicion()
+	
+	frame = 0
+	play("exolocion")
+	
+func cambiar_posicion():
+	var nueva_posicion := randi() % posiciones.size()
+	
+	while nueva_posicion == posicion_actual and posiciones.size() > 1:
+		nueva_posicion = randi() % posiciones.size()
+		
+	posicion_actual = nueva_posicion
+	position = posiciones[posicion_actual]
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\menus\fin_partida.gd =====
+extends Control
+
+enum TipoFinal {
+	DERROTA,
+	CONTINUARA
+}
+
+@onready var label_mensaje: Label = $Mensaje
+@onready var btn_accion: Button = $BtnAccion
+
+var tipo_final: TipoFinal = TipoFinal.DERROTA
+
+
+func _ready() -> void:
+	btn_accion.text = "Volver al menÃº"
+	btn_accion.pressed.connect(_volver_al_menu_principal)
+
+	actualizar_mensaje()
+
+
+func configurar(tipo: TipoFinal) -> void:
+	tipo_final = tipo
+
+	if is_node_ready():
+		actualizar_mensaje()
+
+
+func actualizar_mensaje() -> void:
+	match tipo_final:
+		TipoFinal.DERROTA:
+			label_mensaje.text = "GAME OVER"
+
+		TipoFinal.CONTINUARA:
+			label_mensaje.text = "ContinuarÃ¡..."
+
+
+func _volver_al_menu_principal() -> void:
+	GameManager.limpiar_encuentro()
+	GameManager.estado_expedicion = EstadoExpedicion.new()
+
+	SceneManager.change_scene(SceneManager.SceneID.MENU_PRINCIPAL)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\menus\glosario.gd =====
+extends Control
+
+@onready var hover_sound = $HoverSound
+var glosariotexto = ConfigFile.new()
+#var progreso = ConfigFile.new()
+var glosarioid: String = ""
+
+
+const JEFES_GLOSARIO: Dictionary = {
+	"Espina": "espina",
+	"Serpico": "serpico",
+	"Eirene": "zona_roja_jefe_01",
+	"Corvus": "corvus",
+	"Galaad": "galaad",
+	"Kapparah": "kapparah"
+}
+
+
+
+func _ready():
+	for button in get_tree().get_nodes_in_group("GlosarioButton"):
+		button.pressed.connect(_on_button_pressed.bind(button.get_parent().name))
+		
+	if GameManager.player_data != null:
+		match GameManager.player_data.tipo_caelius:
+				GameManager.TipoCaelius.EGO:
+					$Panel/General/ScrollContainerPersonajes/Personajes/Caelius/TextureRect.texture = load("res://assets/ChArt/caelius de ego.png")
+				GameManager.TipoCaelius.IRA:
+					$Panel/General/ScrollContainerPersonajes/Personajes/Caelius/TextureRect.texture = load("res://assets/ChArt/caelius de ira.png")
+				GameManager.TipoCaelius.PENA:
+					$Panel/General/ScrollContainerPersonajes/Personajes/Caelius/TextureRect.texture = load("res://assets/ChArt/caelius de pena.png")
+	else:
+		ocultar("Caelius")
+		$Panel/General/ScrollContainerMaldiciones/Maldiciones/Reves/TextureRect.modulate = Color()
+		$Panel/General/ScrollContainerMaldiciones/Maldiciones/Reves/Label.text = "???"
+		$Panel/General/ScrollContainerMaldiciones/Maldiciones/Reves/Button.disabled = true
+		$Panel/General/ScrollContainerMaldiciones/Maldiciones/Reves/Button.set_block_signals(1)
+
+	
+	for jefe_nombre in JEFES_GLOSARIO:
+		var jefe_id: String = JEFES_GLOSARIO[jefe_nombre]
+		var derrotado := false
+
+		for zona_id in GameManager.estado_expedicion.jefes_derrotados_por_zona:
+			if GameManager.estado_expedicion.jefe_derrotado(zona_id, jefe_id):
+				derrotado = true
+				break
+
+		if not derrotado:
+			ocultar(jefe_nombre)
+
+		
+func ocultar(nombre):
+	$Panel/General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/TextureRect").modulate = Color()
+	$Panel/General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/Label").text = "???"
+	$Panel/General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/Button").disabled = true
+	$Panel/General/ScrollContainerPersonajes/Personajes.get_node(nombre + "/Button").set_block_signals(1)
+
+
+func _on_atras_pressed() -> void:
+	if $Panel/Detalle.visible:
+		$Panel/Detalle.hide()
+		$Panel/General.show()
+		$Panel/Glosario.text = "Glosario"
+	else:
+		queue_free()
+
+
+func _on_button_mouse_entered() -> void:
+	if hover_sound.playing == true:
+		hover_sound.stop()
+	hover_sound.play()
+
+
+func _on_button_der_pressed() -> void:
+	if $Panel/General/Tipo.text == "Personajes":
+		$Panel/General/ButtonIzq.show()
+		$Panel/General/ScrollContainerPersonajes.hide()
+		$Panel/General/ScrollContainerMaldiciones.show()
+		$Panel/General/Tipo.text = "Maldiciones"
+	else:
+		$Panel/General/ButtonDer.hide()
+		$Panel/General/ScrollContainerMaldiciones.hide()
+		$Panel/General/ScrollContainerPoderes.show()
+		$Panel/General/Tipo.text = "Poderes del Mundo"
+
+
+func _on_button_izq_pressed() -> void:
+	if $Panel/General/Tipo.text == "Maldiciones":
+		$Panel/General/ButtonIzq.hide()
+		$Panel/General/ScrollContainerMaldiciones.hide()
+		$Panel/General/ScrollContainerPersonajes.show()
+		$Panel/General/Tipo.text = "Personajes"
+	else:
+		$Panel/General/ButtonDer.show()
+		$Panel/General/ScrollContainerPoderes.hide()
+		$Panel/General/ScrollContainerMaldiciones.show()
+		$Panel/General/Tipo.text = "Maldiciones"
+
+
+func _on_button_pressed(id) -> void:
+	var err = glosariotexto.load("res://Data/text/glosario.cfg")
+	if err != OK:
+		return
+	glosarioid = id
+	$Panel/General.hide()
+	if id == "Devotio" or id == "Reves" or id == "Trono" or id == "Alma" or id == "MonjaPoder":
+		$Panel/Detalle/Descripcion/texto.text = "Concepto"
+		$Panel/Detalle/Descripcion.disabled = true
+		$Panel/Detalle/Alma.hide()
+		$Panel/Detalle/Religion.hide()
+		$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(id,"descripcion")
+		if id == "Devotio" or id == "Reves":
+			$Panel/Detalle/Imagen/TextureRect.texture = $Panel/General/ScrollContainerMaldiciones/Maldiciones.get_node(glosarioid + "/TextureRect").texture
+		else:
+			$Panel/Detalle/Imagen/TextureRect.texture = $Panel/General/ScrollContainerPoderes/Poderes.get_node(glosarioid + "/TextureRect").texture
+	else:
+		$Panel/Detalle/Descripcion/texto.text = "Historia"
+		$Panel/Detalle/Alma.show()
+		$Panel/Detalle/Religion.show()
+		$Panel/Detalle/Descripcion.emit_signal("pressed")
+	$Panel/Glosario.text = glosariotexto.get_value(id,"nombre")
+	$Panel/Detalle.show()
+
+func _on_descripcion_pressed() -> void:
+	$Panel/Detalle/Descripcion.disabled = true
+	$Panel/Detalle/Descripcion.set_block_signals(1)
+	$Panel/Detalle/Religion.disabled = false
+	$Panel/Detalle/Religion.set_block_signals(0)
+	$Panel/Detalle/Alma.disabled = false
+	$Panel/Detalle/Alma.set_block_signals(0)
+	if glosarioid == "Caelius":
+		match GameManager.player_data.tipo_caelius:
+			GameManager.TipoCaelius.EGO:
+				$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"descripcionego")
+			GameManager.TipoCaelius.IRA:
+				$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"descripcionira")
+			GameManager.TipoCaelius.PENA:
+				$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"descripcionpena")
+	else:
+		$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"descripcion")
+	$Panel/Detalle/Imagen/TextureRect.texture = $Panel/General/ScrollContainerPersonajes/Personajes.get_node(glosarioid + "/TextureRect").texture
+
+
+func _on_religion_pressed() -> void:
+	$Panel/Detalle/Religion.disabled = true
+	$Panel/Detalle/Religion.set_block_signals(1)
+	$Panel/Detalle/Descripcion.disabled = false
+	$Panel/Detalle/Descripcion.set_block_signals(0)
+	$Panel/Detalle/Alma.disabled = false
+	$Panel/Detalle/Alma.set_block_signals(0)
+	$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"religion")
+	$Panel/Detalle/Imagen/TextureRect.texture = $Panel/General/ScrollContainerPersonajes/Personajes.get_node(glosarioid + "/TextureRect").texture
+
+
+func _on_alma_pressed() -> void:
+	$Panel/Detalle/Alma.disabled = true
+	$Panel/Detalle/Alma.set_block_signals(1)
+	$Panel/Detalle/Descripcion.disabled = false
+	$Panel/Detalle/Descripcion.set_block_signals(0)
+	$Panel/Detalle/Religion.disabled = false
+	$Panel/Detalle/Religion.set_block_signals(0)
+	if glosarioid == "Caelius":
+		match GameManager.player_data.tipo_caelius:
+			GameManager.TipoCaelius.EGO:
+				$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"almaego")
+			GameManager.TipoCaelius.IRA:
+				$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"almaira")
+			GameManager.TipoCaelius.PENA:
+				$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"almapena")
+		$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/fausepena.png")
+	else:
+		$Panel/Detalle/Texto/RichTextLabel.text = glosariotexto.get_value(glosarioid,"alma")
+	match glosarioid:
+		"Monaquillo":
+			$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/almamonaquillos.png")
+		"Espina":
+			$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Kamathra.png")
+		"Serpico":
+			$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/vahruksha.png")
+		"Eirene":
+			$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Artemisia.png")
+		"Corvus":
+			$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Nzolukaya.png")
+		"Galaad":
+			$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Eliadran.png")
+		"Kapparah":
+			$Panel/Detalle/Imagen/TextureRect.texture = load("res://assets/BttlSprit/Tzafiel.png")
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\menus\loopdemenint.gd =====
+extends AnimatedSprite2D
+
+@export var posiciones: Array[Vector2] = [
+	Vector2(200, 160),
+	Vector2(1200, 160),
+	Vector2(150, 560),
+	Vector2(1100, 560)
+]
+
+@export var tiempo_espera: float = 2.0
+
+var posicion_actual := -1
+
+func _ready():
+	randomize()
+	
+	if sprite_frames.has_animation("aparicion"):
+		animation_finished.connect(_cuando_termina_aparicion)
+		
+		cambiar_posicion()
+		
+		frame = 5
+		
+		play_backwards("aparicion")
+		
+	else: 
+		play("default")
+		
+func _cuando_termina_aparicion():
+	if frame == 0:
+		play("aparicion")
+		
+	elif frame == 5:
+		espera_y_cambiar()
+		
+func espera_y_cambiar():
+	await get_tree().create_timer(tiempo_espera).timeout
+	
+	cambiar_posicion()
+	
+	frame = 5
+	
+	play_backwards("aparicion")
+	
+func cambiar_posicion():
+	var nueva_posicion := randi() % posiciones.size()
+	
+	while nueva_posicion == posicion_actual and posiciones.size() > 1:
+		nueva_posicion = randi() % posiciones.size()
+		
+	posicion_actual = nueva_posicion
+	position = posiciones[posicion_actual]
+	
+	if posicion_actual == 0 or posicion_actual == 1:
+		flip_v = true
+	else:
+		flip_v = false
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\menus\menu_principal.gd =====
+extends Control
+
+@export var theme_data: UIThemeData
+
+@onready var btn_continuar = $menubotones/btncontinuar
+@onready var botones = $menubotones.get_children()
+@onready var hover_sound = $HoverSound
+
+var color_normal := Color(0.19, 0.19, 0.19, 1.0)
+var color_hover := Color(1.15, 1.15, 1.05, 1.0)
+
+var btn_pos_orig = []
+var tweens_hover: Dictionary = {}
+
+func _ready():
+	MusicManager.play_menu()
+	AudioSettings.aplicar()
+	
+	#HAY PARTIDA GUARDADA?
+	var tiene_partida := GameManager.hay_partida_guardada()
+	btn_continuar.visible = tiene_partida
+	btn_continuar.disabled = not tiene_partida
+
+	await get_tree().process_frame
+	for btn in botones:
+		btn_pos_orig.append(btn.position)
+
+		if btn is Button:
+			btn.modulate = color_normal
+
+			btn.mouse_entered.connect(func(): _on_hover(btn))
+			btn.mouse_exited.connect(func(): _on_hover_exit(btn))
+
+func _on_hover(btn: Button) -> void:
+	animar_color_boton(btn, color_hover)
+
+	if hover_sound:
+		hover_sound.play()
+
+func _on_hover_exit(btn: Button) -> void:
+	animar_color_boton(btn, color_normal)
+	
+func animar_color_boton(btn: Button, color_destino: Color) -> void:
+	if tweens_hover.has(btn):
+		var tween_anterior: Tween = tweens_hover[btn]
+
+		if tween_anterior.is_running():
+			tween_anterior.kill()
+
+	var tween = create_tween()
+	tweens_hover[btn] = tween
+
+	tween.tween_property(
+		btn,
+		"modulate",
+		color_destino,
+		0.20).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+func _on_btncontinuar_pressed():
+	GameManager.cargar_partida()
+	SceneManager.change_scene(SceneManager.SceneID.SELECT_PERSONAJE)
+	MusicManager.play_menu()
+
+func _on_bntcomenzar_pressed():
+	GameManager.borrar_partida()
+	MusicManager.stop_music()
+	SceneManager.change_scene(SceneManager.SceneID.CINEMATICA_INICIO)
+
+func _on_bntajustes_pressed():
+	SceneManager.add_overlay(SceneManager.SceneID.AJUSTES, self)
+
+func _on_btnglosario_pressed():
+	SceneManager.add_overlay(SceneManager.SceneID.GLOSARIO, self)
+
+func _on_btncreditos_pressed():
+	SceneManager.add_overlay(SceneManager.SceneID.CREDITOS, self)
+
+func _on_btnsalir_pressed():
+	get_tree().quit()
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\menus\select_personaje.gd =====
+extends Control
+
+@onready var pj_pena = $VBoxContainer/Personajes/PJ_pena
+@onready var pj_ira = $VBoxContainer/Personajes/PJ_ira
+@onready var pj_ego = $VBoxContainer/Personajes/PJ_ego
+
+@onready var panel_info = $VBoxContainer/PanelInferior/PanelInfo
+@onready var titulo = $VBoxContainer/PanelInferior/PanelInfo/Titulo
+@onready var stats = $VBoxContainer/PanelInferior/PanelInfo/Stats
+
+@onready var btn_seleccionar = $VBoxContainer/PanelInferior/BtnSeleccionar
+
+@onready var hover_sound = $HoverSound
+
+var personaje_actual: GameManager.TipoCaelius
+var progreso = ConfigFile.new()
+var statsiniciales: Array = []
+
+
+func _ready() -> void:
+	panel_info.visible = false
+	btn_seleccionar.set_block_signals(true)
+	btn_seleccionar.disabled = true
+
+	pj_pena.mouse_entered.connect(_on_hover)
+	pj_ira.mouse_entered.connect(_on_hover)
+	pj_ego.mouse_entered.connect(_on_hover)
+	btn_seleccionar.mouse_entered.connect(_on_hover)
+
+	btn_seleccionar.pressed.connect(_on_btn_seleccionar_pressed)
+
+
+func _on_hover() -> void:
+	if hover_sound.playing:
+		hover_sound.stop()
+	hover_sound.play()
+
+
+func _on_pj_pena_pressed() -> void:
+	seleccionar_personaje(GameManager.TipoCaelius.PENA)
+
+
+func _on_pj_ira_pressed() -> void:
+	seleccionar_personaje(GameManager.TipoCaelius.IRA)
+
+
+func _on_pj_ego_pressed() -> void:
+	seleccionar_personaje(GameManager.TipoCaelius.EGO)
+
+
+func seleccionar_personaje(tipo: GameManager.TipoCaelius) -> void:
+	personaje_actual = tipo
+	panel_info.visible = true
+
+	pj_pena.remove_theme_stylebox_override("normal")
+	pj_ira.remove_theme_stylebox_override("normal")
+	pj_ego.remove_theme_stylebox_override("normal")
+
+	btn_seleccionar.set_block_signals(false)
+	btn_seleccionar.disabled = false
+
+	match tipo:
+
+		GameManager.TipoCaelius.PENA:
+			pj_pena.add_theme_stylebox_override(
+				"normal",
+				pj_pena.get_theme_stylebox("hover")
+			)
+
+			titulo.text = "Caelius de Pena"
+			stats.text = "Combina golpes moderados con la capacidad de sanar sus propias heridas en combate."
+			statsiniciales = [85, 6, 5, 6, 9, 14, 7]
+
+		GameManager.TipoCaelius.IRA:
+			pj_ira.add_theme_stylebox_override(
+				"normal",
+				pj_ira.get_theme_stylebox("hover")
+			)
+
+			titulo.text = "Caelius de Ira"
+			stats.text = "Favorece el daÃ±o y los golpes contundentes."
+			statsiniciales = [95, 7, 4, 5, 10, 8, 8]
+
+		GameManager.TipoCaelius.EGO:
+			pj_ego.add_theme_stylebox_override(
+				"normal",
+				pj_ego.get_theme_stylebox("hover")
+			)
+
+			titulo.text = "Caelius de Ego"
+			stats.text = "Bloqueo y resiliencia para desgastar al enemigo con paciencia."
+			statsiniciales = [90, 5, 6, 4, 9, 12, 6]
+
+
+func _on_btn_seleccionar_pressed() -> void:
+	GameManager.iniciar_nueva_partida(personaje_actual)
+	SceneManager.change_scene(SceneManager.SceneID.ZONA_ROJA)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\mundo\acceso_jefe.gd =====
+extends Area2D
+
+@export var zona_id: String = "zona_roja"
+
+@onready var indicador: Polygon2D = $Polygon2D
+
+var desbloqueado: bool = false
+
+
+func _ready() -> void:
+	actualizar_estado()
+
+
+func actualizar_estado() -> void:
+	desbloqueado = GameManager.estado_expedicion.todos_enemigos_derrotados(zona_id)
+
+	if desbloqueado:
+		indicador.color = Color.GREEN
+		print("AccesoJefe: acceso desbloqueado en ", zona_id)
+	else:
+		indicador.color = Color.RED
+		print("AccesoJefe: acceso bloqueado en ", zona_id)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\mundo\area_aparicion.gd =====
+@tool
+extends Area2D
+class_name AreaAparicion
+
+@export_group("IdentificaciÃ³n")
+@export var area_id: String = ""
+@export var habilitada: bool = true
+
+@export_group("Enemigos")
+@export var enemigos: Array[ConfiguracionEnemigo] = []
+
+@export_group("Reglas de apariciÃ³n")
+@export_range(0.0, 500.0, 1.0) var separacion_minima: float = 32.0
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\mundo\configuracion_enemigo.gd =====
+extends Resource
+class_name ConfiguracionEnemigo
+
+@export var enemy_data: EnemyData
+@export_range(1, 100, 1) var cantidad: int = 1
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\mundo\enemigo_mundo.gd =====
+extends Node2D
+class_name EnemigoMundo
+
+signal jugador_cerca(enemigo: EnemigoMundo)
+signal jugador_lejos(enemigo: EnemigoMundo)
+signal interaccion_solicitada(enemigo: EnemigoMundo)
+
+
+var enemigo_id: String = ""
+var enemy_data: EnemyData
+var derrotado: bool = false
+var jugador_en_rango: bool = false
+
+
+@onready var area_interaccion: Area2D = $AreaInteraccion
+@onready var area_clic: Area2D = $AreaClic
+@onready var indicador_interaccion: Label = $IndicadorInteraccion
+@onready var visual: AnimatedSprite2D = $Visual
+
+
+
+func _ready() -> void:
+	add_to_group("enemigos_mundo")
+	area_interaccion.body_entered.connect(_on_body_entered)
+	area_interaccion.body_exited.connect(_on_body_exited)
+	area_clic.input_event.connect(_on_area_clic_input_event)
+	
+
+
+
+func configurar(datos: EnemyData, id: String, esta_derrotado: bool = false) -> void:
+	if datos == null:
+		push_error("EnemigoMundo: EnemyData no puede ser null.")
+		return
+
+	enemy_data = datos
+	enemigo_id = id
+	derrotado = esta_derrotado
+	name = datos.nombre
+
+	configurar_visual()
+
+
+func configurar_visual() -> void:
+	visual.stop()
+
+	if enemy_data.sprite_frames_mundo == null:
+		visual.sprite_frames = null
+		push_warning(
+			"EnemigoMundo: %s no tiene SpriteFrames de mundo." %
+			enemy_data.nombre
+		)
+		return
+
+	visual.sprite_frames = enemy_data.sprite_frames_mundo
+	visual.scale = Vector2.ONE * enemy_data.escala_mundo
+
+	if visual.sprite_frames.has_animation("idle"):
+		visual.play("idle")
+	else:
+		push_warning(
+			"EnemigoMundo: %s no tiene animaciÃ³n idle." %
+			enemy_data.nombre
+		)
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		jugador_en_rango = true
+		indicador_interaccion.show()
+		jugador_cerca.emit(self)
+
+func _on_body_exited(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		jugador_en_rango = false
+		indicador_interaccion.hide()
+		jugador_lejos.emit(self)
+			
+func _on_area_clic_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			if jugador_en_rango:
+				solicitar_interaccion()
+				
+func solicitar_interaccion() -> void:
+	print("InteracciÃ³n solicitada con: %s (%s)" % [
+		enemy_data.nombre,
+		enemigo_id
+	])
+	interaccion_solicitada.emit(self)			
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\mundo\estado_expedicion.gd =====
+extends RefCounted
+class_name EstadoExpedicion
+
+var enemigos_por_zona: Dictionary = {}
+var jefes_derrotados_por_zona: Dictionary = {}
+
+
+
+func guardar_enemigos(zona_id: String, enemigos: Array) -> void:
+	enemigos_por_zona[zona_id] = enemigos.duplicate(true)
+
+
+func obtener_enemigos(zona_id: String) -> Array:
+	return enemigos_por_zona.get(zona_id, []).duplicate(true)
+
+
+func zona_generada(zona_id: String) -> bool:
+	return enemigos_por_zona.has(zona_id)
+
+
+func marcar_enemigo_derrotado(zona_id: String, enemigo_id: String) -> bool:
+	if not zona_generada(zona_id):
+		push_warning("EstadoExpedicion: la zona no fue generada: %s" % zona_id)
+		return false
+
+	var enemigos: Array = enemigos_por_zona[zona_id]
+
+	for enemigo in enemigos:
+		if enemigo["id"] == enemigo_id:
+			enemigo["derrotado"] = true
+			print("Enemigo derrotado: %s" % enemigo_id)
+			return true
+
+	push_warning("EstadoExpedicion: enemigo no encontrado: %s" % enemigo_id)
+	return false
+	
+
+
+func todos_enemigos_derrotados(zona_id: String) -> bool:
+	if not zona_generada(zona_id):
+		return false
+
+	var enemigos: Array = enemigos_por_zona[zona_id]
+
+	if enemigos.is_empty():
+		return false
+
+	for enemigo in enemigos:
+		if not enemigo.get("derrotado", false):
+			return false
+
+	return true
+	
+
+
+func jefe_derrotado(zona_id: String, jefe_id: String) -> bool:
+	if jefe_id.strip_edges().is_empty():
+		push_error("EstadoExpedicion: no se puede consultar un jefe sin ID.")
+		return false
+		
+	var jefes: Dictionary = jefes_derrotados_por_zona.get(zona_id, {})
+	return jefes.get(jefe_id, false)
+
+
+func marcar_jefe_derrotado(zona_id: String, jefe_id: String) -> void:
+	if jefe_id.strip_edges().is_empty():
+		push_error("EstadoExpedicion: no se puede marcar un jefe derrotado sin ID.")
+		return
+	
+	if not jefes_derrotados_por_zona.has(zona_id):
+		jefes_derrotados_por_zona[zona_id] = {}
+
+	jefes_derrotados_por_zona[zona_id][jefe_id] = true
+
+	print("EstadoExpedicion: jefe derrotado: ", jefe_id)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\mundo\generador_jefes.gd =====
+extends Node2D
+
+@export var jugador: CharacterBody2D
+@export var escena_enemigo_mundo: PackedScene
+@export var zona_id: String = "zona_roja"
+
+
+func _ready() -> void:
+	await get_tree().physics_frame
+	generar_jefes()
+
+
+func generar_jefes() -> void:
+	if escena_enemigo_mundo == null:
+		push_error("GeneradorJefes: falta asignar EnemigoMundo.tscn.")
+		return
+
+	if not GameManager.estado_expedicion.todos_enemigos_derrotados(zona_id):
+		print("GeneradorJefes: todavÃ­a quedan enemigos en ", zona_id)
+		return
+
+	for nodo in get_children():
+		if not nodo is MarcadorJefe:
+			continue
+
+		var marcador := nodo as MarcadorJefe
+
+		if not marcador.habilitado:
+			continue
+
+		if marcador.jefe_id.strip_edges().is_empty():
+			push_error("GeneradorJefes: marcador sin ID.")
+			continue
+
+		if marcador.enemy_data == null:
+			push_error("GeneradorJefes: falta EnemyData en %s." % marcador.jefe_id)
+			continue
+
+		if GameManager.estado_expedicion.jefe_derrotado(zona_id, marcador.jefe_id):
+			continue
+
+		var jefe := escena_enemigo_mundo.instantiate() as EnemigoMundo
+
+		if jefe == null:
+			push_error("GeneradorJefes: la escena no contiene un EnemigoMundo vÃ¡lido.")
+			continue
+
+		add_child(jefe)
+		jefe.global_position = marcador.global_position
+		jefe.configurar(marcador.enemy_data, marcador.jefe_id)
+
+		print("GeneradorJefes: jefe generado: ", marcador.jefe_id)
+		
+		jefe.interaccion_solicitada.connect(_on_jefe_interaccion_solicitada)
+		
+
+func _on_jefe_interaccion_solicitada(jefe: EnemigoMundo) -> void:
+	if jefe.enemy_data == null:
+		push_error("GeneradorJefes: el jefe no tiene EnemyData.")
+		return
+
+	if not is_instance_valid(jugador):
+		push_error("GeneradorJefes: falta la referencia al jugador.")
+		return
+
+	if jefe.enemy_data.escena_combate == null:
+		push_error("GeneradorJefes: %s no tiene escena de combate." % jefe.enemy_data.nombre)
+		return
+
+	GameManager.preparar_encuentro(
+		jefe.enemy_data,
+		zona_id,
+		jefe.enemigo_id,
+		jugador.global_position,
+		GameManager.TipoEncuentro.JEFE
+	)
+
+
+	print("GeneradorJefes: iniciando combate contra ", jefe.enemy_data.nombre)
+
+	SceneManager.change_scene(SceneManager.SceneID.BATALLA)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\mundo\generador_zona.gd =====
+
+extends Node
+
+@export var areas_aparicion: Node2D
+@export var contenedor_enemigos: Node2D
+@export var escena_enemigo_mundo: PackedScene
+@export var jugador: CharacterBody2D
+@export var zona_id: String = "zona_roja"
+
+var enemigos_generados: Array[Dictionary] = []
+
+const MARGEN: float = 8.0
+const MAX_INTENTOS: int = 100
+const CAPA_OBSTACULOS: int = 1
+const TAMANO_MARCADOR := Vector2(16.0, 16.0)
+
+
+func _ready() -> void:
+	await get_tree().physics_frame
+
+	if GameManager.zona_id_encuentro == zona_id:
+		if is_instance_valid(jugador):
+			jugador.global_position = GameManager.posicion_jugador_encuentro
+			GameManager.limpiar_encuentro()
+		else:
+			push_error("Generador: no se pudo restaurar la posiciÃ³n del jugador.")
+
+	generar_enemigos()
+
+
+func generar_enemigos() -> void:
+	if areas_aparicion == null or contenedor_enemigos == null:
+		push_error("Generador: faltan referencias a los nodos.")
+		return
+		
+	if escena_enemigo_mundo == null:
+		push_error("Generador: falta asignar EnemigoMundo.tscn.")
+		return
+		
+	if GameManager.estado_expedicion.zona_generada(zona_id):
+		restaurar_enemigos()
+		return
+		
+	enemigos_generados.clear()
+
+	for area in areas_aparicion.get_children():
+		if not area is AreaAparicion:
+			continue
+
+		if not area.habilitada:
+			continue
+
+		generar_area(area)
+		
+	GameManager.estado_expedicion.guardar_enemigos(
+		zona_id,
+		enemigos_generados
+	)
+
+
+func generar_area(area: AreaAparicion) -> void:
+	var colision := area.get_node_or_null(
+        "CollisionShape2D"
+	) as CollisionShape2D
+
+	if colision == null or not colision.shape is RectangleShape2D:
+		push_warning("Ãrea sin rectÃ¡ngulo vÃ¡lido: %s" % area.area_id)
+		return
+
+	var rectangulo := colision.shape as RectangleShape2D
+	var mitad := rectangulo.size / 2.0
+	var limite := mitad - Vector2(MARGEN, MARGEN)
+
+	if limite.x <= 0.0 or limite.y <= 0.0:
+		push_warning("Ãrea demasiado pequeÃ±a: %s" % area.area_id)
+		return
+
+	var posiciones: Array[Vector2] = []
+	var indice_enemigo: int = 0
+
+	for configuracion in area.enemigos:
+		if configuracion == null or configuracion.enemy_data == null:
+			continue
+
+		for i in range(configuracion.cantidad):
+			var encontrada := false
+			var posicion := Vector2.ZERO
+
+			for intento in range(MAX_INTENTOS):
+				var posicion_local := Vector2(
+					randf_range(-limite.x, limite.x),
+					randf_range(-limite.y, limite.y)
+				)
+
+				posicion = colision.to_global(posicion_local)
+
+				var separacion_correcta := true
+
+				for anterior in posiciones:
+					if posicion.distance_to(anterior) < area.separacion_minima:
+						separacion_correcta = false
+						break
+
+				if separacion_correcta and posicion_libre_de_obstaculos(posicion):
+					encontrada = true
+					break
+
+			if not encontrada:
+				push_warning(
+					"No se pudo generar %s en %s" % [
+						configuracion.enemy_data.nombre,
+						area.area_id
+					]
+				)
+				continue
+
+			posiciones.append(posicion)
+
+
+			var enemigo_id := "%s_%d" % [area.area_id, indice_enemigo]
+			
+			crear_enemigo_mundo(
+				configuracion.enemy_data,
+				posicion, 
+				enemigo_id
+			)
+			
+			enemigos_generados.append({
+				"id": enemigo_id,
+				"enemy_data": configuracion.enemy_data,
+				"posicion": posicion,
+				"derrotado": false
+			})
+
+			indice_enemigo += 1
+
+
+			print(
+				"[%s] %s generado en %s" % [
+					area.area_id,
+					configuracion.enemy_data.nombre,
+					posicion
+				]
+			)
+
+
+func posicion_libre_de_obstaculos(posicion: Vector2) -> bool:
+	var forma := RectangleShape2D.new()
+	forma.size = TAMANO_MARCADOR
+
+	var consulta := PhysicsShapeQueryParameters2D.new()
+	consulta.shape = forma
+	consulta.transform = Transform2D(0.0, posicion)
+	consulta.collision_mask = CAPA_OBSTACULOS
+	consulta.collide_with_bodies = true #StaticBody2D
+	consulta.collide_with_areas = false #Area2D
+	
+	var espacio := areas_aparicion.get_world_2d().direct_space_state
+	var resultados := espacio.intersect_shape(consulta, 1)
+	
+	return resultados.is_empty()
+
+
+func crear_enemigo_mundo(datos: EnemyData, posicion: Vector2, id: String) -> void:
+	if escena_enemigo_mundo == null:
+		push_error("Generador: falta asignar la escena del enemigo de mundo.")
+		return
+
+	var enemigo := escena_enemigo_mundo.instantiate() as EnemigoMundo
+
+	if enemigo == null:
+		push_error("Generador: la escena no contiene un EnemigoMundo vÃ¡lido.")
+		return
+
+	contenedor_enemigos.add_child(enemigo)
+	enemigo.global_position = posicion
+	enemigo.configurar(datos, id)
+	
+	enemigo.interaccion_solicitada.connect(
+		_on_enemigo_interaccion_solicitada
+	)
+
+
+func restaurar_enemigos() -> void: 
+	var enemigos_guardados:= GameManager.estado_expedicion.obtener_enemigos(zona_id)
+	
+	for datos_enemigo in enemigos_guardados:
+		if datos_enemigo["derrotado"]:
+			continue
+		
+		var datos: EnemyData = datos_enemigo["enemy_data"]
+		var posicion: Vector2 = datos_enemigo["posicion"]
+		var id: String = datos_enemigo["id"]
+
+		crear_enemigo_mundo(datos, posicion, id)
+
+	print("Generador: enemigos restaurados en %s" % zona_id)
+	
+
+
+func _on_enemigo_interaccion_solicitada(enemigo: EnemigoMundo) -> void:
+	if enemigo.enemy_data == null:
+		push_error("Generador: el enemigo no tiene EnemyData.")
+		return
+	
+	if not is_instance_valid(jugador):
+		push_error("Generador: falta la referencia al jugador.")
+		return
+
+	if enemigo.enemy_data.escena_combate == null:
+		push_error(
+			"Generador: %s no tiene escena de combate." %
+			enemigo.enemy_data.nombre
+		)
+		return
+
+	GameManager.preparar_encuentro(
+		enemigo.enemy_data,
+		zona_id,
+		enemigo.enemigo_id,
+		jugador.global_position
+	)
+
+
+	print("Zona: ", GameManager.zona_id_encuentro)
+	print("Enemigo: ", GameManager.enemigo_id_encuentro)
+	print("PosiciÃ³n jugador: ", GameManager.posicion_jugador_encuentro)
+
+	SceneManager.change_scene(SceneManager.SceneID.BATALLA)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\mundo\marcador_jefe.gd =====
+extends Marker2D
+class_name MarcadorJefe
+
+@export_group("IdentificaciÃ³n")
+@export var jefe_id: String = ""
+@export var habilitado: bool = true
+
+@export_group("ConfiguraciÃ³n del jefe")
+@export var enemy_data: EnemyData
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\mundo\marcador_reliquia.gd =====
+extends Marker2D
+class_name MarcadorReliquia
+
+@export_group("IdentificaciÃ³n")
+@export var reliquia_id: String = ""
+@export var habilitada: bool = true
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\mundo\miniplayer.gd =====
+extends CharacterBody2D
+
+@export_group("Sprites de Caelius")
+@export var sprites_ira: SpriteFrames
+@export var sprites_pena: SpriteFrames
+@export var sprites_ego: SpriteFrames
+
+var speed := 100.0
+var last_direction = "down"
+
+@onready var animated_sprite = $AnimatedSprite2D
+
+func _ready() -> void:
+	configurar_apariencia()
+
+func configurar_apariencia() -> void:
+	var sprites_seleccionados: SpriteFrames = sprites_ira #temporal, hasta tener sprites de todos los caelius
+
+	match GameManager.player_data.tipo_caelius:
+		GameManager.TipoCaelius.PENA:
+			if sprites_pena != null:
+				sprites_seleccionados = sprites_pena
+
+		GameManager.TipoCaelius.IRA:
+			sprites_seleccionados = sprites_ira
+
+		GameManager.TipoCaelius.EGO:
+			if sprites_ego != null:
+				sprites_seleccionados = sprites_ego
+
+	if sprites_seleccionados != null:
+		animated_sprite.sprite_frames = sprites_seleccionados
+		
+
+func _physics_process(_delta):
+	var input_direction = Input.get_vector("left", "right", "up", "down")
+	
+	velocity = input_direction * speed
+	
+	if input_direction != Vector2.ZERO:
+		if abs(input_direction.x) > abs(input_direction.y):
+			if input_direction.x > 0:
+				last_direction = "right"
+			else:
+				last_direction = "left"
+		else:
+			if input_direction.y > 0:
+				last_direction = "down"
+			else: 
+				last_direction = "up"
+		
+		animated_sprite.play("walk_" + last_direction)
+	else:
+		animated_sprite.play("idle_" + last_direction)
+	
+	move_and_slide()
+
+
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not event.is_action_pressed("interactuar"):
+		return
+
+	if not event is InputEventKey:
+		return
+
+	var enemigo_cercano: EnemigoMundo = null
+	var distancia_minima: float = INF
+
+	for enemigo in get_tree().get_nodes_in_group("enemigos_mundo"):
+		if not enemigo is EnemigoMundo:
+			continue
+
+		if not enemigo.jugador_en_rango:
+			continue
+
+		var distancia := global_position.distance_to(enemigo.global_position)
+
+		if distancia < distancia_minima:
+			distancia_minima = distancia
+			enemigo_cercano = enemigo
+
+	if enemigo_cercano != null:
+		enemigo_cercano.solicitar_interaccion()
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\temporales\select_nivel.gd =====
+#extends Control
+#
+#@onready var hover_sound := $HoverSound
+##var progreso = ConfigFile.new()
+#
+#const COLOR_HABILITADO := Color.WHITE
+#const COLOR_BLOQUEADO := Color("#9a9a9a")
+#
+###const JEFES_INICIALES := {
+	##GameManager.Jefe.ESPINA: {"nodo": "Espina", "icono": "res://assets/Icons/EspinaDerrotado.png"},
+	##GameManager.Jefe.SERPICO: {"nodo": "Serpico", "icono": "res://assets/Icons/SerpicoDerrotado.png"},
+	##GameManager.Jefe.EIRENE: {"nodo": "Eirene", "icono": "res://assets/Icons/terederrotada.png"},
+##}
+#
+#func _ready() -> void:
+	#MusicManager.play_menu()
+#
+	#conectar_sonidos_hover()
+	#configurar_niveles_iniciales()
+#
+	#var jefes_derrotados := actualizar_jefes_iniciales()
+#
+	#actualizar_lineas_progreso(jefes_derrotados)
+	#actualizar_jefes_finales(jefes_derrotados)
+#
+#
+## --------------------------------------------------
+## SONIDOS
+## --------------------------------------------------
+#
+#func conectar_sonidos_hover() -> void:
+	#for boton in $Niveles/Botones.get_children():
+		#if boton is Button:
+			#boton.mouse_entered.connect(
+				#_on_button_mouse_entered.bind(boton)
+			#)
+	#var boton_menu: Button = $Menuprincipal
+	#boton_menu.mouse_entered.connect(
+		#_on_button_mouse_entered.bind(boton_menu)
+	#)
+#
+#
+#func _on_button_mouse_entered(boton: Button) -> void:
+	#if boton.disabled:
+		#return
+#
+	#if hover_sound.playing:
+		#hover_sound.stop()
+#
+	#hover_sound.play()
+#
+#
+## --------------------------------------------------
+## ESTADOS DE LOS BOTONES
+## --------------------------------------------------
+#
+#func configurar_boton_nivel(boton: Button, habilitado: bool) -> void:
+	#boton.disabled = not habilitado
+#
+	#if habilitado:
+		#boton.modulate = COLOR_HABILITADO
+	#else:
+		#boton.modulate = COLOR_BLOQUEADO
+#
+#
+#func configurar_niveles_iniciales() -> void:
+	#configurar_boton_nivel($Niveles/Botones/Espina, true)
+	#configurar_boton_nivel($Niveles/Botones/Eirene, true)
+#
+	## Serpico (pendiente de implementaciÃ³n)
+	#configurar_boton_nivel($Niveles/Botones/Serpico, false)
+#
+#
+## --------------------------------------------------
+## JEFES INICIALES
+## --------------------------------------------------
+#
+##func actualizar_jefes_iniciales() -> int:
+	##var cantidad_derrotados := 0
+###
+	###for jefe_id in JEFES_INICIALES.keys():
+		###if GameManager.es_jefe_derrotado(jefe_id):
+			###var info = JEFES_INICIALES[jefe_id]
+			##var boton: Button = $Niveles/Botones.get_node(info["nodo"])
+##
+			##marcar_jefe_derrotado(boton, info["icono"])
+			##cantidad_derrotados += 1
+##
+	##return cantidad_derrotados
+#
+#
+#func marcar_jefe_derrotado(boton: Button, ruta_icono: String) -> void:
+	#boton.get_node("icono").texture = load(ruta_icono)
+#
+	#boton.add_theme_stylebox_override(
+		#"normal",
+		#boton.get_theme_stylebox("pressed")
+	#)
+#
+#
+## --------------------------------------------------
+## LINEAS DE PROGRESO
+## --------------------------------------------------
+#
+#func actualizar_lineas_progreso(jefes_derrotados: int) -> void:
+	#$"Niveles/Lineas/Rojas/1".visible = jefes_derrotados >= 1
+	#$"Niveles/Lineas/Rojas/2".visible = jefes_derrotados >= 2
+	#$"Niveles/Lineas/Rojas/3".visible = jefes_derrotados >= 3
+#
+#
+## --------------------------------------------------
+## JEFES FINALES
+## --------------------------------------------------
+#
+#func actualizar_jefes_finales(jefes_derrotados: int) -> void:
+	#actualizar_corvus(jefes_derrotados)
+	#actualizar_galaad()
+	#actualizar_kapparah()
+#
+#
+#func actualizar_corvus(jefes_derrotados: int) -> void:
+	#var boton: Button = $Niveles/Botones/Corvus
+	#var habilitado := jefes_derrotados == 3
+#
+	#configurar_boton_nivel(boton, habilitado)
+#
+	#if GameManager.es_jefe_derrotado(GameManager.Jefe.CORVUS):
+		#marcar_jefe_derrotado(
+			#boton,
+			#"res://assets/Icons/CorvusDerrotado.png"
+		#)
+#
+		#$"Niveles/Lineas/Rojas/corvus".show()
+	#else:
+		#$"Niveles/Lineas/Rojas/corvus".hide()
+#
+#
+##func actualizar_galaad() -> void:
+	##var boton: Button = $Niveles/Botones/Galaad
+	##var corvus_derrotado := GameManager.es_jefe_derrotado(
+		##GameManager.Jefe.CORVUS
+	##)
+#
+	##configurar_boton_nivel(boton, corvus_derrotado)
+#
+	#if GameManager.es_jefe_derrotado(GameManager.Jefe.GALAAD):
+		#marcar_jefe_derrotado(
+			#boton,
+			#"res://assets/Icons/GalaadDerrotado.png"
+		#)
+#
+		#$"Niveles/Lineas/Rojas/galaad".show()
+	#else:
+		#$"Niveles/Lineas/Rojas/galaad".hide()
+#
+##
+##func actualizar_kapparah() -> void:
+	##var boton: Button = $Niveles/Botones/Kapparah
+	##var galaad_derrotado := GameManager.es_jefe_derrotado(
+		##GameManager.Jefe.GALAAD
+	##)
+#
+	##configurar_boton_nivel(boton, galaad_derrotado)
+#
+#
+## --------------------------------------------------
+## NAVEGACION
+## --------------------------------------------------
+#
+#func _on_menuprincipal_pressed() -> void:
+	#SceneManager.change_scene(SceneManager.SceneID.MENU_PRINCIPAL)
+	#
+#func _on_espina_pressed() -> void:
+	#GameManager.seleccionar_jefe(GameManager.Jefe.ESPINA)
+	#SceneManager.change_scene(SceneManager.SceneID.BATALLA)
+#
+#func _on_eirene_pressed() -> void:
+	#GameManager.seleccionar_jefe(GameManager.Jefe.EIRENE)
+	#SceneManager.change_scene(SceneManager.SceneID.BATALLA)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\temporales\subir_nivel.gd =====
+extends Control
+
+
+@onready var hover_sound = $HoverSound
+var incrementoira = [10,2,1,1,2,1,2]
+var incrementoego = [9,1,2,1,2,3,1]
+var incrementopena = [8,1,1,2,2,3,2]
+var aumento1 = [0,0,0,0,0,0,0]
+var aumento2 = [0,0,0,0,0,0,0]
+var aumento3 = [0,0,0,0,0,0,0]
+var stats = []
+var final = []
+var tipo = ""
+var nivel = 0
+var progreso = ConfigFile.new()
+var rng = RandomNumberGenerator.new()
+
+
+func _ready() -> void:
+	$Botones/Confirmar.set_block_signals(1)
+	$Botones/Confirmar.disabled = true
+	
+	var err = progreso.load("res://cfg/progreso.cfg")
+	if err == OK:
+		nivel = progreso.get_value("Caelius","nivel")
+		stats = progreso.get_value("Caelius","stats")
+		$Nivelanterior/Label.text += str(nivel)
+		$Nivelactual/Label.text += str(nivel+1)
+		$Nivelanterior/Vida.text += str(stats[0])
+		$Nivelanterior/Ataque.text += str(stats[1])
+		$Nivelanterior/Defensa.text += str(stats[2])
+		$Nivelanterior/Esquive.text += str(stats[3])
+		$Nivelanterior/Velocidad.text += str(stats[4]/10.0)
+		$Nivelanterior/Fe.text += str(stats[5])
+		$Nivelanterior/Poder.text += str(stats[6])
+		tipo = progreso.get_value("Caelius","tipo")
+		match tipo:
+			"ira":
+				cargar(incrementoira,stats,aumento1)
+			"ego":
+				cargar(incrementoego,stats,aumento1)
+			"pena":
+				cargar(incrementopena,stats,aumento1)
+				
+	$Botones/Opcion1/Texto.text = randomincremento(1)
+	$Botones/Opcion2/Texto.text = randomincremento(2)
+	while $Botones/Opcion1/Texto.text == $Botones/Opcion2/Texto.text:
+		aumento2 = [0,0,0,0,0,0,0]
+		$Botones/Opcion2/Texto.text = randomincremento(2)
+	$Botones/Opcion3/Texto.text = randomincremento(3)
+	while $Botones/Opcion1/Texto.text == $Botones/Opcion3/Texto.text or $Botones/Opcion2/Texto.text == $Botones/Opcion3/Texto.text:
+		aumento3 = [0,0,0,0,0,0,0]
+		$Botones/Opcion3/Texto.text = randomincremento(3)
+
+
+func cargar(incremento,s,a):
+	final=[]
+	for i in range(s.size()):
+		final.append(incremento[i]+s[i]+a[i])
+	
+	var iconos = "[img=30]assets/Icons/der.png[/img] [img=30]assets/Icons/der.png[/img]"
+	if a[0] == 0:
+		$Aumento/Vida.text = iconos+" "+str(incremento[0])+" "+iconos
+		$Nivelactual/Vida.text = "[img=40 color=black]assets/Icons/vida.png[/img] "+str(incremento[0]+s[0])
+	else:
+		$Aumento/Vida.text = iconos+" "+"[color=green]"+str(incremento[0]+a[0])+"[/color] "+iconos
+		$Nivelactual/Vida.text = "[img=40 color=black]assets/Icons/vida.png[/img] "+"[color=green]"+str(incremento[0]+s[0]+a[0])
+	if a[1] == 0:
+		$Aumento/Ataque.text = iconos+" "+str(incremento[1])+" "+iconos
+		$Nivelactual/Ataque.text = "[img=40 color=black]assets/Icons/Espada.png[/img] "+str(incremento[1]+s[1])
+	else:
+		$Aumento/Ataque.text = iconos+" "+"[color=green]"+str(incremento[1]+a[1])+"[/color] "+iconos
+		$Nivelactual/Ataque.text = "[img=40 color=black]assets/Icons/Espada.png[/img] "+"[color=green]"+str(incremento[1]+s[1]+a[1])
+	if a[2] == 0:	 
+		$Aumento/Defensa.text = iconos+" "+str(incremento[2])+" "+iconos
+		$Nivelactual/Defensa.text = "[img=40 color=black]assets/Icons/Escudo.png[/img] "+str(incremento[2]+s[2])
+	else:
+		$Aumento/Defensa.text = iconos+" "+"[color=green]"+str(incremento[2]+a[2])+"[/color] "+iconos
+		$Nivelactual/Defensa.text = "[img=40 color=black]assets/Icons/Escudo.png[/img] "+"[color=green]"+str(incremento[2]+s[2]+a[2])
+	if a[3] == 0: 
+		$Aumento/Esquive.text = iconos+" "+str(incremento[3])+" "+iconos
+		$Nivelactual/Esquive.text = "[img=40 color=black]assets/Icons/esquive.png[/img] "+str(incremento[3]+s[3])
+	else:
+		$Aumento/Esquive.text = iconos+" "+"[color=green]"+str(incremento[3]+a[3])+"[/color] "+iconos
+		$Nivelactual/Esquive.text = "[img=40 color=black]assets/Icons/esquive.png[/img] "+"[color=green]"+str(incremento[3]+s[3]+a[3])
+	if a[4] == 0:  
+		$Aumento/Velocidad.text = iconos+" "+str(incremento[4]/10.0)+" "+iconos
+		$Nivelactual/Velocidad.text = "[img=40 color=black]assets/Icons/Velocidad.png[/img] "+str((incremento[4]+s[4])/10.0)
+	else:
+		$Aumento/Velocidad.text = iconos+" "+"[color=green]"+str((incremento[4]+a[4])/10.0)+"[/color] "+iconos
+		$Nivelactual/Velocidad.text = "[img=40 color=black]assets/Icons/Velocidad.png[/img] "+"[color=green]"+str((incremento[4]+s[4]+a[4])/10.0)
+	if a[5] == 0:  
+		$Aumento/Fe.text = iconos+" "+str(incremento[5])+" "+iconos
+		$Nivelactual/Fe.text = "[img=40 color=black]assets/Icons/fe.png[/img] "+str(incremento[5]+s[5])
+	else:
+		$Aumento/Fe.text = iconos+" "+"[color=green]"+str(incremento[5]+a[5])+"[/color] "+iconos
+		$Nivelactual/Fe.text = "[img=40 color=black]assets/Icons/fe.png[/img] "+"[color=green]"+str(incremento[5]+s[5]+a[5])
+	if a[6] == 0: 
+		$Aumento/Poder.text = iconos+" "+str(incremento[6])+" "+iconos
+		$Nivelactual/Poder.text = "[img=40 color=black]assets/Icons/poder.png[/img] "+str(incremento[6]+s[6])
+	else:
+		$Aumento/Poder.text = iconos+" "+"[color=green]"+str(incremento[6]+a[6])+"[/color] "+iconos
+		$Nivelactual/Poder.text = "[img=40 color=black]assets/Icons/poder.png[/img] "+"[color=green]"+str(incremento[6]+s[6]+a[6])
+
+
+func _on_button_mouse_entered() -> void:
+	if hover_sound.playing == true:
+		hover_sound.stop()
+	hover_sound.play()
+
+
+func randomincremento(opc):
+	var texto = ""
+	var random1 = rng.randi_range(0, 6)
+	var random2 = rng.randi_range(0, 6)
+	while random1 == random2:
+		random2 = rng.randi_range(0, 6)
+	texto = opcionesTexto(random1,opc)
+	texto += "  " + opcionesTexto(random2,opc)
+	return texto
+
+func opcionesTexto(r,opc):
+	var texto = ""
+	var cantidad = 5
+	match r:
+		0:
+			cantidad = 25
+			texto = "[img=40 color=black]assets/Icons/vida.png[/img] " + str(cantidad)
+		1:
+			texto = "[img=40 color=black]assets/Icons/Espada.png[/img] " + str(cantidad)
+		2:
+			texto = "[img=40 color=black]assets/Icons/Escudo.png[/img] " + str(cantidad)
+		3:
+			texto = "[img=40 color=black]assets/Icons/esquive.png[/img] " + str(cantidad)
+		4:
+			texto = "[img=40 color=black]assets/Icons/Velocidad.png[/img] " + str(cantidad/10.0)
+		5:
+			texto = "[img=40 color=black]assets/Icons/fe.png[/img] " + str(cantidad)
+		6:
+			texto = "[img=40 color=black]assets/Icons/poder.png[/img] " + str(cantidad)
+	match opc:
+		1:
+			aumento1[r] = cantidad
+		2:
+			aumento2[r] = cantidad
+		3:
+			aumento3[r] = cantidad
+	return texto
+
+
+func _on_opcion_1_pressed() -> void:
+	seleccionarOpcion(1)
+	
+func _on_opcion_2_pressed() -> void:
+	seleccionarOpcion(2)
+
+func _on_opcion_3_pressed() -> void:
+	seleccionarOpcion(3)
+	
+func seleccionarOpcion(opc):
+	$Botones/Opcion1.remove_theme_stylebox_override("normal")
+	$Botones/Opcion2.remove_theme_stylebox_override("normal")
+	$Botones/Opcion3.remove_theme_stylebox_override("normal")
+	var aumento
+	match opc:
+		1:
+			$Botones/Opcion1.add_theme_stylebox_override("normal",$Botones/Opcion1.get_theme_stylebox("hover"))
+			aumento = aumento1
+		2:
+			$Botones/Opcion2.add_theme_stylebox_override("normal",$Botones/Opcion2.get_theme_stylebox("hover"))
+			aumento = aumento2
+		3:
+			$Botones/Opcion3.add_theme_stylebox_override("normal",$Botones/Opcion3.get_theme_stylebox("hover"))
+			aumento = aumento3
+	match tipo:
+			"ira":
+				cargar(incrementoira,stats,aumento)
+			"ego":
+				cargar(incrementoego,stats,aumento)
+			"pena":
+				cargar(incrementopena,stats,aumento)
+	$Botones/Confirmar.set_block_signals(0)
+	$Botones/Confirmar.disabled = false
+
+func _on_confirmar_pressed() -> void:
+	progreso.set_value("Caelius","nivel",nivel+1)
+	progreso.set_value("Caelius","stats",final)
+	progreso.save("res://cfg/progreso.cfg")
+	get_tree().change_scene_to_file("res://scenes/battelscena.tscn")
+	
+
+func _process(_delta):
+	if $Tooltip.visible == true:
+		$Tooltip.global_position = get_global_mouse_position() + Vector2(10,-40)
+
+func mostrarOcultar():
+	if $Tooltip.visible == true:
+		$Tooltip.hide()
+	else:
+		$Tooltip.show()
+
+func _on_vida_mouse_entered() -> void:
+	$Tooltip/Texto.text = "[b]Vida[/b]\nCantidad de daÃ±o maximo que puedes recibir"
+	mostrarOcultar()
+
+func _on_ataque_mouse_entered() -> void:
+	$Tooltip/Texto.text = "[b]Ataque(ATQ)[/b]\nDaÃ±o que recibe el enemigo (variable de 85% a 105% menos [b]Defensa[/b] del enemigo)"
+	mostrarOcultar()
+
+func _on_defensa_mouse_entered() -> void:
+	$Tooltip/Texto.text = "[b]Defensa(DEF)[/b]\nReduce el daÃ±o recibido por [b]Ataque[/b]"
+	mostrarOcultar()
+
+func _on_esquive_mouse_entered() -> void:
+	$Tooltip/Texto.text = "[b]Esquive(ESQ)[/b]\nChance de evitar totalmente el [b]Ataque[/b] enemigo"
+	mostrarOcultar()
+
+func _on_velocidad_mouse_entered() -> void:
+	$Tooltip/Texto.text = "[b]Velocidad(VEL)[/b]\nMultiplica la cantidad de ataques o habilidades que puedes realizar por turno"
+	mostrarOcultar()
+
+func _on_fe_mouse_entered() -> void:
+	$Tooltip/Texto.text = "[b]Fe[/b]\nReduce el enfriamiento de tus habilidades (0.08 por punto, maxima reduccion en 100 de [b]Fe[/b])"
+	mostrarOcultar()
+
+func _on_poder_mouse_entered() -> void:
+	$Tooltip/Texto.text = "[b]Poder[/b]\nChance de realizar un [b]Ataque[/b] critico"
+	mostrarOcultar()
+
+func _on_mouse_exited() -> void:
+	mostrarOcultar()
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\ui\card_ui.gd =====
+class_name CardUI
+extends Control
+
+var carta: CardData
+
+@onready var nombre_label := $Panel/VBoxContainer/Nombre
+@onready var costo_label := $Panel/VBoxContainer/Costo
+@onready var arte_rect := $Panel/TextureRect
+
+func setear_carta(data: CardData) -> void:
+	carta = data
+	nombre_label.text = data.nombre
+	costo_label.text = "Costo:" + str(data.costo)
+	if data.arte != null:
+		arte_rect.texture = data.arte
+
+func _get_drag_data(_position):
+	var preview := TextureRect.new()
+	preview.texture = arte_rect.texture
+	preview.custom_minimum_size = Vector2(150, 220)
+
+	set_drag_preview(preview)
+
+	modulate.a = 0.4
+	return carta
+
+func _notification(what):
+	if what == NOTIFICATION_DRAG_END:
+		modulate.a = 1.0 
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\ui\drop_zone.gd =====
+extends Control
+signal carta_soltada(carta: CardData, posicion_global: Vector2)
+
+func _can_drop_data(at_position: Vector2, data) -> bool:
+	return data is CardData
+
+func _drop_data(at_position: Vector2, data) -> void:
+	carta_soltada.emit(data, get_global_mouse_position())
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\ui\mano.gd =====
+extends HBoxContainer
+
+const CARD_UI_SCENE := preload("res://Scenes/ui/card_ui.tscn")
+
+var player_ref: Player
+
+func mostrar_mano(cartas: Array[CardData]) -> void:
+	for hijo in get_children():
+		hijo.queue_free()
+	for carta in cartas:
+		var card_ui := CARD_UI_SCENE.instantiate()
+		add_child(card_ui)
+		card_ui.setear_carta(carta)
+		_actualizar_disponibilidad(card_ui)
+
+func actualizar_disponibilidad_todas() -> void:
+	for card_ui in get_children():
+		if card_ui is CardUI:
+			_actualizar_disponibilidad(card_ui)
+
+func _actualizar_disponibilidad(card_ui: CardUI) -> void:
+	if card_ui.carta == null:
+		print("Carta nula encontrada en:", card_ui.name)
+		return
+
+	var carta: CardData = card_ui.carta
+
+	var energia_insuficiente: bool = not player_ref.puede_pagar(carta.costo)
+
+	var es_carta_energia: bool = (
+		carta.efectos.size() == 1
+		and carta.efectos[0] is EnergyEffectData
+	)
+
+	var energia_completa: bool = player_ref.energia_actual >= player_ref.energia_max
+
+	var carta_bloqueada: bool = energia_insuficiente or (
+		es_carta_energia and energia_completa
+	)
+
+	if carta_bloqueada:
+		card_ui.modulate = Color(0.5, 0.5, 0.5, 0.6)
+	else:
+		card_ui.modulate = Color(1, 1, 1, 1)
+
