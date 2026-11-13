@@ -1,0 +1,1145 @@
+﻿===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\batalla\battle_scene.gd =====
+extends Node2D
+
+
+# ============================================================
+# REFERENCIAS A NODOS
+# ============================================================
+
+@onready var combat_manager := $CombatManager
+@onready var deck_manager := $DeckManager
+
+@onready var btn_fin_turno := $CanvasLayer/BtnFinTurno
+@onready var player := $CanvasLayer/player
+@onready var mano_ui := $CanvasLayer/Mano
+@onready var zona_drop := $CanvasLayer/DropZone
+
+@onready var texto_combate := $CanvasLayer/textocombate
+@onready var label_combates := $CanvasLayer/LabelCombates
+@onready var label_energia := $CanvasLayer/LabelEnergia
+@onready var iconos_energia: HBoxContainer = $CanvasLayer/EnergiaContainer
+
+
+# ============================================================
+# VARIABLES
+# ============================================================
+
+var enemy: Enemy
+
+var historial_texto := ""
+var max_lineas := 18
+
+var arrastrando_carta := false
+
+const ICONO_ENERGIA := preload("res://Assets/Icons/poder.png")
+
+# ============================================================
+# INICIALIZACIÃ“N
+# ============================================================
+
+func crear_enemigo_combate() -> Enemy:
+	var datos: EnemyData = GameManager.enemy_data_encuentro
+
+	if datos == null:
+		push_error("Batalla: no hay un encuentro preparado en GameManager.")
+		return null
+
+	if datos.escena_combate == null:
+		push_error("Batalla: %s no tiene escena de combate." % datos.nombre)
+		return null
+
+	label_combates.text = ""
+
+	var nuevo_enemigo := datos.escena_combate.instantiate() as Enemy
+
+	if nuevo_enemigo == null:
+		push_error("Batalla: la escena no contiene un Enemy vÃ¡lido.")
+		return null
+
+	nuevo_enemigo.configurar(datos)
+
+	$CanvasLayer.add_child(nuevo_enemigo)
+	nuevo_enemigo.position = Vector2(965, 100)
+
+	return nuevo_enemigo
+
+
+
+func _ready() -> void:
+	MusicManager.play_battle()
+	
+	# --------------------------------------------------------
+	# Crear enemigo
+	# --------------------------------------------------------
+
+	enemy = crear_enemigo_combate()
+
+	if enemy == null:
+		push_error("Batalla: no se pudo iniciar el combate.")
+		return
+
+	# --------------------------------------------------------
+	# Conectar DropZone
+	# --------------------------------------------------------
+
+	zona_drop.carta_soltada.connect(_on_carta_soltada)
+
+
+	# --------------------------------------------------------
+	# Configurar enemigos
+	# --------------------------------------------------------
+
+	var enemigos: Array[Enemy] = [enemy]
+
+
+	# --------------------------------------------------------
+	# Configurar mazo y mano
+	# --------------------------------------------------------
+
+	deck_manager.iniciar_mazo(
+		GameManager.crear_mazo_inicial(player.tipo_caelius)
+	)
+
+	mano_ui.player_ref = player
+
+	deck_manager.mano_actualizada.connect(
+		mano_ui.mostrar_mano
+	)
+
+
+	# --------------------------------------------------------
+	# Eventos del turno
+	# --------------------------------------------------------
+
+	combat_manager.turno_jugador_iniciado.connect(
+		deck_manager.iniciar_turno
+	)
+
+	combat_manager.turno_jugador_iniciado.connect(
+		func():
+			btn_fin_turno.disabled = false
+	)
+
+	combat_manager.turno_enemigo_iniciado.connect(
+		func():
+			btn_fin_turno.disabled = true
+	)
+
+
+	# --------------------------------------------------------
+	# Eventos del combate
+	# --------------------------------------------------------
+
+	combat_manager.combate_terminado.connect(
+		_on_combate_terminado
+	)
+
+	combat_manager.enemigo_actuo.connect(
+		func(enemigo):
+			enemigo.reproducir_animacion(
+				enemigo.obtener_nombre_animacion_intencion()
+			)
+	)
+
+	combat_manager.accion_enemigo_realizada.connect(
+		_on_accion_enemigo_realizada
+	)
+
+
+	# --------------------------------------------------------
+	# Eventos del jugador
+	# --------------------------------------------------------
+
+	player.energia_actualizada.connect(
+		_actualizar_label_energia
+	)
+
+	player.energia_actualizada.connect(
+		func(_a, _m):
+			mano_ui.actualizar_disponibilidad_todas()
+	)
+
+
+	# --------------------------------------------------------
+	# BotÃ³n finalizar turno
+	# --------------------------------------------------------
+
+	btn_fin_turno.pressed.connect(
+		combat_manager.finalizar_turno_jugador
+	)
+
+
+	# --------------------------------------------------------
+	# Iniciar combate
+	# --------------------------------------------------------
+
+	combat_manager.iniciar_combate(
+		player,
+		enemigos
+	)
+	
+	_actualizar_label_energia(player.energia_actual, player.energia_max)
+
+
+# ============================================================
+# PROCESAMIENTO DEL DRAG DE CARTAS
+# ============================================================
+
+func _process(_delta: float) -> void:
+	var drag_data = get_viewport().gui_get_drag_data()
+
+	if drag_data is CardData:
+		if not arrastrando_carta:
+			arrastrando_carta = true
+			_actualizar_gris_por_carta(drag_data)
+
+	else:
+		if arrastrando_carta:
+			arrastrando_carta = false
+			_resetear_gris()
+
+
+# ============================================================
+# INDICADOR VISUAL DE OBJETIVOS VÃLIDOS
+# ============================================================
+
+func _actualizar_gris_por_carta(carta: CardData) -> void:
+	match carta.tipo_objetivo:
+
+		CardData.TipoObjetivo.PROPIO:
+			_set_gris(enemy, true)
+			_set_gris(player, false)
+
+
+		CardData.TipoObjetivo.ENEMIGO_FIJO, \
+		CardData.TipoObjetivo.ENEMIGO_CUALQUIERA:
+			_set_gris(player, true)
+			_set_gris(enemy, false)
+
+
+		CardData.TipoObjetivo.LIBRE:
+			_set_gris(player, false)
+			_set_gris(enemy, false)
+
+
+func _resetear_gris() -> void:
+	if player != null:
+		_set_gris(player, false)
+	if enemy != null:
+		_set_gris(enemy, false)
+
+
+func _set_gris(entidad: CombatEntity, activar: bool) -> void:
+	if not is_instance_valid(entidad):
+		return
+
+	entidad.modulate = (
+		Color(0.5, 0.5, 0.5, 1.0)
+		if activar
+		else entidad.color_base
+	)
+
+
+# ============================================================
+# LÃ“GICA DE CARTAS
+# ============================================================
+
+func _on_carta_soltada(carta: CardData, posicion_global: Vector2) -> void:
+
+	var objetivo := _resolver_objetivo(
+		carta,
+		posicion_global
+	)
+
+	if objetivo == null:
+		return
+
+	intentar_jugar_carta(
+		carta,
+		objetivo
+	)
+
+
+func _resolver_objetivo(
+	carta: CardData,
+	posicion_global: Vector2
+) -> CombatEntity:
+
+	match carta.tipo_objetivo:
+
+		CardData.TipoObjetivo.PROPIO:
+			return player
+
+
+		CardData.TipoObjetivo.ENEMIGO_FIJO:
+			return enemy
+
+
+		CardData.TipoObjetivo.ENEMIGO_CUALQUIERA:
+			return _entidad_mas_cercana(
+				posicion_global,
+				[enemy]
+			)
+
+
+		CardData.TipoObjetivo.LIBRE:
+			return _entidad_mas_cercana(
+				posicion_global,
+				[player, enemy]
+			)
+
+
+	return null
+
+
+func _entidad_mas_cercana(
+	posicion_global: Vector2,
+	candidatos: Array
+) -> CombatEntity:
+
+	var mejor: CombatEntity = null
+	var mejor_dist := INF
+
+	for c in candidatos:
+
+		if not is_instance_valid(c):
+			continue
+
+		var dist = c.global_position.distance_to(
+			posicion_global
+		)
+
+		if dist < mejor_dist:
+			mejor_dist = dist
+			mejor = c
+
+	return mejor
+
+
+func intentar_jugar_carta(carta: CardData, objetivo: CombatEntity) -> void:
+
+	if not combat_manager.es_turno_jugador():
+		#print("No es tu turno")
+		return
+
+
+	if not player.puede_pagar(carta.costo):
+		print(
+			"No tienes energÃ­a suficiente para %s"
+			% carta.nombre
+		)
+		return
+
+	if carta.efectos.size() == 1 and carta.efectos[0] is EnergyEffectData:
+		if player.energia_actual >= player.energia_max:
+			return
+	# --------------------------------------------------------
+	# Pagar carta
+	# --------------------------------------------------------
+
+	player.gastar_energia(carta.costo)
+
+
+	# --------------------------------------------------------
+	# Ejecutar carta
+	# --------------------------------------------------------
+
+	carta.jugar(player,objetivo)
+
+
+	# --------------------------------------------------------
+	# Eliminar carta de la mano
+	# --------------------------------------------------------
+
+	deck_manager.jugar_carta(carta)
+
+
+	# --------------------------------------------------------
+	# AnimaciÃ³n del jugador
+	# --------------------------------------------------------
+
+	player.reproducir_animacion(carta.animacion)
+
+
+	# --------------------------------------------------------
+	# Actualizar UI
+	# --------------------------------------------------------
+
+	mostrar_texto(
+		"%s juega %s"
+		% [
+			player.nombre,
+			carta.nombre
+		]
+	)
+
+	# --------------------------------------------------------
+	# Comprobar fin de combate
+	# --------------------------------------------------------
+
+	if combat_manager.verificar_fin_combate():
+		return
+
+
+# ============================================================
+# TEXTO DEL COMBATE
+# ============================================================
+
+func mostrar_texto(texto: String) -> void:
+	if texto_combate == null:
+		return
+
+	historial_texto += texto + "\n\n"
+
+	var lineas = historial_texto.split("\n")
+
+	if lineas.size() > max_lineas:
+
+		var nuevas_lineas = []
+
+		for i in range(
+			lineas.size() - max_lineas,
+			lineas.size()
+		):
+			nuevas_lineas.append(
+				lineas[i]
+			)
+
+		historial_texto = "\n".join(
+			nuevas_lineas
+		)
+
+
+	texto_combate.text = historial_texto
+
+	await get_tree().process_frame
+
+	if is_instance_valid(texto_combate):
+		texto_combate.scroll_to_line(
+			texto_combate.get_line_count()
+		)
+
+
+# ============================================================
+# UI - ENERGÃA
+# ============================================================
+
+func _actualizar_label_energia(actual: int, maxima: int) -> void:
+	for hijo in iconos_energia.get_children():
+		iconos_energia.remove_child(hijo)
+		hijo.queue_free()
+
+	for i in range(maxima):
+		var icono := TextureRect.new()
+
+		icono.texture = ICONO_ENERGIA
+		icono.custom_minimum_size = Vector2(45, 45)
+		icono.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icono.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+
+		if i >= actual:
+			icono.modulate = Color(0.3, 0.3, 0.3, 0.5)
+		else:
+			icono.modulate = Color("#800020")
+
+		iconos_energia.add_child(icono)
+
+# ============================================================
+# EVENTOS DEL COMBATE
+# ============================================================
+
+func _on_accion_enemigo_realizada(
+	enemigo: Enemy,
+	descripcion: String
+) -> void:
+
+	mostrar_texto(
+		descripcion
+	)
+
+
+func _on_combate_terminado(victoria: bool) -> void:
+	if victoria and GameManager.enemy_data_encuentro != null:
+		var zona_id: String = GameManager.zona_id_encuentro
+		var enemigo_id: String = GameManager.enemigo_id_encuentro
+
+		if zona_id.is_empty() or enemigo_id.is_empty():
+			push_error("Batalla: faltan datos del encuentro.")
+			return
+
+		match GameManager.tipo_encuentro:
+			GameManager.TipoEncuentro.NORMAL:
+				var registrado := GameManager.estado_expedicion.marcar_enemigo_derrotado(
+					zona_id,
+					enemigo_id
+				)
+
+				if not registrado:
+					push_error("Batalla: no se pudo registrar al enemigo derrotado.")
+					return
+
+				if GameManager.estado_expedicion.todos_enemigos_derrotados(zona_id):
+					print("Batalla: zona despejada: ", zona_id)
+
+			GameManager.TipoEncuentro.JEFE:
+				GameManager.estado_expedicion.marcar_jefe_derrotado(
+					zona_id,
+					enemigo_id
+				)
+
+				print("Batalla: jefe derrotado: ", enemigo_id)
+
+		GameManager.player_data.hp_actual = player.max_hp
+		GameManager.guardar_partida()
+
+		if GameManager.tipo_encuentro == GameManager.TipoEncuentro.JEFE:
+			var pantalla_final = SceneManager.add_overlay(
+				SceneManager.SceneID.FIN_PARTIDA,
+				$CanvasLayer
+			)
+
+			if pantalla_final != null:
+				pantalla_final.configurar(
+					pantalla_final.TipoFinal.CONTINUARA
+				)
+
+			return
+
+		SceneManager.change_scene(SceneManager.SceneID.ZONA_ROJA)
+		return
+	
+	if victoria:
+		push_warning("Batalla: victoria sin encuentro de mundo registrado.")
+		return
+
+	SceneManager.add_overlay(
+		SceneManager.SceneID.FIN_PARTIDA,
+		$CanvasLayer
+	)
+
+	
+# ============================================================
+# DEBUG
+# ============================================================
+	
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not OS.is_debug_build():
+		return
+
+	if event.is_action_pressed("debug_victoria") and not event.is_echo():
+		get_viewport().set_input_as_handled()
+		print("DEBUG: victoria forzada")
+		_forzar_victoria_debug()
+
+	elif event.is_action_pressed("debug_derrota") and not event.is_echo():
+		get_viewport().set_input_as_handled()
+		print("DEBUG: derrota forzada")
+		_forzar_derrota_debug()
+
+
+func _forzar_victoria_debug() -> void:
+	if combat_manager.estado == CombatManager.Estado.VICTORIA \
+	or combat_manager.estado == CombatManager.Estado.DERROTA:
+		return
+
+	if not is_instance_valid(enemy):
+		push_warning("DEBUG: no hay enemigo vÃ¡lido.")
+		return
+
+	enemy.hp = 0
+	enemy.actualizar_barra_vida()
+
+	combat_manager.verificar_fin_combate()
+
+
+
+func _forzar_derrota_debug() -> void:
+	if combat_manager.estado == CombatManager.Estado.VICTORIA \
+	or combat_manager.estado == CombatManager.Estado.DERROTA:
+		return
+
+	if not is_instance_valid(player):
+		push_warning("DEBUG: no hay jugador vÃ¡lido.")
+		return
+
+	player.hp = 0
+	player.actualizar_barra_vida()
+
+	combat_manager.verificar_fin_combate()
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\batalla\combat_entity.gd =====
+class_name CombatEntity
+extends Node
+
+@onready var animador: AnimadorPersonaje = get_node_or_null("Animador")
+@onready var barra_vida = $HealthBar
+@onready var texto_barra = $HealthBar/LabelHealth
+@onready var escudo = $Shield
+@onready var texto_escudo = $Shield/LabelShield
+
+
+enum TipoEstado { SANGRADO, VENENO }
+var estados: Dictionary = {}
+var esquive_buff_valor: int = 0
+var esquive_buff_turnos: int = 0
+
+var nombre: String
+var stats: Stats
+
+var hp: int
+var max_hp: int
+
+var daÃ±o: int
+var defensa: int
+var esquive: int
+var velocidad: int
+var fe: int
+var poder: int
+
+var bloqueo: int = 0
+
+var bonus_daÃ±o := 1.0
+var bonus_defensa := 1.0
+var bonus_velocidad := 1.0
+
+var robo_vida := false
+var porcentaje_robo_vida := 0.5
+var doble_golpe := false
+var inmune := false
+
+var base_tiempo_ataque := 0.0
+var habilidad_activa := false
+#var habilidad_timer := 0.0
+var cooldown_habilidad := 0.0
+var habilidad_nombre := ""
+
+var tiempo_ataque := 0.0
+var vida_tween = null
+var color_base: Color = Color(1, 1, 1, 1)
+
+func _ready() -> void:
+	barra_vida.max_value = max_hp
+	barra_vida.value = hp
+
+func aplicar_stats(s: Stats) -> void:
+	stats = s
+	max_hp = s.max_hp
+	hp = s.max_hp
+	daÃ±o = s.daÃ±o
+	defensa = s.defensa
+	esquive = s.esquive
+	velocidad = s.velocidad
+	fe = s.fe
+	poder = s.poder
+	base_tiempo_ataque = s.base_tiempo_ataque
+
+func _process(delta):
+	tiempo_ataque -= delta
+	#if cooldown_habilidad > 0:
+		#cooldown_habilidad -= delta
+	#if habilidad_activa:
+		#habilidad_timer -= delta
+		#if habilidad_timer <= 0:
+			#desactivar_habilidad()
+	#if hp > 0 and cooldown_habilidad <= 0:
+		#evaluar_activacion_habilidad()
+
+
+
+#func evaluar_activacion_habilidad() -> void:
+	#pass
+
+func activar_habilidad() -> void:
+	habilidad_activa = true
+	
+func desactivar_habilidad() -> void:
+	habilidad_activa = false
+	bonus_daÃ±o = 1.0
+	bonus_defensa = 1.0
+	bonus_velocidad = 1.0
+	robo_vida = false
+	doble_golpe = false
+	inmune = false
+
+
+
+func puede_atacar() -> bool:
+	return tiempo_ataque <= 0 and hp > 0
+
+func reiniciar_tiempo() -> void:
+	tiempo_ataque = base_tiempo_ataque / (float(velocidad) * bonus_velocidad)
+
+func recibir_daÃ±o(cantidad: int, ignora_bloqueo: bool = false) -> void:
+	if hp <= 0 or inmune:
+		return
+		
+	var daÃ±o_restante := cantidad
+	#BLOQUEO
+	if not ignora_bloqueo and bloqueo > 0:
+		var absorbido = min(bloqueo, daÃ±o_restante)
+		bloqueo -= absorbido
+		daÃ±o_restante -= absorbido
+	if daÃ±o_restante > 0:
+		hp -= daÃ±o_restante
+		hp = max(hp, 0)
+	
+	animador.reproducir("daÃ±o")
+	
+	actualizar_barra_vida()
+	actualizar_escudo() 
+	
+	if hp <= 0:
+		morir()
+
+func morir() -> void:
+	queue_free()
+
+func actualizar_escudo() -> void:
+	if !has_node("Shield"):
+		return
+	
+	if bloqueo > 0:
+		escudo.visible = true
+		texto_escudo.text = str(bloqueo)
+	else:
+		escudo.visible = false
+		
+	
+func actualizar_barra_vida() -> void:
+	if !has_node("HealthBar"):
+		return
+		
+	var porcentaje = float(hp) / float(max_hp) * 100.0
+	texto_barra.text = "%d / %d" % [hp, max_hp]
+	
+	if vida_tween != null:
+		vida_tween.kill()
+	vida_tween = create_tween()
+	vida_tween.tween_property(barra_vida, "value", porcentaje, 0.2)
+	if porcentaje > 50:
+		barra_vida.modulate = Color(0.591, 0.809, 0.51)
+	elif porcentaje > 10:
+		barra_vida.modulate = Color(0.81, 0.692, 0.377)
+	else:
+		barra_vida.modulate = Color(0.907, 0.337, 0.268)
+
+
+
+func aplicar_estado(tipo: TipoEstado, cantidad: int) -> void:
+	estados[tipo] = estados.get(tipo, 0) + cantidad
+
+func tiene_estado(tipo: TipoEstado) -> bool:
+	return estados.get(tipo, 0) > 0
+	
+func procesar_estados() -> void:
+	if tiene_estado(TipoEstado.SANGRADO):
+		var stacks = estados[TipoEstado.SANGRADO]
+		recibir_daÃ±o(stacks, true)
+		estados[TipoEstado.SANGRADO] = max(stacks - 1, 0)
+
+	if tiene_estado(TipoEstado.VENENO):
+		var stacks = estados[TipoEstado.VENENO]
+		recibir_daÃ±o(stacks, false)
+		estados[TipoEstado.VENENO] = max(stacks - 1, 0)
+
+	if esquive_buff_turnos > 0:
+		esquive_buff_turnos -= 1
+		if esquive_buff_turnos <= 0:
+			esquive_buff_valor = 0
+
+func esquive_efectivo() -> int:
+	return esquive + esquive_buff_valor
+
+func _tween_ataque() -> void:
+	var tween = create_tween()
+	var pos_original = self.position
+	var distancia = 40
+	var pos_ataque = pos_original + (Vector2(distancia, 0) if self == Player else Vector2(distancia, 0))
+	tween.tween_property(self, "position", pos_ataque, 0.1)
+	tween.tween_property(self, "position", pos_original, 0.1)
+	
+
+func _tween_defensa() -> void:
+	var tween = create_tween()
+	var pos_original = self.position
+	tween.tween_property(self, "position", pos_original + Vector2(0, -40), 0.1)
+	tween.tween_property(self, "position", pos_original, 0.1)
+
+func _tween_habilidad() -> void:
+	var tween = create_tween()
+	var pos_original = self.position
+	tween.tween_property(self, "position", pos_original + Vector2(0, -20), 0.1)
+	tween.tween_property(self, "position", pos_original, 0.1)
+
+func reproducir_animacion(nombre: String) -> void:
+	if animador != null:
+		animador.reproducir(nombre)
+	else:
+		_reproducir_animacion_fallback(nombre)
+
+func _reproducir_animacion_fallback(nombre: String) -> void:
+	match nombre:
+		"ataque": _tween_ataque()
+		"defensa": _tween_defensa()
+		"habilidad": _tween_habilidad()
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\batalla\combat_manager.gd =====
+class_name CombatManager
+extends Node
+
+var player: Player
+
+signal turno_jugador_iniciado
+signal turno_enemigo_iniciado
+signal enemigo_actuo(enemigo: Enemy)
+signal combate_terminado(victoria: bool)
+signal energia_actualizada(actual: int, maxima: int)
+signal accion_enemigo_realizada(enemigo: Enemy, descripcion: String)
+
+enum Estado { INICIO, TURNO_JUGADOR, TURNO_ENEMIGO, VICTORIA, DERROTA }
+var estado: Estado = Estado.INICIO
+var enemigos: Array[Enemy] = []
+
+func iniciar_combate(p: CombatEntity, e: Array[Enemy]) -> void:
+	player = p
+	enemigos = e
+	player.resetear_energia()
+	
+	for enemigo in enemigos:
+		if is_instance_valid(enemigo) and enemigo.hp > 0:
+			_actualizar_intencion(enemigo)
+			
+	_iniciar_turno_jugador()
+
+
+func es_turno_jugador() -> bool:
+	return (
+		estado == Estado.TURNO_JUGADOR
+		and is_instance_valid(player)
+		and player.hp > 0
+	)
+
+
+func _iniciar_turno_jugador() -> void:
+	if estado == Estado.VICTORIA or estado == Estado.DERROTA:
+		return
+
+	if not is_instance_valid(player):
+		push_error("CombatManager: jugador invÃ¡lido al iniciar turno.")
+		return
+
+	estado = Estado.TURNO_JUGADOR
+	player.procesar_estados()
+
+	if _verificar_fin_combate():
+		return
+
+	turno_jugador_iniciado.emit()
+
+
+	
+func finalizar_turno_jugador() -> void:
+	if estado != Estado.TURNO_JUGADOR:
+		return
+	_iniciar_turno_enemigo()
+
+
+
+func _iniciar_turno_enemigo() -> void:
+	estado = Estado.TURNO_ENEMIGO
+	turno_enemigo_iniciado.emit()
+	await _ejecutar_turno_enemigo()
+
+
+
+func _ejecutar_turno_enemigo() -> void:
+	for enemigo in enemigos:
+		if estado != Estado.TURNO_ENEMIGO:
+			return
+
+		if not is_instance_valid(enemigo) or enemigo.hp <= 0:
+			continue
+
+		enemigo.procesar_estados()
+
+		if _verificar_fin_combate():
+			return
+
+		if enemigo.hp <= 0:
+			continue
+
+		await _ejecutar_accion_enemigo(enemigo)
+
+		if not is_inside_tree() or estado != Estado.TURNO_ENEMIGO:
+			return
+
+		if _verificar_fin_combate():
+			return
+
+		if is_instance_valid(enemigo) and enemigo.hp > 0:
+			_actualizar_intencion(enemigo)
+
+	if estado != Estado.TURNO_ENEMIGO:
+		return
+
+	if not _verificar_fin_combate():
+		_iniciar_turno_jugador()
+
+
+
+func _actualizar_intencion(enemigo: Enemy) -> void:
+	enemigo.decidir_intencion()
+	if enemigo.intencion_actual.tipo == IntentData.Tipo.ATACAR:
+		enemigo.intencion_actual.valor = _calcular_daÃ±o_predicho(enemigo, player)
+	enemigo.actualizar_intencion_ui()
+	
+func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
+	enemigo_actuo.emit(enemigo)
+	var descripcion := ""
+
+	match enemigo.intencion_actual.tipo:
+		IntentData.Tipo.ATACAR:
+			if is_instance_valid(player) and player.hp > 0:
+				var daÃ±o = _calcular_daÃ±o_enemigo(enemigo, player)
+				if daÃ±o > 0:
+					player.recibir_daÃ±o(daÃ±o)
+					descripcion = "%s ataca e inflige %d de daÃ±o" % [enemigo.nombre, daÃ±o]
+					if enemigo.robo_vida:
+						var vida_robada = int(daÃ±o * enemigo.porcentaje_robo_vida)
+						enemigo.hp = min(enemigo.hp + vida_robada, enemigo.max_hp)
+						enemigo.actualizar_barra_vida()
+						descripcion += " y roba %d de vida" % vida_robada
+				else:
+					descripcion = "%s atacÃ³, pero fue esquivado" % enemigo.nombre
+				enemigo.al_atacar()
+		IntentData.Tipo.DEFENDER:
+			enemigo.bloqueo += enemigo.intencion_actual.valor
+			enemigo.actualizar_escudo()
+			descripcion = "%s se defiende y gana %d de bloqueo" % [enemigo.nombre, enemigo.intencion_actual.valor]
+		IntentData.Tipo.HABILIDAD:
+			enemigo.activar_habilidad()
+			descripcion = "%s usa %s" % [enemigo.nombre, enemigo.habilidad_nombre]
+			enemigo.aplicar_efecto_habilidad_a_objetivo(player) 
+			
+	accion_enemigo_realizada.emit(enemigo, descripcion)
+	await get_tree().create_timer(0.6).timeout
+	
+	
+func _calcular_daÃ±o_predicho(atacante: CombatEntity, defensor: CombatEntity) -> int:
+	var daÃ±o_base = atacante.daÃ±o * atacante.bonus_daÃ±o
+	var defensa_base = defensor.defensa * defensor.bonus_defensa
+	var reduccion = defensa_base / (defensa_base + 10.0)
+	var daÃ±o = daÃ±o_base * (1.0 - reduccion)
+	return max(int(daÃ±o), 1)
+	
+func _calcular_daÃ±o_enemigo(atacante: CombatEntity, defensor: CombatEntity) -> int:
+	var chance = randi() % 100
+	if chance < defensor.esquive_efectivo() or defensor.inmune:
+		return 0
+	
+	var daÃ±o_base = atacante.daÃ±o * atacante.bonus_daÃ±o
+	var defensa_base = defensor.defensa * defensor.bonus_defensa
+	
+	var reduccion = defensa_base / (defensa_base + 10.0)
+	var daÃ±o = daÃ±o_base * (1.0 - reduccion)
+	
+	var variacion = randf_range(0.85, 1.05)
+	daÃ±o *= variacion
+	return max(int(daÃ±o), 1)
+
+
+func verificar_fin_combate() -> bool:
+	return _verificar_fin_combate()
+
+
+func _verificar_fin_combate() -> bool:
+	if estado == Estado.VICTORIA or estado == Estado.DERROTA:
+		return true
+
+	if is_instance_valid(player) and player.hp <= 0:
+		estado = Estado.DERROTA
+		combate_terminado.emit(false)
+		return true
+
+	var alguno_vivo := false
+
+	for enemigo in enemigos:
+		if is_instance_valid(enemigo) and enemigo.hp > 0:
+			alguno_vivo = true
+			break
+
+	if not alguno_vivo:
+		estado = Estado.VICTORIA
+		combate_terminado.emit(true)
+		return true
+
+	return false
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\batalla\deck_manager.gd =====
+class_name DeckManager
+extends Node
+
+signal mano_actualizada(mano: Array[CardData])
+
+const TAMANO_MANO := 5
+
+var mazo_robo: Array[CardData] = []
+var mazo_descarte: Array[CardData] = []
+var mano: Array[CardData] = []
+
+func iniciar_mazo(deck_original: Array[CardData]) -> void:
+	mazo_robo = deck_original.duplicate()
+	mazo_robo.shuffle()
+	mazo_descarte.clear()
+	mano.clear()
+
+func iniciar_turno() -> void:
+	_descartar_mano()
+	_robar(TAMANO_MANO)
+
+func jugar_carta(carta: CardData) -> void:
+	if carta in mano:
+		mano.erase(carta)
+		mazo_descarte.append(carta)
+		mano_actualizada.emit(mano)
+
+func _robar(cantidad: int) -> void:
+	for i in cantidad:
+		if mazo_robo.is_empty():
+			_reciclar_descarte()
+			if mazo_robo.is_empty():
+				break 
+		mano.append(mazo_robo.pop_back())
+	mano_actualizada.emit(mano)
+
+func _descartar_mano() -> void:
+	mazo_descarte.append_array(mano)
+	mano.clear()
+
+func _reciclar_descarte() -> void:
+	mazo_robo = mazo_descarte.duplicate()
+	mazo_robo.shuffle()
+	mazo_descarte.clear()
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\batalla\ether_manager.gd =====
+class_name EtherManager
+extends Node
+
+signal eteres_actualizados
+signal repeticiones_actualizadas(restantes: int)
+
+enum ColorEter {
+	ROJO,
+	VIOLETA,
+	VERDE,
+	ROSA,
+	CELESTE
+}
+
+const CANTIDAD_ETERES := 5
+const REPETICIONES_POR_COMBATE := 2
+
+var perfil: EtherProfileData
+var eteres: Array[int] = []
+var repeticiones_restantes: int = 0
+
+var rng := RandomNumberGenerator.new()
+
+
+func _ready() -> void:
+	rng.randomize()
+
+
+func iniciar_combate(nuevo_perfil: EtherProfileData) -> void:
+	if nuevo_perfil == null:
+		push_error("EtherManager: falta el perfil de Ã©ter.")
+		return
+
+	perfil = nuevo_perfil
+	eteres.clear()
+	repeticiones_restantes = REPETICIONES_POR_COMBATE
+
+	repeticiones_actualizadas.emit(repeticiones_restantes)
+	eteres_actualizados.emit()
+
+
+func iniciar_turno() -> void:
+	if perfil == null:
+		push_error("EtherManager: no hay perfil configurado.")
+		return
+
+	eteres.clear()
+
+	for i in range(CANTIDAD_ETERES):
+		eteres.append(_generar_color())
+
+	eteres_actualizados.emit()
+
+
+func _generar_color() -> int:
+	var pesos: Array[int] = [
+		perfil.rojo,
+		perfil.violeta,
+		perfil.verde,
+		perfil.celeste,
+		perfil.rosa
+	]
+
+	var total := 0
+
+	for peso in pesos:
+		total += max(peso, 0)
+
+	if total <= 0:
+		push_error("EtherManager: todos los pesos son cero.")
+		return -1
+
+	var resultado := rng.randi_range(1, total)
+	var acumulado := 0
+
+	for i in range(pesos.size()):
+		acumulado += max(pesos[i], 0)
+
+		if resultado <= acumulado:
+			return i
+
+	return -1
+
+
+func repetir_eteres(indices: Array[int]) -> bool:
+	if repeticiones_restantes <= 0:
+		return false
+
+	if indices.is_empty():
+		return false
+
+	if perfil == null:
+		return false
+
+	var indices_unicos: Dictionary = {}
+
+	for indice in indices:
+		if indice < 0 or indice >= eteres.size():
+			return false
+
+		if eteres[indice] == -1:
+			return false
+
+		indices_unicos[indice] = true
+
+	for indice in indices_unicos:
+		eteres[indice] = _generar_color()
+
+	repeticiones_restantes -= 1
+
+	eteres_actualizados.emit()
+	repeticiones_actualizadas.emit(repeticiones_restantes)
+
+	return true
+
+
+func finalizar_turno() -> void:
+	eteres.clear()
+	eteres_actualizados.emit()
+

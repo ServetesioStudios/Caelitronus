@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cinvs4xaxdel0"]
 
-[ext_resource type="Script" uid="uid://bejfl33gjhhj2" path="res://Scripts/temporales/subir_nivel.gd" id="1_a7ljx"]
+[ext_resource type="Script" uid="uid://bejfl33gjhhj2" path="res://Scripts/xtemporales/subir_nivel.gd" id="1_a7ljx"]
 [ext_resource type="Texture2D" uid="uid://buu016yjlw7su" path="res://Assets/BckGrnd/Nivel.png" id="2_eokig"]
 [ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="3_32y4f"]
 [ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="4_okevw"]

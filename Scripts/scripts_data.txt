@@ -1,0 +1,184 @@
+﻿===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\audio_library.gd =====
+class_name AudioLibrary
+extends Resource
+
+@export var musica_menu: AudioStream
+@export var musica_batalla: AudioStream
+@export var musica_boss: AudioStream
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\card_data.gd =====
+class_name CardData
+extends Resource
+
+enum TipoObjetivo {
+	PROPIO,               # escudo: siempre te lo aplicÃ¡s a vos, sin importar dÃ³nde soltÃ¡s
+	ENEMIGO_FIJO,         # ataques que siempre pegan al mismo enemigo (ej. "el del frente")
+	ENEMIGO_CUALQUIERA,   # tenÃ©s que soltar sobre un enemigo especÃ­fico para elegir cuÃ¡l
+	LIBRE,                # podÃ©s soltarla sobre vos o sobre cualquier enemigo
+}
+
+@export var nombre: String
+@export_multiline var descripcion: String
+@export var efectos: Array[EffectData] = []
+@export var animacion: String = ""
+@export var tipo_objetivo: TipoObjetivo = TipoObjetivo.ENEMIGO_CUALQUIERA
+@export var costo: int = 1
+@export var arte: Texture2D
+
+
+func jugar(fuente: CombatEntity, objetivo: CombatEntity) -> void:
+	for efecto in efectos:
+		efecto.aplicar(fuente, objetivo)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\effect_data.gd =====
+class_name EffectData
+extends Resource
+
+func aplicar(fuente: CombatEntity, objetivo: CombatEntity) -> void:
+	pass
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\enemy_data.gd =====
+class_name EnemyData
+extends Resource
+
+enum Religion { NINGUNA, SAGRADA, OSCURA }
+
+@export_group("IdentificaciÃ³n")
+@export var id: StringName
+@export var nombre: String
+@export var religion: Religion = Religion.NINGUNA
+
+@export_group("Combate")
+@export var stats: Stats
+@export var escena_combate: PackedScene
+
+@export_group("RepresentaciÃ³n en el mundo")
+@export var sprite_frames_mundo: SpriteFrames
+@export_range(0.05, 2.0, 0.05) var escala_mundo: float = 1.0
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\ether_profile_data.gd =====
+class_name EtherProfileData
+extends Resource
+
+@export_group("Pesos de Ã©ter")
+
+@export_range(0, 100, 1) var rojo: int = 10
+@export_range(0, 100, 1) var violeta: int = 10
+@export_range(0, 100, 1) var verde: int = 10
+@export_range(0, 100, 1) var rosa: int = 10
+@export_range(0, 100, 1) var celeste: int = 10
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\intent_data.gd =====
+class_name IntentData
+extends Resource
+
+enum Tipo {ATACAR, DEFENDER, HABILIDAD}
+
+@export var tipo: Tipo = Tipo.ATACAR
+@export var valor: int = 0 
+@export var icono: Texture2D
+@export var animacion: String = ""
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\player_data.gd =====
+class_name PlayerData
+extends Resource
+
+@export var tipo_caelius: GameManager.TipoCaelius = GameManager.TipoCaelius.PENA
+@export var nivel: int = 1
+@export var gold: int = 0
+@export var hp_actual: int = -1
+@export var deck: Array[CardData] = []
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\relic_data.gd =====
+class_name RelicData
+extends Resource
+
+@export var relic_name: String
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\stats.gd =====
+class_name Stats
+extends Resource
+
+@export var base_tiempo_ataque := 10.0
+@export var max_hp: int = 100
+@export var daÃ±o: int = 6
+@export var defensa: int = 5
+@export var esquive: int = 5
+@export var velocidad: int = 10
+@export var fe: int = 0
+@export var poder: int = 0
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\ui_theme_data.gd =====
+class_name UIThemeData
+extends Resource
+
+@export var color_normal: Color = Color("#251b07")
+@export var color_hover: Color = Color("#f8f5cb")
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\efectos\block_effect_data.gd =====
+class_name BlockEffectData
+extends EffectData
+
+@export var cantidad: int = 1
+
+func aplicar(fuente: CombatEntity, objetivo: CombatEntity) -> void:
+	fuente.bloqueo += cantidad
+	fuente.actualizar_escudo()
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\efectos\damage_effect_data.gd =====
+class_name DamageEffectData
+extends EffectData
+
+@export var cantidad: int = 1
+@export var ignora_bloqueo: bool = false
+
+func aplicar(fuente: CombatEntity, objetivo: CombatEntity) -> void:
+	objetivo.recibir_daÃ±o(cantidad, ignora_bloqueo)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\efectos\energy_effect_data.gd =====
+class_name EnergyEffectData
+extends EffectData
+
+@export var cantidad: int = 1
+
+func aplicar(fuente: CombatEntity, objetivo: CombatEntity) -> void: 
+	if fuente is Player and fuente.energia_actual < fuente.energia_max: 
+		#print("energia actual: %d" % fuente.energia_actual)
+		#print("energia max: %d" % fuente.energia_max)
+		fuente.sumar_energia(cantidad)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\efectos\esquive_buff_effect_data.gd =====
+class_name EsquiveBuffEffectData
+extends EffectData
+
+@export var cantidad: int = 5
+@export var duracion_turnos: int = 3
+@export var aplicar_a_uno_mismo: bool = true
+
+func aplicar(fuente: CombatEntity, objetivo: CombatEntity) -> void: 
+	var destino = fuente if aplicar_a_uno_mismo else objetivo
+	destino.esquive_buff_valor = cantidad
+	destino.esquive_buff_turnos = duracion_turnos
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\efectos\estado_effect_data.gd =====
+class_name EstadoEffectData
+extends EffectData
+
+@export var tipo: CombatEntity.TipoEstado
+@export var cantidad: int = 2
+@export var aplicar_a_uno_mismo: bool = false
+
+func aplicar(fuente: CombatEntity, objetivo: CombatEntity) -> void: 
+	var destino = fuente if aplicar_a_uno_mismo else objetivo
+	destino.aplicar_estado(tipo, cantidad)
+
+===== C:\Users\Escritorio\Documents\GameDev\Serventesio\Caelitronus\Scripts\data\efectos\heal_effect_data.gd =====
+class_name HealEffectData
+extends EffectData
+
+@export var cantidad: int = 4
+
+func aplicar(fuente: CombatEntity, objetivo: CombatEntity) -> void:
+	fuente.hp = min(fuente.hp + cantidad, fuente.max_hp)
+	fuente.actualizar_barra_vida()
+
