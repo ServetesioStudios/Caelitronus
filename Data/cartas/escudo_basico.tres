@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://o1j8gtbkbv5m" path="res://Assets/cards/bloqueo.png" id="1_vvu8d"]
 [ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/data/card_data.gd" id="2_82r4d"]
 [ext_resource type="Script" uid="uid://0r6uf7hupq4j" path="res://Scripts/data/card_cost_data.gd" id="2_345h8"]
-[ext_resource type="Script" uid="uid://bg3ykg37brkkc" path="res://Scripts/data/efectos/block_effect_data.gd" id="4_1r6oo"]
+[ext_resource type="Script" uid="uid://bg3ykg37brkkc" path="res://Scripts/data/efectos_cartas/block_effect_data.gd" id="4_1r6oo"]
 
 [sub_resource type="Resource" id="Resource_vvu8d"]
 script = ExtResource("2_345h8")

@@ -19,6 +19,8 @@ extends Node2D
 @onready var ether_manager: EtherManager = $EtherManager
 @onready var ether_ui: EtherUI = $CanvasLayer/EtherUI
 
+@onready var aviso_combate: Label = $CanvasLayer/AvisoCombate
+
 
 # ============================================================
 # VARIABLES
@@ -34,6 +36,8 @@ var arrastrando_carta := false
 # Carta pendiente de pagar con éteres genéricos.
 var carta_pendiente: CardData = null
 var objetivo_pendiente: CombatEntity = null
+
+var tween_aviso: Tween
 
 const ICONO_ENERGIA := preload("res://Assets/Icons/poder.png")
 
@@ -388,7 +392,7 @@ func solicitar_pago_eter(
 		return
 
 	if not ether_manager.puede_pagar(carta.costo_eter):
-		print("Éteres insuficientes para: ", carta.nombre)
+		mostrar_aviso("Éteres insuficientes para: " + carta.nombre)
 		return
 
 	# Guardar la carta y su objetivo.
@@ -486,7 +490,7 @@ func intentar_jugar_carta(
 	if carta.costo_eter != null:
 
 		if not ether_manager.puede_pagar(carta.costo_eter):
-			print("Éteres insuficientes para: ", carta.nombre)
+			mostrar_aviso("Éteres insuficientes para: " + carta.nombre)
 			return
 
 		# Cartas que necesitan selección genérica.
@@ -705,3 +709,32 @@ func _forzar_derrota_debug() -> void:
 	player.actualizar_barra_vida()
 
 	combat_manager.verificar_fin_combate()
+	
+	
+
+func mostrar_aviso(mensaje: String) -> void:
+	if not is_instance_valid(aviso_combate):
+		push_warning("BattleScene: falta AvisoCombate.")
+		return
+
+	# Cancelar la animación anterior.
+	if tween_aviso != null and tween_aviso.is_running():
+		tween_aviso.kill()
+
+	aviso_combate.text = mensaje
+	aviso_combate.modulate.a = 1.0
+	aviso_combate.show()
+
+	# Mostrar el aviso durante 1.5 segundos.
+	tween_aviso = create_tween()
+	tween_aviso.tween_interval(1.5)
+
+	# Desvanecer suavemente.
+	tween_aviso.tween_property(
+		aviso_combate,
+		"modulate:a",
+		0.0,
+		0.4
+	)
+
+	tween_aviso.tween_callback(aviso_combate.hide)

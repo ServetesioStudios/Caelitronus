@@ -43,6 +43,7 @@ func _iniciar_turno_jugador() -> void:
 		return
 
 	estado = Estado.TURNO_JUGADOR
+	player.recibio_ataque = false
 	player.procesar_estados()
 
 	if _verificar_fin_combate():
@@ -97,6 +98,7 @@ func _ejecutar_turno_enemigo() -> void:
 		return
 
 	if not _verificar_fin_combate():
+		_resolver_escudo_condicional()
 		_iniciar_turno_jugador()
 
 
@@ -114,6 +116,7 @@ func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
 	match enemigo.intencion_actual.tipo:
 		IntentData.Tipo.ATACAR:
 			if is_instance_valid(player) and player.hp > 0:
+				player.recibio_ataque = true
 				var daño = _calcular_daño_enemigo(enemigo, player)
 				if daño > 0:
 					player.recibir_daño(daño)
@@ -188,3 +191,20 @@ func _verificar_fin_combate() -> bool:
 		return true
 
 	return false
+	
+	
+
+func _resolver_escudo_condicional() -> void:
+	if not is_instance_valid(player):
+		return
+
+	if player.hp <= 0:
+		return
+
+	if player.bonus_escudo_pendiente > 0:
+		if not player.recibio_ataque:
+			player.bloqueo += player.bonus_escudo_pendiente
+			player.actualizar_escudo()
+
+	player.bonus_escudo_pendiente = 0
+	player.recibio_ataque = false

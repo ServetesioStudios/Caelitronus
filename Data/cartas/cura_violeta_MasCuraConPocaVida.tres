@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/data/effect_data.gd" id="1_e77sn"]
 [ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/data/card_data.gd" id="2_5yrwv"]
 [ext_resource type="Script" uid="uid://0r6uf7hupq4j" path="res://Scripts/data/card_cost_data.gd" id="2_i48fn"]
-[ext_resource type="Script" uid="uid://caqemdqtrtowj" path="res://Scripts/data/efectos/heal_effect_data.gd" id="3_i48fn"]
+[ext_resource type="Script" uid="uid://caqemdqtrtowj" path="res://Scripts/data/efectos_cartas/heal_effect_data.gd" id="3_i48fn"]
 
 [sub_resource type="Resource" id="Resource_i48fn"]
 script = ExtResource("2_i48fn")

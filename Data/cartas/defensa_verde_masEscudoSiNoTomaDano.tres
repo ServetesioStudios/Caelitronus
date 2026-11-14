@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://vh35l3xfm7au"]
+
+[ext_resource type="Texture2D" uid="uid://o1j8gtbkbv5m" path="res://Assets/cards/bloqueo.png" id="1_6l8vx"]
+[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/data/effect_data.gd" id="1_qtao0"]
+[ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/data/card_data.gd" id="2_67e6h"]
+[ext_resource type="Script" uid="uid://0r6uf7hupq4j" path="res://Scripts/data/card_cost_data.gd" id="2_ob14f"]
+[ext_resource type="Script" uid="uid://chhk05xptdrv8" path="res://Scripts/data/efectos_cartas/conditional_block_effect_data.gd" id="4_ajhqq"]
+
+[sub_resource type="Resource" id="Resource_6l8vx"]
+script = ExtResource("2_ob14f")
+verde = 1
+metadata/_custom_type_script = "uid://0r6uf7hupq4j"
+
+[sub_resource type="Resource" id="Resource_e1a81"]
+script = ExtResource("4_ajhqq")
+metadata/_custom_type_script = "uid://chhk05xptdrv8"
+
+[resource]
+script = ExtResource("2_67e6h")
+nombre = "Trono Inquebrantable"
+descripcion = "Gana 8 de escudo. Al inicio de tu próximo turno, gana 3 de escudo adicionales si no recibiste ningún ataque."
+arte = ExtResource("1_6l8vx")
+efectos = Array[ExtResource("1_qtao0")]([SubResource("Resource_e1a81")])
+tipo_objetivo = 0
+costo_eter = SubResource("Resource_6l8vx")
+metadata/_custom_type_script = "uid://wr8ukg3kbesn"

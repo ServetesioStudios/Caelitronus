@@ -34,7 +34,6 @@ var indices_reservados: Array[int] = []
 var botones: Array[Button] = []
 var tweens: Array[Tween] = []
 
-
 # ============================================================
 # INICIALIZACIÓN
 # ============================================================
@@ -51,8 +50,8 @@ func _ready() -> void:
 	)
 
 	actualizar_eteres()
-	mensaje_seleccion.hide()
-
+	if is_instance_valid(mensaje_seleccion):
+		mensaje_seleccion.hide()
 
 # ============================================================
 # ACTUALIZACIÓN VISUAL
@@ -172,8 +171,7 @@ func _actualizar_estados_visuales() -> void:
 
 func iniciar_seleccion(
 	cantidad: int,
-	reservados: Array[int] = []
-) -> void:
+	reservados: Array[int] = []) -> void:
 	cancelar_seleccion()
 
 	modo_seleccion = true

@@ -19,10 +19,20 @@
 font = ExtResource("6_n02j2")
 font_size = 20
 
+[sub_resource type="LabelSettings" id="LabelSettings_lahqs"]
+font = ExtResource("6_n02j2")
+font_size = 25
+font_color = Color(0.9098039, 0.7764706, 0.41568628, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_f4ggb"]
 font = ExtResource("6_n02j2")
 font_size = 20
 font_color = Color(1, 0, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vunlk"]
+font = ExtResource("13_84vmf")
+font_size = 20
+font_color = Color(0.51372653, 0, 0.004793197, 1)
 
 [node name="Node2D" type="Node2D" unique_id=1257884240]
 script = ExtResource("1_qf52c")
@@ -119,6 +129,16 @@ offset_right = 956.0
 offset_bottom = 694.0
 script = ExtResource("12_wb0gu")
 
+[node name="AvisoCombate" type="Label" parent="CanvasLayer" unique_id=823369098]
+visible = false
+offset_left = 551.0
+offset_top = 23.0
+offset_right = 690.0
+offset_bottom = 52.0
+text = "Aviso Combate"
+label_settings = SubResource("LabelSettings_lahqs")
+horizontal_alignment = 1
+
 [node name="LabelEnergia" type="Label" parent="CanvasLayer" unique_id=1982336341]
 self_modulate = Color(0, 0, 0, 1)
 offset_left = 24.0
@@ -138,14 +158,24 @@ alignment = 1
 [node name="EtherUI" type="Control" parent="CanvasLayer" unique_id=1403454877 node_paths=PackedStringArray("ether_manager")]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 33.0
+offset_top = 641.0
+offset_right = 287.0
+offset_bottom = 699.0
 script = ExtResource("12_84vmf")
 ether_manager = NodePath("../../EtherManager")
 
+[node name="Label_elegirEter" type="Label" parent="CanvasLayer/EtherUI" unique_id=141856680]
+visible = false
+layout_mode = 0
+offset_left = 90.0
+offset_top = -29.0
+offset_right = 166.0
+offset_bottom = -2.0
+text = "Elegí 1 éter"
+label_settings = SubResource("LabelSettings_vunlk")
+
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/EtherUI" unique_id=57364321]
 layout_mode = 0
-offset_left = 34.0
-offset_top = 641.0
-offset_right = 287.0
-offset_bottom = 695.0
+offset_right = 253.0
+offset_bottom = 54.0

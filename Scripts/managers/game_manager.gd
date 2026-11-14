@@ -11,11 +11,15 @@ const STATS_PATHS := {
 
 const MAZOS_INICIALES := {
 	TipoCaelius.IRA: {
-		"golpe_basico": 2, 
-		"golpe_fuerte":2, 
-		"golpe_rojo_masDanoPocaVida":2,
-		"escudo_basico":4, 
-		"escudo_fuerte":2
+	"golpe_basico": 1,
+	"golpe_fuerte": 1,
+	"golpe_rojo_masDanoPocaVida": 1,
+	"golpe_rojo_consumeVida": 1,
+	"escudo_basico": 1,
+	"escudo_fuerte": 1,
+	"defensa_verde_masEscudoSiNoTomaDano": 1,
+	"daño_cura_rojo_violeta": 1,
+	"cura_violeta_MasCuraConPocaVida": 1
 	},
 	TipoCaelius.EGO: {
 		"golpe_basico": 4, 

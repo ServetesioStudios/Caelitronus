@@ -27,6 +27,8 @@ var fe: int
 var poder: int
 
 var bloqueo: int = 0
+var recibio_ataque: bool = false
+var bonus_escudo_pendiente: int = 0
 
 var bonus_daño := 1.0
 var bonus_defensa := 1.0
@@ -99,27 +101,35 @@ func puede_atacar() -> bool:
 func reiniciar_tiempo() -> void:
 	tiempo_ataque = base_tiempo_ataque / (float(velocidad) * bonus_velocidad)
 
+
 func recibir_daño(cantidad: int, ignora_bloqueo: bool = false) -> void:
 	if hp <= 0 or inmune:
 		return
-		
+
+	# Registrar daño recibido, aunque el escudo lo absorba.
+	if cantidad > 0:
+		recibio_ataque = true
+
 	var daño_restante := cantidad
-	#BLOQUEO
+
+	# BLOQUEO
 	if not ignora_bloqueo and bloqueo > 0:
 		var absorbido = min(bloqueo, daño_restante)
 		bloqueo -= absorbido
 		daño_restante -= absorbido
+
 	if daño_restante > 0:
 		hp -= daño_restante
 		hp = max(hp, 0)
-	
+
 	animador.reproducir("daño")
-	
+
 	actualizar_barra_vida()
-	actualizar_escudo() 
-	
+	actualizar_escudo()
+
 	if hp <= 0:
 		morir()
+
 
 
 func sacrificar_vida(cantidad: int) -> void:
