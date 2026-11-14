@@ -13,7 +13,7 @@ const MAZOS_INICIALES := {
 	TipoCaelius.IRA: {
 		"golpe_basico": 2, 
 		"golpe_fuerte":2, 
-		"golpe_rojo_masdanopocavida":2,
+		"golpe_rojo_masDanoPocaVida":2,
 		"escudo_basico":4, 
 		"escudo_fuerte":2
 	},

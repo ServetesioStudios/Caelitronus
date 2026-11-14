@@ -121,6 +121,21 @@ func recibir_daño(cantidad: int, ignora_bloqueo: bool = false) -> void:
 	if hp <= 0:
 		morir()
 
+
+func sacrificar_vida(cantidad: int) -> void:
+	if hp <= 0 or cantidad <= 0:
+		return
+
+	# El sacrificio afecta directamente la vida.
+	# No consume bloqueo ni comprueba inmunidad.
+	hp = maxi(hp - cantidad, 0)
+
+	actualizar_barra_vida()
+
+	if hp <= 0:
+		morir()
+
+
 func morir() -> void:
 	queue_free()
 

@@ -1,15 +1,15 @@
 class_name CardCostData
 extends Resource
 
+@export_group("Éteres genéricos")
+@export_range(0, 2, 1) var generico: int = 0
+
 @export_group("Éteres específicos")
 @export_range(0, 1, 1) var rojo: int = 0
 @export_range(0, 1, 1) var violeta: int = 0
 @export_range(0, 1, 1) var verde: int = 0
 @export_range(0, 1, 1) var rosa: int = 0
 @export_range(0, 1, 1) var celeste: int = 0
-
-@export_group("Éteres genéricos")
-@export_range(0, 2, 1) var generico: int = 0
 
 
 func obtener_costos_especificos() -> Array[int]:

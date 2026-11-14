@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://eg85yacwhx1v" path="res://Scripts/batalla/deck_manager.gd" id="9_ed262"]
 [ext_resource type="Script" uid="uid://c0ggtktfw2n0u" path="res://Scripts/ui/ether_ui.gd" id="12_84vmf"]
 [ext_resource type="Script" uid="uid://3hhe153qj06q" path="res://Scripts/ui/mano.gd" id="12_wb0gu"]
+[ext_resource type="PackedScene" uid="uid://bawy2i5frvt6e" path="res://Scenes/ui/card_tooltip.tscn" id="12_xdap8"]
 [ext_resource type="FontFile" uid="uid://dxuqp4jcmwft0" path="res://Assets/Fonts/PirataOne-Regular.ttf" id="13_84vmf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ms847"]
@@ -22,11 +23,6 @@ font_size = 20
 font = ExtResource("6_n02j2")
 font_size = 20
 font_color = Color(1, 0, 1, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_l1myo"]
-font = ExtResource("13_84vmf")
-font_size = 20
-font_color = Color(0.59607846, 0.019607844, 0.019607844, 1)
 
 [node name="Node2D" type="Node2D" unique_id=1257884240]
 script = ExtResource("1_qf52c")
@@ -112,7 +108,11 @@ label_settings = SubResource("LabelSettings_ms847")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Mano" type="HBoxContainer" parent="CanvasLayer" unique_id=469343033]
+[node name="CardTooltip" parent="CanvasLayer" unique_id=2026212501 instance=ExtResource("12_xdap8")]
+
+[node name="Mano" type="Control" parent="CanvasLayer" unique_id=1315695982]
+layout_mode = 3
+anchors_preset = 0
 offset_left = 332.0
 offset_top = 470.0
 offset_right = 956.0
@@ -142,16 +142,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("12_84vmf")
 ether_manager = NodePath("../../EtherManager")
-
-[node name="Label_elegirEter" type="Label" parent="CanvasLayer/EtherUI" unique_id=194769728]
-layout_mode = 0
-offset_left = 127.0
-offset_top = 611.0
-offset_right = 213.0
-offset_bottom = 638.0
-text = "Elegí 1 éter"
-label_settings = SubResource("LabelSettings_l1myo")
-horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/EtherUI" unique_id=57364321]
 layout_mode = 0

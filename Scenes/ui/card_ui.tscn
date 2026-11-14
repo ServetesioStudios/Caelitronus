@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" uid="uid://roqk3ngjxk4i" path="res://Scripts/ui/card_ui.gd" id="1_obeoo"]
 [ext_resource type="Texture2D" uid="uid://btbd381k8rpt6" path="res://Assets/Cartas/cardbloqueo.png" id="2_4xatn"]
+[ext_resource type="Texture2D" uid="uid://bxu6hgpccqqdf" path="res://Assets/BckGrnd/papersideborder.png" id="3_adlcx"]
 [ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="3_o66yc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_adlcx"]
 font = ExtResource("3_o66yc")
-font_size = 12
-font_color = Color(0.8666667, 0.85882354, 0.79607844, 1)
+font_size = 11
+font_color = Color(0.47608978, 0.46290058, 0.36622047, 1)
 outline_color = Color(1, 1, 1, 0.8509804)
 
 [node name="CardUI" type="Control" unique_id=624613661]
@@ -20,7 +21,7 @@ offset_bottom = -1.480011
 script = ExtResource("1_obeoo")
 
 [node name="Panel" type="Panel" parent="." unique_id=408411240]
-custom_minimum_size = Vector2(120, 200)
+custom_minimum_size = Vector2(140, 200)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,17 +36,22 @@ mouse_filter = 2
 [node name="TextureRect" type="TextureRect" parent="Panel" unique_id=1201261712]
 layout_mode = 0
 offset_top = 1.6240005
-offset_right = 120.0
-offset_bottom = 219.624
+offset_right = 139.5
+offset_bottom = 218.624
 texture = ExtResource("2_4xatn")
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel" unique_id=1583105659]
+position = Vector2(70.75, 180.874)
+scale = Vector2(0.5449219, 0.3066406)
+texture = ExtResource("3_adlcx")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1512812704]
 custom_minimum_size = Vector2(50, 10)
 layout_mode = 0
-offset_left = 2.0
-offset_top = 175.624
-offset_right = 119.0
-offset_bottom = 219.624
+offset_left = 5.0
+offset_top = 145.624
+offset_right = 138.5
+offset_bottom = 217.624
 
 [node name="Nombre" type="Label" parent="Panel/VBoxContainer" unique_id=1584310440]
 modulate = Color(0.627451, 0.52156866, 0.105882354, 1)
@@ -56,6 +62,5 @@ label_settings = SubResource("LabelSettings_adlcx")
 horizontal_alignment = 1
 
 [node name="Costo" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=1428238914]
-modulate = Color(0.41863057, 0.34547013, 0.05983881, 1)
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2

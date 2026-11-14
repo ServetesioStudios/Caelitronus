@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://bawy2i5frvt6e"]
+
+[ext_resource type="StyleBox" uid="uid://u82dyu6jbeb6" path="res://Assets/ui/estilo_tooltip.tres" id="1_ppx1b"]
+[ext_resource type="Script" uid="uid://c6bbad40qx8ag" path="res://Scripts/ui/card_tooltip.gd" id="1_r727n"]
+
+[sub_resource type="FontFile" id="FontFile_ppx1b"]
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[node name="CardTooltip" type="PanelContainer" unique_id=1511719429]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_ppx1b")
+script = ExtResource("1_r727n")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=20902688]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="Descripcion" type="RichTextLabel" parent="MarginContainer" unique_id=648922850]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.9098039, 0.8745098, 0.8235294, 1)
+theme_override_fonts/normal_font = SubResource("FontFile_ppx1b")
+fit_content = true
+scroll_active = false

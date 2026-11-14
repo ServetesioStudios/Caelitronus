@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://byk11mf15outl"]
+
+[ext_resource type="Script" uid="uid://0r6uf7hupq4j" path="res://Scripts/data/card_cost_data.gd" id="1_cx61c"]
+[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/data/effect_data.gd" id="1_ordtx"]
+[ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/data/card_data.gd" id="2_cx61c"]
+[ext_resource type="Script" uid="uid://dsoesbabr1uya" path="res://Scripts/data/efectos/damage_effect_data.gd" id="3_m1amv"]
+[ext_resource type="Script" uid="uid://dv1wa14jme0qm" path="res://Scripts/data/efectos/sacrifice_health_effect_data.gd" id="4_fug55"]
+
+[sub_resource type="Resource" id="Resource_xtqba"]
+script = ExtResource("1_cx61c")
+generico = 1
+rojo = 1
+metadata/_custom_type_script = "uid://0r6uf7hupq4j"
+
+[sub_resource type="Resource" id="Resource_84vmf"]
+script = ExtResource("3_m1amv")
+cantidad = 18
+metadata/_custom_type_script = "uid://dsoesbabr1uya"
+
+[sub_resource type="Resource" id="Resource_xdap8"]
+script = ExtResource("4_fug55")
+metadata/_custom_type_script = "uid://dv1wa14jme0qm"
+
+[resource]
+script = ExtResource("2_cx61c")
+nombre = "Martirio"
+descripcion = "Pierde 4 de vida, causa 18 de daño. "
+efectos = Array[ExtResource("1_ordtx")]([SubResource("Resource_84vmf"), SubResource("Resource_xdap8")])
+costo_eter = SubResource("Resource_xtqba")
+metadata/_custom_type_script = "uid://wr8ukg3kbesn"

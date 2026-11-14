@@ -136,7 +136,7 @@ func mostrar_carta_pendiente(
 	texto_carta.text = (
 		carta.nombre
 		+ "\n\n"
-		+ "Esperando pago de éter..."
+		+ "Elegí un color de éter"
 	)
 
 	# Convertir posición global a local.

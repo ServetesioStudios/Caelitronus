@@ -15,7 +15,7 @@ const CELESTE := Color("#59B8D8")
 # COLORES ESPECIALES
 # ============================================================
 
-const GENERICO := Color("#D9DDE2")
+const GENERICO := Color("#6B7280")
 const VACIO := Color("#303030")
 
 # ============================================================

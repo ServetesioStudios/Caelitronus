@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://bh1d1msauj1mr"]
 
-[ext_resource type="Texture2D" uid="uid://bagh0kr0djlw6" path="res://Assets/Icons/icon.png" id="1_4571y"]
+[ext_resource type="Texture2D" uid="uid://76mdj3pc22h3" path="res://Assets/cards/golpefuerte.png" id="1_3o5vo"]
 [ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/data/effect_data.gd" id="1_iciad"]
 [ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/data/card_data.gd" id="2_1tdpx"]
 [ext_resource type="Script" uid="uid://0r6uf7hupq4j" path="res://Scripts/data/card_cost_data.gd" id="2_sy620"]
@@ -25,7 +25,7 @@ metadata/_custom_type_script = "uid://t8hq42lk07bu"
 script = ExtResource("2_1tdpx")
 nombre = "Ira Divina"
 descripcion = "Causa 6 de daño + 3 de daño si tienes menos de 50% de vida"
-arte = ExtResource("1_4571y")
+arte = ExtResource("1_3o5vo")
 efectos = Array[ExtResource("1_iciad")]([SubResource("Resource_4571y"), SubResource("Resource_84vmf")])
 costo_eter = SubResource("Resource_0hjh7")
 metadata/_custom_type_script = "uid://wr8ukg3kbesn"

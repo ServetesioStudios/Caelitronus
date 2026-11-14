@@ -89,6 +89,7 @@ func _actualizar_costo(data: CardData) -> void:
 # CREAR CÍRCULO
 # ============================================================
 
+
 func _crear_circulo(color: Color) -> void:
 	var circulo := Panel.new()
 
@@ -105,16 +106,13 @@ func _crear_circulo(color: Color) -> void:
 	estilo.set_corner_radius_all(tamano_eter)
 	estilo.corner_detail = 12
 
-	estilo.set_border_width_all(2)
+	estilo.set_border_width_all(1)
 	estilo.border_color = COLOR_BORDE
 
-	circulo.add_theme_stylebox_override(
-		"panel",
-		estilo
-	)
+	# Aplicar el estilo al círculo.
+	circulo.add_theme_stylebox_override("panel", estilo)
 
 	costo_contenedor.add_child(circulo)
-
 
 # ============================================================
 # ARRASTRAR CARTA
