@@ -237,7 +237,7 @@ area_id = "zona_roja_area_a"
 enemigos = Array[ExtResource("2_jo2gy")]([SubResource("Resource_f46mo")])
 
 [node name="AreaB" parent="AreasAparicion" unique_id=1242136343 instance=ExtResource("1_1crbl")]
-position = Vector2(584, 127)
+position = Vector2(175, 88)
 area_id = "zona_roja_area_b"
 enemigos = Array[ExtResource("2_jo2gy")]([SubResource("Resource_grsv5")])
 

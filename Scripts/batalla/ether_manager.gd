@@ -133,3 +133,102 @@ func repetir_eteres(indices: Array[int]) -> bool:
 	repeticiones_actualizadas.emit(repeticiones_restantes)
 
 	return true
+	
+	
+# ============================================================
+# VALIDACIÓN DE COSTOS
+# ============================================================
+
+func puede_pagar(costo: CardCostData) -> bool:
+	if costo == null or not costo.es_costo_valido():
+		return false
+
+	var disponibles: Array[int] = eteres.duplicate()
+	var especificos: Array[int] = costo.obtener_costos_especificos()
+
+	# Reservar los éteres específicos.
+	for color in range(especificos.size()):
+		for i in range(especificos[color]):
+			var indice: int = disponibles.find(color)
+
+			if indice == -1:
+				return false
+
+			disponibles[indice] = ETER_VACIO
+
+	# Contar los éteres restantes para el coste genérico.
+	var cantidad_disponible: int = 0
+
+	for eter in disponibles:
+		if eter != ETER_VACIO:
+			cantidad_disponible += 1
+
+	return cantidad_disponible >= costo.generico
+	
+# ============================================================
+# SELECCIÓN Y CONSUMO DE ÉTERES
+# ============================================================
+
+func obtener_indices_especificos(costo: CardCostData) -> Array[int]:
+	var indices: Array[int] = []
+
+	if costo == null or not costo.es_costo_valido():
+		return indices
+
+	var especificos: Array[int] = costo.obtener_costos_especificos()
+
+	for color in range(especificos.size()):
+		if especificos[color] == 0:
+			continue
+
+		# Buscar desde la derecha.
+		for i in range(eteres.size() - 1, -1, -1):
+			if eteres[i] == color and not indices.has(i):
+				indices.append(i)
+				break
+
+	return indices
+
+
+func pagar_carta(
+	costo: CardCostData,
+	indices_genericos: Array[int]
+) -> bool:
+	if not puede_pagar(costo):
+		return false
+
+	var indices_especificos: Array[int] = obtener_indices_especificos(costo)
+
+	# Comprobar que se encontraron todos los específicos.
+	var cantidad_especificos: int = (
+		costo.obtener_costo_total() - costo.generico
+	)
+
+	if indices_especificos.size() != cantidad_especificos:
+		return false
+
+	# Comprobar la cantidad de genéricos seleccionados.
+	if indices_genericos.size() != costo.generico:
+		return false
+
+	var indices_consumir: Array[int] = indices_especificos.duplicate()
+
+	for indice in indices_genericos:
+		if indice < 0 or indice >= eteres.size():
+			return false
+
+		if eteres[indice] == ETER_VACIO:
+			return false
+
+		if indices_consumir.has(indice):
+			return false
+
+		indices_consumir.append(indice)
+
+	# Consumir solamente después de validar todo.
+	for indice in indices_consumir:
+		eteres[indice] = ETER_VACIO
+
+	eteres_actualizados.emit()
+
+	return true

@@ -13,10 +13,11 @@ extends Node2D
 @onready var mano_ui := $CanvasLayer/Mano
 @onready var zona_drop := $CanvasLayer/DropZone
 
-@onready var texto_combate := $CanvasLayer/textocombate
-@onready var label_combates := $CanvasLayer/LabelCombates
 @onready var label_energia := $CanvasLayer/LabelEnergia
 @onready var iconos_energia: HBoxContainer = $CanvasLayer/EnergiaContainer
+
+@onready var ether_manager: EtherManager = $EtherManager
+@onready var ether_ui: EtherUI = $CanvasLayer/EtherUI
 
 
 # ============================================================
@@ -30,10 +31,15 @@ var max_lineas := 18
 
 var arrastrando_carta := false
 
+# Carta pendiente de pagar con éteres genéricos.
+var carta_pendiente: CardData = null
+var objetivo_pendiente: CombatEntity = null
+
 const ICONO_ENERGIA := preload("res://Assets/Icons/poder.png")
 
+
 # ============================================================
-# INICIALIZACIÓN
+# CREACIÓN DEL ENEMIGO
 # ============================================================
 
 func crear_enemigo_combate() -> Enemy:
@@ -46,8 +52,6 @@ func crear_enemigo_combate() -> Enemy:
 	if datos.escena_combate == null:
 		push_error("Batalla: %s no tiene escena de combate." % datos.nombre)
 		return null
-
-	label_combates.text = ""
 
 	var nuevo_enemigo := datos.escena_combate.instantiate() as Enemy
 
@@ -63,10 +67,37 @@ func crear_enemigo_combate() -> Enemy:
 	return nuevo_enemigo
 
 
+# ============================================================
+# INICIALIZACIÓN
+# ============================================================
 
 func _ready() -> void:
 	MusicManager.play_battle()
-	
+
+	# --------------------------------------------------------
+	# Cargar perfil de éter del Caelius
+	# --------------------------------------------------------
+
+	var perfil_eter: EtherProfileData
+
+	match player.tipo_caelius:
+		GameManager.TipoCaelius.IRA:
+			perfil_eter = load(
+				"res://Data/characters/ether_profiles/ether_ira.tres"
+			)
+
+		GameManager.TipoCaelius.PENA:
+			perfil_eter = load(
+				"res://Data/characters/ether_profiles/ether_pena.tres"
+			)
+
+		GameManager.TipoCaelius.EGO:
+			perfil_eter = load(
+				"res://Data/characters/ether_profiles/ether_ego.tres"
+			)
+
+	ether_manager.iniciar_combate(perfil_eter)
+
 	# --------------------------------------------------------
 	# Crear enemigo
 	# --------------------------------------------------------
@@ -83,13 +114,19 @@ func _ready() -> void:
 
 	zona_drop.carta_soltada.connect(_on_carta_soltada)
 
+	# --------------------------------------------------------
+	# Conectar selección de éteres
+	# --------------------------------------------------------
+
+	ether_ui.seleccion_actualizada.connect(
+		_on_seleccion_eter_actualizada
+	)
 
 	# --------------------------------------------------------
 	# Configurar enemigos
 	# --------------------------------------------------------
 
 	var enemigos: Array[Enemy] = [enemy]
-
 
 	# --------------------------------------------------------
 	# Configurar mazo y mano
@@ -105,10 +142,21 @@ func _ready() -> void:
 		mano_ui.mostrar_mano
 	)
 
-
 	# --------------------------------------------------------
 	# Eventos del turno
 	# --------------------------------------------------------
+
+	combat_manager.turno_jugador_iniciado.connect(
+		ether_manager.iniciar_turno
+	)
+
+	combat_manager.turno_enemigo_iniciado.connect(
+		ether_manager.finalizar_turno
+	)
+
+	combat_manager.turno_enemigo_iniciado.connect(
+		_cancelar_pago_pendiente
+	)
 
 	combat_manager.turno_jugador_iniciado.connect(
 		deck_manager.iniciar_turno
@@ -123,7 +171,6 @@ func _ready() -> void:
 		func():
 			btn_fin_turno.disabled = true
 	)
-
 
 	# --------------------------------------------------------
 	# Eventos del combate
@@ -144,7 +191,6 @@ func _ready() -> void:
 		_on_accion_enemigo_realizada
 	)
 
-
 	# --------------------------------------------------------
 	# Eventos del jugador
 	# --------------------------------------------------------
@@ -158,7 +204,6 @@ func _ready() -> void:
 			mano_ui.actualizar_disponibilidad_todas()
 	)
 
-
 	# --------------------------------------------------------
 	# Botón finalizar turno
 	# --------------------------------------------------------
@@ -166,7 +211,6 @@ func _ready() -> void:
 	btn_fin_turno.pressed.connect(
 		combat_manager.finalizar_turno_jugador
 	)
-
 
 	# --------------------------------------------------------
 	# Iniciar combate
@@ -176,8 +220,11 @@ func _ready() -> void:
 		player,
 		enemigos
 	)
-	
-	_actualizar_label_energia(player.energia_actual, player.energia_max)
+
+	_actualizar_label_energia(
+		player.energia_actual,
+		player.energia_max
+	)
 
 
 # ============================================================
@@ -209,12 +256,10 @@ func _actualizar_gris_por_carta(carta: CardData) -> void:
 			_set_gris(enemy, true)
 			_set_gris(player, false)
 
-
 		CardData.TipoObjetivo.ENEMIGO_FIJO, \
 		CardData.TipoObjetivo.ENEMIGO_CUALQUIERA:
 			_set_gris(player, true)
 			_set_gris(enemy, false)
-
 
 		CardData.TipoObjetivo.LIBRE:
 			_set_gris(player, false)
@@ -224,6 +269,7 @@ func _actualizar_gris_por_carta(carta: CardData) -> void:
 func _resetear_gris() -> void:
 	if player != null:
 		_set_gris(player, false)
+
 	if enemy != null:
 		_set_gris(enemy, false)
 
@@ -243,7 +289,14 @@ func _set_gris(entidad: CombatEntity, activar: bool) -> void:
 # LÓGICA DE CARTAS
 # ============================================================
 
-func _on_carta_soltada(carta: CardData, posicion_global: Vector2) -> void:
+
+func _on_carta_soltada(
+	carta: CardData,
+	posicion_global: Vector2
+) -> void:
+
+	if carta_pendiente != null:
+		return
 
 	var objetivo := _resolver_objetivo(
 		carta,
@@ -253,11 +306,19 @@ func _on_carta_soltada(carta: CardData, posicion_global: Vector2) -> void:
 	if objetivo == null:
 		return
 
-	intentar_jugar_carta(
-		carta,
-		objetivo
-	)
+	intentar_jugar_carta(carta, objetivo)
 
+	# Si quedó pendiente un pago genérico,
+	# mantener una representación de la carta visible.
+	if carta_pendiente == carta:
+		zona_drop.mostrar_carta_pendiente(
+			carta,
+			posicion_global
+		)
+
+# ============================================================
+# RESOLUCIÓN DE OBJETIVOS
+# ============================================================
 
 func _resolver_objetivo(
 	carta: CardData,
@@ -269,10 +330,8 @@ func _resolver_objetivo(
 		CardData.TipoObjetivo.PROPIO:
 			return player
 
-
 		CardData.TipoObjetivo.ENEMIGO_FIJO:
 			return enemy
-
 
 		CardData.TipoObjetivo.ENEMIGO_CUALQUIERA:
 			return _entidad_mas_cercana(
@@ -280,13 +339,11 @@ func _resolver_objetivo(
 				[enemy]
 			)
 
-
 		CardData.TipoObjetivo.LIBRE:
 			return _entidad_mas_cercana(
 				posicion_global,
 				[player, enemy]
 			)
-
 
 	return null
 
@@ -315,115 +372,187 @@ func _entidad_mas_cercana(
 	return mejor
 
 
-func intentar_jugar_carta(carta: CardData, objetivo: CombatEntity) -> void:
+# ============================================================
+# SELECCIÓN DE ÉTERES GENÉRICOS
+# ============================================================
+
+func solicitar_pago_eter(
+	carta: CardData,
+	objetivo: CombatEntity
+) -> void:
+
+	if carta_pendiente != null:
+		return
+
+	if carta.costo_eter == null:
+		return
+
+	if not ether_manager.puede_pagar(carta.costo_eter):
+		print("Éteres insuficientes para: ", carta.nombre)
+		return
+
+	# Guardar la carta y su objetivo.
+	carta_pendiente = carta
+	objetivo_pendiente = objetivo
+
+	# Reservar automáticamente los éteres específicos.
+	var reservados: Array[int] = (
+		ether_manager.obtener_indices_especificos(
+			carta.costo_eter
+		)
+	)
+
+	# Solicitar únicamente los éteres genéricos.
+	ether_ui.iniciar_seleccion(
+		carta.costo_eter.generico,
+		reservados
+	)
+
+
+func _on_seleccion_eter_actualizada(
+	indices: Array[int]
+) -> void:
+
+	if carta_pendiente == null:
+		return
+
+	if not ether_ui.seleccion_completa():
+		return
 
 	if not combat_manager.es_turno_jugador():
-		#print("No es tu turno")
+		_cancelar_pago_pendiente()
 		return
 
+	var carta: CardData = carta_pendiente
+	var objetivo: CombatEntity = objetivo_pendiente
 
-	if not player.puede_pagar(carta.costo):
-		print(
-			"No tienes energía suficiente para %s"
-			% carta.nombre
-		)
+	if not is_instance_valid(objetivo):
+		_cancelar_pago_pendiente()
 		return
 
-	if carta.efectos.size() == 1 and carta.efectos[0] is EnergyEffectData:
-		if player.energia_actual >= player.energia_max:
-			return
 	# --------------------------------------------------------
-	# Pagar carta
+	# Consumir éteres
 	# --------------------------------------------------------
 
-	player.gastar_energia(carta.costo)
+	if not ether_manager.pagar_carta(
+		carta.costo_eter,
+		indices
+	):
+		print("No se pudo pagar la carta: ", carta.nombre)
+		_cancelar_pago_pendiente()
+		return
 
+	# --------------------------------------------------------
+	# Limpiar selección
+	# --------------------------------------------------------
+
+	_cancelar_pago_pendiente()
 
 	# --------------------------------------------------------
 	# Ejecutar carta
 	# --------------------------------------------------------
 
-	carta.jugar(player,objetivo)
+	_ejecutar_carta(carta, objetivo)
 
+
+
+func _cancelar_pago_pendiente() -> void:
+	carta_pendiente = null
+	objetivo_pendiente = null
+
+	zona_drop.ocultar_carta_pendiente()
+	ether_ui.cancelar_seleccion()
+
+
+# ============================================================
+# EJECUCIÓN DE CARTAS
+# ============================================================
+
+func intentar_jugar_carta(
+	carta: CardData,
+	objetivo: CombatEntity
+) -> void:
+
+	if not combat_manager.es_turno_jugador():
+		return
+
+	if carta_pendiente != null:
+		return
 
 	# --------------------------------------------------------
-	# Eliminar carta de la mano
+	# NUEVO SISTEMA DE ÉTERES
 	# --------------------------------------------------------
 
+	if carta.costo_eter != null:
+
+		if not ether_manager.puede_pagar(carta.costo_eter):
+			print("Éteres insuficientes para: ", carta.nombre)
+			return
+
+		# Cartas que necesitan selección genérica.
+		if carta.costo_eter.generico > 0:
+			solicitar_pago_eter(carta, objetivo)
+			return
+
+		# Cartas con éteres específicos únicamente.
+		if not ether_manager.pagar_carta(
+			carta.costo_eter,
+			[]
+		):
+			print("No se pudo pagar la carta: ", carta.nombre)
+			return
+
+	# --------------------------------------------------------
+	# SISTEMA ANTIGUO DE ENERGÍA
+	# --------------------------------------------------------
+
+	else:
+
+		if not player.puede_pagar(carta.costo):
+			print("Energía insuficiente para: ", carta.nombre)
+			return
+
+		# Evitar usar recuperación de energía si está llena.
+		if carta.efectos.size() == 1 and carta.efectos[0] is EnergyEffectData:
+			if player.energia_actual >= player.energia_max:
+				return
+
+		player.gastar_energia(carta.costo)
+
+	# --------------------------------------------------------
+	# EJECUTAR CARTA
+	# --------------------------------------------------------
+
+	_ejecutar_carta(carta, objetivo)
+
+
+func _ejecutar_carta(
+	carta: CardData,
+	objetivo: CombatEntity
+) -> void:
+
+	# Aplicar efectos.
+	carta.jugar(player, objetivo)
+
+	# Retirar carta de la mano.
 	deck_manager.jugar_carta(carta)
 
-
-	# --------------------------------------------------------
-	# Animación del jugador
-	# --------------------------------------------------------
-
+	# Animación del jugador.
 	player.reproducir_animacion(carta.animacion)
 
-
-	# --------------------------------------------------------
-	# Actualizar UI
-	# --------------------------------------------------------
-
-	mostrar_texto(
-		"%s juega %s"
-		% [
-			player.nombre,
-			carta.nombre
-		]
-	)
-
-	# --------------------------------------------------------
-	# Comprobar fin de combate
-	# --------------------------------------------------------
-
-	if combat_manager.verificar_fin_combate():
-		return
+	# Comprobar victoria o derrota.
+	combat_manager.verificar_fin_combate()
 
 
 # ============================================================
-# TEXTO DEL COMBATE
+# UI - ENERGÍA ANTIGUA
 # ============================================================
 
-func mostrar_texto(texto: String) -> void:
-	if texto_combate == null:
-		return
+func _actualizar_label_energia(
+	actual: int,
+	maxima: int
+) -> void:
 
-	historial_texto += texto + "\n\n"
-
-	var lineas = historial_texto.split("\n")
-
-	if lineas.size() > max_lineas:
-
-		var nuevas_lineas = []
-
-		for i in range(
-			lineas.size() - max_lineas,
-			lineas.size()
-		):
-			nuevas_lineas.append(
-				lineas[i]
-			)
-
-		historial_texto = "\n".join(
-			nuevas_lineas
-		)
-
-
-	texto_combate.text = historial_texto
-
-	await get_tree().process_frame
-
-	if is_instance_valid(texto_combate):
-		texto_combate.scroll_to_line(
-			texto_combate.get_line_count()
-		)
-
-
-# ============================================================
-# UI - ENERGÍA
-# ============================================================
-
-func _actualizar_label_energia(actual: int, maxima: int) -> void:
 	for hijo in iconos_energia.get_children():
 		iconos_energia.remove_child(hijo)
 		hijo.queue_free()
@@ -443,6 +572,7 @@ func _actualizar_label_energia(actual: int, maxima: int) -> void:
 
 		iconos_energia.add_child(icono)
 
+
 # ============================================================
 # EVENTOS DEL COMBATE
 # ============================================================
@@ -451,13 +581,14 @@ func _on_accion_enemigo_realizada(
 	enemigo: Enemy,
 	descripcion: String
 ) -> void:
-
-	mostrar_texto(
-		descripcion
-	)
+	pass
 
 
 func _on_combate_terminado(victoria: bool) -> void:
+
+	# Limpiar cualquier selección pendiente.
+	_cancelar_pago_pendiente()
+
 	if victoria and GameManager.enemy_data_encuentro != null:
 		var zona_id: String = GameManager.zona_id_encuentro
 		var enemigo_id: String = GameManager.enemigo_id_encuentro
@@ -467,6 +598,7 @@ func _on_combate_terminado(victoria: bool) -> void:
 			return
 
 		match GameManager.tipo_encuentro:
+
 			GameManager.TipoEncuentro.NORMAL:
 				var registrado := GameManager.estado_expedicion.marcar_enemigo_derrotado(
 					zona_id,
@@ -506,7 +638,7 @@ func _on_combate_terminado(victoria: bool) -> void:
 
 		SceneManager.change_scene(SceneManager.SceneID.ZONA_ROJA)
 		return
-	
+
 	if victoria:
 		push_warning("Batalla: victoria sin encuentro de mundo registrado.")
 		return
@@ -516,13 +648,21 @@ func _on_combate_terminado(victoria: bool) -> void:
 		$CanvasLayer
 	)
 
-	
+
 # ============================================================
 # DEBUG
 # ============================================================
-	
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	
+	if event is InputEventKey:
+		if event.pressed and not event.echo:
+			if event.keycode == KEY_ESCAPE:
+				if carta_pendiente != null:
+					_cancelar_pago_pendiente()
+					get_viewport().set_input_as_handled()
+					return
+					
 	if not OS.is_debug_build():
 		return
 
@@ -550,7 +690,6 @@ func _forzar_victoria_debug() -> void:
 	enemy.actualizar_barra_vida()
 
 	combat_manager.verificar_fin_combate()
-
 
 
 func _forzar_derrota_debug() -> void:
