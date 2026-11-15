@@ -1,13 +1,14 @@
-
 class_name CardUI
 extends Control
-
-var carta: CardData
 
 @onready var nombre_label: Label = $Panel/VBoxContainer/Nombre
 @onready var costo_contenedor: HBoxContainer = $Panel/VBoxContainer/Costo
 @onready var arte_rect: TextureRect = $Panel/TextureRect
 
+signal carta_clickeada(carta: CardData)
+
+var carta: CardData
+var permitir_arrastre: bool = true
 
 # ============================================================
 # CONFIGURACIÓN VISUAL
@@ -119,6 +120,9 @@ func _crear_circulo(color: Color) -> void:
 # ============================================================
 
 func _get_drag_data(_position):
+	if not permitir_arrastre:
+		return null
+		
 	if carta == null:
 		return null
 
@@ -136,3 +140,10 @@ func _get_drag_data(_position):
 func _notification(what):
 	if what == NOTIFICATION_DRAG_END:
 		modulate.a = 1.0
+		
+		
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			if carta != null:
+				carta_clickeada.emit(carta)

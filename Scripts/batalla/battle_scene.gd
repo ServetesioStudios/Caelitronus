@@ -21,6 +21,9 @@ extends Node2D
 
 @onready var aviso_combate: Label = $CanvasLayer/AvisoCombate
 
+#EFECTOS DE CARTAS
+var esperando_descarte_efecto: bool = false
+
 
 # ============================================================
 # VARIABLES
@@ -167,13 +170,11 @@ func _ready() -> void:
 	)
 
 	combat_manager.turno_jugador_iniciado.connect(
-		func():
-			btn_fin_turno.disabled = false
+		func(): btn_fin_turno.disabled = false
 	)
 
 	combat_manager.turno_enemigo_iniciado.connect(
-		func():
-			btn_fin_turno.disabled = true
+		func(): btn_fin_turno.disabled = true
 	)
 
 	# --------------------------------------------------------
@@ -293,11 +294,9 @@ func _set_gris(entidad: CombatEntity, activar: bool) -> void:
 # LÓGICA DE CARTAS
 # ============================================================
 
-
 func _on_carta_soltada(
 	carta: CardData,
-	posicion_global: Vector2
-) -> void:
+	posicion_global: Vector2) -> void:
 
 	if carta_pendiente != null:
 		return
@@ -354,8 +353,7 @@ func _resolver_objetivo(
 
 func _entidad_mas_cercana(
 	posicion_global: Vector2,
-	candidatos: Array
-) -> CombatEntity:
+	candidatos: Array) -> CombatEntity:
 
 	var mejor: CombatEntity = null
 	var mejor_dist := INF
@@ -382,8 +380,7 @@ func _entidad_mas_cercana(
 
 func solicitar_pago_eter(
 	carta: CardData,
-	objetivo: CombatEntity
-) -> void:
+	objetivo: CombatEntity) -> void:
 
 	if carta_pendiente != null:
 		return
@@ -414,8 +411,7 @@ func solicitar_pago_eter(
 
 
 func _on_seleccion_eter_actualizada(
-	indices: Array[int]
-) -> void:
+	indices: Array[int]) -> void:
 
 	if carta_pendiente == null:
 		return
@@ -474,8 +470,7 @@ func _cancelar_pago_pendiente() -> void:
 
 func intentar_jugar_carta(
 	carta: CardData,
-	objetivo: CombatEntity
-) -> void:
+	objetivo: CombatEntity) -> void:
 
 	if not combat_manager.es_turno_jugador():
 		return
@@ -503,7 +498,7 @@ func intentar_jugar_carta(
 			carta.costo_eter,
 			[]
 		):
-			print("No se pudo pagar la carta: ", carta.nombre)
+			mostrar_aviso("No se pudo pagar la carta: " + carta.nombre)
 			return
 
 	# --------------------------------------------------------
@@ -532,8 +527,7 @@ func intentar_jugar_carta(
 
 func _ejecutar_carta(
 	carta: CardData,
-	objetivo: CombatEntity
-) -> void:
+	objetivo: CombatEntity) -> void:
 
 	# Aplicar efectos.
 	carta.jugar(player, objetivo)
@@ -542,7 +536,8 @@ func _ejecutar_carta(
 	deck_manager.jugar_carta(carta)
 
 	# Animación del jugador.
-	player.reproducir_animacion(carta.animacion)
+	if not carta.animacion.is_empty():
+		player.reproducir_animacion(carta.animacion)
 
 	# Comprobar victoria o derrota.
 	combat_manager.verificar_fin_combate()
@@ -554,8 +549,7 @@ func _ejecutar_carta(
 
 func _actualizar_label_energia(
 	actual: int,
-	maxima: int
-) -> void:
+	maxima: int) -> void:
 
 	for hijo in iconos_energia.get_children():
 		iconos_energia.remove_child(hijo)
@@ -583,8 +577,7 @@ func _actualizar_label_energia(
 
 func _on_accion_enemigo_realizada(
 	enemigo: Enemy,
-	descripcion: String
-) -> void:
+	descripcion: String) -> void:
 	pass
 
 
@@ -653,6 +646,37 @@ func _on_combate_terminado(victoria: bool) -> void:
 	)
 
 
+# =============================================================
+# AVISOS
+# =============================================================
+func mostrar_aviso(mensaje: String) -> void:
+	if not is_instance_valid(aviso_combate):
+		push_warning("BattleScene: falta AvisoCombate.")
+		return
+
+	# Cancelar la animación anterior.
+	if tween_aviso != null and tween_aviso.is_running():
+		tween_aviso.kill()
+
+	aviso_combate.text = mensaje
+	aviso_combate.modulate.a = 1.0
+	aviso_combate.show()
+
+	# Mostrar el aviso durante 1.5 segundos.
+	tween_aviso = create_tween()
+	tween_aviso.tween_interval(1.5)
+
+	# Desvanecer suavemente.
+	tween_aviso.tween_property(
+		aviso_combate,
+		"modulate:a",
+		0.0,
+		0.4
+	)
+
+	tween_aviso.tween_callback(aviso_combate.hide)
+	
+	
 # ============================================================
 # DEBUG
 # ============================================================
@@ -711,30 +735,10 @@ func _forzar_derrota_debug() -> void:
 	combat_manager.verificar_fin_combate()
 	
 	
+# ============================================================
+# EFECTOS CARTAS
+# ============================================================
 
-func mostrar_aviso(mensaje: String) -> void:
-	if not is_instance_valid(aviso_combate):
-		push_warning("BattleScene: falta AvisoCombate.")
-		return
 
-	# Cancelar la animación anterior.
-	if tween_aviso != null and tween_aviso.is_running():
-		tween_aviso.kill()
-
-	aviso_combate.text = mensaje
-	aviso_combate.modulate.a = 1.0
-	aviso_combate.show()
-
-	# Mostrar el aviso durante 1.5 segundos.
-	tween_aviso = create_tween()
-	tween_aviso.tween_interval(1.5)
-
-	# Desvanecer suavemente.
-	tween_aviso.tween_property(
-		aviso_combate,
-		"modulate:a",
-		0.0,
-		0.4
-	)
-
-	tween_aviso.tween_callback(aviso_combate.hide)
+func _on_mano_carta_seleccionada(carta: CardData) -> void:
+	pass # Replace with function body.

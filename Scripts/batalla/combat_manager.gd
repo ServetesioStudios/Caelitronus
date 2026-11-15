@@ -117,9 +117,10 @@ func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
 		IntentData.Tipo.ATACAR:
 			if is_instance_valid(player) and player.hp > 0:
 				player.recibio_ataque = true
+				
 				var daño = _calcular_daño_enemigo(enemigo, player)
 				if daño > 0:
-					player.recibir_daño(daño)
+					player.recibir_daño(daño, false, true)
 					descripcion = "%s ataca e inflige %d de daño" % [enemigo.nombre, daño]
 					if enemigo.robo_vida:
 						var vida_robada = int(daño * enemigo.porcentaje_robo_vida)
@@ -129,6 +130,7 @@ func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
 				else:
 					descripcion = "%s atacó, pero fue esquivado" % enemigo.nombre
 				enemigo.al_atacar()
+				
 		IntentData.Tipo.DEFENDER:
 			enemigo.bloqueo += enemigo.intencion_actual.valor
 			enemigo.actualizar_escudo()

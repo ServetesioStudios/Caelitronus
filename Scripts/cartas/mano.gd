@@ -2,6 +2,14 @@ extends Control
 
 const CARD_UI_SCENE := preload("res://Scenes/ui/card_ui.tscn")
 
+enum ModoInteraccion {
+		NORMAL, 
+		SELECCIONAR_DESCARTE
+}
+
+signal carta_seleccionada(carta: CardData)
+
+
 @export_group("Distribución de cartas")
 @export var ancho_carta: float = 140.0
 @export var alto_carta: float = 200.0
@@ -33,6 +41,7 @@ var tooltip_visible: bool = false
 
 var player_ref: Player
 
+var modo_actual: ModoInteraccion = ModoInteraccion.NORMAL
 
 
 func _process(delta: float) -> void:
@@ -160,6 +169,11 @@ func mostrar_mano(cartas: Array[CardData]) -> void:
 	for carta in cartas:
 		var card_ui := CARD_UI_SCENE.instantiate() as CardUI
 		add_child(card_ui)
+		
+		card_ui.carta_clickeada.connect(_on_carta_clickeada)
+		card_ui.permitir_arrastre = (
+			modo_actual == ModoInteraccion.NORMAL
+		)
 
 		card_ui.custom_minimum_size = Vector2(
 			ancho_carta,
@@ -314,3 +328,28 @@ func _mostrar_tooltip() -> void:
 
 	tooltip.global_position = posicion
 	tooltip_visible = true
+
+
+func iniciar_seleccion_descarte() -> void:
+	modo_actual = ModoInteraccion.SELECCIONAR_DESCARTE
+	_actualizar_interaccion_cartas()
+
+
+func finalizar_seleccion_descarte() -> void:
+	modo_actual = ModoInteraccion.NORMAL
+	_actualizar_interaccion_cartas()
+
+	
+func _on_carta_clickeada(carta: CardData) -> void:
+	if modo_actual != ModoInteraccion.SELECCIONAR_DESCARTE:
+		return
+
+	carta_seleccionada.emit(carta) #informar a battle_scene
+
+
+func _actualizar_interaccion_cartas() -> void:
+	for hijo in get_children():
+		if hijo is CardUI:
+			hijo.permitir_arrastre = (
+				modo_actual == ModoInteraccion.NORMAL
+			)

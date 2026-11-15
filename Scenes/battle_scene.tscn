@@ -10,8 +10,8 @@
 [ext_resource type="Script" uid="uid://cjxi2c8jyhqcn" path="res://Scripts/ui/drop_zone.gd" id="8_ms847"]
 [ext_resource type="Script" uid="uid://dbapsc8dah0c4" path="res://Scripts/batalla/combat_manager.gd" id="8_w4764"]
 [ext_resource type="Script" uid="uid://eg85yacwhx1v" path="res://Scripts/batalla/deck_manager.gd" id="9_ed262"]
-[ext_resource type="Script" uid="uid://c0ggtktfw2n0u" path="res://Scripts/ui/ether_ui.gd" id="12_84vmf"]
-[ext_resource type="Script" uid="uid://3hhe153qj06q" path="res://Scripts/ui/mano.gd" id="12_wb0gu"]
+[ext_resource type="Script" uid="uid://c0ggtktfw2n0u" path="res://Scripts/eter/ether_ui.gd" id="12_84vmf"]
+[ext_resource type="Script" uid="uid://3hhe153qj06q" path="res://Scripts/cartas/mano.gd" id="12_wb0gu"]
 [ext_resource type="PackedScene" uid="uid://bawy2i5frvt6e" path="res://Scenes/ui/card_tooltip.tscn" id="12_xdap8"]
 [ext_resource type="FontFile" uid="uid://dxuqp4jcmwft0" path="res://Assets/Fonts/PirataOne-Regular.ttf" id="13_84vmf"]
 
@@ -72,7 +72,7 @@ position = Vector2(72, 72)
 offset_left = 306.0
 offset_top = 460.0
 offset_right = 980.0
-offset_bottom = 701.0
+offset_bottom = 744.0
 texture = ExtResource("5_fowxk")
 expand_mode = 1
 
@@ -179,3 +179,5 @@ label_settings = SubResource("LabelSettings_vunlk")
 layout_mode = 0
 offset_right = 253.0
 offset_bottom = 54.0
+
+[connection signal="carta_seleccionada" from="CanvasLayer/Mano" to="." method="_on_mano_carta_seleccionada"]

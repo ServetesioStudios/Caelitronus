@@ -9,6 +9,8 @@ var mazo_robo: Array[CardData] = []
 var mazo_descarte: Array[CardData] = []
 var mano: Array[CardData] = []
 
+
+
 func iniciar_mazo(deck_original: Array[CardData]) -> void:
 	mazo_robo = deck_original.duplicate()
 	mazo_robo.shuffle()
@@ -19,11 +21,18 @@ func iniciar_turno() -> void:
 	_descartar_mano()
 	_robar(TAMANO_MANO)
 
-func jugar_carta(carta: CardData) -> void:
+func descartar_carta(carta: CardData) -> void:
 	if carta in mano:
 		mano.erase(carta)
 		mazo_descarte.append(carta)
 		mano_actualizada.emit(mano)
+		
+func jugar_carta(carta: CardData) -> void:
+	descartar_carta(carta)
+
+
+func robar_cartas(cantidad: int) -> void: 
+	_robar(cantidad)
 
 func _robar(cantidad: int) -> void:
 	for i in cantidad:

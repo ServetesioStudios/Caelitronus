@@ -29,6 +29,7 @@ var poder: int
 var bloqueo: int = 0
 var recibio_ataque: bool = false
 var bonus_escudo_pendiente: int = 0
+var reduccion_proximo_ataque: int = 0
 
 var bonus_daño := 1.0
 var bonus_defensa := 1.0
@@ -76,8 +77,6 @@ func _process(delta):
 	#if hp > 0 and cooldown_habilidad <= 0:
 		#evaluar_activacion_habilidad()
 
-
-
 #func evaluar_activacion_habilidad() -> void:
 	#pass
 
@@ -98,31 +97,44 @@ func desactivar_habilidad() -> void:
 func puede_atacar() -> bool:
 	return tiempo_ataque <= 0 and hp > 0
 
+
 func reiniciar_tiempo() -> void:
 	tiempo_ataque = base_tiempo_ataque / (float(velocidad) * bonus_velocidad)
 
 
-func recibir_daño(cantidad: int, ignora_bloqueo: bool = false) -> void:
+func recibir_daño(cantidad: int, ignora_bloqueo: bool = false, es_ataque: bool = false) -> void:
 	if hp <= 0 or inmune:
 		return
 
-	# Registrar daño recibido, aunque el escudo lo absorba.
+	# Registrar el daño recibido.
 	if cantidad > 0:
 		recibio_ataque = true
 
-	var daño_restante := cantidad
+	var daño_restante: int = cantidad
+
+	# REDUCCIÓN DEL PRÓXIMO ATAQUE
+	if es_ataque and daño_restante > 0 and reduccion_proximo_ataque > 0:
+		daño_restante = maxi(
+			daño_restante - reduccion_proximo_ataque,
+			0
+		)
+
+		# La protección se consume después de un ataque.
+		reduccion_proximo_ataque = 0
 
 	# BLOQUEO
 	if not ignora_bloqueo and bloqueo > 0:
-		var absorbido = min(bloqueo, daño_restante)
+		var absorbido: int = mini(bloqueo, daño_restante)
 		bloqueo -= absorbido
 		daño_restante -= absorbido
 
+	# DAÑO A LA VIDA
 	if daño_restante > 0:
 		hp -= daño_restante
-		hp = max(hp, 0)
+		hp = maxi(hp, 0)
 
-	animador.reproducir("daño")
+	if animador != null:
+		animador.reproducir("daño")
 
 	actualizar_barra_vida()
 	actualizar_escudo()

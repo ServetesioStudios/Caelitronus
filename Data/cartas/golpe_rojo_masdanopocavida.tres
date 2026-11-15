@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://bh1d1msauj1mr"]
 
 [ext_resource type="Texture2D" uid="uid://76mdj3pc22h3" path="res://Assets/cards/golpefuerte.png" id="1_3o5vo"]
-[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/data/effect_data.gd" id="1_iciad"]
-[ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/data/card_data.gd" id="2_1tdpx"]
-[ext_resource type="Script" uid="uid://0r6uf7hupq4j" path="res://Scripts/data/card_cost_data.gd" id="2_sy620"]
-[ext_resource type="Script" uid="uid://dsoesbabr1uya" path="res://Scripts/data/efectos_cartas/damage_effect_data.gd" id="4_5l1h7"]
-[ext_resource type="Script" uid="uid://t8hq42lk07bu" path="res://Scripts/data/efectos_cartas/conditional_damage_effect.gd" id="5_sy620"]
+[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/cartas/efectos/effect_data.gd" id="1_iciad"]
+[ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/cartas/card_data.gd" id="2_1tdpx"]
+[ext_resource type="Script" uid="uid://0r6uf7hupq4j" path="res://Scripts/cartas/card_cost_data.gd" id="2_sy620"]
+[ext_resource type="Script" uid="uid://dsoesbabr1uya" path="res://Scripts/cartas/efectos/damage.gd" id="4_5l1h7"]
+[ext_resource type="Script" uid="uid://t8hq42lk07bu" path="res://Scripts/cartas/efectos/conditional_damage_effect.gd" id="5_sy620"]
 
 [sub_resource type="Resource" id="Resource_0hjh7"]
 script = ExtResource("2_sy620")

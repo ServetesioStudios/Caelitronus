@@ -18,6 +18,7 @@ const MAZOS_INICIALES := {
 	"escudo_basico": 1,
 	"escudo_fuerte": 1,
 	"defensa_verde_masEscudoSiNoTomaDano": 1,
+	"defensa_verde_fuerte": 1,
 	"daño_cura_rojo_violeta": 1,
 	"cura_violeta_MasCuraConPocaVida": 1
 	},

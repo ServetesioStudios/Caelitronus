@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bawy2i5frvt6e"]
 
 [ext_resource type="StyleBox" uid="uid://u82dyu6jbeb6" path="res://Assets/ui/estilo_tooltip.tres" id="1_ppx1b"]
-[ext_resource type="Script" uid="uid://c6bbad40qx8ag" path="res://Scripts/ui/card_tooltip.gd" id="1_r727n"]
+[ext_resource type="Script" uid="uid://c6bbad40qx8ag" path="res://Scripts/cartas/card_tooltip.gd" id="1_r727n"]
 
 [sub_resource type="FontFile" id="FontFile_ppx1b"]
 cache/0/variation_coordinates = {}
