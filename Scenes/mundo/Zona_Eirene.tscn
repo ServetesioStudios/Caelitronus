@@ -13,6 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://cdyev2twyk6p8" path="res://Scenes/mundo/MarcadorReliquia.tscn" id="11_rix4l"]
 [ext_resource type="Script" uid="uid://lwvx5fcf5xvy" path="res://Scripts/mundo/generador_zona.gd" id="12_jfydq"]
 [ext_resource type="PackedScene" uid="uid://el67pa5dtw7h" path="res://Scenes/mundo/miniplayer.tscn" id="13_yq3fg"]
+[ext_resource type="SpriteFrames" uid="uid://72uoy0udyu70" path="res://Assets/animaciones/SpriteFrames/Caelius/ira_sprite_frames.tres" id="14_hmd60"]
+[ext_resource type="SpriteFrames" uid="uid://c3gaekhmc3b38" path="res://Assets/animaciones/SpriteFrames/Caelius/pena_sprite_frames.tres" id="15_5uq12"]
+[ext_resource type="SpriteFrames" uid="uid://d1mrw7ktddvkm" path="res://Assets/animaciones/SpriteFrames/Caelius/ego_sprite_frames.tres" id="16_kx6b5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vunlk"]
 size = Vector2(2112, 32)
@@ -581,3 +584,6 @@ jugador = NodePath("../miniplayer")
 
 [node name="miniplayer" parent="." unique_id=61477703 instance=ExtResource("13_yq3fg")]
 position = Vector2(264, 1320)
+sprites_ira = ExtResource("14_hmd60")
+sprites_pena = ExtResource("15_5uq12")
+sprites_ego = ExtResource("16_kx6b5")

@@ -173,7 +173,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_o8sn1")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"mundo_interact",
 "speed": 5.0
 }]

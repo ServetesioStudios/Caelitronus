@@ -1,11 +1,10 @@
-
 extends Node2D
 class_name EnemigoMundo
 
 signal jugador_cerca(enemigo: EnemigoMundo)
 signal jugador_lejos(enemigo: EnemigoMundo)
 signal interaccion_solicitada(enemigo: EnemigoMundo)
-
+signal interaccion_iniciada(enemigo: EnemigoMundo)
 
 enum EstadoMundo {
 	IDLE,
@@ -13,14 +12,13 @@ enum EstadoMundo {
 	DERROTADO
 }
 
-
 var enemigo_id: String = ""
 var enemy_data: EnemyData
 var derrotado: bool = false
 var jugador_en_rango: bool = false
+var jugador: CharacterBody2D = null
 
 var estado_actual: EstadoMundo = EstadoMundo.IDLE
-
 
 @onready var area_interaccion: Area2D = $AreaInteraccion
 @onready var area_clic: Area2D = $AreaClic
@@ -35,18 +33,20 @@ func _ready() -> void:
 	area_interaccion.body_exited.connect(_on_body_exited)
 	area_clic.input_event.connect(_on_area_clic_input_event)
 
-	visual.animation_finished.connect(_on_animation_finished)
+	visual.animation_finished.connect(_on_animacion_terminada)
 
-	indicador_interaccion.hide()
 
+func _process(_delta: float) -> void:
+	if estado_actual == EstadoMundo.IDLE and jugador_en_rango:
+		mirar_hacia_jugador()
+		
 
 func configurar(
 	datos: EnemyData,
 	id: String,
-	esta_derrotado: bool = false
-) -> void:
+	esta_derrotado: bool = false) -> void:
 	if datos == null:
-		push_error("EnemigoMundo: EnemyData no puede ser null.")
+		push_error("EnemigoMundo: EnemyData es nulo.")
 		return
 
 	enemy_data = datos
@@ -62,38 +62,66 @@ func configurar_visual() -> void:
 
 	if enemy_data.sprite_frames_mundo == null:
 		visual.sprite_frames = null
-		push_warning(
-			"EnemigoMundo: %s no tiene SpriteFrames de mundo." %
-			enemy_data.nombre
-		)
+		push_warning("Enemigo sin SpriteFrames de mundo: %s" % enemy_data.nombre)
 		return
 
 	visual.sprite_frames = enemy_data.sprite_frames_mundo
 	visual.scale = Vector2.ONE * enemy_data.escala_mundo
 
 	if derrotado:
-		mostrar_derrotado()
-	else:
-		reproducir_idle()
+		mostrar_cadaver()
+		return
+
+	reproducir_idle()
 
 
 func reproducir_idle() -> void:
-	estado_actual = EstadoMundo.IDLE
-
-	if visual.sprite_frames.has_animation("mundo_idle"):
-		visual.play("mundo_idle")
-	else:
-		push_warning(
-			"EnemigoMundo: %s no tiene mundo_idle." %
-			enemy_data.nombre
-		)
-
-
-func solicitar_interaccion() -> void:
 	if derrotado:
 		return
 
-	if estado_actual != EstadoMundo.IDLE:
+	estado_actual = EstadoMundo.IDLE
+
+	if visual.sprite_frames != null:
+		if visual.sprite_frames.has_animation("mundo_idle"):
+			visual.play("mundo_idle")
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if derrotado or estado_actual != EstadoMundo.IDLE:
+		return
+
+	if body is CharacterBody2D:
+		jugador = body
+		jugador_en_rango = true
+		indicador_interaccion.show()
+
+		mirar_hacia_jugador()
+
+		jugador_cerca.emit(self)
+
+
+func _on_body_exited(body: Node2D) -> void:
+	if body == jugador:
+		jugador_en_rango = false
+		jugador = null
+
+		indicador_interaccion.hide()
+		jugador_lejos.emit(self)
+
+
+func _on_area_clic_input_event(
+	_viewport: Node,
+	event: InputEvent,
+	_shape_idx: int
+) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			if jugador_en_rango:
+				solicitar_interaccion()
+
+
+func solicitar_interaccion() -> void:
+	if derrotado or estado_actual != EstadoMundo.IDLE:
 		return
 
 	if not jugador_en_rango:
@@ -102,52 +130,74 @@ func solicitar_interaccion() -> void:
 	estado_actual = EstadoMundo.INTERACTUANDO
 	indicador_interaccion.hide()
 
+	interaccion_iniciada.emit(self)
+
 	if visual.sprite_frames == null:
-		interaccion_solicitada.emit(self)
+		_finalizar_interaccion()
 		return
 
 	if not visual.sprite_frames.has_animation("mundo_interact"):
-		push_warning(
-			"EnemigoMundo: %s no tiene mundo_interact." %
-			enemy_data.nombre
-		)
-		interaccion_solicitada.emit(self)
-		return
-
-	if visual.sprite_frames.get_animation_loop("mundo_interact"):
-		push_warning(
-			"EnemigoMundo: mundo_interact no debe tener loop."
-		)
-		interaccion_solicitada.emit(self)
+		_finalizar_interaccion()
 		return
 
 	visual.play("mundo_interact")
 
 
-func mostrar_derrotado() -> void:
+func _on_animacion_terminada() -> void:
+	if estado_actual == EstadoMundo.INTERACTUANDO:
+		if visual.animation == "mundo_interact":
+			_finalizar_interaccion()
+
+	elif estado_actual == EstadoMundo.DERROTADO:
+		if visual.animation == "mundo_death":
+			mostrar_cadaver()
+			
+
+func _finalizar_interaccion() -> void:
+	if estado_actual != EstadoMundo.INTERACTUANDO:
+		return
+
+	print("Interacción completada con: %s (%s)" % [
+		enemy_data.nombre,
+		enemigo_id])
+
+	interaccion_solicitada.emit(self)
+
+
+func mirar_hacia_jugador() -> void:
+	if not is_instance_valid(jugador):
+		return
+
+	var diferencia_x: float = jugador.global_position.x - global_position.x
+
+	if abs(diferencia_x) < 4.0:
+		return
+
+	visual.flip_h = diferencia_x > 0
+	
+
+func reproducir_muerte() -> void:
 	derrotado = true
 	estado_actual = EstadoMundo.DERROTADO
-
-	deshabilitar_interaccion()
+	jugador_en_rango = false
+	indicador_interaccion.hide()
 
 	if visual.sprite_frames == null:
 		return
 
 	if not visual.sprite_frames.has_animation("mundo_death"):
-		push_warning(
-			"EnemigoMundo: %s no tiene mundo_death." %
-			enemy_data.nombre
-		)
+		push_warning("No existe mundo_death en: %s" % enemy_data.nombre)
 		return
 
 	visual.play("mundo_death")
+	visual.set_frame_and_progress(0, 0.0)
 
 
 func mostrar_cadaver() -> void:
 	derrotado = true
 	estado_actual = EstadoMundo.DERROTADO
-
-	deshabilitar_interaccion()
+	jugador_en_rango = false
+	indicador_interaccion.hide()
 
 	if visual.sprite_frames == null:
 		return
@@ -155,59 +205,10 @@ func mostrar_cadaver() -> void:
 	if not visual.sprite_frames.has_animation("mundo_death"):
 		return
 
-	var total_frames := visual.sprite_frames.get_frame_count(
-		"mundo_death"
-	)
-
-	if total_frames <= 0:
-		return
-
+	visual.play("mundo_death")
 	visual.stop()
-	visual.animation = "mundo_death"
-	visual.frame = total_frames - 1
 
+	var cantidad_frames: int = visual.sprite_frames.get_frame_count("mundo_death")
 
-func deshabilitar_interaccion() -> void:
-	jugador_en_rango = false
-	indicador_interaccion.hide()
-
-	area_interaccion.set_deferred("monitoring", false)
-	area_clic.set_deferred("input_pickable", false)
-
-
-func _on_animation_finished() -> void:
-	match estado_actual:
-		EstadoMundo.INTERACTUANDO:
-			interaccion_solicitada.emit(self)
-
-		EstadoMundo.DERROTADO:
-			mostrar_cadaver()
-
-
-func _on_body_entered(body: Node2D) -> void:
-	if derrotado:
-		return
-
-	if estado_actual != EstadoMundo.IDLE:
-		return
-
-	if body is CharacterBody2D:
-		jugador_en_rango = true
-		indicador_interaccion.show()
-		jugador_cerca.emit(self)
-
-
-func _on_body_exited(body: Node2D) -> void:
-	if body is CharacterBody2D:
-		jugador_en_rango = false
-		indicador_interaccion.hide()
-		jugador_lejos.emit(self)
-
-
-func _on_area_clic_input_event(
-	_viewport: Node,
-	event: InputEvent,
-	_shape_idx: int) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			solicitar_interaccion()
+	if cantidad_frames > 0:
+		visual.frame = cantidad_frames - 1

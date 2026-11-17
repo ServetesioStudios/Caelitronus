@@ -9,6 +9,8 @@ extends Node
 
 var enemigos_generados: Array[Dictionary] = []
 
+var enemigo_interactuando: EnemigoMundo = null
+
 const MARGEN: float = 8.0
 const MAX_INTENTOS: int = 100
 const CAPA_OBSTACULOS: int = 1
@@ -18,29 +20,35 @@ const TAMANO_MARCADOR := Vector2(16.0, 16.0)
 func _ready() -> void:
 	await get_tree().physics_frame
 
+	# Restaurar la posición del jugador después del combate.
 	if GameManager.zona_id_encuentro == zona_id:
 		if is_instance_valid(jugador):
 			jugador.global_position = GameManager.posicion_jugador_encuentro
-			GameManager.limpiar_encuentro()
 		else:
 			push_error("Generador: no se pudo restaurar la posición del jugador.")
 
+	# Generar o restaurar enemigos antes de limpiar el encuentro.
+	# Así podemos identificar al enemigo recién derrotado.
 	generar_enemigos()
+
+	# Limpiar los datos temporales del encuentro.
+	GameManager.limpiar_encuentro()
 
 
 func generar_enemigos() -> void:
 	if areas_aparicion == null or contenedor_enemigos == null:
 		push_error("Generador: faltan referencias a los nodos.")
 		return
-		
+
 	if escena_enemigo_mundo == null:
 		push_error("Generador: falta asignar EnemigoMundo.tscn.")
 		return
-		
+
+	# Si la zona ya fue generada, recuperar su estado.
 	if GameManager.estado_expedicion.zona_generada(zona_id):
 		restaurar_enemigos()
 		return
-		
+
 	enemigos_generados.clear()
 
 	for area in areas_aparicion.get_children():
@@ -51,16 +59,19 @@ func generar_enemigos() -> void:
 			continue
 
 		generar_area(area)
-		
-	GameManager.estado_expedicion.guardar_enemigos(zona_id,enemigos_generados)
-	
+
+	GameManager.estado_expedicion.guardar_enemigos(
+		zona_id,
+		enemigos_generados
+	)
+
 	if not GameManager.guardar_expedicion():
 		push_error("No se pudo guardar la distribución de enemigos.")
 
 
 func generar_area(area: AreaAparicion) -> void:
 	var colision := area.get_node_or_null(
-        "CollisionShape2D"
+		"CollisionShape2D"
 	) as CollisionShape2D
 
 	if colision == null or not colision.shape is RectangleShape2D:
@@ -116,15 +127,17 @@ func generar_area(area: AreaAparicion) -> void:
 
 			posiciones.append(posicion)
 
+			var enemigo_id := "%s_%d" % [
+				area.area_id,
+				indice_enemigo
+			]
 
-			var enemigo_id := "%s_%d" % [area.area_id, indice_enemigo]
-			
 			crear_enemigo_mundo(
 				configuracion.enemy_data,
-				posicion, 
+				posicion,
 				enemigo_id
 			)
-			
+
 			enemigos_generados.append({
 				"id": enemigo_id,
 				"enemy_data": configuracion.enemy_data,
@@ -133,7 +146,6 @@ func generar_area(area: AreaAparicion) -> void:
 			})
 
 			indice_enemigo += 1
-
 
 			print(
 				"[%s] %s generado en %s" % [
@@ -152,12 +164,12 @@ func posicion_libre_de_obstaculos(posicion: Vector2) -> bool:
 	consulta.shape = forma
 	consulta.transform = Transform2D(0.0, posicion)
 	consulta.collision_mask = CAPA_OBSTACULOS
-	consulta.collide_with_bodies = true #StaticBody2D
-	consulta.collide_with_areas = false #Area2D
-	
+	consulta.collide_with_bodies = true
+	consulta.collide_with_areas = false
+
 	var espacio := areas_aparicion.get_world_2d().direct_space_state
 	var resultados := espacio.intersect_shape(consulta, 1)
-	
+
 	return resultados.is_empty()
 
 
@@ -165,7 +177,9 @@ func crear_enemigo_mundo(
 	datos: EnemyData,
 	posicion: Vector2,
 	id: String,
-	esta_derrotado: bool = false) -> void:
+	esta_derrotado: bool = false
+) -> void:
+
 	if escena_enemigo_mundo == null:
 		push_error("Generador: falta asignar la escena del enemigo de mundo.")
 		return
@@ -178,7 +192,30 @@ func crear_enemigo_mundo(
 
 	contenedor_enemigos.add_child(enemigo)
 	enemigo.global_position = posicion
+
+	# Configurar los datos y el estado del enemigo.
 	enemigo.configurar(datos, id, esta_derrotado)
+
+	# ENEMIGO DERROTADO
+	if esta_derrotado:
+
+		# Si es el enemigo del combate que acabamos de ganar,
+		# reproducir la animación completa de muerte.
+		if (
+			GameManager.zona_id_encuentro == zona_id
+			and GameManager.enemigo_id_encuentro == id
+		):
+			enemigo.reproducir_muerte()
+
+		# Si fue derrotado anteriormente, configurar()
+		# ya lo dejó en el último fotograma de mundo_death.
+		# No conectar señales de interacción.
+		return
+
+	# ENEMIGO VIVO
+	enemigo.interaccion_iniciada.connect(
+		_on_enemigo_interaccion_iniciada
+	)
 
 	enemigo.interaccion_solicitada.connect(
 		_on_enemigo_interaccion_solicitada
@@ -186,7 +223,9 @@ func crear_enemigo_mundo(
 
 
 func restaurar_enemigos() -> void:
-	var enemigos_guardados := GameManager.estado_expedicion.obtener_enemigos(zona_id)
+	var enemigos_guardados := GameManager.estado_expedicion.obtener_enemigos(
+		zona_id
+	)
 
 	for datos_enemigo in enemigos_guardados:
 		var datos: EnemyData = datos_enemigo["enemy_data"]
@@ -201,23 +240,45 @@ func restaurar_enemigos() -> void:
 			esta_derrotado
 		)
 
-	print("Generador: enemigos restaurados en %s" % zona_id)
-	
 
-func _on_enemigo_interaccion_solicitada(enemigo: EnemigoMundo) -> void:
-	if enemigo.enemy_data == null:
-		push_error("Generador: el enemigo no tiene EnemyData.")
+func _on_enemigo_interaccion_iniciada(
+	enemigo: EnemigoMundo
+) -> void:
+
+	if enemigo_interactuando != null:
 		return
-	
+
+	enemigo_interactuando = enemigo
+
+	if is_instance_valid(jugador):
+		jugador.iniciar_invocacion(enemigo)
+
+
+func _on_enemigo_interaccion_solicitada(
+	enemigo: EnemigoMundo
+) -> void:
+
+	if enemigo != enemigo_interactuando:
+		return
+
 	if not is_instance_valid(jugador):
-		push_error("Generador: falta la referencia al jugador.")
+		push_error("GeneradorZona: no existe el jugador.")
+		return
+
+	if enemigo.enemy_data == null:
+		push_error("GeneradorZona: el enemigo no tiene EnemyData.")
 		return
 
 	if enemigo.enemy_data.escena_combate == null:
-		push_error(
-			"Generador: %s no tiene escena de combate." %
-			enemigo.enemy_data.nombre
-		)
+		push_error("GeneradorZona: el enemigo no tiene escena de combate.")
+		return
+
+	# Esperar a que termine la invocación del Caelius.
+	if jugador.invocando:
+		await jugador.invocacion_terminada
+
+	# Comprobar que los nodos sigan existiendo.
+	if not is_instance_valid(jugador) or not is_instance_valid(enemigo):
 		return
 
 	GameManager.preparar_encuentro(

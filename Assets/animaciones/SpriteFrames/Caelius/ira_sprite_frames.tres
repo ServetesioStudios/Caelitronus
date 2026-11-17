@@ -342,7 +342,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ib1e8")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"invo_down",
 "speed": 12.0
 }, {
@@ -362,7 +362,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fav2c")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"invo_left",
 "speed": 12.0
 }, {
@@ -382,7 +382,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qxrco")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"invo_right",
 "speed": 12.0
 }, {
@@ -399,7 +399,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cn8ch")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"invo_up",
 "speed": 12.0
 }, {
