@@ -92,14 +92,14 @@ func _ready() -> void:
 
 	# Configurar resolver y validador.
 	card_effect_resolver.configurar(deck_manager)
+	card_effect_resolver.contexto.configurar_mano(mano_ui)
 
 	card_play_validator = CardPlayValidator.new(
 		deck_manager,
 		ether_manager,
 		combat_manager,
 		player,
-		card_effect_resolver
-	)
+		card_effect_resolver)
 
 	mano_ui.card_play_validator = card_play_validator
 
@@ -537,6 +537,8 @@ func _on_accion_enemigo_realizada(
 
 func _on_combate_terminado(victoria: bool) -> void:
 	_cancelar_pago_pendiente()
+	
+	card_effect_resolver.cancelar_ejecucion()
 
 	if victoria and GameManager.enemy_data_encuentro != null:
 		var zona_id: String = GameManager.zona_id_encuentro
@@ -614,6 +616,9 @@ func _on_combate_terminado(victoria: bool) -> void:
 		$CanvasLayer
 	)
 
+func _exit_tree() -> void:
+	if card_effect_resolver != null:
+		card_effect_resolver.cancelar_ejecucion()
 
 # ============================================================
 # AVISOS

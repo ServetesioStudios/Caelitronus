@@ -34,14 +34,24 @@ func jugar_carta(carta: CardData) -> void:
 func robar_cartas(cantidad: int) -> void: 
 	_robar(cantidad)
 
+
 func _robar(cantidad: int) -> void:
-	for i in cantidad:
+	for i in range(cantidad):
 		if mazo_robo.is_empty():
 			_reciclar_descarte()
+
 			if mazo_robo.is_empty():
-				break 
-		mano.append(mazo_robo.pop_back())
+				break
+
+		var carta_robada: CardData = mazo_robo.pop_back()
+
+		if mano.size() < TAMANO_MANO:
+			mano.append(carta_robada)
+		else:
+			mazo_descarte.append(carta_robada)
+
 	mano_actualizada.emit(mano)
+
 
 func _descartar_mano() -> void:
 	mazo_descarte.append_array(mano)

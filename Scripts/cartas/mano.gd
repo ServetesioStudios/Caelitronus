@@ -8,6 +8,7 @@ enum ModoInteraccion {
 }
 
 signal carta_seleccionada(carta: CardData)
+signal seleccion_descarte_resuelta(carta: CardData)
 
 
 @export_group("Distribución de cartas")
@@ -42,6 +43,7 @@ var tooltip_visible: bool = false
 var card_play_validator: CardPlayValidator
 
 var modo_actual: ModoInteraccion = ModoInteraccion.NORMAL
+var seleccion_descarte_realizada: bool = false
 
 
 func _process(delta: float) -> void:
@@ -155,6 +157,13 @@ func _animar_carta(
 
 func mostrar_mano(cartas: Array[CardData]) -> void:
 	carta_hover = null
+	tiempo_hover = 0.0
+	tooltip_visible = false
+	tooltip.ocultar()
+
+	posiciones_originales.clear()
+	rotaciones_originales.clear()
+	indices_originales.clear()
 
 	for tween in tweens_cartas.values():
 		if tween != null and tween.is_running():
@@ -276,18 +285,24 @@ func _actualizar_disponibilidad(card_ui: CardUI) -> void:
 	if card_ui.carta == null:
 		return
 
+	# Durante el descarte, todas las cartas son seleccionables.
+	if modo_actual == ModoInteraccion.SELECCIONAR_DESCARTE:
+		card_ui.modulate = Color.WHITE
+		return
+
 	if card_play_validator == null:
 		card_ui.modulate = Color.WHITE
 		return
 
 	var carta_jugable: bool = card_play_validator.puede_jugar(
-		card_ui.carta)
+		card_ui.carta
+	)
 
 	if carta_jugable:
 		card_ui.modulate = Color.WHITE
 	else:
 		card_ui.modulate = Color(0.45, 0.45, 0.45, 1.0)
-		
+			
 
 func _mostrar_tooltip() -> void:
 	if carta_hover == null or not is_instance_valid(carta_hover):
@@ -318,22 +333,42 @@ func _mostrar_tooltip() -> void:
 
 
 func iniciar_seleccion_descarte() -> void:
+	seleccion_descarte_realizada = false
 	modo_actual = ModoInteraccion.SELECCIONAR_DESCARTE
 	_actualizar_interaccion_cartas()
+	actualizar_disponibilidad_todas()
 
 
 func finalizar_seleccion_descarte() -> void:
 	modo_actual = ModoInteraccion.NORMAL
+	seleccion_descarte_realizada = false
 	_actualizar_interaccion_cartas()
+	actualizar_disponibilidad_todas()
 
 	
 func _on_carta_clickeada(carta: CardData) -> void:
 	if modo_actual != ModoInteraccion.SELECCIONAR_DESCARTE:
 		return
 
-	carta_seleccionada.emit(carta) #informar a battle_scene
+	if seleccion_descarte_realizada:
+		return
 
+	if carta == null:
+		return
 
+	seleccion_descarte_realizada = true
+	seleccion_descarte_resuelta.emit(carta)
+
+	
+func cancelar_seleccion_descarte() -> void:
+	if modo_actual != ModoInteraccion.SELECCIONAR_DESCARTE:
+		return
+
+	seleccion_descarte_realizada = true
+	seleccion_descarte_resuelta.emit(null)
+	finalizar_seleccion_descarte()
+	
+	
 func _actualizar_interaccion_cartas() -> void:
 	for hijo in get_children():
 		if hijo is CardUI:

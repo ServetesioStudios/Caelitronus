@@ -20,7 +20,8 @@ const MAZOS_INICIALES := {
 	"defensa_verde_masEscudoSiNoTomaDano": 1,
 	"defensa_verde_fuerte": 1,
 	"daño_cura_rojo_violeta": 1,
-	"cura_violeta_MasCuraConPocaVida": 1
+	"cura_violeta_MasCuraConPocaVida": 1, 
+	"robo_rosa": 5,
 	},
 	TipoCaelius.EGO: {
 		"golpe_basico": 4, 

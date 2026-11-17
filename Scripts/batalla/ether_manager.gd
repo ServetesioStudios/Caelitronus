@@ -169,6 +169,7 @@ func puede_pagar(costo: CardCostData) -> bool:
 # SELECCIÓN Y CONSUMO DE ÉTERES
 # ============================================================
 
+
 func obtener_indices_especificos(costo: CardCostData) -> Array[int]:
 	var indices: Array[int] = []
 
@@ -178,14 +179,17 @@ func obtener_indices_especificos(costo: CardCostData) -> Array[int]:
 	var especificos: Array[int] = costo.obtener_costos_especificos()
 
 	for color in range(especificos.size()):
-		if especificos[color] == 0:
-			continue
+		var cantidad_necesaria: int = especificos[color]
+		var cantidad_encontrada: int = 0
 
 		# Buscar desde la derecha.
 		for i in range(eteres.size() - 1, -1, -1):
+			if cantidad_encontrada >= cantidad_necesaria:
+				break
+
 			if eteres[i] == color and not indices.has(i):
 				indices.append(i)
-				break
+				cantidad_encontrada += 1
 
 	return indices
 
