@@ -57,26 +57,19 @@ func puede_jugar(
 		motivo_no_jugable = "Termina o cancela el pago actual"
 		return false
 
+		
 	# --------------------------------------------------------
 	# VALIDACIÓN DE RECURSOS
 	# --------------------------------------------------------
 
-	if carta.costo_eter != null:
-		if not ether_manager.puede_pagar(carta.costo_eter):
-			motivo_no_jugable = "Éteres insuficientes"
-			return false
+	if carta.costo_eter == null:
+		motivo_no_jugable = "Esta carta no tiene un coste de éter configurado"
+		return false
 
-	else:
-		if not player.puede_pagar(carta.costo):
-			motivo_no_jugable = "Energía insuficiente"
-			return false
+	if not ether_manager.puede_pagar(carta.costo_eter):
+		motivo_no_jugable = "Éteres insuficientes"
+		return false
 
-		# Evitar recuperar energía si ya está al máximo.
-		if carta.efectos.size() == 1:
-			if carta.efectos[0] is EnergyEffectData:
-				if player.energia_actual >= player.energia_max:
-					motivo_no_jugable = "Tu energía ya está al máximo"
-					return false
 
 	# --------------------------------------------------------
 	# VALIDACIÓN DE REQUISITOS DE EFECTOS

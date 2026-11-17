@@ -55,16 +55,11 @@ func _actualizar_costo(data: CardData) -> void:
 		separacion_eteres
 	)
 
-	# Cartas que todavía utilizan energía antigua.
 	if data.costo_eter == null:
-		var etiqueta := Label.new()
-		etiqueta.text = "Costo: %d" % data.costo
-		costo_contenedor.add_child(etiqueta)
+		push_warning("CardUI: la carta '%s' no tiene costo_eter configurado." % data.nombre)
 		return
 
-	var costos: Array[int] = (
-		data.costo_eter.obtener_costos_especificos()
-	)
+	var costos: Array[int] = (data.costo_eter.obtener_costos_especificos())
 
 	# --------------------------------------------------------
 	# Éteres específicos
@@ -132,14 +127,14 @@ func _get_drag_data(_position):
 
 	set_drag_preview(preview)
 
-	modulate.a = 0.4
+	self_modulate.a = 0.4
 
 	return carta
 
 
 func _notification(what):
 	if what == NOTIFICATION_DRAG_END:
-		modulate.a = 1.0
+		self_modulate.a = 1.0
 		
 		
 func _gui_input(event: InputEvent) -> void:

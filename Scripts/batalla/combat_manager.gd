@@ -7,7 +7,6 @@ signal turno_jugador_iniciado
 signal turno_enemigo_iniciado
 signal enemigo_actuo(enemigo: Enemy)
 signal combate_terminado(victoria: bool)
-signal energia_actualizada(actual: int, maxima: int)
 signal accion_enemigo_realizada(enemigo: Enemy, descripcion: String)
 
 enum Estado { INICIO, TURNO_JUGADOR, TURNO_ENEMIGO, VICTORIA, DERROTA }
@@ -17,7 +16,6 @@ var enemigos: Array[Enemy] = []
 func iniciar_combate(p: CombatEntity, e: Array[Enemy]) -> void:
 	player = p
 	enemigos = e
-	player.resetear_energia()
 	
 	for enemigo in enemigos:
 		if is_instance_valid(enemigo) and enemigo.hp > 0:

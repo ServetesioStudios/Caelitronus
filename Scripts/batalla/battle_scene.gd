@@ -1,20 +1,16 @@
 extends Node2D
 
-
 # ============================================================
 # REFERENCIAS A NODOS
 # ============================================================
 
-@onready var combat_manager := $CombatManager
-@onready var deck_manager := $DeckManager
+@onready var combat_manager: CombatManager = $CombatManager
+@onready var deck_manager: DeckManager = $DeckManager
 
-@onready var btn_fin_turno := $CanvasLayer/BtnFinTurno
-@onready var player := $CanvasLayer/player
-@onready var mano_ui := $CanvasLayer/Mano
-@onready var zona_drop := $CanvasLayer/DropZone
-
-@onready var label_energia := $CanvasLayer/LabelEnergia
-@onready var iconos_energia: HBoxContainer = $CanvasLayer/EnergiaContainer
+@onready var btn_fin_turno: Button = $CanvasLayer/BtnFinTurno
+@onready var player: Player = $CanvasLayer/player
+@onready var mano_ui: Control = $CanvasLayer/Mano
+@onready var zona_drop = $CanvasLayer/DropZone
 
 @onready var ether_manager: EtherManager = $EtherManager
 @onready var ether_ui: EtherUI = $CanvasLayer/EtherUI
@@ -23,59 +19,21 @@ extends Node2D
 
 @onready var card_effect_resolver: CardEffectResolver = $CardEffectResolver
 
-
-var esperando_descarte_efecto: bool = false
-var card_play_validator: CardPlayValidator
-
-
-
 # ============================================================
 # VARIABLES
 # ============================================================
 
+var card_play_validator: CardPlayValidator
+
 var enemy: Enemy
 
-var historial_texto := ""
-var max_lineas := 18
+var arrastrando_carta: bool = false
 
-var arrastrando_carta := false
-
-# Carta pendiente de pagar con éteres genéricos.
+# Carta pendiente de pago con éteres genéricos.
 var carta_pendiente: CardData = null
 var objetivo_pendiente: CombatEntity = null
 
 var tween_aviso: Tween
-
-const ICONO_ENERGIA := preload("res://Assets/Icons/poder.png")
-
-
-# ============================================================
-# CREACIÓN DEL ENEMIGO
-# ============================================================
-
-func crear_enemigo_combate() -> Enemy:
-	var datos: EnemyData = GameManager.enemy_data_encuentro
-
-	if datos == null:
-		push_error("Batalla: no hay un encuentro preparado en GameManager.")
-		return null
-
-	if datos.escena_combate == null:
-		push_error("Batalla: %s no tiene escena de combate." % datos.nombre)
-		return null
-
-	var nuevo_enemigo := datos.escena_combate.instantiate() as Enemy
-
-	if nuevo_enemigo == null:
-		push_error("Batalla: la escena no contiene un Enemy válido.")
-		return null
-
-	nuevo_enemigo.configurar(datos)
-
-	$CanvasLayer.add_child(nuevo_enemigo)
-	nuevo_enemigo.position = Vector2(965, 100)
-
-	return nuevo_enemigo
 
 
 # ============================================================
@@ -85,10 +43,7 @@ func crear_enemigo_combate() -> Enemy:
 func _ready() -> void:
 	MusicManager.play_battle()
 
-	# --------------------------------------------------------
-	# Cargar perfil de éter del Caelius
-	# --------------------------------------------------------
-
+	# Cargar perfil de éter del Caelius.
 	var perfil_eter: EtherProfileData
 
 	match player.tipo_caelius:
@@ -109,74 +64,57 @@ func _ready() -> void:
 
 	ether_manager.iniciar_combate(perfil_eter)
 
-	# --------------------------------------------------------
-	# Crear enemigo
-	# --------------------------------------------------------
-
+	# Crear enemigo.
 	enemy = crear_enemigo_combate()
 
 	if enemy == null:
 		push_error("Batalla: no se pudo iniciar el combate.")
 		return
 
-	# --------------------------------------------------------
-	# Conectar DropZone
-	# --------------------------------------------------------
+	var enemigos: Array[Enemy] = [enemy]
 
+	# Conectar DropZone.
 	zona_drop.carta_soltada.connect(_on_carta_soltada)
 
-	# --------------------------------------------------------
-	# Conectar selección de éteres
-	# --------------------------------------------------------
-
+	# Conectar selección de éteres.
 	ether_ui.seleccion_actualizada.connect(
 		_on_seleccion_eter_actualizada
 	)
 
-	# --------------------------------------------------------
-	# Configurar enemigos
-	# --------------------------------------------------------
-
-	var enemigos: Array[Enemy] = [enemy]
-
-	# --------------------------------------------------------
-	# Configurar mazo y mano
-	# --------------------------------------------------------
-
+	# Configurar mazo.
 	deck_manager.iniciar_mazo(
-		GameManager.crear_mazo_inicial(player.tipo_caelius))
-
-	mano_ui.player_ref = player
+		GameManager.crear_mazo_inicial(player.tipo_caelius)
+	)
 
 	deck_manager.mano_actualizada.connect(
-		mano_ui.mostrar_mano)
-	
+		mano_ui.mostrar_mano
+	)
+
+	# Configurar resolver y validador.
 	card_effect_resolver.configurar(deck_manager)
 
 	card_play_validator = CardPlayValidator.new(
-	deck_manager,
-	ether_manager,
-	combat_manager,
-	player,
-	card_effect_resolver)
+		deck_manager,
+		ether_manager,
+		combat_manager,
+		player,
+		card_effect_resolver
+	)
+
+	mano_ui.card_play_validator = card_play_validator
 
 	card_effect_resolver.carta_finalizada.connect(
-		_on_carta_finalizada)
+		_on_carta_finalizada
+	)
 
-	# --------------------------------------------------------
-	# Eventos del turno
-	# --------------------------------------------------------
+	# Actualización visual por cambios de éteres.
+	ether_manager.eteres_actualizados.connect(
+		mano_ui.actualizar_disponibilidad_todas
+	)
 
+	# Eventos del turno del jugador.
 	combat_manager.turno_jugador_iniciado.connect(
 		ether_manager.iniciar_turno
-	)
-
-	combat_manager.turno_enemigo_iniciado.connect(
-		ether_manager.finalizar_turno
-	)
-
-	combat_manager.turno_enemigo_iniciado.connect(
-		_cancelar_pago_pendiente
 	)
 
 	combat_manager.turno_jugador_iniciado.connect(
@@ -184,17 +122,31 @@ func _ready() -> void:
 	)
 
 	combat_manager.turno_jugador_iniciado.connect(
+		mano_ui.actualizar_disponibilidad_todas
+	)
+
+	combat_manager.turno_jugador_iniciado.connect(
 		func(): btn_fin_turno.disabled = false
+	)
+
+	# Eventos del turno enemigo.
+	combat_manager.turno_enemigo_iniciado.connect(
+		ether_manager.finalizar_turno
+	)
+
+	combat_manager.turno_enemigo_iniciado.connect(
+		mano_ui.actualizar_disponibilidad_todas
+	)
+
+	combat_manager.turno_enemigo_iniciado.connect(
+		_cancelar_pago_pendiente
 	)
 
 	combat_manager.turno_enemigo_iniciado.connect(
 		func(): btn_fin_turno.disabled = true
 	)
 
-	# --------------------------------------------------------
-	# Eventos del combate
-	# --------------------------------------------------------
-
+	# Eventos del combate.
 	combat_manager.combate_terminado.connect(
 		_on_combate_terminado
 	)
@@ -210,44 +162,53 @@ func _ready() -> void:
 		_on_accion_enemigo_realizada
 	)
 
-	# --------------------------------------------------------
-	# Eventos del jugador
-	# --------------------------------------------------------
-
-	player.energia_actualizada.connect(
-		_actualizar_label_energia
-	)
-
-	player.energia_actualizada.connect(
-		func(_a, _m):
-			mano_ui.actualizar_disponibilidad_todas()
-	)
-
-	# --------------------------------------------------------
-	# Botón finalizar turno
-	# --------------------------------------------------------
-
+	# Botón finalizar turno.
 	btn_fin_turno.pressed.connect(
 		combat_manager.finalizar_turno_jugador
 	)
 
-	# --------------------------------------------------------
-	# Iniciar combate
-	# --------------------------------------------------------
-
+	# Iniciar combate.
 	combat_manager.iniciar_combate(
 		player,
 		enemigos
 	)
 
-	_actualizar_label_energia(
-		player.energia_actual,
-		player.energia_max
-	)
+	mano_ui.actualizar_disponibilidad_todas()
 
 
 # ============================================================
-# PROCESAMIENTO DEL DRAG DE CARTAS
+# CREACIÓN DEL ENEMIGO
+# ============================================================
+
+func crear_enemigo_combate() -> Enemy:
+	var datos: EnemyData = GameManager.enemy_data_encuentro
+
+	if datos == null:
+		push_error("Batalla: no hay un encuentro preparado en GameManager.")
+		return null
+
+	if datos.escena_combate == null:
+		push_error(
+			"Batalla: %s no tiene escena de combate." % datos.nombre
+		)
+		return null
+
+	var nuevo_enemigo := datos.escena_combate.instantiate() as Enemy
+
+	if nuevo_enemigo == null:
+		push_error("Batalla: la escena no contiene un Enemy válido.")
+		return null
+
+	nuevo_enemigo.configurar(datos)
+
+	$CanvasLayer.add_child(nuevo_enemigo)
+	nuevo_enemigo.position = Vector2(965, 100)
+
+	return nuevo_enemigo
+
+
+# ============================================================
+# PROCESAMIENTO DEL ARRASTRE
 # ============================================================
 
 func _process(_delta: float) -> void:
@@ -257,7 +218,6 @@ func _process(_delta: float) -> void:
 		if not arrastrando_carta:
 			arrastrando_carta = true
 			_actualizar_gris_por_carta(drag_data)
-
 	else:
 		if arrastrando_carta:
 			arrastrando_carta = false
@@ -265,12 +225,11 @@ func _process(_delta: float) -> void:
 
 
 # ============================================================
-# INDICADOR VISUAL DE OBJETIVOS VÁLIDOS
+# INDICADOR VISUAL DE OBJETIVOS
 # ============================================================
 
 func _actualizar_gris_por_carta(carta: CardData) -> void:
 	match carta.tipo_objetivo:
-
 		CardData.TipoObjetivo.PROPIO:
 			_set_gris(enemy, true)
 			_set_gris(player, false)
@@ -286,10 +245,10 @@ func _actualizar_gris_por_carta(carta: CardData) -> void:
 
 
 func _resetear_gris() -> void:
-	if player != null:
+	if is_instance_valid(player):
 		_set_gris(player, false)
 
-	if enemy != null:
+	if is_instance_valid(enemy):
 		_set_gris(enemy, false)
 
 
@@ -305,13 +264,13 @@ func _set_gris(entidad: CombatEntity, activar: bool) -> void:
 
 
 # ============================================================
-# LÓGICA DE CARTAS
+# SOLTAR CARTAS
 # ============================================================
 
 func _on_carta_soltada(
 	carta: CardData,
-	posicion_global: Vector2) -> void:
-		
+	posicion_global: Vector2
+) -> void:
 	if card_effect_resolver.ejecutando:
 		return
 
@@ -328,13 +287,13 @@ func _on_carta_soltada(
 
 	intentar_jugar_carta(carta, objetivo)
 
-	# Si quedó pendiente un pago genérico,
-	# mantener una representación de la carta visible.
+	# Mantener visible la carta durante el pago genérico.
 	if carta_pendiente == carta:
 		zona_drop.mostrar_carta_pendiente(
 			carta,
 			posicion_global
 		)
+
 
 # ============================================================
 # RESOLUCIÓN DE OBJETIVOS
@@ -346,7 +305,6 @@ func _resolver_objetivo(
 ) -> CombatEntity:
 
 	match carta.tipo_objetivo:
-
 		CardData.TipoObjetivo.PROPIO:
 			return player
 
@@ -370,34 +328,35 @@ func _resolver_objetivo(
 
 func _entidad_mas_cercana(
 	posicion_global: Vector2,
-	candidatos: Array) -> CombatEntity:
+	candidatos: Array
+) -> CombatEntity:
 
 	var mejor: CombatEntity = null
-	var mejor_dist := INF
+	var mejor_dist: float = INF
 
-	for c in candidatos:
-
-		if not is_instance_valid(c):
+	for candidato in candidatos:
+		if not is_instance_valid(candidato):
 			continue
 
-		var dist = c.global_position.distance_to(
+		var distancia: float = candidato.global_position.distance_to(
 			posicion_global
 		)
 
-		if dist < mejor_dist:
-			mejor_dist = dist
-			mejor = c
+		if distancia < mejor_dist:
+			mejor_dist = distancia
+			mejor = candidato
 
 	return mejor
 
 
 # ============================================================
-# SELECCIÓN DE ÉTERES GENÉRICOS
+# PAGO DE ÉTERES GENÉRICOS
 # ============================================================
 
 func solicitar_pago_eter(
 	carta: CardData,
-	objetivo: CombatEntity) -> void:
+	objetivo: CombatEntity
+) -> void:
 
 	if carta_pendiente != null:
 		return
@@ -406,32 +365,35 @@ func solicitar_pago_eter(
 		return
 
 	if not ether_manager.puede_pagar(carta.costo_eter):
-		mostrar_aviso("Éteres insuficientes para: " + carta.nombre)
+		mostrar_aviso(
+			"Éteres insuficientes para: " + carta.nombre
+		)
 		return
 
-	# Guardar la carta y su objetivo.
 	carta_pendiente = carta
 	objetivo_pendiente = objetivo
 
-	# Reservar automáticamente los éteres específicos.
 	var reservados: Array[int] = (
 		ether_manager.obtener_indices_especificos(
 			carta.costo_eter
 		)
 	)
 
-	# Solicitar únicamente los éteres genéricos.
 	ether_ui.iniciar_seleccion(
 		carta.costo_eter.generico,
 		reservados
 	)
 
+	mano_ui.actualizar_disponibilidad_todas()
 
-func _on_seleccion_eter_actualizada(indices: Array[int]) -> void:
+
+func _on_seleccion_eter_actualizada(
+	indices: Array[int]
+) -> void:
 
 	if card_effect_resolver.ejecutando:
 		return
-	
+
 	if carta_pendiente == null:
 		return
 
@@ -441,42 +403,33 @@ func _on_seleccion_eter_actualizada(indices: Array[int]) -> void:
 	if not combat_manager.es_turno_jugador():
 		_cancelar_pago_pendiente()
 		return
-		
+
 	var carta: CardData = carta_pendiente
 	var objetivo: CombatEntity = objetivo_pendiente
 
 	if not is_instance_valid(objetivo):
 		_cancelar_pago_pendiente()
 		return
-		
+
 	if not card_play_validator.puede_jugar(carta):
+		mostrar_aviso(
+			card_play_validator.motivo_no_jugable
+		)
 		_cancelar_pago_pendiente()
 		return
-
-	# --------------------------------------------------------
-	# Consumir éteres
-	# --------------------------------------------------------
 
 	if not ether_manager.pagar_carta(
 		carta.costo_eter,
 		indices
 	):
-		print("No se pudo pagar la carta: ", carta.nombre)
+		mostrar_aviso(
+			"No se pudo pagar: " + carta.nombre
+		)
 		_cancelar_pago_pendiente()
 		return
 
-	# --------------------------------------------------------
-	# Limpiar selección
-	# --------------------------------------------------------
-
 	_cancelar_pago_pendiente()
-
-	# --------------------------------------------------------
-	# Ejecutar carta
-	# --------------------------------------------------------
-
 	_ejecutar_carta(carta, objetivo)
-
 
 
 func _cancelar_pago_pendiente() -> void:
@@ -486,105 +439,89 @@ func _cancelar_pago_pendiente() -> void:
 	zona_drop.ocultar_carta_pendiente()
 	ether_ui.cancelar_seleccion()
 
+	if card_play_validator != null:
+		mano_ui.actualizar_disponibilidad_todas()
+
 
 # ============================================================
-# EJECUCIÓN DE CARTAS
+# VALIDACIÓN Y EJECUCIÓN DE CARTAS
 # ============================================================
-
 
 func intentar_jugar_carta(
 	carta: CardData,
-	objetivo: CombatEntity) -> void:
-		
+	objetivo: CombatEntity
+) -> void:
+
 	if not card_play_validator.puede_jugar(
 		carta,
-		carta_pendiente != null):
-		
-		mostrar_aviso(card_play_validator.motivo_no_jugable)
+		carta_pendiente != null
+	):
+		mostrar_aviso(
+			card_play_validator.motivo_no_jugable
+		)
 		return
 
-	# --------------------------------------------------------
-	# NUEVO SISTEMA DE ÉTERES
-	# --------------------------------------------------------
+	if carta.costo_eter == null:
+		push_error(
+			"La carta no tiene costo_eter: " + carta.nombre
+		)
+		return
 
-	if carta.costo_eter != null:
-		if carta.costo_eter.generico > 0:
-			solicitar_pago_eter(carta, objetivo)
-			return
+	# Solicitar selección de éteres genéricos.
+	if carta.costo_eter.generico > 0:
+		solicitar_pago_eter(carta, objetivo)
+		return
 
-		# Cartas que solamente requieren éteres específicos.
-		if not ether_manager.pagar_carta(
-			carta.costo_eter,
-			[]
-		):
-			mostrar_aviso("No se pudo pagar: " + carta.nombre)
-			return
-
-	# --------------------------------------------------------
-	# SISTEMA ANTIGUO DE ENERGÍA
-	# --------------------------------------------------------
-
-	else:
-		player.gastar_energia(carta.costo)
+	# Pagar éteres específicos.
+	if not ether_manager.pagar_carta(
+		carta.costo_eter,
+		[]
+	):
+		mostrar_aviso(
+			"No se pudo pagar: " + carta.nombre
+		)
+		return
 
 	_ejecutar_carta(carta, objetivo)
 
 
 func _ejecutar_carta(
 	carta: CardData,
-	objetivo: CombatEntity) -> void:
-		
+	objetivo: CombatEntity
+) -> void:
+
 	if card_effect_resolver.ejecutando:
 		return
 
 	btn_fin_turno.disabled = true
-	
-	# Retirar la carta de la mano antes de ejecutar sus efectos.
+
+	# Retirar la carta de la mano.
 	deck_manager.jugar_carta(carta)
 
-	# Reproducir la animación correspondiente.
+	# Reproducir animación.
 	if not carta.animacion.is_empty():
 		player.reproducir_animacion(carta.animacion)
 
-	# Delegar la ejecución al resolver.
+	# Ejecutar efectos mediante el resolver.
 	card_effect_resolver.ejecutar_carta(
 		carta,
 		player,
-		objetivo)
+		objetivo
+	)
+
+	mano_ui.actualizar_disponibilidad_todas()
 
 
-func _on_carta_finalizada(_carta: CardData) -> void:
+func _on_carta_finalizada(
+	_carta: CardData
+) -> void:
+
 	combat_manager.verificar_fin_combate()
 
 	if combat_manager.es_turno_jugador():
 		btn_fin_turno.disabled = false
-	
-# ============================================================
-# UI - ENERGÍA ANTIGUA
-# ============================================================
 
-func _actualizar_label_energia(
-	actual: int,
-	maxima: int) -> void:
-
-	for hijo in iconos_energia.get_children():
-		iconos_energia.remove_child(hijo)
-		hijo.queue_free()
-
-	for i in range(maxima):
-		var icono := TextureRect.new()
-
-		icono.texture = ICONO_ENERGIA
-		icono.custom_minimum_size = Vector2(45, 45)
-		icono.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		icono.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-
-		if i >= actual:
-			icono.modulate = Color(0.3, 0.3, 0.3, 0.5)
-		else:
-			icono.modulate = Color("#800020")
-
-		iconos_energia.add_child(icono)
+	mano_ui.actualizar_disponibilidad_todas()
 
 
 # ============================================================
@@ -592,14 +529,13 @@ func _actualizar_label_energia(
 # ============================================================
 
 func _on_accion_enemigo_realizada(
-	enemigo: Enemy,
-	descripcion: String) -> void:
+	_enemigo: Enemy,
+	_descripcion: String
+) -> void:
 	pass
 
 
 func _on_combate_terminado(victoria: bool) -> void:
-
-	# Limpiar cualquier selección pendiente.
 	_cancelar_pago_pendiente()
 
 	if victoria and GameManager.enemy_data_encuentro != null:
@@ -607,23 +543,33 @@ func _on_combate_terminado(victoria: bool) -> void:
 		var enemigo_id: String = GameManager.enemigo_id_encuentro
 
 		if zona_id.is_empty() or enemigo_id.is_empty():
-			push_error("Batalla: faltan datos del encuentro.")
+			push_error(
+				"Batalla: faltan datos del encuentro."
+			)
 			return
 
 		match GameManager.tipo_encuentro:
-
 			GameManager.TipoEncuentro.NORMAL:
-				var registrado := GameManager.estado_expedicion.marcar_enemigo_derrotado(
-					zona_id,
-					enemigo_id
+				var registrado := (
+					GameManager.estado_expedicion.marcar_enemigo_derrotado(
+						zona_id,
+						enemigo_id
+					)
 				)
 
 				if not registrado:
-					push_error("Batalla: no se pudo registrar al enemigo derrotado.")
+					push_error(
+						"Batalla: no se pudo registrar al enemigo derrotado."
+					)
 					return
 
-				if GameManager.estado_expedicion.todos_enemigos_derrotados(zona_id):
-					print("Batalla: zona despejada: ", zona_id)
+				if GameManager.estado_expedicion.todos_enemigos_derrotados(
+					zona_id
+				):
+					print(
+						"Batalla: zona despejada: ",
+						zona_id
+					)
 
 			GameManager.TipoEncuentro.JEFE:
 				GameManager.estado_expedicion.marcar_jefe_derrotado(
@@ -631,7 +577,10 @@ func _on_combate_terminado(victoria: bool) -> void:
 					enemigo_id
 				)
 
-				print("Batalla: jefe derrotado: ", enemigo_id)
+				print(
+					"Batalla: jefe derrotado: ",
+					enemigo_id
+				)
 
 		GameManager.player_data.hp_actual = player.max_hp
 		GameManager.guardar_partida()
@@ -649,11 +598,15 @@ func _on_combate_terminado(victoria: bool) -> void:
 
 			return
 
-		SceneManager.change_scene(SceneManager.SceneID.ZONA_ROJA)
+		SceneManager.change_scene(
+			SceneManager.SceneID.ZONA_ROJA
+		)
 		return
 
 	if victoria:
-		push_warning("Batalla: victoria sin encuentro de mundo registrado.")
+		push_warning(
+			"Batalla: victoria sin encuentro de mundo registrado."
+		)
 		return
 
 	SceneManager.add_overlay(
@@ -662,15 +615,17 @@ func _on_combate_terminado(victoria: bool) -> void:
 	)
 
 
-# =============================================================
+# ============================================================
 # AVISOS
-# =============================================================
+# ============================================================
+
 func mostrar_aviso(mensaje: String) -> void:
 	if not is_instance_valid(aviso_combate):
-		push_warning("BattleScene: falta AvisoCombate.")
+		push_warning(
+			"BattleScene: falta AvisoCombate."
+		)
 		return
 
-	# Cancelar la animación anterior.
 	if tween_aviso != null and tween_aviso.is_running():
 		tween_aviso.kill()
 
@@ -678,11 +633,9 @@ func mostrar_aviso(mensaje: String) -> void:
 	aviso_combate.modulate.a = 1.0
 	aviso_combate.show()
 
-	# Mostrar el aviso durante 1.5 segundos.
 	tween_aviso = create_tween()
 	tween_aviso.tween_interval(1.5)
 
-	# Desvanecer suavemente.
 	tween_aviso.tween_property(
 		aviso_combate,
 		"modulate:a",
@@ -690,15 +643,17 @@ func mostrar_aviso(mensaje: String) -> void:
 		0.4
 	)
 
-	tween_aviso.tween_callback(aviso_combate.hide)
-	
-	
+	tween_aviso.tween_callback(
+		aviso_combate.hide
+	)
+
+
 # ============================================================
 # DEBUG
 # ============================================================
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	
+
 	if event is InputEventKey:
 		if event.pressed and not event.echo:
 			if event.keycode == KEY_ESCAPE:
@@ -706,16 +661,20 @@ func _unhandled_key_input(event: InputEvent) -> void:
 					_cancelar_pago_pendiente()
 					get_viewport().set_input_as_handled()
 					return
-					
+
 	if not OS.is_debug_build():
 		return
 
-	if event.is_action_pressed("debug_victoria") and not event.is_echo():
+	if event.is_action_pressed(
+		"debug_victoria"
+	) and not event.is_echo():
 		get_viewport().set_input_as_handled()
 		print("DEBUG: victoria forzada")
 		_forzar_victoria_debug()
 
-	elif event.is_action_pressed("debug_derrota") and not event.is_echo():
+	elif event.is_action_pressed(
+		"debug_derrota"
+	) and not event.is_echo():
 		get_viewport().set_input_as_handled()
 		print("DEBUG: derrota forzada")
 		_forzar_derrota_debug()
@@ -749,12 +708,3 @@ func _forzar_derrota_debug() -> void:
 	player.actualizar_barra_vida()
 
 	combat_manager.verificar_fin_combate()
-	
-	
-# ============================================================
-# EFECTOS CARTAS
-# ============================================================
-
-
-func _on_mano_carta_seleccionada(carta: CardData) -> void:
-	pass # Replace with function body.

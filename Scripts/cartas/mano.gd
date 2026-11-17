@@ -39,7 +39,7 @@ var indices_originales: Dictionary = {}
 var tiempo_hover: float = 0.0
 var tooltip_visible: bool = false
 
-var player_ref: Player
+var card_play_validator: CardPlayValidator
 
 var modo_actual: ModoInteraccion = ModoInteraccion.NORMAL
 
@@ -276,31 +276,18 @@ func _actualizar_disponibilidad(card_ui: CardUI) -> void:
 	if card_ui.carta == null:
 		return
 
-	var carta: CardData = card_ui.carta
-
-	# Por ahora conservamos la validación antigua.
-	var energia_insuficiente: bool = (
-		not player_ref.puede_pagar(carta.costo)
-	)
-
-	var es_carta_energia: bool = (
-		carta.efectos.size() == 1
-		and carta.efectos[0] is EnergyEffectData
-	)
-
-	var energia_completa: bool = (
-		player_ref.energia_actual >= player_ref.energia_max
-	)
-
-	var carta_bloqueada: bool = (
-		energia_insuficiente or
-		(es_carta_energia and energia_completa)
-	)
-
-	if carta_bloqueada:
-		card_ui.modulate = Color(0.5, 0.5, 0.5, 0.6)
-	else:
+	if card_play_validator == null:
 		card_ui.modulate = Color.WHITE
+		return
+
+	var carta_jugable: bool = card_play_validator.puede_jugar(
+		card_ui.carta)
+
+	if carta_jugable:
+		card_ui.modulate = Color.WHITE
+	else:
+		card_ui.modulate = Color(0.45, 0.45, 0.45, 1.0)
+		
 
 func _mostrar_tooltip() -> void:
 	if carta_hover == null or not is_instance_valid(carta_hover):
