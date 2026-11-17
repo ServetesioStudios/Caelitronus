@@ -15,4 +15,5 @@ duracion_turnos = 3
 [node name="Animador" parent="." index="3" unique_id=1767477017 node_paths=PackedStringArray("sprite")]
 position = Vector2(151, 219)
 sprite_frames = ExtResource("3_47xs4")
+animation = &"mundo_interact"
 sprite = NodePath(".")

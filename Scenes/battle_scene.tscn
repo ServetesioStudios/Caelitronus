@@ -8,8 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://bxu6hgpccqqdf" path="res://Assets/BckGrnd/papersideborder.png" id="7_n02j2"]
 [ext_resource type="Script" uid="uid://cjxi2c8jyhqcn" path="res://Scripts/ui/drop_zone.gd" id="8_ms847"]
 [ext_resource type="Script" uid="uid://dbapsc8dah0c4" path="res://Scripts/batalla/combat_manager.gd" id="8_w4764"]
-[ext_resource type="Script" uid="uid://eg85yacwhx1v" path="res://Scripts/batalla/deck_manager.gd" id="9_ed262"]
-[ext_resource type="Script" uid="uid://3hhe153qj06q" path="res://Scripts/ui/mano.gd" id="12_wb0gu"]
+[ext_resource type="Script" uid="uid://eg85yacwhx1v" path="res://Scripts/cartas/deck_manager.gd" id="9_ed262"]
+[ext_resource type="Script" uid="uid://3hhe153qj06q" path="res://Scripts/cartas/mano.gd" id="12_wb0gu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_wb0gu"]
 font = ExtResource("6_n02j2")

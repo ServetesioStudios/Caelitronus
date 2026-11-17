@@ -161,7 +161,11 @@ func posicion_libre_de_obstaculos(posicion: Vector2) -> bool:
 	return resultados.is_empty()
 
 
-func crear_enemigo_mundo(datos: EnemyData, posicion: Vector2, id: String) -> void:
+func crear_enemigo_mundo(
+	datos: EnemyData,
+	posicion: Vector2,
+	id: String,
+	esta_derrotado: bool = false) -> void:
 	if escena_enemigo_mundo == null:
 		push_error("Generador: falta asignar la escena del enemigo de mundo.")
 		return
@@ -174,29 +178,31 @@ func crear_enemigo_mundo(datos: EnemyData, posicion: Vector2, id: String) -> voi
 
 	contenedor_enemigos.add_child(enemigo)
 	enemigo.global_position = posicion
-	enemigo.configurar(datos, id)
-	
+	enemigo.configurar(datos, id, esta_derrotado)
+
 	enemigo.interaccion_solicitada.connect(
 		_on_enemigo_interaccion_solicitada
 	)
 
 
-func restaurar_enemigos() -> void: 
-	var enemigos_guardados:= GameManager.estado_expedicion.obtener_enemigos(zona_id)
-	
+func restaurar_enemigos() -> void:
+	var enemigos_guardados := GameManager.estado_expedicion.obtener_enemigos(zona_id)
+
 	for datos_enemigo in enemigos_guardados:
-		if datos_enemigo["derrotado"]:
-			continue
-		
 		var datos: EnemyData = datos_enemigo["enemy_data"]
 		var posicion: Vector2 = datos_enemigo["posicion"]
 		var id: String = datos_enemigo["id"]
+		var esta_derrotado: bool = datos_enemigo["derrotado"]
 
-		crear_enemigo_mundo(datos, posicion, id)
+		crear_enemigo_mundo(
+			datos,
+			posicion,
+			id,
+			esta_derrotado
+		)
 
 	print("Generador: enemigos restaurados en %s" % zona_id)
 	
-
 
 func _on_enemigo_interaccion_solicitada(enemigo: EnemigoMundo) -> void:
 	if enemigo.enemy_data == null:

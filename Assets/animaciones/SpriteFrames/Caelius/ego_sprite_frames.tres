@@ -1,17 +1,17 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://d1mrw7ktddvkm"]
 
-[ext_resource type="Texture2D" uid="uid://c05gytvvfmakm" path="res://Assets/mundo/caelius/ego/idle/idlefrente.png" id="1_66qfg"]
-[ext_resource type="Texture2D" uid="uid://b26rvflomu5w0" path="res://Assets/mundo/caelius/ego/walk/caminafrente.png" id="1_aivdx"]
-[ext_resource type="Texture2D" uid="uid://de2bikq8uoota" path="res://Assets/mundo/caelius/ego/walk/caminacostadodesrecho.png" id="1_xs550"]
-[ext_resource type="Texture2D" uid="uid://b5om6tl8kl54e" path="res://Assets/mundo/caelius/ego/idle/idlecostadoizquierdo.png" id="2_ryobv"]
-[ext_resource type="Texture2D" uid="uid://jc0y7u568ee0" path="res://Assets/mundo/caelius/ego/walk/caminacostadoizquierdo.png" id="2_u1e72"]
-[ext_resource type="Texture2D" uid="uid://bnbxebtkwxdwr" path="res://Assets/mundo/caelius/ego/idle/idemcostadoderecho.png" id="3_h2p6w"]
-[ext_resource type="Texture2D" uid="uid://ebn6v1jtsf46" path="res://Assets/mundo/caelius/ego/idle/idleatras.png" id="4_4clg0"]
-[ext_resource type="Texture2D" uid="uid://g16xxrn685hk" path="res://Assets/mundo/caelius/ego/walk/caminaatras.png" id="4_t2ysq"]
-[ext_resource type="Texture2D" uid="uid://bcervvdl12jb2" path="res://Assets/mundo/caelius/ego/invo/invofrente.png" id="5_boqg2"]
-[ext_resource type="Texture2D" uid="uid://c00pmxcwe7pgd" path="res://Assets/mundo/caelius/ego/invo/invocostadoizquierdo.png" id="6_miyo8"]
-[ext_resource type="Texture2D" uid="uid://b7egbjf1o1mvj" path="res://Assets/mundo/caelius/ego/invo/invocostadoderecho.png" id="7_ikaco"]
-[ext_resource type="Texture2D" uid="uid://bdkxe2t4f3m1q" path="res://Assets/mundo/caelius/ego/invo/invoatras.png" id="8_c1d5m"]
+[ext_resource type="Texture2D" uid="uid://c05gytvvfmakm" path="res://Assets/mundo/personajes/caelius/ego/idle/idlefrente.png" id="1_66qfg"]
+[ext_resource type="Texture2D" uid="uid://b5om6tl8kl54e" path="res://Assets/mundo/personajes/caelius/ego/idle/idlecostadoizquierdo.png" id="2_ryobv"]
+[ext_resource type="Texture2D" uid="uid://bnbxebtkwxdwr" path="res://Assets/mundo/personajes/caelius/ego/idle/idemcostadoderecho.png" id="3_h2p6w"]
+[ext_resource type="Texture2D" uid="uid://ebn6v1jtsf46" path="res://Assets/mundo/personajes/caelius/ego/idle/idleatras.png" id="4_4clg0"]
+[ext_resource type="Texture2D" uid="uid://bcervvdl12jb2" path="res://Assets/mundo/personajes/caelius/ego/invo/invofrente.png" id="5_boqg2"]
+[ext_resource type="Texture2D" uid="uid://c00pmxcwe7pgd" path="res://Assets/mundo/personajes/caelius/ego/invo/invocostadoizquierdo.png" id="6_miyo8"]
+[ext_resource type="Texture2D" uid="uid://b7egbjf1o1mvj" path="res://Assets/mundo/personajes/caelius/ego/invo/invocostadoderecho.png" id="7_ikaco"]
+[ext_resource type="Texture2D" uid="uid://bdkxe2t4f3m1q" path="res://Assets/mundo/personajes/caelius/ego/invo/invoatras.png" id="8_c1d5m"]
+[ext_resource type="Texture2D" uid="uid://b26rvflomu5w0" path="res://Assets/mundo/personajes/caelius/ego/walk/caminafrente.png" id="9_eevnc"]
+[ext_resource type="Texture2D" uid="uid://jc0y7u568ee0" path="res://Assets/mundo/personajes/caelius/ego/walk/caminacostadoizquierdo.png" id="10_dj571"]
+[ext_resource type="Texture2D" uid="uid://de2bikq8uoota" path="res://Assets/mundo/personajes/caelius/ego/walk/caminacostadodesrecho.png" id="11_euyfs"]
+[ext_resource type="Texture2D" uid="uid://g16xxrn685hk" path="res://Assets/mundo/personajes/caelius/ego/walk/caminaatras.png" id="12_o54g2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4jipg"]
 atlas = ExtResource("1_66qfg")
@@ -162,99 +162,99 @@ atlas = ExtResource("8_c1d5m")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cqmia"]
-atlas = ExtResource("1_aivdx")
+atlas = ExtResource("9_eevnc")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xyb0l"]
-atlas = ExtResource("1_aivdx")
+atlas = ExtResource("9_eevnc")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_otcb8"]
-atlas = ExtResource("1_aivdx")
+atlas = ExtResource("9_eevnc")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wfc8r"]
-atlas = ExtResource("1_aivdx")
+atlas = ExtResource("9_eevnc")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_py3jm"]
-atlas = ExtResource("1_aivdx")
+atlas = ExtResource("9_eevnc")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_66qfg"]
-atlas = ExtResource("1_aivdx")
+atlas = ExtResource("9_eevnc")
 region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ryobv"]
-atlas = ExtResource("2_u1e72")
+atlas = ExtResource("10_dj571")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h2p6w"]
-atlas = ExtResource("2_u1e72")
+atlas = ExtResource("10_dj571")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4clg0"]
-atlas = ExtResource("2_u1e72")
+atlas = ExtResource("10_dj571")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_boqg2"]
-atlas = ExtResource("2_u1e72")
+atlas = ExtResource("10_dj571")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_miyo8"]
-atlas = ExtResource("2_u1e72")
+atlas = ExtResource("10_dj571")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ikaco"]
-atlas = ExtResource("2_u1e72")
+atlas = ExtResource("10_dj571")
 region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2se86"]
-atlas = ExtResource("1_xs550")
+atlas = ExtResource("11_euyfs")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x0gem"]
-atlas = ExtResource("1_xs550")
+atlas = ExtResource("11_euyfs")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3f1vb"]
-atlas = ExtResource("1_xs550")
+atlas = ExtResource("11_euyfs")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6jopo"]
-atlas = ExtResource("1_xs550")
+atlas = ExtResource("11_euyfs")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oqcc5"]
-atlas = ExtResource("1_xs550")
+atlas = ExtResource("11_euyfs")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4t2t1"]
-atlas = ExtResource("1_xs550")
+atlas = ExtResource("11_euyfs")
 region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c1d5m"]
-atlas = ExtResource("4_t2ysq")
+atlas = ExtResource("12_o54g2")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eevnc"]
-atlas = ExtResource("4_t2ysq")
+atlas = ExtResource("12_o54g2")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dj571"]
-atlas = ExtResource("4_t2ysq")
+atlas = ExtResource("12_o54g2")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_euyfs"]
-atlas = ExtResource("4_t2ysq")
+atlas = ExtResource("12_o54g2")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o54g2"]
-atlas = ExtResource("4_t2ysq")
+atlas = ExtResource("12_o54g2")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m0kp0"]
-atlas = ExtResource("4_t2ysq")
+atlas = ExtResource("12_o54g2")
 region = Rect2(160, 0, 32, 32)
 
 [resource]

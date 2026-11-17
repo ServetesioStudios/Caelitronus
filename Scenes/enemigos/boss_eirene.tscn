@@ -13,4 +13,5 @@ porcentaje_curacion = 1.0
 [node name="Animador" parent="." index="3" unique_id=1767477017 node_paths=PackedStringArray("sprite")]
 position = Vector2(133, 274)
 sprite_frames = ExtResource("3_q40vs")
+animation = &"mundo_interact"
 sprite = NodePath(".")

@@ -21,5 +21,4 @@ nombre = "Eirene Koryphé"
 stats = SubResource("Resource_e7jni")
 escena_combate = ExtResource("1_3vbev")
 sprite_frames_mundo = ExtResource("3_1wmxc")
-escala_mundo = 0.1
 metadata/_custom_type_script = "uid://5uw7jpiqmd43"

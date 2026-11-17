@@ -18,5 +18,5 @@ nombre = "Monaguillo Lazaro"
 stats = SubResource("Resource_ms847")
 escena_combate = ExtResource("1_qro0k")
 sprite_frames_mundo = ExtResource("3_wirxk")
-escala_mundo = 0.1
+escala_mundo = 0.9
 metadata/_custom_type_script = "uid://5uw7jpiqmd43"

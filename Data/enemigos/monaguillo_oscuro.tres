@@ -22,5 +22,5 @@ nombre = "Monaguillo Oscuro"
 stats = SubResource("Resource_o206c")
 escena_combate = ExtResource("1_dijqb")
 sprite_frames_mundo = ExtResource("3_bnb2t")
-escala_mundo = 0.1
+escala_mundo = 0.9
 metadata/_custom_type_script = "uid://5uw7jpiqmd43"

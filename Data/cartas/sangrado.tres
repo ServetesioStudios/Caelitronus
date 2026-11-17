@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=7 format=3 uid="uid://bggcfhh8irjxr"]
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://bggcfhh8irjxr"]
 
-[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/data/effect_data.gd" id="1_vxdug"]
-[ext_resource type="Script" uid="uid://p8nj01mbfxt2" path="res://Scripts/data/efectos/estado_effect_data.gd" id="2_8gwff"]
-[ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/data/card_data.gd" id="2_cn6fq"]
-[ext_resource type="Script" uid="uid://dsoesbabr1uya" path="res://Scripts/data/efectos/damage_effect_data.gd" id="3_8gwff"]
+[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/cartas/efectos/effect_data.gd" id="1_vxdug"]
+[ext_resource type="Script" uid="uid://p8nj01mbfxt2" path="res://Scripts/cartas/efectos/estado_effect_data.gd" id="2_8gwff"]
+[ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/cartas/card_data.gd" id="2_cn6fq"]
+[ext_resource type="Script" uid="uid://dsoesbabr1uya" path="res://Scripts/cartas/efectos/damage_effect_data.gd" id="3_8gwff"]
+
 
 [sub_resource type="Resource" id="Resource_wj70o"]
 script = ExtResource("2_8gwff")
