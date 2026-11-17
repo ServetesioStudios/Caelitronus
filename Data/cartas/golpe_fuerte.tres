@@ -1,10 +1,11 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://dxk8dmv0u6raq"]
 
 [ext_resource type="Texture2D" uid="uid://76mdj3pc22h3" path="res://Assets/cards/golpefuerte.png" id="1_5wq8w"]
-[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/cartas/efectos/effect_data.gd" id="1_je51f"]
+[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/cartas/effect_data.gd" id="1_je51f"]
 [ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/cartas/card_data.gd" id="2_hgwf7"]
 [ext_resource type="Script" uid="uid://0r6uf7hupq4j" path="res://Scripts/cartas/card_cost_data.gd" id="2_sbcue"]
 [ext_resource type="Script" uid="uid://dsoesbabr1uya" path="res://Scripts/cartas/efectos/damage.gd" id="4_yum2w"]
+
 
 [sub_resource type="Resource" id="Resource_5wq8w"]
 script = ExtResource("2_sbcue")

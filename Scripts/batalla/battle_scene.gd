@@ -21,8 +21,12 @@ extends Node2D
 
 @onready var aviso_combate: Label = $CanvasLayer/AvisoCombate
 
-#EFECTOS DE CARTAS
+@onready var card_effect_resolver: CardEffectResolver = $CardEffectResolver
+
+
 var esperando_descarte_efecto: bool = false
+var card_play_validator: CardPlayValidator
+
 
 
 # ============================================================
@@ -140,14 +144,24 @@ func _ready() -> void:
 	# --------------------------------------------------------
 
 	deck_manager.iniciar_mazo(
-		GameManager.crear_mazo_inicial(player.tipo_caelius)
-	)
+		GameManager.crear_mazo_inicial(player.tipo_caelius))
 
 	mano_ui.player_ref = player
 
 	deck_manager.mano_actualizada.connect(
-		mano_ui.mostrar_mano
-	)
+		mano_ui.mostrar_mano)
+	
+	card_effect_resolver.configurar(deck_manager)
+
+	card_play_validator = CardPlayValidator.new(
+	deck_manager,
+	ether_manager,
+	combat_manager,
+	player,
+	card_effect_resolver)
+
+	card_effect_resolver.carta_finalizada.connect(
+		_on_carta_finalizada)
 
 	# --------------------------------------------------------
 	# Eventos del turno
@@ -297,6 +311,9 @@ func _set_gris(entidad: CombatEntity, activar: bool) -> void:
 func _on_carta_soltada(
 	carta: CardData,
 	posicion_global: Vector2) -> void:
+		
+	if card_effect_resolver.ejecutando:
+		return
 
 	if carta_pendiente != null:
 		return
@@ -410,9 +427,11 @@ func solicitar_pago_eter(
 	)
 
 
-func _on_seleccion_eter_actualizada(
-	indices: Array[int]) -> void:
+func _on_seleccion_eter_actualizada(indices: Array[int]) -> void:
 
+	if card_effect_resolver.ejecutando:
+		return
+	
 	if carta_pendiente == null:
 		return
 
@@ -422,11 +441,15 @@ func _on_seleccion_eter_actualizada(
 	if not combat_manager.es_turno_jugador():
 		_cancelar_pago_pendiente()
 		return
-
+		
 	var carta: CardData = carta_pendiente
 	var objetivo: CombatEntity = objetivo_pendiente
 
 	if not is_instance_valid(objetivo):
+		_cancelar_pago_pendiente()
+		return
+		
+	if not card_play_validator.puede_jugar(carta):
 		_cancelar_pago_pendiente()
 		return
 
@@ -468,14 +491,16 @@ func _cancelar_pago_pendiente() -> void:
 # EJECUCIÓN DE CARTAS
 # ============================================================
 
+
 func intentar_jugar_carta(
 	carta: CardData,
 	objetivo: CombatEntity) -> void:
-
-	if not combat_manager.es_turno_jugador():
-		return
-
-	if carta_pendiente != null:
+		
+	if not card_play_validator.puede_jugar(
+		carta,
+		carta_pendiente != null):
+		
+		mostrar_aviso(card_play_validator.motivo_no_jugable)
 		return
 
 	# --------------------------------------------------------
@@ -483,22 +508,16 @@ func intentar_jugar_carta(
 	# --------------------------------------------------------
 
 	if carta.costo_eter != null:
-
-		if not ether_manager.puede_pagar(carta.costo_eter):
-			mostrar_aviso("Éteres insuficientes para: " + carta.nombre)
-			return
-
-		# Cartas que necesitan selección genérica.
 		if carta.costo_eter.generico > 0:
 			solicitar_pago_eter(carta, objetivo)
 			return
 
-		# Cartas con éteres específicos únicamente.
+		# Cartas que solamente requieren éteres específicos.
 		if not ether_manager.pagar_carta(
 			carta.costo_eter,
 			[]
 		):
-			mostrar_aviso("No se pudo pagar la carta: " + carta.nombre)
+			mostrar_aviso("No se pudo pagar: " + carta.nombre)
 			return
 
 	# --------------------------------------------------------
@@ -506,21 +525,7 @@ func intentar_jugar_carta(
 	# --------------------------------------------------------
 
 	else:
-
-		if not player.puede_pagar(carta.costo):
-			print("Energía insuficiente para: ", carta.nombre)
-			return
-
-		# Evitar usar recuperación de energía si está llena.
-		if carta.efectos.size() == 1 and carta.efectos[0] is EnergyEffectData:
-			if player.energia_actual >= player.energia_max:
-				return
-
 		player.gastar_energia(carta.costo)
-
-	# --------------------------------------------------------
-	# EJECUTAR CARTA
-	# --------------------------------------------------------
 
 	_ejecutar_carta(carta, objetivo)
 
@@ -528,21 +533,32 @@ func intentar_jugar_carta(
 func _ejecutar_carta(
 	carta: CardData,
 	objetivo: CombatEntity) -> void:
+		
+	if card_effect_resolver.ejecutando:
+		return
 
-	# Aplicar efectos.
-	carta.jugar(player, objetivo)
-
-	# Retirar carta de la mano.
+	btn_fin_turno.disabled = true
+	
+	# Retirar la carta de la mano antes de ejecutar sus efectos.
 	deck_manager.jugar_carta(carta)
 
-	# Animación del jugador.
+	# Reproducir la animación correspondiente.
 	if not carta.animacion.is_empty():
 		player.reproducir_animacion(carta.animacion)
 
-	# Comprobar victoria o derrota.
+	# Delegar la ejecución al resolver.
+	card_effect_resolver.ejecutar_carta(
+		carta,
+		player,
+		objetivo)
+
+
+func _on_carta_finalizada(_carta: CardData) -> void:
 	combat_manager.verificar_fin_combate()
 
-
+	if combat_manager.es_turno_jugador():
+		btn_fin_turno.disabled = false
+	
 # ============================================================
 # UI - ENERGÍA ANTIGUA
 # ============================================================

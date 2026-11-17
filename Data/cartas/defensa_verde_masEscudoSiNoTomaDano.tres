@@ -1,10 +1,11 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://vh35l3xfm7au"]
 
 [ext_resource type="Texture2D" uid="uid://o1j8gtbkbv5m" path="res://Assets/cards/bloqueo.png" id="1_6l8vx"]
-[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/cartas/efectos/effect_data.gd" id="1_qtao0"]
+[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/cartas/effect_data.gd" id="1_qtao0"]
 [ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/cartas/card_data.gd" id="2_67e6h"]
 [ext_resource type="Script" uid="uid://0r6uf7hupq4j" path="res://Scripts/cartas/card_cost_data.gd" id="2_ob14f"]
 [ext_resource type="Script" uid="uid://chhk05xptdrv8" path="res://Scripts/cartas/efectos/conditional_block.gd" id="4_ajhqq"]
+
 
 [sub_resource type="Resource" id="Resource_6l8vx"]
 script = ExtResource("2_ob14f")

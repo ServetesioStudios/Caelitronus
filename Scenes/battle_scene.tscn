@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://3hhe153qj06q" path="res://Scripts/cartas/mano.gd" id="12_wb0gu"]
 [ext_resource type="PackedScene" uid="uid://bawy2i5frvt6e" path="res://Scenes/ui/card_tooltip.tscn" id="12_xdap8"]
 [ext_resource type="FontFile" uid="uid://dxuqp4jcmwft0" path="res://Assets/Fonts/PirataOne-Regular.ttf" id="13_84vmf"]
+[ext_resource type="Script" uid="uid://bpt2akw4jpheo" path="res://Scripts/cartas/card_effect_resolver.gd" id="15_f856b"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ms847"]
 font = ExtResource("6_n02j2")
@@ -179,5 +180,8 @@ label_settings = SubResource("LabelSettings_vunlk")
 layout_mode = 0
 offset_right = 253.0
 offset_bottom = 54.0
+
+[node name="CardEffectResolver" type="Node" parent="." unique_id=1116298795]
+script = ExtResource("15_f856b")
 
 [connection signal="carta_seleccionada" from="CanvasLayer/Mano" to="." method="_on_mano_carta_seleccionada"]
