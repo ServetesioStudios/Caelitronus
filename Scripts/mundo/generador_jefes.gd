@@ -2,7 +2,7 @@ extends Node2D
 
 @export var jugador: CharacterBody2D
 @export var escena_enemigo_mundo: PackedScene
-@export var zona_id: String = "zona_roja"
+@export var zona_id: String = "zona_eirene"
 
 
 func _ready() -> void:

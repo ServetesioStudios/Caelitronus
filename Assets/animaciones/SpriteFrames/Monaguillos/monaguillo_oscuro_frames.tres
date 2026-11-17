@@ -242,7 +242,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jo5yr")
 }],
-"loop": 2,
+"loop": 0,
 "name": &"mundo_death",
 "speed": 5.0
 }, {

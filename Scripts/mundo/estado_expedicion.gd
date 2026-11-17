@@ -71,5 +71,70 @@ func marcar_jefe_derrotado(zona_id: String, jefe_id: String) -> void:
 		jefes_derrotados_por_zona[zona_id] = {}
 
 	jefes_derrotados_por_zona[zona_id][jefe_id] = true
+	
+	
+func crear_datos_guardado() -> ExpedicionSaveData:
+	var datos_guardado := ExpedicionSaveData.new()
 
-	print("EstadoExpedicion: jefe derrotado: ", jefe_id)
+	for zona_id in enemigos_por_zona:
+		var enemigos_serializados: Array[Dictionary] = []
+
+		for enemigo in enemigos_por_zona[zona_id]:
+			var enemy_data: EnemyData = enemigo.get("enemy_data")
+
+			if enemy_data == null:
+				push_error("El enemigo %s no tiene EnemyData." % enemigo.get("id", ""))
+				return null
+
+			if enemy_data.resource_path.is_empty() or enemy_data.resource_path.contains("::"):
+				push_error(
+					"El enemigo %s necesita un EnemyData guardado como recurso independiente."
+					% enemigo.get("id", "")
+				)
+				return null
+
+			enemigos_serializados.append({
+				"id": enemigo["id"],
+				"enemy_path": enemy_data.resource_path,
+				"posicion": enemigo["posicion"],
+				"derrotado": enemigo.get("derrotado", false)
+			})
+
+		datos_guardado.enemigos_por_zona[zona_id] = enemigos_serializados
+
+	datos_guardado.jefes_derrotados_por_zona = jefes_derrotados_por_zona.duplicate(true)
+
+	return datos_guardado
+	
+	
+func cargar_datos_guardado(datos: ExpedicionSaveData) -> bool:
+	if datos == null:
+		push_error("No se recibieron datos de expedición.")
+		return false
+
+	var enemigos_restaurados: Dictionary = {}
+
+	for zona_id in datos.enemigos_por_zona:
+		var enemigos_zona: Array[Dictionary] = []
+
+		for enemigo in datos.enemigos_por_zona[zona_id]:
+			var ruta: String = enemigo.get("enemy_path", "")
+			var recurso := ResourceLoader.load(ruta)
+
+			if not recurso is EnemyData:
+				push_error("No se pudo cargar EnemyData: %s" % ruta)
+				return false
+
+			enemigos_zona.append({
+				"id": enemigo["id"],
+				"enemy_data": recurso,
+				"posicion": enemigo["posicion"],
+				"derrotado": enemigo.get("derrotado", false)
+			})
+
+		enemigos_restaurados[zona_id] = enemigos_zona
+
+	enemigos_por_zona = enemigos_restaurados
+	jefes_derrotados_por_zona = datos.jefes_derrotados_por_zona.duplicate(true)
+
+	return true

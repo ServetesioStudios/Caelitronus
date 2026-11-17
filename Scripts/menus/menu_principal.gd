@@ -17,7 +17,10 @@ func _ready():
 	AudioSettings.aplicar()
 	
 	#HAY PARTIDA GUARDADA?
-	var tiene_partida := GameManager.hay_partida_guardada()
+	var tiene_partida := (
+	GameManager.hay_partida_guardada()
+	and GameManager.hay_expedicion_guardada())
+	
 	btn_continuar.visible = tiene_partida
 	btn_continuar.disabled = not tiene_partida
 
@@ -56,10 +59,12 @@ func animar_color_boton(btn: Button, color_destino: Color) -> void:
 		color_destino,
 		0.20).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
-func _on_btncontinuar_pressed():
-	GameManager.cargar_partida()
-	SceneManager.change_scene(SceneManager.SceneID.SELECT_PERSONAJE)
-	MusicManager.play_menu()
+func _on_btncontinuar_pressed() -> void:
+	if not GameManager.cargar_partida():
+		push_error("No se pudo continuar la partida.")
+		return
+
+	SceneManager.change_scene(SceneManager.SceneID.ZONA_EIRENE)
 
 func _on_bntcomenzar_pressed():
 	GameManager.borrar_partida()

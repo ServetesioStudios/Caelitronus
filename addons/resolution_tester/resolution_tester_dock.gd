@@ -51,8 +51,6 @@ func _on_ejecutar_pressed() -> void:
 	
 	var resolucion := "%dx%d" % [ancho, alto]
 	
-	print("Ejecutando juego en: ", resolucion)
-	
 	var argumentos := [
 		"--path",
 		ProjectSettings.globalize_path("res://"),

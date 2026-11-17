@@ -255,7 +255,7 @@ offset_left = -20.0
 offset_top = 9.0
 offset_right = 269.0
 offset_bottom = 62.0
-theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_colors/font_color = Color(0.42745098, 0.019607844, 0.06666667, 1)
 theme_override_fonts/font = ExtResource("9_6p3uw")
 theme_override_font_sizes/font_size = 45
 text = "Nueva Partida"
@@ -382,7 +382,7 @@ offset_bottom = 66.0
 theme_override_colors/font_color = Color(0.42805427, 0.01890506, 0.065969706, 1)
 theme_override_fonts/font = ExtResource("9_6p3uw")
 theme_override_font_sizes/font_size = 45
-text = "Salir???"
+text = "Salir"
 horizontal_alignment = 1
 
 [node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=1723387070]

@@ -2,6 +2,7 @@
 extends Node
 
 const SAVE_PATH := "user://save.tres"
+const EXPEDICION_SAVE_PATH := "user://expedicion.tres"
 
 const STATS_PATHS := {
 	TipoCaelius.PENA: "res://Data/characters/stats_pena.tres",
@@ -77,6 +78,7 @@ func get_stats_for(tipo: TipoCaelius) -> Stats:
 
 func iniciar_nueva_partida(tipo: TipoCaelius) -> void:
 	player_data = PlayerData.new()
+	player_data.run_id = str(ResourceUID.create_id())
 	player_data.tipo_caelius = tipo
 	player_data.nivel = 1
 	player_data.hp_actual = -1
@@ -102,28 +104,81 @@ func guardar_partida() -> void:
 		push_error("GameManager: fallo al guardar partida (error %s)." % error)
 
 
-func cargar_partida() -> void:
+
+func cargar_partida() -> bool:
 	if not hay_partida_guardada():
-		push_error("GameManager: no hay partida guardada.")
-		return
+		push_error("No existe una partida guardada.")
+		return false
 
-	var recurso := ResourceLoader.load(SAVE_PATH)
+	if not hay_expedicion_guardada():
+		push_error("No existe una expedición guardada.")
+		return false
 
-	if recurso is PlayerData:
-		player_data = recurso
-	else:
-		push_error("GameManager: el guardado no es un PlayerData válido.")
+	# Cargar los datos del jugador.
+	var recurso_jugador := ResourceLoader.load(
+		SAVE_PATH,
+		"",
+		ResourceLoader.CACHE_MODE_IGNORE
+	)
+
+	if not recurso_jugador is PlayerData:
+		push_error("El archivo no contiene datos válidos del jugador.")
+		return false
+
+	# Cargar los datos de la expedición.
+	var recurso_expedicion := ResourceLoader.load(
+		EXPEDICION_SAVE_PATH,
+		"",
+		ResourceLoader.CACHE_MODE_IGNORE
+	)
+
+	if not recurso_expedicion is ExpedicionSaveData:
+		push_error("El archivo no contiene datos válidos de expedición.")
+		return false
+
+	if recurso_expedicion.version != 1:
+		push_error("Versión de guardado de expedición no compatible.")
+		return false
+
+	# Comprobar que ambos archivos pertenecen a la misma run.
+	if recurso_jugador.run_id.is_empty():
+		push_error("La partida no tiene un identificador de run válido.")
+		return false
+
+	if recurso_jugador.run_id != recurso_expedicion.run_id:
+		push_error("Los archivos de guardado pertenecen a runs diferentes.")
+		return false
+
+	# Reconstruir la expedición.
+	var expedicion_cargada := EstadoExpedicion.new()
+
+	if not expedicion_cargada.cargar_datos_guardado(recurso_expedicion):
+		push_error("No se pudo reconstruir la expedición.")
+		return false
+
+	player_data = recurso_jugador
+	estado_expedicion = expedicion_cargada
+
+	limpiar_encuentro()
+
+	print("Partida y expedición cargadas correctamente.")
+	return true
 
 
 func borrar_partida() -> void:
-	if hay_partida_guardada():
-		var error := DirAccess.remove_absolute(SAVE_PATH)
+	for ruta in [SAVE_PATH, EXPEDICION_SAVE_PATH]:
+		if FileAccess.file_exists(ruta):
+			var error := DirAccess.remove_absolute(ruta)
 
-		if error != OK:
-			push_error("GameManager: no se pudo borrar la partida.")
-			return
+			if error != OK:
+				push_error("No se pudo eliminar el archivo: %s" % ruta)
+				return
 
 	player_data = null
+	estado_expedicion = EstadoExpedicion.new()
+	limpiar_encuentro()
+
+	print("Partida y expedición reiniciadas correctamente.")
 
 
 # MAZO INICIAL
@@ -176,3 +231,66 @@ func limpiar_encuentro() -> void:
 	enemigo_id_encuentro = ""
 	posicion_jugador_encuentro = Vector2.ZERO
 	tipo_encuentro = TipoEncuentro.NORMAL
+	
+	
+
+func guardar_expedicion() -> bool:
+	if estado_expedicion == null:
+		push_error("No existe un estado de expedición para guardar.")
+		return false
+
+	var datos := estado_expedicion.crear_datos_guardado()
+
+	if datos == null:
+		push_error("No se pudieron preparar los datos de expedición.")
+		return false
+		
+	if player_data == null or player_data.run_id.is_empty():
+		push_error("No existe un identificador de run válido.")
+		return false
+
+	datos.run_id = player_data.run_id
+
+	var error := ResourceSaver.save(datos, EXPEDICION_SAVE_PATH)
+
+	if error != OK:
+		push_error("Error al guardar la expedición: %s" % error)
+		return false
+
+	print("Expedición guardada correctamente.")
+	return true
+
+
+func cargar_expedicion() -> bool:
+	if not FileAccess.file_exists(EXPEDICION_SAVE_PATH):
+		push_warning("No existe una expedición guardada.")
+		return false
+
+	var recurso := ResourceLoader.load(
+		EXPEDICION_SAVE_PATH,
+		"",
+		ResourceLoader.CACHE_MODE_IGNORE
+	)
+
+	if not recurso is ExpedicionSaveData:
+		push_error("El archivo no contiene datos válidos de expedición.")
+		return false
+
+	if recurso.version != 1:
+		push_error("Versión de guardado de expedición no compatible.")
+		return false
+
+	var expedicion_cargada := EstadoExpedicion.new()
+
+	if not expedicion_cargada.cargar_datos_guardado(recurso):
+		push_error("No se pudo reconstruir la expedición.")
+		return false
+
+	estado_expedicion = expedicion_cargada
+
+	print("Expedición cargada correctamente.")
+	return true
+
+
+func hay_expedicion_guardada() -> bool:
+	return FileAccess.file_exists(EXPEDICION_SAVE_PATH)

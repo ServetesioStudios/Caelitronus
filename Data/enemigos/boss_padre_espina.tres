@@ -15,6 +15,7 @@ metadata/_custom_type_script = "uid://3jdy5elvqaqm"
 
 [resource]
 script = ExtResource("1_hp5c1")
+id = &"boss_padre_espina"
 nombre = "Padre Espina"
 stats = SubResource("Resource_nbnj2")
 metadata/_custom_type_script = "uid://5uw7jpiqmd43"

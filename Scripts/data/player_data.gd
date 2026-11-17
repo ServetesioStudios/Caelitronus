@@ -6,3 +6,5 @@ extends Resource
 @export var gold: int = 0
 @export var hp_actual: int = -1
 @export var deck: Array[CardData] = []
+
+@export var run_id: String = ""

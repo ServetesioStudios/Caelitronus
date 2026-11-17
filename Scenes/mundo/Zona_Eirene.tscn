@@ -558,7 +558,6 @@ polygon = PackedVector2Array(-10, -10, 10, -10, 10, 10, -10, 10)
 script = ExtResource("7_sfj4h")
 jugador = NodePath("../miniplayer")
 escena_enemigo_mundo = ExtResource("8_f18v7")
-zona_id = "zona_eirene"
 
 [node name="MarcadorJefe" parent="Jefe" unique_id=552315538 instance=ExtResource("9_02r1i")]
 position = Vector2(1746, 174)

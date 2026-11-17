@@ -5,7 +5,7 @@ extends Node
 @export var contenedor_enemigos: Node2D
 @export var escena_enemigo_mundo: PackedScene
 @export var jugador: CharacterBody2D
-@export var zona_id: String = "zona_roja"
+@export var zona_id: String = "zona_eirene"
 
 var enemigos_generados: Array[Dictionary] = []
 
@@ -52,10 +52,10 @@ func generar_enemigos() -> void:
 
 		generar_area(area)
 		
-	GameManager.estado_expedicion.guardar_enemigos(
-		zona_id,
-		enemigos_generados
-	)
+	GameManager.estado_expedicion.guardar_enemigos(zona_id,enemigos_generados)
+	
+	if not GameManager.guardar_expedicion():
+		push_error("No se pudo guardar la distribución de enemigos.")
 
 
 func generar_area(area: AreaAparicion) -> void:
@@ -226,10 +226,5 @@ func _on_enemigo_interaccion_solicitada(enemigo: EnemigoMundo) -> void:
 		enemigo.enemigo_id,
 		jugador.global_position
 	)
-
-
-	print("Zona: ", GameManager.zona_id_encuentro)
-	print("Enemigo: ", GameManager.enemigo_id_encuentro)
-	print("Posición jugador: ", GameManager.posicion_jugador_encuentro)
 
 	SceneManager.change_scene(SceneManager.SceneID.BATALLA)

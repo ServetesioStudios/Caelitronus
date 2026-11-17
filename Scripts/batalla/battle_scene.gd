@@ -318,7 +318,6 @@ func _entidad_mas_cercana(
 func intentar_jugar_carta(carta: CardData, objetivo: CombatEntity) -> void:
 
 	if not combat_manager.es_turno_jugador():
-		#print("No es tu turno")
 		return
 
 
@@ -486,7 +485,9 @@ func _on_combate_terminado(victoria: bool) -> void:
 					enemigo_id
 				)
 
-				print("Batalla: jefe derrotado: ", enemigo_id)
+		# Guardar la expedición después de registrar la victoria.
+		if not GameManager.guardar_expedicion():
+			push_error("No se pudo guardar la derrota del enemigo.")
 
 		GameManager.player_data.hp_actual = player.max_hp
 		GameManager.guardar_partida()
@@ -506,17 +507,17 @@ func _on_combate_terminado(victoria: bool) -> void:
 
 		SceneManager.change_scene(SceneManager.SceneID.ZONA_EIRENE)
 		return
-	
+
 	if victoria:
 		push_warning("Batalla: victoria sin encuentro de mundo registrado.")
 		return
+		
+	GameManager.borrar_partida()
 
 	SceneManager.add_overlay(
 		SceneManager.SceneID.FIN_PARTIDA,
-		$CanvasLayer
-	)
+		$CanvasLayer)
 
-	
 # ============================================================
 # DEBUG
 # ============================================================

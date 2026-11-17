@@ -36,6 +36,4 @@ func actualizar_mensaje() -> void:
 
 func _volver_al_menu_principal() -> void:
 	GameManager.limpiar_encuentro()
-	GameManager.estado_expedicion = EstadoExpedicion.new()
-
 	SceneManager.change_scene(SceneManager.SceneID.MENU_PRINCIPAL)
