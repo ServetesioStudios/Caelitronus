@@ -22,8 +22,7 @@ extends Node2D
 @onready var label_mazo_robo: Label = $CanvasLayer/UIMazos/MazoRobo/LabelCantidad
 @onready var label_mazo_descarte: Label = $CanvasLayer/UIMazos/MazoDescarte/LabelCantidad
 
-@onready var origen_mazo_robo: TextureRect = ($CanvasLayer/UIMazos/MazoRobo/TextureRect)
-
+@onready var animador_cartas: AnimadorCartas = $CanvasLayer/AnimadorCartas
 # ============================================================
 # VARIABLES
 # ============================================================
@@ -91,9 +90,9 @@ func _ready() -> void:
 		GameManager.crear_mazo_inicial(player.tipo_caelius)
 	)
 	
-	# Configurar animación de robo.
-	mano_ui.origen_robo = origen_mazo_robo
-
+	# Configurar animador de cartas.
+	mano_ui.animador_cartas = animador_cartas
+	
 	deck_manager.cartas_robadas.connect(
 		mano_ui.registrar_cartas_robadas
 	)

@@ -16,6 +16,7 @@
 [ext_resource type="FontFile" uid="uid://dxuqp4jcmwft0" path="res://Assets/Fonts/PirataOne-Regular.ttf" id="13_84vmf"]
 [ext_resource type="Texture2D" uid="uid://w4sc1l7n18r8" path="res://Assets/Cartas/reverso_carta_temporal.png" id="15_778cw"]
 [ext_resource type="Script" uid="uid://bpt2akw4jpheo" path="res://Scripts/cartas/card_effect_resolver.gd" id="15_f856b"]
+[ext_resource type="Script" uid="uid://b5rys36dmvq8v" path="res://Scripts/cartas/animador_cartas.gd" id="16_vuvll"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ms847"]
 font = ExtResource("6_n02j2")
@@ -280,6 +281,18 @@ offset_bottom = 94.0
 text = "20"
 label_settings = SubResource("LabelSettings_vuvll")
 horizontal_alignment = 2
+
+[node name="AnimadorCartas" type="Control" parent="CanvasLayer" unique_id=1640954395 node_paths=PackedStringArray("origen_robo")]
+z_index = 99
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("16_vuvll")
+origen_robo = NodePath("../UIMazos/MazoRobo")
 
 [node name="CardEffectResolver" type="Node" parent="." unique_id=1116298795]
 script = ExtResource("15_f856b")

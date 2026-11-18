@@ -35,9 +35,6 @@ signal carta_descarte_marcada(carta: CardData)
 @export_group("Tooltip")
 @export var retraso_tooltip: float = 0.4
 
-@export_group("Animación de robo")
-@export_range(0.05, 1.0, 0.01) var duracion_robo: float = 0.25
-@export_range(0.1, 1.0, 0.05) var escala_inicial_robo: float = 0.3
 # ============================================================
 # REFERENCIAS
 # ============================================================
@@ -81,12 +78,11 @@ var tweens_cartas: Dictionary = {}
 
 # Evita distribuir una reconstrucción anterior.
 var version_mano: int = 0
-var origen_robo: Control
-var cantidad_robadas_pendientes: int = 0
-var tweens_robo: Dictionary = {}
-var mano_cerrada: bool = false
-var aviso_origen_robo: bool = false
 
+var cantidad_robadas_pendientes: int = 0
+var mano_cerrada: bool = false
+
+var animador_cartas: AnimadorCartas
 
 # ============================================================
 # INICIALIZACIÓN
@@ -139,7 +135,7 @@ func _detectar_carta_hover() -> CardUI:
 		if card_ui == null or not card_ui.is_visible_in_tree():
 			continue
 
-		if tweens_robo.has(card_ui):
+		if _esta_animando_robo(card_ui):
 			continue
 
 		if not posiciones_originales.has(card_ui):
@@ -189,12 +185,18 @@ func _es_carta_marcada(card_ui: CardUI) -> bool:
 		and card_ui == carta_ui_marcada
 	)
 
+func _esta_animando_robo(card_ui: CardUI) -> bool:
+	if not is_instance_valid(animador_cartas):
+		return false
+
+	return animador_cartas.esta_animando_robo(card_ui)
+	
 
 func _actualizar_estado_visual_carta(card_ui: CardUI) -> void:
 	if not is_instance_valid(card_ui):
 		return
 
-	if tweens_robo.has(card_ui):
+	if _esta_animando_robo(card_ui):
 		return
 
 	if (
@@ -265,80 +267,38 @@ func _animar_carta(
 
 	tweens_cartas[carta] = tween
 
+
 func _animar_entrada_carta(card_ui: CardUI) -> void:
-	if not is_instance_valid(origen_robo):
-		if not aviso_origen_robo:
-			push_warning("Mano: falta el origen de robo; se omite la animación.")
-			aviso_origen_robo = true
+	if not is_instance_valid(animador_cartas):
+		return
+
+	if not is_instance_valid(card_ui):
 		return
 
 	if not posiciones_originales.has(card_ui) or not rotaciones_originales.has(card_ui):
-		push_warning("Mano: carta sin distribución registrada; se omite la animación.")
+		push_warning("Mano: carta sin distribución registrada.")
 		return
 
 	var destino: Vector2 = posiciones_originales[card_ui]
 	var rotacion_final: float = rotaciones_originales[card_ui]
 
-	# Obtener el centro visual del mazo de robo.
-	var centro_mazo: Vector2 = (
-		origen_robo.get_global_transform()
-		* (origen_robo.size / 2.0)
-	)
-
-	# Convertir a coordenadas locales de la mano.
-	var origen: Vector2 = (
-		get_global_transform().affine_inverse()
-		* centro_mazo
-	)
-
-	# Compensar el pivote inferior de la carta.
-	card_ui.position = (
-		origen
-		- card_ui.pivot_offset
-		+ Vector2(0.0, alto_carta * escala_inicial_robo / 2.0)
-	)
-
-	card_ui.scale = Vector2.ONE * escala_inicial_robo
-	card_ui.rotation_degrees = 0.0
-	card_ui.permitir_arrastre = false
-
-	var tween := create_tween()
-
-	tween.set_parallel(true)
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.set_ease(Tween.EASE_OUT)
-
-	tween.tween_property(
+	var tween: Tween = animador_cartas.animar_robo(
 		card_ui,
-		"position",
 		destino,
-		duracion_robo
+		rotacion_final
 	)
 
-	tween.tween_property(
-		card_ui,
-		"scale",
-		Vector2.ONE,
-		duracion_robo
-	)
+	if tween == null:
+		return
 
-	tween.tween_property(
-		card_ui,
-		"rotation_degrees",
-		rotacion_final,
-		duracion_robo
-	)
-
-	tweens_robo[card_ui] = tween
+	card_ui.permitir_arrastre = false
 
 	tween.finished.connect(
 		func():
-			tweens_robo.erase(card_ui)
-
-			if is_instance_valid(card_ui):
+			if is_instance_valid(card_ui) and not mano_cerrada:
 				_actualizar_interaccion_cartas()
-				_actualizar_estado_visual_carta(card_ui))
-
+				_actualizar_estado_visual_carta(card_ui)
+	)
 # ============================================================
 # CONSTRUCCIÓN DE LA MANO
 # ============================================================
@@ -618,7 +578,7 @@ func _on_carta_clickeada(
 	if card_ui.get_parent() != self:
 		return
 
-	if tweens_robo.has(card_ui):
+	if _esta_animando_robo(card_ui):
 		return
 
 	carta_ui_marcada = card_ui
@@ -699,33 +659,21 @@ func _actualizar_interaccion_cartas() -> void:
 	for hijo in get_children():
 		if hijo is CardUI:
 			hijo.permitir_arrastre = (
-				modo_actual == ModoInteraccion.NORMAL
-				and not tweens_robo.has(hijo))
-
+				not mano_cerrada
+				and modo_actual == ModoInteraccion.NORMAL
+				and not _esta_animando_robo(hijo)
+			)
 # ============================================================
 # FINALIZACIÓN Y LIMPIEZA
 # ============================================================
 
 func finalizar_animaciones_robo() -> void:
-	for card_ui in tweens_robo.keys():
-		var tween: Tween = tweens_robo[card_ui]
-
-		if tween != null and tween.is_valid():
-			tween.kill()
-
-		if not is_instance_valid(card_ui):
-			continue
-
-		card_ui.scale = Vector2.ONE
-		if posiciones_originales.has(card_ui):
-			card_ui.position = posiciones_originales[card_ui]
-		if rotaciones_originales.has(card_ui):
-			card_ui.rotation_degrees = rotaciones_originales[card_ui]
-
-	tweens_robo.clear()
+	if is_instance_valid(animador_cartas):
+		animador_cartas.finalizar_animaciones_robo()
 
 	_actualizar_interaccion_cartas()
-
+	
+	
 func cerrar_mano() -> void:
 	mano_cerrada = true
 	version_mano += 1
