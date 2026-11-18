@@ -35,6 +35,11 @@ font = ExtResource("13_84vmf")
 font_size = 20
 font_color = Color(0.51372653, 0, 0.004793197, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_f856b"]
+font = ExtResource("6_n02j2")
+font_size = 30
+font_color = Color(0.7209681, 0.48510295, 0.06444969, 1)
+
 [node name="Node2D" type="Node2D" unique_id=1257884240]
 script = ExtResource("1_qf52c")
 
@@ -125,9 +130,9 @@ vertical_alignment = 1
 layout_mode = 3
 anchors_preset = 0
 offset_left = 332.0
-offset_top = 470.0
+offset_top = 488.0
 offset_right = 956.0
-offset_bottom = 694.0
+offset_bottom = 712.0
 script = ExtResource("12_wb0gu")
 
 [node name="AvisoCombate" type="Label" parent="CanvasLayer" unique_id=823369098]
@@ -173,6 +178,38 @@ label_settings = SubResource("LabelSettings_vunlk")
 layout_mode = 0
 offset_right = 253.0
 offset_bottom = 54.0
+
+[node name="UISeleccionDescarte" type="Control" parent="CanvasLayer" unique_id=492267532]
+visible = false
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -194.0
+offset_top = 119.0
+offset_right = 206.0
+offset_bottom = 229.0
+grow_horizontal = 2
+
+[node name="LabelInstruccion" type="Label" parent="CanvasLayer/UISeleccionDescarte" unique_id=2109041427]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 12.0
+offset_right = 397.0
+offset_bottom = 48.0
+text = "Seleccioná una carta para descartar"
+label_settings = SubResource("LabelSettings_f856b")
+horizontal_alignment = 1
+
+[node name="BtnConfirmarDescarte" type="Button" parent="CanvasLayer/UISeleccionDescarte" unique_id=1874133622]
+layout_mode = 0
+offset_left = 146.0
+offset_top = 62.0
+offset_right = 278.0
+offset_bottom = 125.0
+theme_override_fonts/font = ExtResource("13_84vmf")
+theme_override_font_sizes/font_size = 27
+text = "Confirmar"
 
 [node name="CardEffectResolver" type="Node" parent="." unique_id=1116298795]
 script = ExtResource("15_f856b")
