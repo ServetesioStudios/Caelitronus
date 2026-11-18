@@ -19,6 +19,11 @@ extends Node2D
 
 @onready var card_effect_resolver: CardEffectResolver = $CardEffectResolver
 
+@onready var label_mazo_robo: Label = $CanvasLayer/UIMazos/MazoRobo/LabelCantidad
+@onready var label_mazo_descarte: Label = $CanvasLayer/UIMazos/MazoDescarte/LabelCantidad
+
+@onready var origen_mazo_robo: TextureRect = ($CanvasLayer/UIMazos/MazoRobo/TextureRect)
+
 # ============================================================
 # VARIABLES
 # ============================================================
@@ -85,9 +90,21 @@ func _ready() -> void:
 	deck_manager.iniciar_mazo(
 		GameManager.crear_mazo_inicial(player.tipo_caelius)
 	)
+	
+	# Configurar animación de robo.
+	mano_ui.origen_robo = origen_mazo_robo
+
+	deck_manager.cartas_robadas.connect(
+		mano_ui.registrar_cartas_robadas
+	)
 
 	deck_manager.mano_actualizada.connect(
 		mano_ui.mostrar_mano
+	)
+	
+	deck_manager.mano_actualizada.connect(
+	func(_cartas: Array[CardData]) -> void:
+		_actualizar_contadores_mazos()
 	)
 
 	# Configurar resolver y validador.
@@ -539,6 +556,8 @@ func _on_combate_terminado(victoria: bool) -> void:
 	_cancelar_pago_pendiente()
 	
 	card_effect_resolver.cancelar_ejecucion()
+	
+	mano_ui.cerrar_mano()
 
 	if victoria and GameManager.enemy_data_encuentro != null:
 		var zona_id: String = GameManager.zona_id_encuentro
@@ -653,6 +672,11 @@ func mostrar_aviso(mensaje: String) -> void:
 	)
 
 
+func _actualizar_contadores_mazos() -> void:
+	label_mazo_robo.text = str(deck_manager.mazo_robo.size())
+	label_mazo_descarte.text = str(deck_manager.mazo_descarte.size())
+	
+
 # ============================================================
 # DEBUG
 # ============================================================
@@ -713,3 +737,7 @@ func _forzar_derrota_debug() -> void:
 	player.actualizar_barra_vida()
 
 	combat_manager.verificar_fin_combate()
+	
+	
+	
+	

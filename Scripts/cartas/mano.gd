@@ -2,7 +2,7 @@ extends Control
 
 const CARD_UI_SCENE := preload("res://Scenes/ui/card_ui.tscn")
 
-const COLOR_SELECCION := Color("#FFD700")
+const COLOR_SELECCION := Color("b29500ff")
 const COLOR_NO_JUGABLE := Color(0.45, 0.45, 0.45, 1.0)
 const Z_INDEX_ELEVADO := 100
 
@@ -35,23 +35,25 @@ signal carta_descarte_marcada(carta: CardData)
 @export_group("Tooltip")
 @export var retraso_tooltip: float = 0.4
 
-
+@export_group("Animación de robo")
+@export_range(0.05, 1.0, 0.01) var duracion_robo: float = 0.25
+@export_range(0.1, 1.0, 0.05) var escala_inicial_robo: float = 0.3
 # ============================================================
 # REFERENCIAS
 # ============================================================
 
-@onready var tooltip: CardTooltip = $"../CardTooltip"
+@onready var tooltip: CardTooltip = get_node_or_null("../CardTooltip") as CardTooltip
 
 @onready var ui_seleccion_descarte: Control = (
-	$"../UISeleccionDescarte"
+	get_node_or_null("../UISeleccionDescarte") as Control
 )
 
 @onready var label_instruccion: Label = (
-	$"../UISeleccionDescarte/LabelInstruccion"
+	get_node_or_null("../UISeleccionDescarte/LabelInstruccion") as Label
 )
 
 @onready var btn_confirmar_descarte: Button = (
-	$"../UISeleccionDescarte/BtnConfirmarDescarte"
+	get_node_or_null("../UISeleccionDescarte/BtnConfirmarDescarte") as Button
 )
 
 
@@ -64,7 +66,7 @@ var card_play_validator: CardPlayValidator
 var modo_actual: ModoInteraccion = ModoInteraccion.NORMAL
 
 var carta_hover: CardUI = null
-var carta_marcada_descarte: CardData = null
+var carta_ui_marcada: CardUI = null
 
 var seleccion_descarte_realizada: bool = false
 
@@ -79,6 +81,11 @@ var tweens_cartas: Dictionary = {}
 
 # Evita distribuir una reconstrucción anterior.
 var version_mano: int = 0
+var origen_robo: Control
+var cantidad_robadas_pendientes: int = 0
+var tweens_robo: Dictionary = {}
+var mano_cerrada: bool = false
+var aviso_origen_robo: bool = false
 
 
 # ============================================================
@@ -86,10 +93,16 @@ var version_mano: int = 0
 # ============================================================
 
 func _ready() -> void:
+	if not is_instance_valid(tooltip):
+		push_warning("Mano: falta CardTooltip; se omitirán los tooltips.")
+	if not _ui_descarte_valida():
+		push_error("Mano: faltan nodos de UISeleccionDescarte.")
+		return
 	btn_confirmar_descarte.pressed.connect(confirmar_descarte)
 
-	ui_seleccion_descarte.hide()
-	btn_confirmar_descarte.disabled = true
+	if _ui_descarte_valida():
+		ui_seleccion_descarte.hide()
+		btn_confirmar_descarte.disabled = true
 
 
 # ============================================================
@@ -97,6 +110,8 @@ func _ready() -> void:
 # ============================================================
 
 func _process(delta: float) -> void:
+	if mano_cerrada or not is_visible_in_tree():
+		return
 	if posiciones_originales.is_empty():
 		return
 
@@ -121,7 +136,10 @@ func _detectar_carta_hover() -> CardUI:
 	for i in range(cartas.size() - 1, -1, -1):
 		var card_ui := cartas[i] as CardUI
 
-		if card_ui == null:
+		if card_ui == null or not card_ui.is_visible_in_tree():
+			continue
+
+		if tweens_robo.has(card_ui):
 			continue
 
 		if not posiciones_originales.has(card_ui):
@@ -167,8 +185,8 @@ func _cambiar_hover(nueva_carta: CardUI) -> void:
 func _es_carta_marcada(card_ui: CardUI) -> bool:
 	return (
 		modo_actual == ModoInteraccion.SELECCIONAR_DESCARTE
-		and carta_marcada_descarte != null
-		and card_ui.carta == carta_marcada_descarte
+		and is_instance_valid(carta_ui_marcada)
+		and card_ui == carta_ui_marcada
 	)
 
 
@@ -176,13 +194,19 @@ func _actualizar_estado_visual_carta(card_ui: CardUI) -> void:
 	if not is_instance_valid(card_ui):
 		return
 
-	if not posiciones_originales.has(card_ui):
+	if tweens_robo.has(card_ui):
+		return
+
+	if (
+		not posiciones_originales.has(card_ui)
+		or not rotaciones_originales.has(card_ui)
+		or not indices_originales.has(card_ui)
+	):
 		return
 
 	var elevada: bool = (
 		card_ui == carta_hover
-		or _es_carta_marcada(card_ui)
-	)
+		or _es_carta_marcada(card_ui))
 
 	var posicion: Vector2 = posiciones_originales[card_ui]
 	var rotacion: float = rotaciones_originales[card_ui]
@@ -206,12 +230,11 @@ func _animar_carta(
 	carta: CardUI,
 	destino: Vector2,
 	rotacion: float,
-	indice: int
-) -> void:
+	indice: int) -> void:
 	if tweens_cartas.has(carta):
 		var tween_anterior: Tween = tweens_cartas[carta]
 
-		if tween_anterior != null and tween_anterior.is_running():
+		if tween_anterior != null and tween_anterior.is_valid():
 			tween_anterior.kill()
 
 	carta.z_index = indice
@@ -242,23 +265,122 @@ func _animar_carta(
 
 	tweens_cartas[carta] = tween
 
+func _animar_entrada_carta(card_ui: CardUI) -> void:
+	if not is_instance_valid(origen_robo):
+		if not aviso_origen_robo:
+			push_warning("Mano: falta el origen de robo; se omite la animación.")
+			aviso_origen_robo = true
+		return
+
+	if not posiciones_originales.has(card_ui) or not rotaciones_originales.has(card_ui):
+		push_warning("Mano: carta sin distribución registrada; se omite la animación.")
+		return
+
+	var destino: Vector2 = posiciones_originales[card_ui]
+	var rotacion_final: float = rotaciones_originales[card_ui]
+
+	# Obtener el centro visual del mazo de robo.
+	var centro_mazo: Vector2 = (
+		origen_robo.get_global_transform()
+		* (origen_robo.size / 2.0)
+	)
+
+	# Convertir a coordenadas locales de la mano.
+	var origen: Vector2 = (
+		get_global_transform().affine_inverse()
+		* centro_mazo
+	)
+
+	# Compensar el pivote inferior de la carta.
+	card_ui.position = (
+		origen
+		- card_ui.pivot_offset
+		+ Vector2(0.0, alto_carta * escala_inicial_robo / 2.0)
+	)
+
+	card_ui.scale = Vector2.ONE * escala_inicial_robo
+	card_ui.rotation_degrees = 0.0
+	card_ui.permitir_arrastre = false
+
+	var tween := create_tween()
+
+	tween.set_parallel(true)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_ease(Tween.EASE_OUT)
+
+	tween.tween_property(
+		card_ui,
+		"position",
+		destino,
+		duracion_robo
+	)
+
+	tween.tween_property(
+		card_ui,
+		"scale",
+		Vector2.ONE,
+		duracion_robo
+	)
+
+	tween.tween_property(
+		card_ui,
+		"rotation_degrees",
+		rotacion_final,
+		duracion_robo
+	)
+
+	tweens_robo[card_ui] = tween
+
+	tween.finished.connect(
+		func():
+			tweens_robo.erase(card_ui)
+
+			if is_instance_valid(card_ui):
+				_actualizar_interaccion_cartas()
+				_actualizar_estado_visual_carta(card_ui))
 
 # ============================================================
 # CONSTRUCCIÓN DE LA MANO
 # ============================================================
 
 func mostrar_mano(cartas: Array[CardData]) -> void:
+	if mano_cerrada:
+		return
 	version_mano += 1
 	var version_actual: int = version_mano
 
+	var cantidad_nuevas: int = mini(
+		cantidad_robadas_pendientes,
+		cartas.size()
+	)
+
+	cantidad_robadas_pendientes = 0
+
+	var primer_indice_nuevo: int = (
+		cartas.size() - cantidad_nuevas
+	)
+
 	_limpiar_cartas_visuales()
 
-	for carta in cartas:
-		var card_ui := CARD_UI_SCENE.instantiate() as CardUI
+	for i in range(cartas.size()):
+		var carta: CardData = cartas[i]
+		if carta == null:
+			push_warning("Mano: se recibió una carta nula; se omite.")
+			continue
+		var instancia := CARD_UI_SCENE.instantiate()
+		var card_ui := instancia as CardUI
+		if card_ui == null:
+			instancia.free()
+			push_error("Mano: card_ui.tscn no tiene una raíz CardUI.")
+			break
+		card_ui.set_meta("robo_nuevo", i >= primer_indice_nuevo)
 
+		card_ui.hide()
 		add_child(card_ui)
 
-		card_ui.carta_clickeada.connect(_on_carta_clickeada)
+		card_ui.carta_clickeada.connect(
+			_on_carta_clickeada.bind(card_ui)
+		)
 
 		card_ui.permitir_arrastre = (
 			modo_actual == ModoInteraccion.NORMAL
@@ -283,15 +405,38 @@ func mostrar_mano(cartas: Array[CardData]) -> void:
 	if version_actual != version_mano:
 		return
 
+	if not is_visible_in_tree():
+		return
+
 	_distribuir_cartas()
+
+	var cartas_visuales := obtener_cartas_visuales()
+
+	for i in range(cartas_visuales.size()):
+		var card_ui: CardUI = cartas_visuales[i]
+
+		if (
+			bool(card_ui.get_meta("robo_nuevo", false))
+			and modo_actual == ModoInteraccion.NORMAL
+		):
+			_animar_entrada_carta(card_ui)
+
+		card_ui.remove_meta("robo_nuevo")
+		card_ui.show()
 
 
 func _limpiar_cartas_visuales() -> void:
+	finalizar_animaciones_robo()
 	_ocultar_tooltip()
+
 	carta_hover = null
+	carta_ui_marcada = null
+
+	if is_instance_valid(btn_confirmar_descarte):
+		btn_confirmar_descarte.disabled = true
 
 	for tween in tweens_cartas.values():
-		if tween != null and tween.is_running():
+		if tween != null and tween.is_valid():
 			tween.kill()
 
 	tweens_cartas.clear()
@@ -304,81 +449,39 @@ func _limpiar_cartas_visuales() -> void:
 		if hijo is CardUI:
 			remove_child(hijo)
 			hijo.queue_free()
-
+					
+			
+func registrar_cartas_robadas(cartas: Array[CardData]) -> void:
+	cantidad_robadas_pendientes = cartas.size()
 
 # ============================================================
 # DISTRIBUCIÓN DE CARTAS
 # ============================================================
 
 func _distribuir_cartas() -> void:
-	var cartas: Array[CardUI] = []
-
+	var cartas: Array[CardUI] = obtener_cartas_visuales()
 	posiciones_originales.clear()
 	rotaciones_originales.clear()
 	indices_originales.clear()
 
-	for hijo in get_children():
-		if hijo is CardUI:
-			cartas.append(hijo)
-
 	var cantidad: int = cartas.size()
-
 	if cantidad == 0:
 		return
 
-	var ancho_total: float = (
-		ancho_carta + (cantidad - 1) * separacion
-	)
-
-	var inicio_x: float = (
-		size.x - ancho_total
-	) / 2.0
-
-	var base_y: float = (
-		size.y - alto_carta - 35.0
-	)
+	var ancho_total: float = ancho_carta + (cantidad - 1) * separacion
+	var inicio_x: float = (size.x - ancho_total) / 2.0
+	var base_y: float = size.y - alto_carta - 35.0
 
 	for i in range(cantidad):
 		var card_ui: CardUI = cartas[i]
-
 		var t: float = 0.0
-
 		if cantidad > 1:
-			t = (
-				float(i) - float(cantidad - 1) / 2.0
-			) / (
-				float(cantidad - 1) / 2.0
-			)
+			t = (float(i) - float(cantidad - 1) / 2.0) / (float(cantidad - 1) / 2.0)
 
-		var desplazamiento_y: float = (
-			t * t * altura_arco
-		)
-
-		var posicion_x: float = (
-			inicio_x + i * separacion
-		)
-
-		var posicion_y: float = (
-			base_y + desplazamiento_y
-		)
-
-		card_ui.pivot_offset = Vector2(
-			ancho_carta / 2.0,
-			alto_carta
-		)
-
-		card_ui.position = Vector2(
-			posicion_x,
-			posicion_y
-		)
-
-		card_ui.rotation_degrees = (
-			t * rotacion_maxima
-		)
-
-		card_ui.z_index = (
-			cantidad - absi(i - int(cantidad / 2))
-		)
+		card_ui.pivot_offset = Vector2(ancho_carta / 2.0, alto_carta)
+		card_ui.position = Vector2(inicio_x + i * separacion, base_y + t * t * altura_arco)
+		card_ui.rotation_degrees = t * rotacion_maxima
+		card_ui.z_index = cantidad - absi(i - int(cantidad / 2.0))
 
 		posiciones_originales[card_ui] = card_ui.position
 		rotaciones_originales[card_ui] = card_ui.rotation_degrees
@@ -386,6 +489,15 @@ func _distribuir_cartas() -> void:
 
 	_actualizar_estado_visual_todas()
 
+
+func obtener_cartas_visuales() -> Array[CardUI]:
+	var cartas: Array[CardUI] = []
+
+	for hijo in get_children():
+		if hijo is CardUI:
+			cartas.append(hijo)
+
+	return cartas
 
 # ============================================================
 # DISPONIBILIDAD Y COLORES
@@ -428,10 +540,13 @@ func _actualizar_disponibilidad(card_ui: CardUI) -> void:
 func _ocultar_tooltip() -> void:
 	tiempo_hover = 0.0
 	tooltip_visible = false
-	tooltip.ocultar()
+	if is_instance_valid(tooltip):
+		tooltip.ocultar()
 
 
 func _mostrar_tooltip() -> void:
+	if not is_instance_valid(tooltip):
+		return
 	if not is_instance_valid(carta_hover):
 		return
 
@@ -467,10 +582,14 @@ func _mostrar_tooltip() -> void:
 # ============================================================
 
 func iniciar_seleccion_descarte() -> void:
+	if mano_cerrada or not _ui_descarte_valida():
+		call_deferred("_notificar_descarte_no_disponible")
+		return
+	finalizar_animaciones_robo()
 	modo_actual = ModoInteraccion.SELECCIONAR_DESCARTE
 
 	seleccion_descarte_realizada = false
-	carta_marcada_descarte = null
+	carta_ui_marcada = null
 
 	label_instruccion.text = (
 		"Seleccioná una carta para descartar"
@@ -484,17 +603,25 @@ func iniciar_seleccion_descarte() -> void:
 	_actualizar_estado_visual_todas()
 
 
-func _on_carta_clickeada(carta: CardData) -> void:
+func _on_carta_clickeada(
+	carta: CardData,
+	card_ui: CardUI) -> void:
 	if modo_actual != ModoInteraccion.SELECCIONAR_DESCARTE:
 		return
 
 	if seleccion_descarte_realizada:
 		return
 
-	if carta == null:
+	if carta == null or not is_instance_valid(card_ui):
 		return
 
-	carta_marcada_descarte = carta
+	if card_ui.get_parent() != self:
+		return
+
+	if tweens_robo.has(card_ui):
+		return
+
+	carta_ui_marcada = card_ui
 
 	btn_confirmar_descarte.disabled = false
 
@@ -511,13 +638,22 @@ func confirmar_descarte() -> void:
 	if seleccion_descarte_realizada:
 		return
 
-	if carta_marcada_descarte == null:
+	if not is_instance_valid(carta_ui_marcada):
+		return
+
+	if carta_ui_marcada.get_parent() != self:
+		return
+
+	var carta: CardData = carta_ui_marcada.carta
+
+	if carta == null:
+		push_warning("Mano: la carta seleccionada no tiene CardData.")
 		return
 
 	seleccion_descarte_realizada = true
 	btn_confirmar_descarte.disabled = true
 
-	seleccion_descarte_resuelta.emit(carta_marcada_descarte)
+	seleccion_descarte_resuelta.emit(carta)
 
 
 func finalizar_seleccion_descarte() -> void:
@@ -536,14 +672,23 @@ func cancelar_seleccion_descarte() -> void:
 	seleccion_descarte_resuelta.emit(null)
 
 
+func _ui_descarte_valida() -> bool:
+	return (
+		is_instance_valid(ui_seleccion_descarte)
+		and is_instance_valid(label_instruccion)
+		and is_instance_valid(btn_confirmar_descarte)
+	)
+
+
 func _restaurar_modo_normal() -> void:
 	modo_actual = ModoInteraccion.NORMAL
 
-	carta_marcada_descarte = null
+	carta_ui_marcada = null
 	seleccion_descarte_realizada = false
 
-	ui_seleccion_descarte.hide()
-	btn_confirmar_descarte.disabled = true
+	if _ui_descarte_valida():
+		ui_seleccion_descarte.hide()
+		btn_confirmar_descarte.disabled = true
 
 	_actualizar_interaccion_cartas()
 	actualizar_disponibilidad_todas()
@@ -551,10 +696,47 @@ func _restaurar_modo_normal() -> void:
 
 
 func _actualizar_interaccion_cartas() -> void:
-	var permitir: bool = (
-		modo_actual == ModoInteraccion.NORMAL
-	)
-
 	for hijo in get_children():
 		if hijo is CardUI:
-			hijo.permitir_arrastre = permitir
+			hijo.permitir_arrastre = (
+				modo_actual == ModoInteraccion.NORMAL
+				and not tweens_robo.has(hijo))
+
+# ============================================================
+# FINALIZACIÓN Y LIMPIEZA
+# ============================================================
+
+func finalizar_animaciones_robo() -> void:
+	for card_ui in tweens_robo.keys():
+		var tween: Tween = tweens_robo[card_ui]
+
+		if tween != null and tween.is_valid():
+			tween.kill()
+
+		if not is_instance_valid(card_ui):
+			continue
+
+		card_ui.scale = Vector2.ONE
+		if posiciones_originales.has(card_ui):
+			card_ui.position = posiciones_originales[card_ui]
+		if rotaciones_originales.has(card_ui):
+			card_ui.rotation_degrees = rotaciones_originales[card_ui]
+
+	tweens_robo.clear()
+
+	_actualizar_interaccion_cartas()
+
+func cerrar_mano() -> void:
+	mano_cerrada = true
+	version_mano += 1
+	cantidad_robadas_pendientes = 0
+
+	_limpiar_cartas_visuales()
+	if _ui_descarte_valida():
+		ui_seleccion_descarte.hide()
+	hide()
+	set_process(false)
+
+
+func _notificar_descarte_no_disponible() -> void:
+	seleccion_descarte_resuelta.emit(null)

@@ -2,6 +2,7 @@ class_name DeckManager
 extends Node
 
 signal mano_actualizada(mano: Array[CardData])
+signal cartas_robadas(cartas: Array[CardData])
 
 const TAMANO_MANO := 5
 
@@ -36,6 +37,8 @@ func robar_cartas(cantidad: int) -> void:
 
 
 func _robar(cantidad: int) -> void:
+	var nuevas_cartas: Array[CardData] = []
+
 	for i in range(cantidad):
 		if mazo_robo.is_empty():
 			_reciclar_descarte()
@@ -47,11 +50,15 @@ func _robar(cantidad: int) -> void:
 
 		if mano.size() < TAMANO_MANO:
 			mano.append(carta_robada)
+			nuevas_cartas.append(carta_robada)
 		else:
 			mazo_descarte.append(carta_robada)
 
-	mano_actualizada.emit(mano)
+	if not nuevas_cartas.is_empty():
+		cartas_robadas.emit(nuevas_cartas)
 
+	mano_actualizada.emit(mano)
+	
 
 func _descartar_mano() -> void:
 	mazo_descarte.append_array(mano)

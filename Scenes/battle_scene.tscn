@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://3hhe153qj06q" path="res://Scripts/cartas/mano.gd" id="12_wb0gu"]
 [ext_resource type="PackedScene" uid="uid://bawy2i5frvt6e" path="res://Scenes/ui/card_tooltip.tscn" id="12_xdap8"]
 [ext_resource type="FontFile" uid="uid://dxuqp4jcmwft0" path="res://Assets/Fonts/PirataOne-Regular.ttf" id="13_84vmf"]
+[ext_resource type="Texture2D" uid="uid://w4sc1l7n18r8" path="res://Assets/Cartas/reverso_carta_temporal.png" id="15_778cw"]
 [ext_resource type="Script" uid="uid://bpt2akw4jpheo" path="res://Scripts/cartas/card_effect_resolver.gd" id="15_f856b"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ms847"]
@@ -40,6 +41,18 @@ font = ExtResource("6_n02j2")
 font_size = 30
 font_color = Color(0.7209681, 0.48510295, 0.06444969, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_778cw"]
+font = ExtResource("6_n02j2")
+font_size = 25
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vuvll"]
+font = ExtResource("6_n02j2")
+font_size = 25
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 1)
+
 [node name="Node2D" type="Node2D" unique_id=1257884240]
 script = ExtResource("1_qf52c")
 
@@ -55,6 +68,11 @@ metadata/_custom_type_script = "uid://c4jqqidawt18b"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=713179635]
 
+[node name="BonefieldMvt" type="Sprite2D" parent="CanvasLayer" unique_id=180617224]
+position = Vector2(642, 358.5)
+scale = Vector2(1.2859999, 0.97432435)
+texture = ExtResource("1_bxpjm")
+
 [node name="DropZone" type="Control" parent="CanvasLayer" unique_id=1675579401 groups=["DropZones"]]
 layout_mode = 3
 anchors_preset = 0
@@ -66,13 +84,8 @@ script = ExtResource("8_ms847")
 fuente_mensaje = ExtResource("13_84vmf")
 tamano_fuente = 20
 
-[node name="BonefieldMvt" type="Sprite2D" parent="CanvasLayer" unique_id=180617224]
-position = Vector2(642, 358.5)
-scale = Vector2(1.2859999, 0.97432435)
-texture = ExtResource("1_bxpjm")
-
 [node name="player" parent="CanvasLayer" unique_id=182385245 instance=ExtResource("2_4ohde")]
-position = Vector2(72, 72)
+position = Vector2(33, 41)
 
 [node name="papelcombate" type="TextureRect" parent="CanvasLayer" unique_id=172119596]
 offset_left = 306.0
@@ -101,10 +114,10 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="BtnFinTurno" type="Button" parent="CanvasLayer" unique_id=1579586428]
-offset_left = 1067.0
-offset_top = 635.0
-offset_right = 1172.0
-offset_bottom = 683.0
+offset_left = 1066.0
+offset_top = 631.0
+offset_right = 1171.0
+offset_bottom = 679.0
 
 [node name="Label" type="Label" parent="CanvasLayer/BtnFinTurno" unique_id=1516580355]
 layout_mode = 1
@@ -210,6 +223,63 @@ offset_bottom = 125.0
 theme_override_fonts/font = ExtResource("13_84vmf")
 theme_override_font_sizes/font_size = 27
 text = "Confirmar"
+
+[node name="UIMazos" type="Control" parent="CanvasLayer" unique_id=363633037]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MazoRobo" type="Control" parent="CanvasLayer/UIMazos" unique_id=21523853]
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 484.0
+offset_right = 110.0
+offset_bottom = 598.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UIMazos/MazoRobo" unique_id=491759668]
+layout_mode = 0
+offset_left = -12.999992
+offset_top = 31.999996
+offset_right = 435.0
+offset_bottom = 772.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("15_778cw")
+
+[node name="LabelCantidad" type="Label" parent="CanvasLayer/UIMazos/MazoRobo" unique_id=174631989]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 74.0
+offset_right = 31.0
+offset_bottom = 106.0
+text = "20"
+label_settings = SubResource("LabelSettings_778cw")
+
+[node name="MazoDescarte" type="Control" parent="CanvasLayer/UIMazos" unique_id=338894083]
+anchors_preset = 0
+offset_left = 1169.0
+offset_top = 503.0
+offset_right = 1264.0
+offset_bottom = 598.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UIMazos/MazoDescarte" unique_id=347340848]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 16.0
+offset_right = 485.0
+offset_bottom = 756.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("15_778cw")
+
+[node name="LabelCantidad" type="Label" parent="CanvasLayer/UIMazos/MazoDescarte" unique_id=1205149607]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 61.0
+offset_right = 79.0
+offset_bottom = 94.0
+text = "20"
+label_settings = SubResource("LabelSettings_vuvll")
+horizontal_alignment = 2
 
 [node name="CardEffectResolver" type="Node" parent="." unique_id=1116298795]
 script = ExtResource("15_f856b")
