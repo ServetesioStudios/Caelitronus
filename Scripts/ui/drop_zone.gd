@@ -1,6 +1,6 @@
 extends Control
 
-signal carta_soltada(carta: CardData, posicion_global: Vector2)
+signal carta_soltada(card_ui: CardUI, posicion_global: Vector2)
 
 
 # ============================================================
@@ -35,10 +35,17 @@ func _ready() -> void:
 # ============================================================
 
 func _can_drop_data(_at_position: Vector2, data) -> bool:
-	return data is CardData
+	return (
+		is_instance_valid(data)
+		and data is CardUI
+		and data.carta != null
+	)
 
 
 func _drop_data(_at_position: Vector2, data) -> void:
+	if not _can_drop_data(_at_position, data):
+		return
+
 	carta_soltada.emit(
 		data,
 		get_global_mouse_position()

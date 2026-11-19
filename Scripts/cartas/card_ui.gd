@@ -129,7 +129,7 @@ func _get_drag_data(_position):
 
 	self_modulate.a = 0.4
 
-	return carta
+	return self
 
 
 func _notification(what):

@@ -12,7 +12,7 @@ enum ModoInteraccion {
 }
 
 signal carta_seleccionada(carta: CardData)
-signal seleccion_descarte_resuelta(carta: CardData)
+signal seleccion_descarte_resuelta(card_ui: CardUI)
 signal carta_descarte_marcada(carta: CardData)
 
 
@@ -334,6 +334,7 @@ func mostrar_mano(cartas: Array[CardData]) -> void:
 			push_error("Mano: card_ui.tscn no tiene una raíz CardUI.")
 			break
 		card_ui.set_meta("robo_nuevo", i >= primer_indice_nuevo)
+		card_ui.set_meta("indice_mano", i)
 
 		card_ui.hide()
 		add_child(card_ui)
@@ -459,6 +460,18 @@ func obtener_cartas_visuales() -> Array[CardUI]:
 
 	return cartas
 
+
+func obtener_indice_carta(card_ui: CardUI) -> int:
+	if not is_instance_valid(card_ui):
+		return -1
+
+	if card_ui.is_queued_for_deletion():
+		return -1
+
+	if card_ui.get_parent() != self:
+		return -1
+
+	return int(card_ui.get_meta("indice_mano", -1))
 # ============================================================
 # DISPONIBILIDAD Y COLORES
 # ============================================================
@@ -598,24 +611,21 @@ func confirmar_descarte() -> void:
 	if seleccion_descarte_realizada:
 		return
 
-	if not is_instance_valid(carta_ui_marcada):
+	if obtener_indice_carta(carta_ui_marcada) == -1:
 		return
 
-	if carta_ui_marcada.get_parent() != self:
-		return
-
-	var carta: CardData = carta_ui_marcada.carta
-
-	if carta == null:
-		push_warning("Mano: la carta seleccionada no tiene CardData.")
+	if carta_ui_marcada.carta == null:
+		push_warning(
+			"Mano: la carta seleccionada no tiene CardData."
+		)
 		return
 
 	seleccion_descarte_realizada = true
 	btn_confirmar_descarte.disabled = true
 
-	seleccion_descarte_resuelta.emit(carta)
-
-
+	seleccion_descarte_resuelta.emit(carta_ui_marcada)
+	
+	
 func finalizar_seleccion_descarte() -> void:
 	_restaurar_modo_normal()
 

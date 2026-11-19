@@ -31,19 +31,21 @@ func puede_ejecutarse(contexto: CardEffectContext) -> bool:
 func ejecutar(
 	contexto: CardEffectContext,
 	_fuente: CombatEntity,
-	_objetivo: CombatEntity) -> void:
+	_objetivo: CombatEntity
+) -> void:
 
 	# Descartar las cartas seleccionadas.
 	for i in range(cantidad_descartar):
-		var carta: CardData = await contexto.solicitar_descarte()
+		var card_ui: CardUI = await contexto.solicitar_descarte()
 
-		if carta == null:
+		if not is_instance_valid(card_ui):
 			push_warning(
 				"DrawDiscardEffectData: no se pudo seleccionar una carta."
 			)
 			return
 
-		contexto.descartar_carta(carta)
+		if not contexto.descartar_carta(card_ui):
+			return
 
 	# Robar después de completar el descarte.
 	if cantidad_robar > 0:

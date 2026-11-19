@@ -22,14 +22,32 @@ func iniciar_turno() -> void:
 	_descartar_mano()
 	_robar(TAMANO_MANO)
 
-func descartar_carta(carta: CardData) -> void:
-	if carta in mano:
-		mano.erase(carta)
-		mazo_descarte.append(carta)
-		mano_actualizada.emit(mano)
+func descartar_carta(
+	indice: int,
+	carta: CardData
+) -> bool:
+
+	if not es_carta_en_indice(indice, carta):
+		push_warning(
+			"DeckManager: índice de descarte inválido."
+		)
+		return false
+
+	var carta_descartada: CardData = mano[indice]
+
+	mano.remove_at(indice)
+	mazo_descarte.append(carta_descartada)
+
+	mano_actualizada.emit(mano)
+
+	return true
+	
 		
-func jugar_carta(carta: CardData) -> void:
-	descartar_carta(carta)
+func jugar_carta(
+	indice: int,
+	carta: CardData) -> bool:
+
+	return descartar_carta(indice, carta)
 
 
 func robar_cartas(cantidad: int) -> void: 
@@ -68,3 +86,17 @@ func _reciclar_descarte() -> void:
 	mazo_robo = mazo_descarte.duplicate()
 	mazo_robo.shuffle()
 	mazo_descarte.clear()
+	
+	
+func es_carta_en_indice(
+	indice: int,
+	carta: CardData
+) -> bool:
+
+	if indice < 0 or indice >= mano.size():
+		return false
+
+	if carta == null:
+		return false
+
+	return mano[indice] == carta

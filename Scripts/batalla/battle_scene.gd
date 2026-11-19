@@ -35,6 +35,7 @@ var arrastrando_carta: bool = false
 
 # Carta pendiente de pago con éteres genéricos.
 var carta_pendiente: CardData = null
+var carta_ui_pendiente: CardUI = null
 var objetivo_pendiente: CombatEntity = null
 
 var tween_aviso: Tween
@@ -230,10 +231,10 @@ func crear_enemigo_combate() -> Enemy:
 func _process(_delta: float) -> void:
 	var drag_data = get_viewport().gui_get_drag_data()
 
-	if drag_data is CardData:
+	if drag_data is CardUI and is_instance_valid(drag_data):
 		if not arrastrando_carta:
 			arrastrando_carta = true
-			_actualizar_gris_por_carta(drag_data)
+			_actualizar_gris_por_carta(drag_data.carta)
 	else:
 		if arrastrando_carta:
 			arrastrando_carta = false
@@ -284,13 +285,22 @@ func _set_gris(entidad: CombatEntity, activar: bool) -> void:
 # ============================================================
 
 func _on_carta_soltada(
-	carta: CardData,
+	card_ui: CardUI,
 	posicion_global: Vector2
 ) -> void:
+
 	if card_effect_resolver.ejecutando:
 		return
 
 	if carta_pendiente != null:
+		return
+
+	if not is_instance_valid(card_ui):
+		return
+
+	var carta: CardData = card_ui.carta
+
+	if not _carta_ui_valida(card_ui, carta):
 		return
 
 	var objetivo := _resolver_objetivo(
@@ -301,16 +311,14 @@ func _on_carta_soltada(
 	if objetivo == null:
 		return
 
-	intentar_jugar_carta(carta, objetivo)
+	intentar_jugar_carta(carta, objetivo, card_ui)
 
 	# Mantener visible la carta durante el pago genérico.
-	if carta_pendiente == carta:
+	if carta_ui_pendiente == card_ui:
 		zona_drop.mostrar_carta_pendiente(
 			carta,
 			posicion_global
 		)
-
-
 # ============================================================
 # RESOLUCIÓN DE OBJETIVOS
 # ============================================================
@@ -371,10 +379,14 @@ func _entidad_mas_cercana(
 
 func solicitar_pago_eter(
 	carta: CardData,
-	objetivo: CombatEntity
+	objetivo: CombatEntity,
+	card_ui: CardUI
 ) -> void:
 
 	if carta_pendiente != null:
+		return
+
+	if not _carta_ui_valida(card_ui, carta):
 		return
 
 	if carta.costo_eter == null:
@@ -387,6 +399,7 @@ func solicitar_pago_eter(
 		return
 
 	carta_pendiente = carta
+	carta_ui_pendiente = card_ui
 	objetivo_pendiente = objetivo
 
 	var reservados: Array[int] = (
@@ -401,7 +414,6 @@ func solicitar_pago_eter(
 	)
 
 	mano_ui.actualizar_disponibilidad_todas()
-
 
 func _on_seleccion_eter_actualizada(
 	indices: Array[int]
@@ -421,7 +433,12 @@ func _on_seleccion_eter_actualizada(
 		return
 
 	var carta: CardData = carta_pendiente
+	var card_ui: CardUI = carta_ui_pendiente
 	var objetivo: CombatEntity = objetivo_pendiente
+
+	if not _carta_ui_valida(card_ui, carta):
+		_cancelar_pago_pendiente()
+		return
 
 	if not is_instance_valid(objetivo):
 		_cancelar_pago_pendiente()
@@ -445,11 +462,11 @@ func _on_seleccion_eter_actualizada(
 		return
 
 	_cancelar_pago_pendiente()
-	_ejecutar_carta(carta, objetivo)
-
+	_ejecutar_carta(carta, objetivo, card_ui)
 
 func _cancelar_pago_pendiente() -> void:
 	carta_pendiente = null
+	carta_ui_pendiente = null
 	objetivo_pendiente = null
 
 	zona_drop.ocultar_carta_pendiente()
@@ -458,15 +475,18 @@ func _cancelar_pago_pendiente() -> void:
 	if card_play_validator != null:
 		mano_ui.actualizar_disponibilidad_todas()
 
-
 # ============================================================
 # VALIDACIÓN Y EJECUCIÓN DE CARTAS
 # ============================================================
 
 func intentar_jugar_carta(
 	carta: CardData,
-	objetivo: CombatEntity
+	objetivo: CombatEntity,
+	card_ui: CardUI
 ) -> void:
+
+	if not _carta_ui_valida(card_ui, carta):
+		return
 
 	if not card_play_validator.puede_jugar(
 		carta,
@@ -485,7 +505,7 @@ func intentar_jugar_carta(
 
 	# Solicitar selección de éteres genéricos.
 	if carta.costo_eter.generico > 0:
-		solicitar_pago_eter(carta, objetivo)
+		solicitar_pago_eter(carta, objetivo, card_ui)
 		return
 
 	# Pagar éteres específicos.
@@ -498,21 +518,29 @@ func intentar_jugar_carta(
 		)
 		return
 
-	_ejecutar_carta(carta, objetivo)
-
-
+	_ejecutar_carta(carta, objetivo, card_ui)
+	
+	
 func _ejecutar_carta(
 	carta: CardData,
-	objetivo: CombatEntity
+	objetivo: CombatEntity,
+	card_ui: CardUI
 ) -> void:
 
 	if card_effect_resolver.ejecutando:
 		return
 
+	if not _carta_ui_valida(card_ui, carta):
+		return
+
+	var indice: int = mano_ui.obtener_indice_carta(card_ui)
+
 	btn_fin_turno.disabled = true
 
-	# Retirar la carta de la mano.
-	deck_manager.jugar_carta(carta)
+	# Retirar la copia exacta de la mano.
+	if not deck_manager.jugar_carta(indice, carta):
+		btn_fin_turno.disabled = not combat_manager.es_turno_jugador()
+		return
 
 	# Reproducir animación.
 	if not carta.animacion.is_empty():
@@ -529,8 +557,7 @@ func _ejecutar_carta(
 
 
 func _on_carta_finalizada(
-	_carta: CardData
-) -> void:
+	_carta: CardData) -> void:
 
 	combat_manager.verificar_fin_combate()
 
@@ -540,6 +567,29 @@ func _on_carta_finalizada(
 	mano_ui.actualizar_disponibilidad_todas()
 
 
+func _carta_ui_valida(
+	card_ui: CardUI,
+	carta: CardData
+) -> bool:
+
+	if not is_instance_valid(card_ui):
+		return false
+
+	if card_ui.is_queued_for_deletion():
+		return false
+
+	if card_ui.get_parent() != mano_ui:
+		return false
+
+	if carta == null or card_ui.carta != carta:
+		return false
+
+	var indice: int = mano_ui.obtener_indice_carta(card_ui)
+
+	return deck_manager.es_carta_en_indice(
+		indice,
+		carta
+	)
 # ============================================================
 # EVENTOS DEL COMBATE
 # ============================================================

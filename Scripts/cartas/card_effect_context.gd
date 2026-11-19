@@ -34,16 +34,32 @@ func robar_cartas(cantidad: int) -> void:
 	deck_manager.robar_cartas(cantidad)
 
 
-func descartar_carta(carta: CardData) -> void:
-	deck_manager.descartar_carta(carta)
+func descartar_carta(card_ui: CardUI) -> bool:
+	if cancelado:
+		return false
 
+	if not is_instance_valid(mano_ui):
+		cancelado = true
+		return false
+
+	if not is_instance_valid(card_ui):
+		cancelado = true
+		return false
+
+	var indice: int = mano_ui.obtener_indice_carta(card_ui)
+
+	if not deck_manager.descartar_carta(indice, card_ui.carta):
+		cancelado = true
+		return false
+
+	return true
 
 # ============================================================
 # SELECCIÓN INTERACTIVA
 # ============================================================
 
 
-func solicitar_descarte() -> CardData:
+func solicitar_descarte() -> CardUI:
 	if cancelado:
 		return null
 
@@ -60,25 +76,29 @@ func solicitar_descarte() -> CardData:
 
 	mano_ui.iniciar_seleccion_descarte()
 
-	var carta: CardData = await mano_ui.seleccion_descarte_resuelta
+	var card_ui: CardUI = await mano_ui.seleccion_descarte_resuelta
 
-	# La ejecución pudo cancelarse mientras esperábamos.
 	if cancelado:
 		return null
 
-	# La interfaz pudo desaparecer.
 	if not is_instance_valid(mano_ui):
 		cancelado = true
 		return null
 
 	mano_ui.finalizar_seleccion_descarte()
 
-	if carta == null or not carta in deck_manager.mano:
+	if not is_instance_valid(card_ui):
 		cancelado = true
 		return null
 
-	return carta
+	var indice: int = mano_ui.obtener_indice_carta(card_ui)
 
+	if not deck_manager.es_carta_en_indice(indice, card_ui.carta):
+		cancelado = true
+		return null
+
+	return card_ui
+	
 
 func cancelar_ejecucion() -> void:
 	cancelado = true
