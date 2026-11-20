@@ -39,7 +39,6 @@ func robar_cartas(cantidad: int) -> void:
 	# Esperar las animaciones de descarte.
 	if is_instance_valid(animador_cartas):
 		if animador_cartas.hay_descartes_activos():
-
 			await animador_cartas.esperar_descartes()
 
 			if cancelado:
@@ -59,8 +58,8 @@ func robar_cartas(cantidad: int) -> void:
 	if not is_instance_valid(deck_manager):
 		return
 
-	deck_manager.robar_cartas(cantidad)
-	
+	await deck_manager.robar_cartas(cantidad)
+
 
 func descartar_carta(card_ui: CardUI) -> bool:
 	if cancelado:
@@ -107,19 +106,18 @@ func descartar_carta(card_ui: CardUI) -> bool:
 		)
 
 	return true
+
+
 # ============================================================
 # SELECCIÓN INTERACTIVA
 # ============================================================
-
 
 func solicitar_descarte() -> CardUI:
 	if cancelado:
 		return null
 
 	if not is_instance_valid(mano_ui):
-		push_error(
-			"CardEffectContext: no hay una mano configurada."
-		)
+		push_error("CardEffectContext: no hay una mano configurada.")
 		cancelado = true
 		return null
 
@@ -151,7 +149,11 @@ func solicitar_descarte() -> CardUI:
 		return null
 
 	return card_ui
-	
+
+
+# ============================================================
+# CANCELACIÓN
+# ============================================================
 
 func cancelar_ejecucion() -> void:
 	cancelado = true

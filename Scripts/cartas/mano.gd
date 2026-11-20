@@ -59,6 +59,7 @@ signal carta_descarte_marcada(carta: CardData)
 # ============================================================
 
 var card_play_validator: CardPlayValidator
+var animador_cartas: AnimadorCartas
 
 var modo_actual: ModoInteraccion = ModoInteraccion.NORMAL
 
@@ -82,7 +83,8 @@ var version_mano: int = 0
 var cantidad_robadas_pendientes: int = 0
 var mano_cerrada: bool = false
 
-var animador_cartas: AnimadorCartas
+var reconstruyendo_mano: bool = false
+var robo_bloqueado: bool = false
 
 # ============================================================
 # INICIALIZACIÓN
@@ -190,7 +192,7 @@ func _esta_animando_robo(card_ui: CardUI) -> bool:
 		return false
 
 	return animador_cartas.esta_animando_robo(card_ui)
-	
+
 
 func _actualizar_estado_visual_carta(card_ui: CardUI) -> void:
 	if not is_instance_valid(card_ui):
@@ -306,6 +308,9 @@ func _animar_entrada_carta(card_ui: CardUI) -> void:
 func mostrar_mano(cartas: Array[CardData]) -> void:
 	if mano_cerrada:
 		return
+
+	reconstruyendo_mano = true
+
 	version_mano += 1
 	var version_actual: int = version_mano
 
@@ -344,7 +349,8 @@ func mostrar_mano(cartas: Array[CardData]) -> void:
 		)
 
 		card_ui.permitir_arrastre = (
-			modo_actual == ModoInteraccion.NORMAL
+			not robo_bloqueado
+			and modo_actual == ModoInteraccion.NORMAL
 		)
 
 		card_ui.custom_minimum_size = Vector2(
@@ -367,6 +373,7 @@ func mostrar_mano(cartas: Array[CardData]) -> void:
 		return
 
 	if not is_visible_in_tree():
+		reconstruyendo_mano = false
 		return
 
 	_distribuir_cartas()
@@ -384,6 +391,8 @@ func mostrar_mano(cartas: Array[CardData]) -> void:
 
 		card_ui.remove_meta("robo_nuevo")
 		card_ui.show()
+
+	reconstruyendo_mano = false
 
 
 func _limpiar_cartas_visuales() -> void:
@@ -410,8 +419,8 @@ func _limpiar_cartas_visuales() -> void:
 		if hijo is CardUI:
 			remove_child(hijo)
 			hijo.queue_free()
-					
-			
+
+
 func registrar_cartas_robadas(cartas: Array[CardData]) -> void:
 	cantidad_robadas_pendientes = cartas.size()
 
@@ -624,8 +633,8 @@ func confirmar_descarte() -> void:
 	btn_confirmar_descarte.disabled = true
 
 	seleccion_descarte_resuelta.emit(carta_ui_marcada)
-	
-	
+
+
 func finalizar_seleccion_descarte() -> void:
 	_restaurar_modo_normal()
 
@@ -665,14 +674,44 @@ func _restaurar_modo_normal() -> void:
 	_actualizar_estado_visual_todas()
 
 
+func _notificar_descarte_no_disponible() -> void:
+	seleccion_descarte_resuelta.emit(null)
+
+
 func _actualizar_interaccion_cartas() -> void:
 	for hijo in get_children():
 		if hijo is CardUI:
 			hijo.permitir_arrastre = (
 				not mano_cerrada
+				and not robo_bloqueado
 				and modo_actual == ModoInteraccion.NORMAL
 				and not _esta_animando_robo(hijo)
 			)
+
+
+# ============================================================
+# SINCRONIZACIÓN DEL ROBO
+# ============================================================
+
+func bloquear_robo(bloquear: bool) -> void:
+	robo_bloqueado = bloquear or mano_cerrada
+	_actualizar_interaccion_cartas()
+
+
+func esperar_presentacion_robo() -> void:
+	while is_inside_tree() and not mano_cerrada:
+
+		var animando: bool = false
+
+		if is_instance_valid(animador_cartas):
+			animando = animador_cartas.hay_robos_activos()
+
+		if not reconstruyendo_mano and not animando:
+			return
+
+		await get_tree().process_frame
+
+
 # ============================================================
 # FINALIZACIÓN Y LIMPIEZA
 # ============================================================
@@ -682,10 +721,12 @@ func finalizar_animaciones_robo() -> void:
 		animador_cartas.finalizar_animaciones_robo()
 
 	_actualizar_interaccion_cartas()
-	
-	
+
+
 func cerrar_mano() -> void:
 	mano_cerrada = true
+	reconstruyendo_mano = false
+	robo_bloqueado = true
 	version_mano += 1
 	cantidad_robadas_pendientes = 0
 
@@ -694,7 +735,3 @@ func cerrar_mano() -> void:
 		ui_seleccion_descarte.hide()
 	hide()
 	set_process(false)
-
-
-func _notificar_descarte_no_disponible() -> void:
-	seleccion_descarte_resuelta.emit(null)

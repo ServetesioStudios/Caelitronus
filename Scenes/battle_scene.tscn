@@ -294,6 +294,7 @@ mouse_filter = 2
 script = ExtResource("16_vuvll")
 duracion_robo = 0.5
 duracion_descarte = 0.35
+escala_reciclaje = 0.15000000000000002
 pausa_descarte_robo = 0.2
 origen_robo = NodePath("../UIMazos/MazoRobo")
 destino_descarte = NodePath("../UIMazos/MazoDescarte")

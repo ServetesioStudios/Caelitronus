@@ -91,10 +91,15 @@ func _ready() -> void:
 	deck_manager.iniciar_mazo(
 		GameManager.crear_mazo_inicial(player.tipo_caelius)
 	)
-	
+
 	# Configurar animador de cartas.
 	mano_ui.animador_cartas = animador_cartas
-	
+	deck_manager.presentar_robo = _presentar_robo
+	deck_manager.presentar_reciclaje = _presentar_reciclaje
+
+	deck_manager.estado_robo_actualizado.connect(
+		_on_estado_robo_actualizado)
+
 	deck_manager.cartas_robadas.connect(
 		mano_ui.registrar_cartas_robadas
 	)
@@ -102,7 +107,7 @@ func _ready() -> void:
 	deck_manager.mano_actualizada.connect(
 		mano_ui.mostrar_mano
 	)
-	
+
 	deck_manager.mano_actualizada.connect(
 	func(_cartas: Array[CardData]) -> void:
 		_actualizar_contadores_mazos()
@@ -145,7 +150,7 @@ func _ready() -> void:
 	)
 
 	combat_manager.turno_jugador_iniciado.connect(
-		func(): btn_fin_turno.disabled = false
+		func(): _actualizar_estado_boton_fin_turno()
 	)
 
 	# Eventos del turno enemigo.
@@ -293,6 +298,9 @@ func _on_carta_soltada(
 	if finalizando_turno:
 		return
 
+	if deck_manager.robando:
+		return
+
 	if card_effect_resolver.ejecutando:
 		return
 
@@ -333,8 +341,7 @@ func _on_carta_soltada(
 
 func _resolver_objetivo(
 	carta: CardData,
-	posicion_global: Vector2
-) -> CombatEntity:
+	posicion_global: Vector2) -> CombatEntity:
 
 	match carta.tipo_objetivo:
 		CardData.TipoObjetivo.PROPIO:
@@ -360,8 +367,7 @@ func _resolver_objetivo(
 
 func _entidad_mas_cercana(
 	posicion_global: Vector2,
-	candidatos: Array
-) -> CombatEntity:
+	candidatos: Array) -> CombatEntity:
 
 	var mejor: CombatEntity = null
 	var mejor_dist: float = INF
@@ -484,11 +490,7 @@ func _cancelar_pago_pendiente() -> void:
 	if card_play_validator != null:
 		mano_ui.actualizar_disponibilidad_todas()
 
-	btn_fin_turno.disabled = (
-		finalizando_turno
-		or card_effect_resolver.ejecutando
-		or not combat_manager.es_turno_jugador()
-	)
+	_actualizar_estado_boton_fin_turno()
 # ============================================================
 # VALIDACIÓN Y EJECUCIÓN DE CARTAS
 # ============================================================
@@ -497,8 +499,11 @@ func intentar_jugar_carta(
 	carta: CardData,
 	objetivo: CombatEntity,
 	card_ui: CardUI) -> void:
-		
+
 	if finalizando_turno:
+		return
+
+	if deck_manager.robando:
 		return
 
 	if not _carta_ui_valida(card_ui, carta):
@@ -535,8 +540,8 @@ func intentar_jugar_carta(
 		return
 
 	_ejecutar_carta(carta, objetivo, card_ui)
-	
-	
+
+
 func _ejecutar_carta(
 	carta: CardData,
 	objetivo: CombatEntity,
@@ -565,7 +570,7 @@ func _ejecutar_carta(
 
 	# Retirar la copia exacta de la mano.
 	if not deck_manager.jugar_carta(indice, carta):
-		btn_fin_turno.disabled = not combat_manager.es_turno_jugador()
+		_actualizar_estado_boton_fin_turno()
 		return
 
 	# Animar el descarte desde donde se soltó la carta.
@@ -588,23 +593,20 @@ func _ejecutar_carta(
 	)
 
 	mano_ui.actualizar_disponibilidad_todas()
-	
 
-func _on_carta_finalizada(
-	_carta: CardData) -> void:
 
-	combat_manager.verificar_fin_combate()
+func _on_carta_finalizada(_carta: CardData) -> void:
+	if combat_manager.verificar_fin_combate():
+		return
 
-	if combat_manager.es_turno_jugador():
-		btn_fin_turno.disabled = false
-
+	# Esperar al final del ciclo actual por si el resolver aún está finalizando.
+	call_deferred("_actualizar_estado_boton_fin_turno")
 	mano_ui.actualizar_disponibilidad_todas()
 
 
 func _carta_ui_valida(
 	card_ui: CardUI,
-	carta: CardData
-) -> bool:
+	carta: CardData) -> bool:
 
 	if not is_instance_valid(card_ui):
 		return false
@@ -635,14 +637,17 @@ func _on_accion_enemigo_realizada(
 
 
 func _on_combate_terminado(victoria: bool) -> void:
+	deck_manager.cancelar_robo()
+
 	btn_fin_turno.disabled = true
 	_cancelar_pago_pendiente()
-	
+
 	card_effect_resolver.cancelar_ejecucion()
-	
+
 	mano_ui.cerrar_mano()
 	if is_instance_valid(animador_cartas):
 		animador_cartas.cancelar_animaciones_descarte()
+		animador_cartas.cancelar_animaciones_reciclaje()
 
 	if victoria and GameManager.enemy_data_encuentro != null:
 		var zona_id: String = GameManager.zona_id_encuentro
@@ -721,6 +726,12 @@ func _on_combate_terminado(victoria: bool) -> void:
 	)
 
 func _exit_tree() -> void:
+	if is_instance_valid(deck_manager):
+		deck_manager.cancelar_robo()
+
+	if is_instance_valid(animador_cartas):
+		animador_cartas.cancelar_animaciones_reciclaje()
+
 	if card_effect_resolver != null:
 		card_effect_resolver.cancelar_ejecucion()
 
@@ -760,7 +771,60 @@ func mostrar_aviso(mensaje: String) -> void:
 func _actualizar_contadores_mazos() -> void:
 	label_mazo_robo.text = str(deck_manager.mazo_robo.size())
 	label_mazo_descarte.text = str(deck_manager.mazo_descarte.size())
-	
+
+
+# ============================================================
+# COORDINACIÓN DE ROBO Y RECICLAJE
+# ============================================================
+
+func _presentar_robo() -> void:
+	if not is_instance_valid(mano_ui):
+		return
+
+	await mano_ui.esperar_presentacion_robo()
+
+
+func _presentar_reciclaje(cantidad: int) -> void:
+	if deck_manager.robo_cancelado:
+		return
+
+	if is_instance_valid(animador_cartas):
+		animador_cartas.animar_reciclaje(cantidad)
+		await animador_cartas.esperar_reciclaje()
+
+	if deck_manager.robo_cancelado or not is_inside_tree():
+		return
+
+	_actualizar_contadores_mazos()
+
+	if is_instance_valid(animador_cartas):
+		var pausa: float = animador_cartas.pausa_reciclaje_robo
+
+		if pausa > 0.0:
+			await get_tree().create_timer(pausa).timeout
+
+
+func _on_estado_robo_actualizado(robando: bool) -> void:
+	if is_instance_valid(mano_ui):
+		mano_ui.bloquear_robo(robando)
+
+	_actualizar_estado_boton_fin_turno()
+
+	if not robando and not deck_manager.robo_cancelado:
+		mano_ui.actualizar_disponibilidad_todas()
+
+
+func _actualizar_estado_boton_fin_turno() -> void:
+	btn_fin_turno.disabled = (
+		deck_manager.robando
+		or deck_manager.robo_cancelado
+		or finalizando_turno
+		or carta_pendiente != null
+		or card_effect_resolver.ejecutando
+		or not combat_manager.es_turno_jugador()
+	)
+
+
 # ============================================================
 # FINALIZACIÓN DEL TURNO
 # ============================================================
@@ -769,21 +833,21 @@ func _on_fin_turno_presionado() -> void:
 	if finalizando_turno:
 		return
 
+	if deck_manager.robando or deck_manager.robo_cancelado:
+		return
+
 	if not combat_manager.es_turno_jugador():
 		return
 
 	if card_effect_resolver.ejecutando:
 		return
-		
+
 	if carta_pendiente != null:
 		return
 
 	# Bloquear nuevas acciones.
 	finalizando_turno = true
 	btn_fin_turno.disabled = true
-
-	# Cancelar posibles pagos pendientes.
-	_cancelar_pago_pendiente()
 
 	# Finalizar animaciones de robo pendientes.
 	mano_ui.finalizar_animaciones_robo()
@@ -809,9 +873,9 @@ func _on_fin_turno_presionado() -> void:
 
 	# Iniciar el turno enemigo.
 	combat_manager.finalizar_turno_jugador()
-	
-	
-	
+
+
+
 func _descartar_mano_completa() -> void:
 	var cartas_visuales: Array[CardUI] = (
 		mano_ui.obtener_cartas_visuales())
@@ -844,7 +908,6 @@ func _descartar_mano_completa() -> void:
 # ============================================================
 
 func _unhandled_key_input(event: InputEvent) -> void:
-
 	if event is InputEventKey:
 		if event.pressed and not event.echo:
 			if event.keycode == KEY_ESCAPE:
@@ -899,7 +962,3 @@ func _forzar_derrota_debug() -> void:
 	player.actualizar_barra_vida()
 
 	combat_manager.verificar_fin_combate()
-	
-	
-	
-	
