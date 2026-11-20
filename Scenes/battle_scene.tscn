@@ -292,7 +292,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("16_vuvll")
-duracion_robo = 0.39999999999999997
+duracion_robo = 0.5
+duracion_descarte = 0.35
+pausa_descarte_robo = 0.2
 origen_robo = NodePath("../UIMazos/MazoRobo")
 destino_descarte = NodePath("../UIMazos/MazoDescarte")
 

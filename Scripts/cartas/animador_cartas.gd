@@ -1,6 +1,7 @@
 class_name AnimadorCartas
 extends Control
 
+signal descartes_finalizados
 # ============================================================
 # CONFIGURACIÓN
 # ============================================================
@@ -13,6 +14,8 @@ extends Control
 @export_range(0.05, 1.0, 0.01) var duracion_descarte: float = 0.25
 @export_range(0.1, 1.0, 0.05) var escala_final_descarte: float = 0.3
 
+@export_group("Sincronización")
+@export_range(0.0, 0.5, 0.01) var pausa_descarte_robo: float = 0.1
 
 @export_group("Referencias")
 @export var origen_robo: Control
@@ -242,8 +245,22 @@ func _finalizar_descarte(copia: CardUI) -> void:
 
 	if is_instance_valid(copia):
 		copia.queue_free()
-		
-		
+
+	if tweens_descarte.is_empty():
+		descartes_finalizados.emit()
+
+
+func hay_descartes_activos() -> bool:
+	return not tweens_descarte.is_empty()
+			
+
+func esperar_descartes() -> void:
+	if not hay_descartes_activos():
+		return
+
+	await descartes_finalizados
+	
+	
 func _desactivar_interaccion(nodo: Node) -> void:
 	if nodo is Control:
 		nodo.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -254,6 +271,8 @@ func _desactivar_interaccion(nodo: Node) -> void:
 
 
 func cancelar_animaciones_descarte() -> void:
+	var habia_descartes: bool = hay_descartes_activos()
+
 	for copia in tweens_descarte.keys():
 		var tween: Tween = tweens_descarte[copia]
 
@@ -264,3 +283,6 @@ func cancelar_animaciones_descarte() -> void:
 			copia.queue_free()
 
 	tweens_descarte.clear()
+
+	if habia_descartes:
+		descartes_finalizados.emit()

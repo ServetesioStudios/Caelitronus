@@ -33,8 +33,34 @@ func cantidad_cartas_en_mano() -> int:
 # ============================================================
 
 func robar_cartas(cantidad: int) -> void:
-	deck_manager.robar_cartas(cantidad)
+	if cancelado or cantidad <= 0:
+		return
 
+	# Esperar las animaciones de descarte.
+	if is_instance_valid(animador_cartas):
+		if animador_cartas.hay_descartes_activos():
+
+			await animador_cartas.esperar_descartes()
+
+			if cancelado:
+				return
+
+			# Pausa visual entre descarte y robo.
+			if is_instance_valid(animador_cartas):
+				var pausa: float = animador_cartas.pausa_descarte_robo
+
+				if pausa > 0.0:
+					await animador_cartas.get_tree().create_timer(pausa).timeout
+
+	# Verificar nuevamente después de las esperas.
+	if cancelado:
+		return
+
+	if not is_instance_valid(deck_manager):
+		return
+
+	deck_manager.robar_cartas(cantidad)
+	
 
 func descartar_carta(card_ui: CardUI) -> bool:
 	if cancelado:

@@ -31,8 +31,7 @@ func puede_ejecutarse(contexto: CardEffectContext) -> bool:
 func ejecutar(
 	contexto: CardEffectContext,
 	_fuente: CombatEntity,
-	_objetivo: CombatEntity
-) -> void:
+	_objetivo: CombatEntity) -> void:
 
 	# Descartar las cartas seleccionadas.
 	for i in range(cantidad_descartar):
@@ -49,4 +48,4 @@ func ejecutar(
 
 	# Robar después de completar el descarte.
 	if cantidad_robar > 0:
-		contexto.robar_cartas(cantidad_robar)
+		await contexto.robar_cartas(cantidad_robar)
