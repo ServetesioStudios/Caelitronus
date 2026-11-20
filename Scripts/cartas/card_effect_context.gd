@@ -2,9 +2,11 @@ class_name CardEffectContext
 extends RefCounted
 
 var deck_manager: DeckManager
+var animador_cartas: AnimadorCartas
 var mano_ui: Control
 
 var cancelado: bool = false
+
 
 func _init(p_deck_manager: DeckManager) -> void:
 	deck_manager = p_deck_manager
@@ -47,13 +49,38 @@ func descartar_carta(card_ui: CardUI) -> bool:
 		return false
 
 	var indice: int = mano_ui.obtener_indice_carta(card_ui)
+	var carta: CardData = card_ui.carta
 
-	if not deck_manager.descartar_carta(indice, card_ui.carta):
+	if not deck_manager.es_carta_en_indice(indice, carta):
 		cancelado = true
 		return false
 
-	return true
+	# Capturar la apariencia y posición actual.
+	var centro_global: Vector2 = (
+		card_ui.get_global_transform()
+		* (card_ui.size / 2.0)
+	)
 
+	var tamano: Vector2 = card_ui.size
+	var rotacion: float = card_ui.rotation_degrees
+	var escala: Vector2 = card_ui.scale
+
+	# Realizar el descarte lógico.
+	if not deck_manager.descartar_carta(indice, carta):
+		cancelado = true
+		return false
+
+	# Reproducir la animación desde la mano.
+	if is_instance_valid(animador_cartas):
+		animador_cartas.animar_descarte(
+			carta,
+			centro_global,
+			tamano,
+			rotacion,
+			escala
+		)
+
+	return true
 # ============================================================
 # SELECCIÓN INTERACTIVA
 # ============================================================

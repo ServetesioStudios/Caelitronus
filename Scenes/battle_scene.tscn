@@ -282,7 +282,7 @@ text = "20"
 label_settings = SubResource("LabelSettings_vuvll")
 horizontal_alignment = 2
 
-[node name="AnimadorCartas" type="Control" parent="CanvasLayer" unique_id=1640954395 node_paths=PackedStringArray("origen_robo")]
+[node name="AnimadorCartas" type="Control" parent="CanvasLayer" unique_id=1640954395 node_paths=PackedStringArray("origen_robo", "destino_descarte")]
 z_index = 99
 layout_mode = 3
 anchors_preset = 15
@@ -292,7 +292,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("16_vuvll")
+duracion_robo = 0.39999999999999997
 origen_robo = NodePath("../UIMazos/MazoRobo")
+destino_descarte = NodePath("../UIMazos/MazoDescarte")
 
 [node name="CardEffectResolver" type="Node" parent="." unique_id=1116298795]
 script = ExtResource("15_f856b")

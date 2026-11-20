@@ -110,6 +110,7 @@ func _ready() -> void:
 	# Configurar resolver y validador.
 	card_effect_resolver.configurar(deck_manager)
 	card_effect_resolver.contexto.configurar_mano(mano_ui)
+	card_effect_resolver.contexto.animador_cartas = animador_cartas
 
 	card_play_validator = CardPlayValidator.new(
 		deck_manager,
@@ -312,6 +313,7 @@ func _on_carta_soltada(
 		return
 
 	intentar_jugar_carta(carta, objetivo, card_ui)
+	card_ui.set_meta("posicion_soltada", posicion_global)
 
 	# Mantener visible la carta durante el pago genérico.
 	if carta_ui_pendiente == card_ui:
@@ -524,8 +526,7 @@ func intentar_jugar_carta(
 func _ejecutar_carta(
 	carta: CardData,
 	objetivo: CombatEntity,
-	card_ui: CardUI
-) -> void:
+	card_ui: CardUI) -> void:
 
 	if card_effect_resolver.ejecutando:
 		return
@@ -535,6 +536,17 @@ func _ejecutar_carta(
 
 	var indice: int = mano_ui.obtener_indice_carta(card_ui)
 
+	# Capturar la información visual antes de retirar la carta.
+	var centro_original: Vector2 = (
+		card_ui.get_global_transform()
+		* (card_ui.size / 2.0)
+	)
+
+	var origen_descarte: Vector2 = card_ui.get_meta(
+		"posicion_soltada", centro_original)
+
+	var tamano_carta: Vector2 = card_ui.size
+
 	btn_fin_turno.disabled = true
 
 	# Retirar la copia exacta de la mano.
@@ -542,11 +554,19 @@ func _ejecutar_carta(
 		btn_fin_turno.disabled = not combat_manager.es_turno_jugador()
 		return
 
-	# Reproducir animación.
+	# Animar el descarte desde donde se soltó la carta.
+	if is_instance_valid(animador_cartas):
+		animador_cartas.animar_descarte(
+			carta,
+			origen_descarte,
+			tamano_carta
+		)
+
+	# Reproducir animación del personaje.
 	if not carta.animacion.is_empty():
 		player.reproducir_animacion(carta.animacion)
 
-	# Ejecutar efectos mediante el resolver.
+	# Ejecutar efectos.
 	card_effect_resolver.ejecutar_carta(
 		carta,
 		player,
@@ -554,7 +574,7 @@ func _ejecutar_carta(
 	)
 
 	mano_ui.actualizar_disponibilidad_todas()
-
+	
 
 func _on_carta_finalizada(
 	_carta: CardData) -> void:
@@ -596,8 +616,7 @@ func _carta_ui_valida(
 
 func _on_accion_enemigo_realizada(
 	_enemigo: Enemy,
-	_descripcion: String
-) -> void:
+	_descripcion: String) -> void:
 	pass
 
 
@@ -607,6 +626,8 @@ func _on_combate_terminado(victoria: bool) -> void:
 	card_effect_resolver.cancelar_ejecucion()
 	
 	mano_ui.cerrar_mano()
+	if is_instance_valid(animador_cartas):
+		animador_cartas.cancelar_animaciones_descarte()
 
 	if victoria and GameManager.enemy_data_encuentro != null:
 		var zona_id: String = GameManager.zona_id_encuentro
