@@ -32,6 +32,7 @@ var card_play_validator: CardPlayValidator
 var enemy: Enemy
 
 var arrastrando_carta: bool = false
+var finalizando_turno: bool = false
 
 # Carta pendiente de pago con éteres genéricos.
 var carta_pendiente: CardData = null
@@ -182,7 +183,7 @@ func _ready() -> void:
 
 	# Botón finalizar turno.
 	btn_fin_turno.pressed.connect(
-		combat_manager.finalizar_turno_jugador
+		_on_fin_turno_presionado
 	)
 
 	# Iniciar combate.
@@ -287,8 +288,10 @@ func _set_gris(entidad: CombatEntity, activar: bool) -> void:
 
 func _on_carta_soltada(
 	card_ui: CardUI,
-	posicion_global: Vector2
-) -> void:
+	posicion_global: Vector2) -> void:
+
+	if finalizando_turno:
+		return
 
 	if card_effect_resolver.ejecutando:
 		return
@@ -312,8 +315,10 @@ func _on_carta_soltada(
 	if objetivo == null:
 		return
 
-	intentar_jugar_carta(carta, objetivo, card_ui)
+	# Guardar la posición antes de ejecutar la carta.
 	card_ui.set_meta("posicion_soltada", posicion_global)
+
+	intentar_jugar_carta(carta, objetivo, card_ui)
 
 	# Mantener visible la carta durante el pago genérico.
 	if carta_ui_pendiente == card_ui:
@@ -321,6 +326,7 @@ func _on_carta_soltada(
 			carta,
 			posicion_global
 		)
+
 # ============================================================
 # RESOLUCIÓN DE OBJETIVOS
 # ============================================================
@@ -382,8 +388,7 @@ func _entidad_mas_cercana(
 func solicitar_pago_eter(
 	carta: CardData,
 	objetivo: CombatEntity,
-	card_ui: CardUI
-) -> void:
+	card_ui: CardUI) -> void:
 
 	if carta_pendiente != null:
 		return
@@ -403,6 +408,7 @@ func solicitar_pago_eter(
 	carta_pendiente = carta
 	carta_ui_pendiente = card_ui
 	objetivo_pendiente = objetivo
+	btn_fin_turno.disabled = true
 
 	var reservados: Array[int] = (
 		ether_manager.obtener_indices_especificos(
@@ -417,9 +423,9 @@ func solicitar_pago_eter(
 
 	mano_ui.actualizar_disponibilidad_todas()
 
-func _on_seleccion_eter_actualizada(
-	indices: Array[int]
-) -> void:
+func _on_seleccion_eter_actualizada(indices: Array[int]) -> void:
+	if finalizando_turno:
+		return
 
 	if card_effect_resolver.ejecutando:
 		return
@@ -466,6 +472,7 @@ func _on_seleccion_eter_actualizada(
 	_cancelar_pago_pendiente()
 	_ejecutar_carta(carta, objetivo, card_ui)
 
+
 func _cancelar_pago_pendiente() -> void:
 	carta_pendiente = null
 	carta_ui_pendiente = null
@@ -477,6 +484,11 @@ func _cancelar_pago_pendiente() -> void:
 	if card_play_validator != null:
 		mano_ui.actualizar_disponibilidad_todas()
 
+	btn_fin_turno.disabled = (
+		finalizando_turno
+		or card_effect_resolver.ejecutando
+		or not combat_manager.es_turno_jugador()
+	)
 # ============================================================
 # VALIDACIÓN Y EJECUCIÓN DE CARTAS
 # ============================================================
@@ -484,8 +496,10 @@ func _cancelar_pago_pendiente() -> void:
 func intentar_jugar_carta(
 	carta: CardData,
 	objetivo: CombatEntity,
-	card_ui: CardUI
-) -> void:
+	card_ui: CardUI) -> void:
+		
+	if finalizando_turno:
+		return
 
 	if not _carta_ui_valida(card_ui, carta):
 		return
@@ -621,6 +635,7 @@ func _on_accion_enemigo_realizada(
 
 
 func _on_combate_terminado(victoria: bool) -> void:
+	btn_fin_turno.disabled = true
 	_cancelar_pago_pendiente()
 	
 	card_effect_resolver.cancelar_ejecucion()
@@ -746,7 +761,84 @@ func _actualizar_contadores_mazos() -> void:
 	label_mazo_robo.text = str(deck_manager.mazo_robo.size())
 	label_mazo_descarte.text = str(deck_manager.mazo_descarte.size())
 	
+# ============================================================
+# FINALIZACIÓN DEL TURNO
+# ============================================================
 
+func _on_fin_turno_presionado() -> void:
+	if finalizando_turno:
+		return
+
+	if not combat_manager.es_turno_jugador():
+		return
+
+	if card_effect_resolver.ejecutando:
+		return
+		
+	if carta_pendiente != null:
+		return
+
+	# Bloquear nuevas acciones.
+	finalizando_turno = true
+	btn_fin_turno.disabled = true
+
+	# Cancelar posibles pagos pendientes.
+	_cancelar_pago_pendiente()
+
+	# Finalizar animaciones de robo pendientes.
+	mano_ui.finalizar_animaciones_robo()
+
+	# Animar y descartar las cartas restantes.
+	_descartar_mano_completa()
+
+	# Esperar todos los descartes activos.
+	if is_instance_valid(animador_cartas):
+		await animador_cartas.esperar_descartes()
+
+	# Comprobar que la batalla siga activa.
+	if not is_inside_tree():
+		return
+
+	finalizando_turno = false
+
+	if combat_manager.verificar_fin_combate():
+		return
+
+	if not combat_manager.es_turno_jugador():
+		return
+
+	# Iniciar el turno enemigo.
+	combat_manager.finalizar_turno_jugador()
+	
+	
+	
+func _descartar_mano_completa() -> void:
+	var cartas_visuales: Array[CardUI] = (
+		mano_ui.obtener_cartas_visuales())
+
+	# Crear las animaciones de descarte.
+	if is_instance_valid(animador_cartas):
+		for card_ui in cartas_visuales:
+			if not is_instance_valid(card_ui):
+				continue
+
+			if card_ui.carta == null:
+				continue
+
+			var centro_global: Vector2 = (
+				card_ui.get_global_transform()
+				* (card_ui.size / 2.0))
+
+			animador_cartas.animar_descarte(
+				card_ui.carta,
+				centro_global,
+				card_ui.size,
+				card_ui.rotation_degrees,
+				card_ui.scale
+			)
+
+	# Vaciar la mano lógica y actualizar la interfaz.
+	deck_manager.descartar_mano()
 # ============================================================
 # DEBUG
 # ============================================================

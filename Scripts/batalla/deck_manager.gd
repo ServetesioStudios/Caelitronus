@@ -19,7 +19,6 @@ func iniciar_mazo(deck_original: Array[CardData]) -> void:
 	mano.clear()
 
 func iniciar_turno() -> void:
-	_descartar_mano()
 	_robar(TAMANO_MANO)
 
 func descartar_carta(
@@ -78,9 +77,15 @@ func _robar(cantidad: int) -> void:
 	mano_actualizada.emit(mano)
 	
 
-func _descartar_mano() -> void:
+func descartar_mano() -> void:
+	if mano.is_empty():
+		return
+
 	mazo_descarte.append_array(mano)
 	mano.clear()
+
+	mano_actualizada.emit(mano)
+	
 
 func _reciclar_descarte() -> void:
 	mazo_robo = mazo_descarte.duplicate()
