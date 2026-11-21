@@ -7,7 +7,6 @@ signal turno_jugador_iniciado
 signal turno_enemigo_iniciado
 signal enemigo_actuo(enemigo: Enemy)
 signal combate_terminado(victoria: bool)
-signal energia_actualizada(actual: int, maxima: int)
 signal accion_enemigo_realizada(enemigo: Enemy, descripcion: String)
 
 enum Estado { INICIO, TURNO_JUGADOR, TURNO_ENEMIGO, VICTORIA, DERROTA }
@@ -17,7 +16,6 @@ var enemigos: Array[Enemy] = []
 func iniciar_combate(p: CombatEntity, e: Array[Enemy]) -> void:
 	player = p
 	enemigos = e
-	player.resetear_energia()
 	
 	for enemigo in enemigos:
 		if is_instance_valid(enemigo) and enemigo.hp > 0:
@@ -43,6 +41,7 @@ func _iniciar_turno_jugador() -> void:
 		return
 
 	estado = Estado.TURNO_JUGADOR
+	player.recibio_ataque = false
 	player.procesar_estados()
 
 	if _verificar_fin_combate():
@@ -97,6 +96,7 @@ func _ejecutar_turno_enemigo() -> void:
 		return
 
 	if not _verificar_fin_combate():
+		_resolver_escudo_condicional()
 		_iniciar_turno_jugador()
 
 
@@ -114,9 +114,11 @@ func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
 	match enemigo.intencion_actual.tipo:
 		IntentData.Tipo.ATACAR:
 			if is_instance_valid(player) and player.hp > 0:
+				player.recibio_ataque = true
+				
 				var daño = _calcular_daño_enemigo(enemigo, player)
 				if daño > 0:
-					player.recibir_daño(daño)
+					player.recibir_daño(daño, false, true)
 					descripcion = "%s ataca e inflige %d de daño" % [enemigo.nombre, daño]
 					if enemigo.robo_vida:
 						var vida_robada = int(daño * enemigo.porcentaje_robo_vida)
@@ -126,6 +128,7 @@ func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
 				else:
 					descripcion = "%s atacó, pero fue esquivado" % enemigo.nombre
 				enemigo.al_atacar()
+				
 		IntentData.Tipo.DEFENDER:
 			enemigo.bloqueo += enemigo.intencion_actual.valor
 			enemigo.actualizar_escudo()
@@ -188,3 +191,20 @@ func _verificar_fin_combate() -> bool:
 		return true
 
 	return false
+	
+	
+
+func _resolver_escudo_condicional() -> void:
+	if not is_instance_valid(player):
+		return
+
+	if player.hp <= 0:
+		return
+
+	if player.bonus_escudo_pendiente > 0:
+		if not player.recibio_ataque:
+			player.bloqueo += player.bonus_escudo_pendiente
+			player.actualizar_escudo()
+
+	player.bonus_escudo_pendiente = 0
+	player.recibio_ataque = false

@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://1mgbvtiyvao3"]
+
+[ext_resource type="Texture2D" uid="uid://haxu7m1fkfte" path="res://Assets/cards/curacion.png" id="1_0t25w"]
+[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/cartas/effect_data.gd" id="1_e77sn"]
+[ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/cartas/card_data.gd" id="2_5yrwv"]
+[ext_resource type="Script" uid="uid://0r6uf7hupq4j" path="res://Scripts/cartas/card_cost_data.gd" id="2_i48fn"]
+[ext_resource type="Script" uid="uid://caqemdqtrtowj" path="res://Scripts/cartas/efectos/heal.gd" id="3_i48fn"]
+
+
+[sub_resource type="Resource" id="Resource_i48fn"]
+script = ExtResource("2_i48fn")
+violeta = 1
+metadata/_custom_type_script = "uid://0r6uf7hupq4j"
+
+[sub_resource type="Resource" id="Resource_0t25w"]
+script = ExtResource("3_i48fn")
+curacion_condicional = true
+metadata/_custom_type_script = "uid://caqemdqtrtowj"
+
+[resource]
+script = ExtResource("2_5yrwv")
+nombre = "Lágrimas de Gracia"
+descripcion = "Cura 4 de vida. Si tienes menos del 50% de vida, cura 4 extra. "
+arte = ExtResource("1_0t25w")
+efectos = Array[ExtResource("1_e77sn")]([SubResource("Resource_0t25w")])
+tipo_objetivo = 0
+costo_eter = SubResource("Resource_i48fn")
+metadata/_custom_type_script = "uid://wr8ukg3kbesn"

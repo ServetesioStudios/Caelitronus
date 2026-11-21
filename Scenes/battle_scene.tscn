@@ -3,27 +3,59 @@
 [ext_resource type="Texture2D" uid="uid://1ujq4vhia20d" path="res://Assets/BckGrnd/Bonefield_mvt.png" id="1_bxpjm"]
 [ext_resource type="Script" uid="uid://ta11uy1xj5dd" path="res://Scripts/batalla/battle_scene.gd" id="1_qf52c"]
 [ext_resource type="PackedScene" uid="uid://bjsf3q6hvbyji" path="res://Scenes/player.tscn" id="2_4ohde"]
+[ext_resource type="Script" uid="uid://c4jqqidawt18b" path="res://Scripts/batalla/ether_manager.gd" id="4_wb0gu"]
 [ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="5_fowxk"]
 [ext_resource type="FontFile" uid="uid://cpv7bwckc7nqu" path="res://Assets/Fonts/Seagram_tfb.ttf" id="6_n02j2"]
 [ext_resource type="Texture2D" uid="uid://bxu6hgpccqqdf" path="res://Assets/BckGrnd/papersideborder.png" id="7_n02j2"]
 [ext_resource type="Script" uid="uid://cjxi2c8jyhqcn" path="res://Scripts/ui/drop_zone.gd" id="8_ms847"]
 [ext_resource type="Script" uid="uid://dbapsc8dah0c4" path="res://Scripts/batalla/combat_manager.gd" id="8_w4764"]
 [ext_resource type="Script" uid="uid://eg85yacwhx1v" path="res://Scripts/cartas/deck_manager.gd" id="9_ed262"]
+[ext_resource type="Script" uid="uid://b16wxqxilcrh" path="res://Scripts/ui/boton_fin_turno.gd" id="11_tfvgr"]
+[ext_resource type="Script" uid="uid://c0ggtktfw2n0u" path="res://Scripts/eter/ether_ui.gd" id="12_84vmf"]
 [ext_resource type="Script" uid="uid://3hhe153qj06q" path="res://Scripts/cartas/mano.gd" id="12_wb0gu"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_wb0gu"]
-font = ExtResource("6_n02j2")
-font_size = 25
-font_color = Color(0.6934027, 0, 0.15527377, 1)
+[ext_resource type="PackedScene" uid="uid://bawy2i5frvt6e" path="res://Scenes/ui/card_tooltip.tscn" id="12_xdap8"]
+[ext_resource type="FontFile" uid="uid://dxuqp4jcmwft0" path="res://Assets/Fonts/PirataOne-Regular.ttf" id="13_84vmf"]
+[ext_resource type="Texture2D" uid="uid://w4sc1l7n18r8" path="res://Assets/Cartas/reverso_carta_temporal.png" id="15_778cw"]
+[ext_resource type="Script" uid="uid://bpt2akw4jpheo" path="res://Scripts/cartas/card_effect_resolver.gd" id="15_f856b"]
+[ext_resource type="Script" uid="uid://d0c6yii25qbbb" path="res://Scripts/ui/aviso_combate.gd" id="15_kbww3"]
+[ext_resource type="Script" uid="uid://b5rys36dmvq8v" path="res://Scripts/cartas/animador_cartas.gd" id="16_vuvll"]
+[ext_resource type="Script" uid="uid://cvnklb0lrb7un" path="res://Scripts/ui/ui_mazos.gd" id="17_vol83"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ms847"]
 font = ExtResource("6_n02j2")
 font_size = 20
 
+[sub_resource type="LabelSettings" id="LabelSettings_lahqs"]
+font = ExtResource("6_n02j2")
+font_size = 25
+font_color = Color(0.9098039, 0.7764706, 0.41568628, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_f4ggb"]
 font = ExtResource("6_n02j2")
 font_size = 20
 font_color = Color(1, 0, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vunlk"]
+font = ExtResource("13_84vmf")
+font_size = 20
+font_color = Color(0.51372653, 0, 0.004793197, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_f856b"]
+font = ExtResource("6_n02j2")
+font_size = 30
+font_color = Color(0.7209681, 0.48510295, 0.06444969, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_778cw"]
+font = ExtResource("6_n02j2")
+font_size = 25
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vuvll"]
+font = ExtResource("6_n02j2")
+font_size = 25
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="Node2D" type="Node2D" unique_id=1257884240]
 script = ExtResource("1_qf52c")
@@ -34,7 +66,16 @@ script = ExtResource("8_w4764")
 [node name="DeckManager" type="Node" parent="." unique_id=2064364899]
 script = ExtResource("9_ed262")
 
+[node name="EtherManager" type="Node" parent="." unique_id=1245650712]
+script = ExtResource("4_wb0gu")
+metadata/_custom_type_script = "uid://c4jqqidawt18b"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=713179635]
+
+[node name="BonefieldMvt" type="Sprite2D" parent="CanvasLayer" unique_id=180617224]
+position = Vector2(642, 358.5)
+scale = Vector2(1.2859999, 0.97432435)
+texture = ExtResource("1_bxpjm")
 
 [node name="DropZone" type="Control" parent="CanvasLayer" unique_id=1675579401 groups=["DropZones"]]
 layout_mode = 3
@@ -44,34 +85,19 @@ offset_top = 4.0
 offset_right = 1284.0
 offset_bottom = 476.0
 script = ExtResource("8_ms847")
-
-[node name="BonefieldMvt" type="Sprite2D" parent="CanvasLayer" unique_id=180617224]
-position = Vector2(642, 358.5)
-scale = Vector2(1.2859999, 0.97432435)
-texture = ExtResource("1_bxpjm")
+fuente_mensaje = ExtResource("13_84vmf")
+tamano_fuente = 20
 
 [node name="player" parent="CanvasLayer" unique_id=182385245 instance=ExtResource("2_4ohde")]
-position = Vector2(72, 72)
+position = Vector2(33, 41)
 
 [node name="papelcombate" type="TextureRect" parent="CanvasLayer" unique_id=172119596]
 offset_left = 306.0
 offset_top = 460.0
 offset_right = 980.0
-offset_bottom = 701.0
+offset_bottom = 744.0
 texture = ExtResource("5_fowxk")
 expand_mode = 1
-
-[node name="textocombate" type="RichTextLabel" parent="CanvasLayer" unique_id=1844615471]
-visible = false
-offset_left = 490.0
-offset_top = 2.0
-offset_right = 823.0
-offset_bottom = 128.0
-theme_override_colors/default_color = Color(0.5747718, 0.3360082, 0, 1)
-theme_override_fonts/normal_font = ExtResource("6_n02j2")
-theme_override_font_sizes/normal_font_size = 22
-autowrap_mode = 2
-horizontal_alignment = 2
 
 [node name="playerstats" type="TextureRect" parent="CanvasLayer" unique_id=783502019]
 offset_left = 16.0
@@ -91,20 +117,13 @@ texture = ExtResource("7_n02j2")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="LabelCombates" type="Label" parent="CanvasLayer" unique_id=1305828321]
-offset_left = 532.0
-offset_top = 23.0
-offset_right = 784.0
-offset_bottom = 64.0
-text = "combates"
-label_settings = SubResource("LabelSettings_wb0gu")
-horizontal_alignment = 1
-
 [node name="BtnFinTurno" type="Button" parent="CanvasLayer" unique_id=1579586428]
-offset_left = 1067.0
-offset_top = 635.0
-offset_right = 1172.0
-offset_bottom = 683.0
+offset_left = 1066.0
+offset_top = 631.0
+offset_right = 1171.0
+offset_bottom = 679.0
+script = ExtResource("11_tfvgr")
+radio_esquinas = 1
 
 [node name="Label" type="Label" parent="CanvasLayer/BtnFinTurno" unique_id=1516580355]
 layout_mode = 1
@@ -124,12 +143,27 @@ label_settings = SubResource("LabelSettings_ms847")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Mano" type="HBoxContainer" parent="CanvasLayer" unique_id=469343033]
+[node name="CardTooltip" parent="CanvasLayer" unique_id=2026212501 instance=ExtResource("12_xdap8")]
+
+[node name="Mano" type="Control" parent="CanvasLayer" unique_id=1315695982]
+layout_mode = 3
+anchors_preset = 0
 offset_left = 332.0
-offset_top = 470.0
+offset_top = 488.0
 offset_right = 956.0
-offset_bottom = 694.0
+offset_bottom = 712.0
 script = ExtResource("12_wb0gu")
+
+[node name="AvisoCombate" type="Label" parent="CanvasLayer" unique_id=823369098]
+visible = false
+offset_left = 551.0
+offset_top = 23.0
+offset_right = 690.0
+offset_bottom = 52.0
+text = "Aviso Combate"
+label_settings = SubResource("LabelSettings_lahqs")
+horizontal_alignment = 1
+script = ExtResource("15_kbww3")
 
 [node name="LabelEnergia" type="Label" parent="CanvasLayer" unique_id=1982336341]
 self_modulate = Color(0, 0, 0, 1)
@@ -137,12 +171,142 @@ offset_left = 24.0
 offset_top = 612.0
 offset_right = 97.0
 offset_bottom = 638.0
-text = "Energía:"
+text = "Éter:"
 label_settings = SubResource("LabelSettings_f4ggb")
 
-[node name="EnergiaContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1497337344]
-offset_left = 32.0
-offset_top = 639.0
-offset_right = 283.0
-offset_bottom = 693.0
-alignment = 1
+[node name="EtherUI" type="Control" parent="CanvasLayer" unique_id=1403454877 node_paths=PackedStringArray("ether_manager")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 33.0
+offset_top = 641.0
+offset_right = 287.0
+offset_bottom = 699.0
+script = ExtResource("12_84vmf")
+ether_manager = NodePath("../../EtherManager")
+
+[node name="Label_elegirEter" type="Label" parent="CanvasLayer/EtherUI" unique_id=141856680]
+visible = false
+layout_mode = 0
+offset_left = 90.0
+offset_top = -29.0
+offset_right = 166.0
+offset_bottom = -2.0
+text = "Elegí 1 éter"
+label_settings = SubResource("LabelSettings_vunlk")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/EtherUI" unique_id=57364321]
+layout_mode = 0
+offset_right = 253.0
+offset_bottom = 54.0
+
+[node name="UISeleccionDescarte" type="Control" parent="CanvasLayer" unique_id=492267532]
+visible = false
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -194.0
+offset_top = 119.0
+offset_right = 206.0
+offset_bottom = 229.0
+grow_horizontal = 2
+
+[node name="LabelInstruccion" type="Label" parent="CanvasLayer/UISeleccionDescarte" unique_id=2109041427]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 12.0
+offset_right = 397.0
+offset_bottom = 48.0
+text = "Seleccioná una carta para descartar"
+label_settings = SubResource("LabelSettings_f856b")
+horizontal_alignment = 1
+
+[node name="BtnConfirmarDescarte" type="Button" parent="CanvasLayer/UISeleccionDescarte" unique_id=1874133622]
+layout_mode = 0
+offset_left = 146.0
+offset_top = 62.0
+offset_right = 278.0
+offset_bottom = 125.0
+theme_override_fonts/font = ExtResource("13_84vmf")
+theme_override_font_sizes/font_size = 27
+text = "Confirmar"
+
+[node name="UIMazos" type="Control" parent="CanvasLayer" unique_id=363633037]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("17_vol83")
+
+[node name="MazoRobo" type="Control" parent="CanvasLayer/UIMazos" unique_id=21523853]
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 484.0
+offset_right = 110.0
+offset_bottom = 598.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UIMazos/MazoRobo" unique_id=491759668]
+layout_mode = 0
+offset_left = -12.999992
+offset_top = 31.999996
+offset_right = 435.0
+offset_bottom = 772.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("15_778cw")
+
+[node name="LabelCantidad" type="Label" parent="CanvasLayer/UIMazos/MazoRobo" unique_id=174631989]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 74.0
+offset_right = 31.0
+offset_bottom = 106.0
+text = "20"
+label_settings = SubResource("LabelSettings_778cw")
+
+[node name="MazoDescarte" type="Control" parent="CanvasLayer/UIMazos" unique_id=338894083]
+anchors_preset = 0
+offset_left = 1169.0
+offset_top = 503.0
+offset_right = 1264.0
+offset_bottom = 598.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UIMazos/MazoDescarte" unique_id=347340848]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 16.0
+offset_right = 485.0
+offset_bottom = 756.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("15_778cw")
+
+[node name="LabelCantidad" type="Label" parent="CanvasLayer/UIMazos/MazoDescarte" unique_id=1205149607]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 61.0
+offset_right = 79.0
+offset_bottom = 94.0
+text = "20"
+label_settings = SubResource("LabelSettings_vuvll")
+horizontal_alignment = 2
+
+[node name="AnimadorCartas" type="Control" parent="CanvasLayer" unique_id=1640954395 node_paths=PackedStringArray("origen_robo", "destino_descarte")]
+z_index = 99
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("16_vuvll")
+duracion_robo = 0.5
+duracion_descarte = 0.35
+escala_reciclaje = 0.15000000000000002
+pausa_descarte_robo = 0.2
+origen_robo = NodePath("../UIMazos/MazoRobo")
+destino_descarte = NodePath("../UIMazos/MazoDescarte")
+
+[node name="CardEffectResolver" type="Node" parent="." unique_id=1116298795]
+script = ExtResource("15_f856b")
+
+[connection signal="carta_seleccionada" from="CanvasLayer/Mano" to="." method="_on_mano_carta_seleccionada"]

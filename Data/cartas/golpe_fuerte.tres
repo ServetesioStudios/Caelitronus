@@ -1,21 +1,27 @@
-[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://4luw8622dlhc"]
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://dxk8dmv0u6raq"]
 
-[ext_resource type="Texture2D" uid="uid://76mdj3pc22h3" path="res://Assets/cards/golpefuerte.png" id="1_ww2a1"]
-[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/cartas/efectos/effect_data.gd" id="2_86tbp"]
-[ext_resource type="Script" uid="uid://dsoesbabr1uya" path="res://Scripts/cartas/efectos/damage_effect_data.gd" id="3_u7c77"]
-[ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/cartas/card_data.gd" id="4_uoxec"]
+[ext_resource type="Texture2D" uid="uid://76mdj3pc22h3" path="res://Assets/cards/golpefuerte.png" id="1_5wq8w"]
+[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/cartas/effect_data.gd" id="1_je51f"]
+[ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/cartas/card_data.gd" id="2_hgwf7"]
+[ext_resource type="Script" uid="uid://0r6uf7hupq4j" path="res://Scripts/cartas/card_cost_data.gd" id="2_sbcue"]
+[ext_resource type="Script" uid="uid://dsoesbabr1uya" path="res://Scripts/cartas/efectos/damage.gd" id="4_yum2w"]
 
 
-[sub_resource type="Resource" id="Resource_iwchs"]
-script = ExtResource("3_u7c77")
-cantidad = 8
+[sub_resource type="Resource" id="Resource_5wq8w"]
+script = ExtResource("2_sbcue")
+generico = 2
+metadata/_custom_type_script = "uid://0r6uf7hupq4j"
+
+[sub_resource type="Resource" id="Resource_pkm1x"]
+script = ExtResource("4_yum2w")
+cantidad = 12
 metadata/_custom_type_script = "uid://dsoesbabr1uya"
 
 [resource]
-script = ExtResource("4_uoxec")
-nombre = "Golpazo"
-descripcion = "Inflige 8 de daño"
-efectos = Array[ExtResource("2_86tbp")]([SubResource("Resource_iwchs")])
-animacion = "ataquefuerte"
-arte = ExtResource("1_ww2a1")
+script = ExtResource("2_hgwf7")
+nombre = "Espada del Exterminador"
+descripcion = "Causa 12 de daño en un enemigo"
+arte = ExtResource("1_5wq8w")
+efectos = Array[ExtResource("1_je51f")]([SubResource("Resource_pkm1x")])
+costo_eter = SubResource("Resource_5wq8w")
 metadata/_custom_type_script = "uid://wr8ukg3kbesn"

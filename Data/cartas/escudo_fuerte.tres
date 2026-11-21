@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://bhlqwib3dqgh6"]
+
+[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/cartas/effect_data.gd" id="1_4ddwh"]
+[ext_resource type="Texture2D" uid="uid://o1j8gtbkbv5m" path="res://Assets/cards/bloqueo.png" id="1_ri3p3"]
+[ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/cartas/card_data.gd" id="2_1mjjb"]
+[ext_resource type="Script" uid="uid://0r6uf7hupq4j" path="res://Scripts/cartas/card_cost_data.gd" id="2_ixbyo"]
+[ext_resource type="Script" uid="uid://bg3ykg37brkkc" path="res://Scripts/cartas/efectos/block.gd" id="4_fw53y"]
+
+
+[sub_resource type="Resource" id="Resource_ri3p3"]
+script = ExtResource("2_ixbyo")
+generico = 2
+metadata/_custom_type_script = "uid://0r6uf7hupq4j"
+
+[sub_resource type="Resource" id="Resource_jlrgt"]
+script = ExtResource("4_fw53y")
+cantidad = 10
+metadata/_custom_type_script = "uid://bg3ykg37brkkc"
+
+[resource]
+script = ExtResource("2_1mjjb")
+nombre = "Bastión de la Fe"
+descripcion = "Aplica 10 de escudo"
+arte = ExtResource("1_ri3p3")
+efectos = Array[ExtResource("1_4ddwh")]([SubResource("Resource_jlrgt")])
+tipo_objetivo = 0
+costo_eter = SubResource("Resource_ri3p3")
+metadata/_custom_type_script = "uid://wr8ukg3kbesn"

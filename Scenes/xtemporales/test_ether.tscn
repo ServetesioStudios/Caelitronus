@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://fx1m238jx5h8"]
+
+[ext_resource type="Script" uid="uid://c4jqqidawt18b" path="res://Scripts/batalla/ether_manager.gd" id="1_vb1lr"]
+[ext_resource type="Script" uid="uid://bf1nd0wmkvav2" path="res://Scripts/xtemporales/test_ether.gd" id="1_vus5h"]
+
+[node name="TestEther" type="Node" unique_id=1366095518]
+script = ExtResource("1_vus5h")
+
+[node name="EtherManager" type="Node" parent="." unique_id=199287668]
+script = ExtResource("1_vb1lr")
+metadata/_custom_type_script = "uid://c4jqqidawt18b"

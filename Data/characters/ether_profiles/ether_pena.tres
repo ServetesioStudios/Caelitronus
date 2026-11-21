@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="EtherProfileData" format=3 uid="uid://nj7chof8076m"]
+
+[ext_resource type="Script" uid="uid://dl2npvw70fbvf" path="res://Scripts/eter/ether_profile_data.gd" id="1_2fbep"]
+
+[resource]
+script = ExtResource("1_2fbep")
+metadata/_custom_type_script = "uid://dl2npvw70fbvf"

@@ -12,23 +12,29 @@ const STATS_PATHS := {
 
 const MAZOS_INICIALES := {
 	TipoCaelius.IRA: {
-		"golpe_basico": 2,
-		"golpe_fuerte": 4,
-		"escudo": 1,
-		"recuperar_energia": 3,
+	"golpe_basico": 3,
+	"golpe_fuerte": 3,
+	"golpe_rojo_masDanoPocaVida": 3,
+	"golpe_rojo_consumeVida": 3,
+	"escudo_basico": 3,
+	"escudo_fuerte": 3,
+	"defensa_verde_masEscudoSiNoTomaDano": 3,
+	"defensa_verde_fuerte": 3,
+	"daño_cura_rojo_violeta": 3,
+	"cura_violeta_MasCuraConPocaVida": 3, 
+	"robo_rosa": 5,
 	},
 	TipoCaelius.EGO: {
-		"golpe_basico": 3,
-		"golpe_fuerte": 1,
-		"escudo": 4,
-		"recuperar_energia": 2,
+		"golpe_basico": 4, 
+		"golpe_fuerte":2, 
+		"escudo_basico":4, 
+		"escudo_fuerte":2
 	},
 	TipoCaelius.PENA: {
-		"golpe_basico": 3,
-		"golpe_fuerte": 2,
-		"escudo": 1,
-		"recuperar_energia": 2,
-		"curacion_menor": 2,
+		"golpe_basico": 4, 
+		"golpe_fuerte":2, 
+		"escudo_basico":4, 
+		"escudo_fuerte":2
 	},
 }
 

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://coo71kewplua7"]
+
+[ext_resource type="Script" uid="uid://0r6uf7hupq4j" path="res://Scripts/cartas/card_cost_data.gd" id="1_tg5cn"]
+[ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/cartas/effect_data.gd" id="1_vt8sr"]
+[ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/cartas/card_data.gd" id="2_at3to"]
+[ext_resource type="Script" uid="uid://can8xlijt7ucg" path="res://Scripts/cartas/efectos/draw_discard.gd" id="3_4uvhb"]
+
+[sub_resource type="Resource" id="Resource_4uvhb"]
+script = ExtResource("1_tg5cn")
+rosa = 1
+metadata/_custom_type_script = "uid://0r6uf7hupq4j"
+
+[sub_resource type="Resource" id="Resource_tg5cn"]
+script = ExtResource("3_4uvhb")
+metadata/_custom_type_script = "uid://can8xlijt7ucg"
+
+[resource]
+script = ExtResource("2_at3to")
+nombre = "Mano del Profeta"
+descripcion = "Descarta 1 carta, roba 2 cartas. "
+efectos = Array[ExtResource("1_vt8sr")]([SubResource("Resource_tg5cn")])
+tipo_objetivo = 0
+costo_eter = SubResource("Resource_4uvhb")
+metadata/_custom_type_script = "uid://wr8ukg3kbesn"
