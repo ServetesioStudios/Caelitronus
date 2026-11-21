@@ -16,7 +16,6 @@ func generar_jefes() -> void:
 		return
 
 	if not GameManager.estado_expedicion.todos_enemigos_derrotados(zona_id):
-		print("GeneradorJefes: todavía quedan enemigos en ", zona_id)
 		return
 
 	for nodo in get_children():
@@ -48,8 +47,6 @@ func generar_jefes() -> void:
 		add_child(jefe)
 		jefe.global_position = marcador.global_position
 		jefe.configurar(marcador.enemy_data, marcador.jefe_id)
-
-		print("GeneradorJefes: jefe generado: ", marcador.jefe_id)
 		
 		jefe.interaccion_solicitada.connect(_on_jefe_interaccion_solicitada)
 		
@@ -74,8 +71,5 @@ func _on_jefe_interaccion_solicitada(jefe: EnemigoMundo) -> void:
 		jugador.global_position,
 		GameManager.TipoEncuentro.JEFE
 	)
-
-
-	print("GeneradorJefes: iniciando combate contra ", jefe.enemy_data.nombre)
 
 	SceneManager.change_scene(SceneManager.SceneID.BATALLA)

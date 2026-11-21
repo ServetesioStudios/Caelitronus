@@ -5,7 +5,9 @@ var current_track: AudioStream = null
 
 @export var audio_library: AudioLibrary 
 
-
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
 func play_music(track: AudioStream):
 	if current_track == track and music.playing:
 		return

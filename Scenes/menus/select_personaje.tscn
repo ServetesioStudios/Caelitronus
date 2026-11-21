@@ -492,6 +492,7 @@ offset_bottom = 288.0
 size_flags_horizontal = 3
 
 [node name="Titulo" type="Label" parent="VBoxContainer/PanelInferior/PanelInfo" unique_id=588911552]
+custom_minimum_size = Vector2(500, 20)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -505,7 +506,7 @@ horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="Stats" type="Label" parent="VBoxContainer/PanelInferior/PanelInfo" unique_id=1088931150]
-custom_minimum_size = Vector2(0, 80)
+custom_minimum_size = Vector2(700, 80)
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0

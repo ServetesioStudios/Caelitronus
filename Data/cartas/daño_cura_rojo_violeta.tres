@@ -1,12 +1,11 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://cxtlgfe7ng23e"]
 
+[ext_resource type="Texture2D" uid="uid://c45b2nmakhhq7" path="res://Assets/cards/golpe.png" id="1_j57wm"]
 [ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/cartas/effect_data.gd" id="1_r36rs"]
-[ext_resource type="Texture2D" uid="uid://dnbgcc1ulij4u" path="res://Assets/cards/energia.png" id="1_w4pg7"]
 [ext_resource type="Script" uid="uid://0r6uf7hupq4j" path="res://Scripts/cartas/card_cost_data.gd" id="2_j57wm"]
 [ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/cartas/card_data.gd" id="2_yh14x"]
 [ext_resource type="Script" uid="uid://dsoesbabr1uya" path="res://Scripts/cartas/efectos/damage.gd" id="3_j57wm"]
 [ext_resource type="Script" uid="uid://caqemdqtrtowj" path="res://Scripts/cartas/efectos/heal.gd" id="4_2a17e"]
-
 
 [sub_resource type="Resource" id="Resource_xyp1o"]
 script = ExtResource("2_j57wm")
@@ -27,7 +26,7 @@ metadata/_custom_type_script = "uid://caqemdqtrtowj"
 script = ExtResource("2_yh14x")
 nombre = "Penitencia Sangrienta"
 descripcion = "Causa 9 de daño y cura 4."
-arte = ExtResource("1_w4pg7")
+arte = ExtResource("1_j57wm")
 efectos = Array[ExtResource("1_r36rs")]([SubResource("Resource_mtwf2"), SubResource("Resource_w4pg7")])
 costo_eter = SubResource("Resource_xyp1o")
 metadata/_custom_type_script = "uid://wr8ukg3kbesn"

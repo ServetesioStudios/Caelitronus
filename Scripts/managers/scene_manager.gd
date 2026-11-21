@@ -14,7 +14,7 @@ enum SceneID {
 	FIN_PARTIDA,
 	SALIR,
 	ZONA_EIRENE,
-	FIN_ZONA
+	FIN_ZONA,
 }
 
 const SCENE_PATHS := {

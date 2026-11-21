@@ -167,7 +167,6 @@ func cargar_partida() -> bool:
 
 	limpiar_encuentro()
 
-	print("Partida y expedición cargadas correctamente.")
 	return true
 
 
@@ -183,9 +182,6 @@ func borrar_partida() -> void:
 	player_data = null
 	estado_expedicion = EstadoExpedicion.new()
 	limpiar_encuentro()
-
-	print("Partida y expedición reiniciadas correctamente.")
-
 
 # MAZO INICIAL
 
@@ -263,7 +259,6 @@ func guardar_expedicion() -> bool:
 		push_error("Error al guardar la expedición: %s" % error)
 		return false
 
-	print("Expedición guardada correctamente.")
 	return true
 
 
@@ -294,9 +289,48 @@ func cargar_expedicion() -> bool:
 
 	estado_expedicion = expedicion_cargada
 
-	print("Expedición cargada correctamente.")
 	return true
 
 
 func hay_expedicion_guardada() -> bool:
 	return FileAccess.file_exists(EXPEDICION_SAVE_PATH)
+
+
+func hay_partida_guardada_valida() -> bool:
+	if not hay_partida_guardada() or not hay_expedicion_guardada():
+		return false
+
+	# Verificar los datos del jugador.
+	var datos_jugador := ResourceLoader.load(
+		SAVE_PATH,
+		"",
+		ResourceLoader.CACHE_MODE_IGNORE
+	) as PlayerData
+
+	if datos_jugador == null:
+		return false
+
+	if datos_jugador.run_id.strip_edges().is_empty():
+		return false
+
+	# Verificar los datos de la expedición.
+	var datos_expedicion := ResourceLoader.load(
+		EXPEDICION_SAVE_PATH,
+		"",
+		ResourceLoader.CACHE_MODE_IGNORE
+	) as ExpedicionSaveData
+
+	if datos_expedicion == null:
+		return false
+
+	if datos_expedicion.version != 1:
+		return false
+
+	# Ambos archivos deben pertenecer a la misma partida.
+	if datos_jugador.run_id != datos_expedicion.run_id:
+		return false
+
+	# Verificar que la expedición pueda reconstruirse.
+	var expedicion_prueba := EstadoExpedicion.new()
+
+	return expedicion_prueba.cargar_datos_guardado(datos_expedicion)

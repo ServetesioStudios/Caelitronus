@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://cujmdvg0jtrvo"]
 
 [ext_resource type="Script" uid="uid://0r6uf7hupq4j" path="res://Scripts/cartas/card_cost_data.gd" id="1_t5p30"]
+[ext_resource type="Texture2D" uid="uid://o1j8gtbkbv5m" path="res://Assets/cards/bloqueo.png" id="1_x40xh"]
 [ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/cartas/effect_data.gd" id="2_4u7pi"]
 [ext_resource type="Script" uid="uid://bu40j3ewtjaue" path="res://Scripts/cartas/efectos/next_attack_reduction.gd" id="3_4u7pi"]
 [ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/cartas/card_data.gd" id="3_iy7b1"]
-
 
 [sub_resource type="Resource" id="Resource_dh7kc"]
 script = ExtResource("1_t5p30")
@@ -20,6 +20,7 @@ metadata/_custom_type_script = "uid://bu40j3ewtjaue"
 script = ExtResource("3_iy7b1")
 nombre = "Égida del Altísimo"
 descripcion = "Gana 15 de escudo. Reduce en 3 el daño del próximo ataque recibido."
+arte = ExtResource("1_x40xh")
 efectos = Array[ExtResource("2_4u7pi")]([SubResource("Resource_yjyrs")])
 costo_eter = SubResource("Resource_dh7kc")
 metadata/_custom_type_script = "uid://wr8ukg3kbesn"

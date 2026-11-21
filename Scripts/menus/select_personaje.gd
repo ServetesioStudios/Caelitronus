@@ -18,6 +18,7 @@ var statsiniciales: Array = []
 
 
 func _ready() -> void:
+	MusicManager.play_menu()
 	panel_info.visible = false
 	btn_seleccionar.set_block_signals(true)
 	btn_seleccionar.disabled = true

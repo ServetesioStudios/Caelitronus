@@ -16,11 +16,9 @@ func _ready():
 	MusicManager.play_menu()
 	AudioSettings.aplicar()
 	
-	#HAY PARTIDA GUARDADA?
-	var tiene_partida := (
-	GameManager.hay_partida_guardada()
-	and GameManager.hay_expedicion_guardada())
-	
+	# Verificar si existe una partida válida.
+	var tiene_partida := GameManager.hay_partida_guardada_valida()
+
 	btn_continuar.visible = tiene_partida
 	btn_continuar.disabled = not tiene_partida
 

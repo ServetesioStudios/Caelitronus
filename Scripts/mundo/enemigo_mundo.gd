@@ -156,11 +156,6 @@ func _on_animacion_terminada() -> void:
 func _finalizar_interaccion() -> void:
 	if estado_actual != EstadoMundo.INTERACTUANDO:
 		return
-
-	print("Interacción completada con: %s (%s)" % [
-		enemy_data.nombre,
-		enemigo_id])
-
 	interaccion_solicitada.emit(self)
 
 

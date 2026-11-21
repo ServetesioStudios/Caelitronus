@@ -28,7 +28,6 @@ func marcar_enemigo_derrotado(zona_id: String, enemigo_id: String) -> bool:
 	for enemigo in enemigos:
 		if enemigo["id"] == enemigo_id:
 			enemigo["derrotado"] = true
-			print("Enemigo derrotado: %s" % enemigo_id)
 			return true
 
 	push_warning("EstadoExpedicion: enemigo no encontrado: %s" % enemigo_id)

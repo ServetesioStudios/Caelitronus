@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bnk0c8srmgnsl" path="res://Assets/mundo/tailset_entorno.png" id="1_7ovcd"]
 [ext_resource type="Texture2D" uid="uid://b4hdvtffgj3e2" path="res://Assets/mundo/tailset.png" id="1_c8rc3"]
+[ext_resource type="Script" uid="uid://101fqtdih3k4" path="res://Scenes/mundo/zona_eirene.gd" id="1_kx6b5"]
 [ext_resource type="PackedScene" uid="uid://cu0x086twdawi" path="res://Scenes/mundo/AreaAparicion.tscn" id="2_c8rc3"]
 [ext_resource type="Script" uid="uid://e02oajuxw41y" path="res://Scripts/mundo/configuracion_enemigo.gd" id="3_hmd60"]
 [ext_resource type="Resource" uid="uid://cg2pwu86xrqqy" path="res://Data/enemigos/monaguillo_oscuro.tres" id="5_5ddtq"]
@@ -16,6 +17,7 @@
 [ext_resource type="SpriteFrames" uid="uid://72uoy0udyu70" path="res://Assets/animaciones/SpriteFrames/Caelius/ira_sprite_frames.tres" id="14_hmd60"]
 [ext_resource type="SpriteFrames" uid="uid://c3gaekhmc3b38" path="res://Assets/animaciones/SpriteFrames/Caelius/pena_sprite_frames.tres" id="15_5uq12"]
 [ext_resource type="SpriteFrames" uid="uid://d1mrw7ktddvkm" path="res://Assets/animaciones/SpriteFrames/Caelius/ego_sprite_frames.tres" id="16_kx6b5"]
+[ext_resource type="PackedScene" uid="uid://deswn7045128b" path="res://Scenes/menus/menu_pausa.tscn" id="17_5uq12"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vunlk"]
 size = Vector2(2112, 32)
@@ -476,6 +478,7 @@ metadata/_custom_type_script = "uid://e02oajuxw41y"
 size = Vector2(48, 48)
 
 [node name="ZonaEirene" type="Node2D" unique_id=1434169328]
+script = ExtResource("1_kx6b5")
 
 [node name="Mapa" type="Node2D" parent="." unique_id=1413288785]
 
@@ -518,7 +521,7 @@ tile_map_data = PackedByteArray("AAAKAFIAAAAEAAEAAAALAFIAAAAEAAEAAAAMAFIAAAAEAAQ
 tile_set = SubResource("TileSet_vunlk")
 
 [node name="Obstaculos" type="TileMapLayer" parent="Mapa" unique_id=1560907301]
-tile_map_data = PackedByteArray("AAA1AAgAAAALAAAAAAA2AAgAAAALAAAAAAA3AAgAAAALAAAAAAA4AAgAAAALAAAAAAA0AAgAAAALAAAAAAAzAAcAAAAMAAAAAAAyAAYAAAAMAAAAAAA5AAcAAAAMAAAAAAA6AAYAAAAMAAAAAAAyAAUAAAAMAAAAAAAyAAQAAAAMAAAAAAA6AAUAAAAMAAAAAAA6AAQAAAAMAAAAAAAzAAMAAAAMAAAAAAA5AAMAAAAMAAAAAAA0AAIAAAALAAAAAAA1AAIAAAALAAAAAAA2AAIAAAALAAAAAAA3AAIAAAALAAAAAAA4AAIAAAALAAAAAAA0AAkAAAAHAAAAAAA0AAoAAAAHAAAAAAA0AAsAAAAHAAAAAAA4AAsAAAAHAAAAAAA4AAoAAAAHAAAAAAA4AAkAAAAHAAAAAAA=")
+tile_map_data = PackedByteArray("AAA4AAgAAAALAAAAAAA0AAgAAAALAAAAAAAzAAcAAAAMAAAAAAAyAAYAAAAMAAAAAAA5AAcAAAAMAAAAAAA6AAYAAAAMAAAAAAAyAAUAAAAMAAAAAAAyAAQAAAAMAAAAAAA6AAUAAAAMAAAAAAA6AAQAAAAMAAAAAAAzAAMAAAAMAAAAAAA5AAMAAAAMAAAAAAA0AAIAAAALAAAAAAA1AAIAAAALAAAAAAA2AAIAAAALAAAAAAA3AAIAAAALAAAAAAA4AAIAAAALAAAAAAA0AAkAAAAHAAAAAAA0AAoAAAAHAAAAAAA0AAsAAAAHAAAAAAA4AAsAAAAHAAAAAAA4AAoAAAAHAAAAAAA4AAkAAAAHAAAAAAA=")
 tile_set = SubResource("TileSet_hk1di")
 
 [node name="Decoracion" type="TileMapLayer" parent="Mapa" unique_id=872856903]
@@ -547,6 +550,7 @@ area_id = "zona_roja_area_d"
 enemigos = Array[ExtResource("3_hmd60")]([SubResource("Resource_grsv5")])
 
 [node name="AccesoJefe" type="Area2D" parent="." unique_id=1157830701]
+visible = false
 position = Vector2(1744, 262)
 script = ExtResource("6_74yx6")
 
@@ -559,8 +563,8 @@ polygon = PackedVector2Array(-10, -10, 10, -10, 10, 10, -10, 10)
 
 [node name="Jefe" type="Node2D" parent="." unique_id=697104401 node_paths=PackedStringArray("jugador")]
 script = ExtResource("7_sfj4h")
-jugador = NodePath("../miniplayer")
 escena_enemigo_mundo = ExtResource("8_f18v7")
+jugador = NodePath("../miniplayer")
 
 [node name="MarcadorJefe" parent="Jefe" unique_id=552315538 instance=ExtResource("9_02r1i")]
 position = Vector2(1746, 174)
@@ -577,9 +581,9 @@ position = Vector2(0, 2)
 
 [node name="Generador" type="Node" parent="." unique_id=1124363136 node_paths=PackedStringArray("areas_aparicion", "contenedor_enemigos", "jugador")]
 script = ExtResource("12_jfydq")
+escena_enemigo_mundo = ExtResource("8_f18v7")
 areas_aparicion = NodePath("../AreasAparicion")
 contenedor_enemigos = NodePath("../EnemigosGenerados")
-escena_enemigo_mundo = ExtResource("8_f18v7")
 jugador = NodePath("../miniplayer")
 
 [node name="miniplayer" parent="." unique_id=61477703 instance=ExtResource("13_yq3fg")]
@@ -587,3 +591,7 @@ position = Vector2(264, 1320)
 sprites_ira = ExtResource("14_hmd60")
 sprites_pena = ExtResource("15_5uq12")
 sprites_ego = ExtResource("16_kx6b5")
+
+[node name="PausaUI" type="CanvasLayer" parent="." unique_id=1291214921]
+
+[node name="MenuPausa" parent="PausaUI" unique_id=1636059737 instance=ExtResource("17_5uq12")]

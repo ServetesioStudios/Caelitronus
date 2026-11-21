@@ -702,27 +702,17 @@ func _on_combate_terminado(victoria: bool) -> void:
 					)
 					return
 
-				if GameManager.estado_expedicion.todos_enemigos_derrotados(
-					zona_id
-				):
-					print(
-						"Batalla: zona despejada: ",
-						zona_id
-					)
-
 			GameManager.TipoEncuentro.JEFE:
 				GameManager.estado_expedicion.marcar_jefe_derrotado(
 					zona_id,
 					enemigo_id
 				)
 
-				print(
-					"Batalla: jefe derrotado: ",
-					enemigo_id
-				)
-
 		GameManager.player_data.hp_actual = player.max_hp
 		GameManager.guardar_partida()
+		
+		if not GameManager.guardar_expedicion():
+			push_error("Batalla: no se pudo guardar la expedición después de la victoria.")
 
 		if GameManager.tipo_encuentro == GameManager.TipoEncuentro.JEFE:
 			var pantalla_final = SceneManager.add_overlay(
@@ -737,9 +727,16 @@ func _on_combate_terminado(victoria: bool) -> void:
 
 			return
 
-		SceneManager.change_scene(
-			SceneManager.SceneID.ZONA_EIRENE
+		var pantalla_victoria = SceneManager.add_overlay(
+			SceneManager.SceneID.FIN_PARTIDA,
+			$CanvasLayer
 		)
+
+		if pantalla_victoria != null:
+			pantalla_victoria.configurar(
+				pantalla_victoria.TipoFinal.VICTORIA
+			)
+
 		return
 
 	if victoria:

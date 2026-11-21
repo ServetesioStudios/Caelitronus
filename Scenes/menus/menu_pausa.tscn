@@ -1,0 +1,194 @@
+[gd_scene format=3 uid="uid://deswn7045128b"]
+
+[ext_resource type="Script" uid="uid://dx011iqm60ghi" path="res://Scripts/menus/menu_pausa.gd" id="1_a3fqc"]
+[ext_resource type="Texture2D" uid="uid://c8m4k5tnnhfda" path="res://Assets/BckGrnd/paperallborder.png" id="2_u3pa0"]
+[ext_resource type="FontFile" uid="uid://dxuqp4jcmwft0" path="res://Assets/Fonts/PirataOne-Regular.ttf" id="3_m4wpg"]
+[ext_resource type="AudioStream" uid="uid://b42nd1ocqfu1s" path="res://Assets/Sounds/Fantasy_Game_Weapons_Wood Shield_1_Block_Defend_Buckler_Deflect.wav" id="4_c0en2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3r01"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ef42"]
+bg_color = Color(0.6, 0.6, 0.6, 0.011764706)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.78431374, 0, 0.12941177, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f07pr"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.8923443, 0.80483663, 0.14891264, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="MenuPausa" type="Control" unique_id=1636059737]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a3fqc")
+
+[node name="Panel" type="Panel" parent="." unique_id=1080612147]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fondo" type="TextureRect" parent="Panel" unique_id=966203682]
+modulate = Color(0.2533432, 0.2957271, 0.22637159, 1)
+custom_minimum_size = Vector2(864, 600)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_u3pa0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=647497485]
+custom_minimum_size = Vector2(220, 220)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="BtnContinuar" type="Button" parent="Panel/VBoxContainer" unique_id=224713861]
+custom_minimum_size = Vector2(185, 80)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_g3r01")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3ef42")
+theme_override_styles/hover = SubResource("StyleBoxFlat_f07pr")
+
+[node name="Fondo" type="TextureRect" parent="Panel/VBoxContainer/BtnContinuar" unique_id=43389115]
+custom_minimum_size = Vector2(177, 70)
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 215.0
+offset_bottom = 75.0
+texture = ExtResource("2_u3pa0")
+expand_mode = 2
+
+[node name="texto" type="Label" parent="Panel/VBoxContainer/BtnContinuar" unique_id=1409686777]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 7.0
+offset_right = 214.0
+offset_bottom = 73.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_m4wpg")
+theme_override_font_sizes/font_size = 45
+text = "Continuar"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="Panel/VBoxContainer/BtnContinuar" unique_id=283184245]
+stream = ExtResource("4_c0en2")
+volume_db = -1.0
+bus = &"SFX"
+
+[node name="BtnAjustes" type="Button" parent="Panel/VBoxContainer" unique_id=1856579064]
+custom_minimum_size = Vector2(185, 80)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_g3r01")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3ef42")
+theme_override_styles/hover = SubResource("StyleBoxFlat_f07pr")
+
+[node name="Fondo" type="TextureRect" parent="Panel/VBoxContainer/BtnAjustes" unique_id=1861595280]
+custom_minimum_size = Vector2(177, 70)
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 215.0
+offset_bottom = 75.0
+texture = ExtResource("2_u3pa0")
+expand_mode = 2
+
+[node name="texto" type="Label" parent="Panel/VBoxContainer/BtnAjustes" unique_id=602422390]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 7.0
+offset_right = 214.0
+offset_bottom = 73.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_m4wpg")
+theme_override_font_sizes/font_size = 45
+text = "Ajustes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="Panel/VBoxContainer/BtnAjustes" unique_id=1323239888]
+stream = ExtResource("4_c0en2")
+volume_db = -1.0
+bus = &"SFX"
+
+[node name="BtnMenuPrincipal" type="Button" parent="Panel/VBoxContainer" unique_id=996962601]
+custom_minimum_size = Vector2(185, 80)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_g3r01")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3ef42")
+theme_override_styles/hover = SubResource("StyleBoxFlat_f07pr")
+
+[node name="Fondo" type="TextureRect" parent="Panel/VBoxContainer/BtnMenuPrincipal" unique_id=1360172261]
+custom_minimum_size = Vector2(177, 70)
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 215.0
+offset_bottom = 75.0
+texture = ExtResource("2_u3pa0")
+expand_mode = 2
+
+[node name="texto" type="Label" parent="Panel/VBoxContainer/BtnMenuPrincipal" unique_id=2072178664]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 7.0
+offset_right = 214.0
+offset_bottom = 73.0
+theme_override_colors/font_color = Color(0.627451, 0.52156866, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("3_m4wpg")
+theme_override_font_sizes/font_size = 45
+text = "Salir"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="Panel/VBoxContainer/BtnMenuPrincipal" unique_id=1454297186]
+stream = ExtResource("4_c0en2")
+volume_db = -1.0
+bus = &"SFX"

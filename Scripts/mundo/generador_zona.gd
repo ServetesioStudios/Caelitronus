@@ -147,14 +147,6 @@ func generar_area(area: AreaAparicion) -> void:
 
 			indice_enemigo += 1
 
-			print(
-				"[%s] %s generado en %s" % [
-					area.area_id,
-					configuracion.enemy_data.nombre,
-					posicion
-				]
-			)
-
 
 func posicion_libre_de_obstaculos(posicion: Vector2) -> bool:
 	var forma := RectangleShape2D.new()
@@ -242,8 +234,7 @@ func restaurar_enemigos() -> void:
 
 
 func _on_enemigo_interaccion_iniciada(
-	enemigo: EnemigoMundo
-) -> void:
+	enemigo: EnemigoMundo) -> void:
 
 	if enemigo_interactuando != null:
 		return
@@ -255,8 +246,7 @@ func _on_enemigo_interaccion_iniciada(
 
 
 func _on_enemigo_interaccion_solicitada(
-	enemigo: EnemigoMundo
-) -> void:
+	enemigo: EnemigoMundo) -> void:
 
 	if enemigo != enemigo_interactuando:
 		return

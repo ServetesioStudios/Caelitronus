@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://coo71kewplua7"]
 
+[ext_resource type="Texture2D" uid="uid://dnbgcc1ulij4u" path="res://Assets/cards/energia.png" id="1_4uvhb"]
 [ext_resource type="Script" uid="uid://0r6uf7hupq4j" path="res://Scripts/cartas/card_cost_data.gd" id="1_tg5cn"]
 [ext_resource type="Script" uid="uid://banmwiuvavixk" path="res://Scripts/cartas/effect_data.gd" id="1_vt8sr"]
 [ext_resource type="Script" uid="uid://wr8ukg3kbesn" path="res://Scripts/cartas/card_data.gd" id="2_at3to"]
@@ -18,6 +19,7 @@ metadata/_custom_type_script = "uid://can8xlijt7ucg"
 script = ExtResource("2_at3to")
 nombre = "Mano del Profeta"
 descripcion = "Descarta 1 carta, roba 2 cartas. "
+arte = ExtResource("1_4uvhb")
 efectos = Array[ExtResource("1_vt8sr")]([SubResource("Resource_tg5cn")])
 tipo_objetivo = 0
 costo_eter = SubResource("Resource_4uvhb")

@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://0r6uf7hupq4j" path="res://Scripts/cartas/card_cost_data.gd" id="2_sbcue"]
 [ext_resource type="Script" uid="uid://dsoesbabr1uya" path="res://Scripts/cartas/efectos/damage.gd" id="4_yum2w"]
 
-
 [sub_resource type="Resource" id="Resource_5wq8w"]
 script = ExtResource("2_sbcue")
 generico = 2

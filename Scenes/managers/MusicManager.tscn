@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://2br5tiwbm017"]
+[gd_scene format=3 uid="uid://2br5tiwbm017"]
 
 [ext_resource type="Script" uid="uid://davd3fnjepbmn" path="res://Scripts/managers/music_manager.gd" id="1_bco6c"]
 [ext_resource type="AudioStream" uid="uid://b4mer5xptq7kc" path="res://Assets/Music/Adversus.wav" id="2_kgh7q"]
@@ -11,9 +11,9 @@ musica_menu = ExtResource("3_46s0o")
 musica_batalla = ExtResource("2_kgh7q")
 metadata/_custom_type_script = "uid://d348o5wum4nj4"
 
-[node name="MusicManager" type="Node"]
+[node name="MusicManager" type="Node" unique_id=1348906611]
 script = ExtResource("1_bco6c")
 audio_library = SubResource("Resource_t6fkc")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1411744486]
 bus = &"Music"
