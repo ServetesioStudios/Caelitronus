@@ -236,3 +236,30 @@ func pagar_carta(
 	eteres_actualizados.emit()
 
 	return true
+
+
+func obtener_indices_genericos_disponibles(
+	costo: CardCostData) -> Array[int]:
+
+	var indices: Array[int] = []
+
+	if costo == null or not costo.es_costo_valido():
+		return indices
+
+	if not puede_pagar(costo):
+		return indices
+
+	# Reservar los éteres necesarios para los costes específicos.
+	var reservados: Array[int] = obtener_indices_especificos(costo)
+
+	# Obtener los éteres restantes que pueden pagar el coste genérico.
+	for i in range(eteres.size()):
+		if eteres[i] == ETER_VACIO:
+			continue
+
+		if reservados.has(i):
+			continue
+
+		indices.append(i)
+
+	return indices

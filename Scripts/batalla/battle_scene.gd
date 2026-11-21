@@ -7,7 +7,7 @@ extends Node2D
 @onready var combat_manager: CombatManager = $CombatManager
 @onready var deck_manager: DeckManager = $DeckManager
 
-@onready var btn_fin_turno: Button = $CanvasLayer/BtnFinTurno
+@onready var btn_fin_turno: BotonFinTurno = $CanvasLayer/BtnFinTurno
 @onready var player: Player = $CanvasLayer/player
 @onready var mano_ui: Control = $CanvasLayer/Mano
 @onready var zona_drop = $CanvasLayer/DropZone
@@ -15,14 +15,14 @@ extends Node2D
 @onready var ether_manager: EtherManager = $EtherManager
 @onready var ether_ui: EtherUI = $CanvasLayer/EtherUI
 
-@onready var aviso_combate: Label = $CanvasLayer/AvisoCombate
+@onready var aviso_combate: AvisoCombate = $CanvasLayer/AvisoCombate
 
 @onready var card_effect_resolver: CardEffectResolver = $CardEffectResolver
 
-@onready var label_mazo_robo: Label = $CanvasLayer/UIMazos/MazoRobo/LabelCantidad
-@onready var label_mazo_descarte: Label = $CanvasLayer/UIMazos/MazoDescarte/LabelCantidad
+@onready var ui_mazos: UIMazos = $CanvasLayer/UIMazos
 
 @onready var animador_cartas: AnimadorCartas = $CanvasLayer/AnimadorCartas
+
 # ============================================================
 # VARIABLES
 # ============================================================
@@ -38,9 +38,6 @@ var finalizando_turno: bool = false
 var carta_pendiente: CardData = null
 var carta_ui_pendiente: CardUI = null
 var objetivo_pendiente: CombatEntity = null
-
-var tween_aviso: Tween
-
 
 # ============================================================
 # INICIALIZACIÓN
@@ -91,7 +88,9 @@ func _ready() -> void:
 	deck_manager.iniciar_mazo(
 		GameManager.crear_mazo_inicial(player.tipo_caelius)
 	)
-
+	
+	ui_mazos.configurar(deck_manager)
+	
 	# Configurar animador de cartas.
 	mano_ui.animador_cartas = animador_cartas
 	deck_manager.presentar_robo = _presentar_robo
@@ -108,11 +107,6 @@ func _ready() -> void:
 		mano_ui.mostrar_mano
 	)
 
-	deck_manager.mano_actualizada.connect(
-	func(_cartas: Array[CardData]) -> void:
-		_actualizar_contadores_mazos()
-	)
-
 	# Configurar resolver y validador.
 	card_effect_resolver.configurar(deck_manager)
 	card_effect_resolver.contexto.configurar_mano(mano_ui)
@@ -126,6 +120,11 @@ func _ready() -> void:
 		card_effect_resolver)
 
 	mano_ui.card_play_validator = card_play_validator
+	btn_fin_turno.configurar(
+	deck_manager,
+	ether_manager,
+	combat_manager,
+	card_play_validator)
 
 	card_effect_resolver.carta_finalizada.connect(
 		_on_carta_finalizada
@@ -167,7 +166,7 @@ func _ready() -> void:
 	)
 
 	combat_manager.turno_enemigo_iniciado.connect(
-		func(): btn_fin_turno.disabled = true
+		func(): btn_fin_turno.establecer_habilitado(false)
 	)
 
 	# Eventos del combate.
@@ -406,15 +405,40 @@ func solicitar_pago_eter(
 		return
 
 	if not ether_manager.puede_pagar(carta.costo_eter):
-		mostrar_aviso(
-			"Éteres insuficientes para: " + carta.nombre
+		aviso_combate.mostrar(
+			"Éteres insuficientes"
 		)
 		return
 
+	# Obtener los éteres disponibles para el coste genérico,
+	# excluyendo los reservados para costes específicos.
+	var disponibles: Array[int] = (
+		ether_manager.obtener_indices_genericos_disponibles(
+			carta.costo_eter)
+	)
+
+	var cantidad_generica: int = carta.costo_eter.generico
+
+	# Si hay exactamente los éteres necesarios,
+	# realizar el pago automáticamente.
+	if disponibles.size() == cantidad_generica:
+		if not ether_manager.pagar_carta(
+			carta.costo_eter,
+			disponibles):
+			aviso_combate.mostrar(
+				"No se pudo pagar: " + carta.nombre
+			)
+			return
+
+		_ejecutar_carta(carta, objetivo, card_ui)
+		return
+
+	# Si hay más éteres disponibles, permitir elegir.
 	carta_pendiente = carta
 	carta_ui_pendiente = card_ui
 	objetivo_pendiente = objetivo
-	btn_fin_turno.disabled = true
+
+	btn_fin_turno.establecer_habilitado(false)
 
 	var reservados: Array[int] = (
 		ether_manager.obtener_indices_especificos(
@@ -423,12 +447,13 @@ func solicitar_pago_eter(
 	)
 
 	ether_ui.iniciar_seleccion(
-		carta.costo_eter.generico,
+		cantidad_generica,
 		reservados
 	)
 
 	mano_ui.actualizar_disponibilidad_todas()
-
+	
+	
 func _on_seleccion_eter_actualizada(indices: Array[int]) -> void:
 	if finalizando_turno:
 		return
@@ -459,7 +484,7 @@ func _on_seleccion_eter_actualizada(indices: Array[int]) -> void:
 		return
 
 	if not card_play_validator.puede_jugar(carta):
-		mostrar_aviso(
+		aviso_combate.mostrar(
 			card_play_validator.motivo_no_jugable
 		)
 		_cancelar_pago_pendiente()
@@ -469,7 +494,7 @@ func _on_seleccion_eter_actualizada(indices: Array[int]) -> void:
 		carta.costo_eter,
 		indices
 	):
-		mostrar_aviso(
+		aviso_combate.mostrar(
 			"No se pudo pagar: " + carta.nombre
 		)
 		_cancelar_pago_pendiente()
@@ -513,7 +538,7 @@ func intentar_jugar_carta(
 		carta,
 		carta_pendiente != null
 	):
-		mostrar_aviso(
+		aviso_combate.mostrar(
 			card_play_validator.motivo_no_jugable
 		)
 		return
@@ -534,7 +559,7 @@ func intentar_jugar_carta(
 		carta.costo_eter,
 		[]
 	):
-		mostrar_aviso(
+		aviso_combate.mostrar(
 			"No se pudo pagar: " + carta.nombre
 		)
 		return
@@ -566,7 +591,7 @@ func _ejecutar_carta(
 
 	var tamano_carta: Vector2 = card_ui.size
 
-	btn_fin_turno.disabled = true
+	btn_fin_turno.establecer_habilitado(false)
 
 	# Retirar la copia exacta de la mano.
 	if not deck_manager.jugar_carta(indice, carta):
@@ -639,7 +664,7 @@ func _on_accion_enemigo_realizada(
 func _on_combate_terminado(victoria: bool) -> void:
 	deck_manager.cancelar_robo()
 
-	btn_fin_turno.disabled = true
+	btn_fin_turno.establecer_habilitado(false)
 	_cancelar_pago_pendiente()
 
 	card_effect_resolver.cancelar_ejecucion()
@@ -736,44 +761,6 @@ func _exit_tree() -> void:
 		card_effect_resolver.cancelar_ejecucion()
 
 # ============================================================
-# AVISOS
-# ============================================================
-
-func mostrar_aviso(mensaje: String) -> void:
-	if not is_instance_valid(aviso_combate):
-		push_warning(
-			"BattleScene: falta AvisoCombate."
-		)
-		return
-
-	if tween_aviso != null and tween_aviso.is_running():
-		tween_aviso.kill()
-
-	aviso_combate.text = mensaje
-	aviso_combate.modulate.a = 1.0
-	aviso_combate.show()
-
-	tween_aviso = create_tween()
-	tween_aviso.tween_interval(1.5)
-
-	tween_aviso.tween_property(
-		aviso_combate,
-		"modulate:a",
-		0.0,
-		0.4
-	)
-
-	tween_aviso.tween_callback(
-		aviso_combate.hide
-	)
-
-
-func _actualizar_contadores_mazos() -> void:
-	label_mazo_robo.text = str(deck_manager.mazo_robo.size())
-	label_mazo_descarte.text = str(deck_manager.mazo_descarte.size())
-
-
-# ============================================================
 # COORDINACIÓN DE ROBO Y RECICLAJE
 # ============================================================
 
@@ -795,7 +782,7 @@ func _presentar_reciclaje(cantidad: int) -> void:
 	if deck_manager.robo_cancelado or not is_inside_tree():
 		return
 
-	_actualizar_contadores_mazos()
+	ui_mazos.actualizar_contadores()
 
 	if is_instance_valid(animador_cartas):
 		var pausa: float = animador_cartas.pausa_reciclaje_robo
@@ -815,7 +802,7 @@ func _on_estado_robo_actualizado(robando: bool) -> void:
 
 
 func _actualizar_estado_boton_fin_turno() -> void:
-	btn_fin_turno.disabled = (
+	var bloquear: bool = (
 		deck_manager.robando
 		or deck_manager.robo_cancelado
 		or finalizando_turno
@@ -824,6 +811,7 @@ func _actualizar_estado_boton_fin_turno() -> void:
 		or not combat_manager.es_turno_jugador()
 	)
 
+	btn_fin_turno.establecer_habilitado(not bloquear)
 
 # ============================================================
 # FINALIZACIÓN DEL TURNO
@@ -847,7 +835,7 @@ func _on_fin_turno_presionado() -> void:
 
 	# Bloquear nuevas acciones.
 	finalizando_turno = true
-	btn_fin_turno.disabled = true
+	btn_fin_turno.establecer_habilitado(false)
 
 	# Finalizar animaciones de robo pendientes.
 	mano_ui.finalizar_animaciones_robo()
@@ -903,6 +891,8 @@ func _descartar_mano_completa() -> void:
 
 	# Vaciar la mano lógica y actualizar la interfaz.
 	deck_manager.descartar_mano()
+	
+
 # ============================================================
 # DEBUG
 # ============================================================
