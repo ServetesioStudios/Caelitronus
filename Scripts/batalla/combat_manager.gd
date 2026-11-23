@@ -13,14 +13,15 @@ enum Estado { INICIO, TURNO_JUGADOR, TURNO_ENEMIGO, VICTORIA, DERROTA }
 var estado: Estado = Estado.INICIO
 var enemigos: Array[Enemy] = []
 
+
 func iniciar_combate(p: CombatEntity, e: Array[Enemy]) -> void:
 	player = p
 	enemigos = e
-	
+
 	for enemigo in enemigos:
 		if is_instance_valid(enemigo) and enemigo.hp > 0:
 			_actualizar_intencion(enemigo)
-			
+
 	_iniciar_turno_jugador()
 
 
@@ -50,19 +51,17 @@ func _iniciar_turno_jugador() -> void:
 	turno_jugador_iniciado.emit()
 
 
-	
 func finalizar_turno_jugador() -> void:
 	if estado != Estado.TURNO_JUGADOR:
 		return
-	_iniciar_turno_enemigo()
 
+	_iniciar_turno_enemigo()
 
 
 func _iniciar_turno_enemigo() -> void:
 	estado = Estado.TURNO_ENEMIGO
 	turno_enemigo_iniciado.emit()
 	await _ejecutar_turno_enemigo()
-
 
 
 func _ejecutar_turno_enemigo() -> void:
@@ -100,13 +99,28 @@ func _ejecutar_turno_enemigo() -> void:
 		_iniciar_turno_jugador()
 
 
-
 func _actualizar_intencion(enemigo: Enemy) -> void:
 	enemigo.decidir_intencion()
+
 	if enemigo.intencion_actual.tipo == IntentData.Tipo.ATACAR:
-		enemigo.intencion_actual.valor = _calcular_daño_predicho(enemigo, player)
+		var daño_maximo: int = max(
+			int(enemigo.intencion_actual.valor * enemigo.bonus_daño),
+			1
+		)
+
+		var daño_minimo: int = max(
+			int(ceil(daño_maximo * 0.8)),
+			1
+		)
+
+		enemigo.intencion_actual.valor = randi_range(
+			daño_minimo,
+			daño_maximo
+		)
+
 	enemigo.actualizar_intencion_ui()
-	
+
+
 func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
 	enemigo_actuo.emit(enemigo)
 	var descripcion := ""
@@ -115,54 +129,76 @@ func _ejecutar_accion_enemigo(enemigo: Enemy) -> void:
 		IntentData.Tipo.ATACAR:
 			if is_instance_valid(player) and player.hp > 0:
 				player.recibio_ataque = true
-				
-				var daño = _calcular_daño_enemigo(enemigo, player)
+
+				var daño: int = enemigo.intencion_actual.valor
+				var fue_esquivado: bool = false
+				var fue_inmune: bool = false
+
+				if player.inmune:
+					daño = 0
+					fue_inmune = true
+				elif randi_range(0, 99) < player.esquive_efectivo():
+					daño = 0
+					fue_esquivado = true
+
 				if daño > 0:
 					player.recibir_daño(daño, false, true)
 					descripcion = "%s ataca e inflige %d de daño" % [enemigo.nombre, daño]
+
 					if enemigo.robo_vida:
 						var vida_robada = int(daño * enemigo.porcentaje_robo_vida)
 						enemigo.hp = min(enemigo.hp + vida_robada, enemigo.max_hp)
 						enemigo.actualizar_barra_vida()
 						descripcion += " y roba %d de vida" % vida_robada
-				else:
+
+				elif fue_inmune:
+					descripcion = "%s atacó, pero el objetivo es inmune" % enemigo.nombre
+
+				elif fue_esquivado:
 					descripcion = "%s atacó, pero fue esquivado" % enemigo.nombre
+
 				enemigo.al_atacar()
-				
+
 		IntentData.Tipo.DEFENDER:
 			enemigo.bloqueo += enemigo.intencion_actual.valor
 			enemigo.actualizar_escudo()
 			descripcion = "%s se defiende y gana %d de bloqueo" % [enemigo.nombre, enemigo.intencion_actual.valor]
+
 		IntentData.Tipo.HABILIDAD:
 			enemigo.activar_habilidad()
 			descripcion = "%s usa %s" % [enemigo.nombre, enemigo.habilidad_nombre]
-			enemigo.aplicar_efecto_habilidad_a_objetivo(player) 
-			
+			enemigo.aplicar_efecto_habilidad_a_objetivo(player)
+
 	accion_enemigo_realizada.emit(enemigo, descripcion)
 	await get_tree().create_timer(0.6).timeout
-	
-	
-func _calcular_daño_predicho(atacante: CombatEntity, defensor: CombatEntity) -> int:
-	var daño_base = atacante.daño * atacante.bonus_daño
-	var defensa_base = defensor.defensa * defensor.bonus_defensa
-	var reduccion = defensa_base / (defensa_base + 10.0)
-	var daño = daño_base * (1.0 - reduccion)
-	return max(int(daño), 1)
-	
-func _calcular_daño_enemigo(atacante: CombatEntity, defensor: CombatEntity) -> int:
-	var chance = randi() % 100
-	if chance < defensor.esquive_efectivo() or defensor.inmune:
-		return 0
-	
-	var daño_base = atacante.daño * atacante.bonus_daño
-	var defensa_base = defensor.defensa * defensor.bonus_defensa
-	
-	var reduccion = defensa_base / (defensa_base + 10.0)
-	var daño = daño_base * (1.0 - reduccion)
-	
-	var variacion = randf_range(0.85, 1.05)
-	daño *= variacion
-	return max(int(daño), 1)
+
+
+# FUNCIONES ANTERIORES DE CÁLCULO DE DAÑO
+# Se mantienen comentadas como referencia.
+# Aplicaban reducción por defensa y variación aleatoria al ejecutar el ataque.
+
+#func _calcular_daño_predicho(atacante: CombatEntity, defensor: CombatEntity) -> int:
+	#var daño_base = atacante.daño * atacante.bonus_daño
+	#var defensa_base = defensor.defensa * defensor.bonus_defensa
+	#var reduccion = defensa_base / (defensa_base + 10.0)
+	#var daño = daño_base * (1.0 - reduccion)
+	#return max(int(daño), 1)
+	#
+#func _calcular_daño_enemigo(atacante: CombatEntity, defensor: CombatEntity) -> int:
+	#var chance = randi() % 100
+	#if chance < defensor.esquive_efectivo() or defensor.inmune:
+		#return 0
+	#
+	#var daño_base = atacante.daño * atacante.bonus_daño
+	#var defensa_base = defensor.defensa * defensor.bonus_defensa
+	#
+	#var reduccion = defensa_base / (defensa_base + 10.0)
+	#var daño = daño_base * (1.0 - reduccion)
+	#
+	#var variacion = randf_range(0.85, 1.05)
+	#daño *= variacion
+	#return max(int(daño), 1)
+#
 
 
 func verificar_fin_combate() -> bool:
@@ -191,8 +227,7 @@ func _verificar_fin_combate() -> bool:
 		return true
 
 	return false
-	
-	
+
 
 func _resolver_escudo_condicional() -> void:
 	if not is_instance_valid(player):

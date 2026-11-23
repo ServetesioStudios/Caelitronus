@@ -12,29 +12,41 @@ const STATS_PATHS := {
 
 const MAZOS_INICIALES := {
 	TipoCaelius.IRA: {
-	"golpe_basico": 3,
-	"golpe_fuerte": 3,
-	"golpe_rojo_masDanoPocaVida": 3,
-	"golpe_rojo_consumeVida": 3,
-	"escudo_basico": 3,
-	"escudo_fuerte": 3,
-	"defensa_verde_masEscudoSiNoTomaDano": 3,
-	"defensa_verde_fuerte": 3,
-	"daño_cura_rojo_violeta": 3,
-	"cura_violeta_MasCuraConPocaVida": 3, 
-	"robo_rosa": 5,
-	},
-	TipoCaelius.EGO: {
-		"golpe_basico": 4, 
-		"golpe_fuerte":2, 
-		"escudo_basico":4, 
-		"escudo_fuerte":2
+	"generico/golpe_basico": 2,
+	"generico/golpe_fuerte": 2,
+	"generico/escudo_basico": 1,
+	"generico/escudo_fuerte": 0,
+	"rojo/golpe_rojo_masDanoPocaVida": 2,
+	"rojo/golpe_rojo_consumeVida": 1,
+	"verde/defensa_verde_masEscudoSiNoTomaDano": 1,
+	"verde/defensa_verde_fuerte": 0,
+	"violeta/cura_violeta_MasCuraConPocaVida": 1, 
+	"rosa/robo_rosa": 1,
+	"mixta/daño_cura_rojo_violeta": 1,
+	
+	
 	},
 	TipoCaelius.PENA: {
-		"golpe_basico": 4, 
-		"golpe_fuerte":2, 
-		"escudo_basico":4, 
-		"escudo_fuerte":2
+		"generico/golpe_basico": 2, 
+		"generico/golpe_fuerte":1, 
+		"generico/escudo_basico":1, 
+		"generico/escudo_fuerte":0,
+		"rojo/golpe_rojo_masDanoPocaVida": 1,
+		"verde/defensa_verde_masEscudoSiNoTomaDano": 1,
+		"violeta/cura_violeta_MasCuraConPocaVida": 3, 
+		"rosa/robo_rosa": 1,
+		"mixta/daño_cura_rojo_violeta": 2,
+	},
+	TipoCaelius.EGO: {
+		"generico/golpe_basico": 2, 
+		"generico/golpe_fuerte":1, 
+		"generico/escudo_basico":2, 
+		"generico/escudo_fuerte":1,
+		"rojo/golpe_rojo_masDanoPocaVida": 1,
+		"verde/defensa_verde_masEscudoSiNoTomaDano": 2,
+		"verde/defensa_verde_fuerte": 1,
+		"violeta/cura_violeta_MasCuraConPocaVida": 1, 
+		"rosa/robo_rosa": 1,
 	},
 }
 
@@ -184,7 +196,6 @@ func borrar_partida() -> void:
 	limpiar_encuentro()
 
 # MAZO INICIAL
-
 func crear_mazo_inicial(tipo: TipoCaelius) -> Array[CardData]:
 	var mazo: Array[CardData] = []
 	var composicion: Dictionary = MAZOS_INICIALES.get(tipo, {})
@@ -204,7 +215,6 @@ func crear_mazo_inicial(tipo: TipoCaelius) -> Array[CardData]:
 
 
 # GESTIÓN DE ENCUENTROS
-
 func preparar_encuentro(
 	datos: EnemyData,
 	zona_id: String,

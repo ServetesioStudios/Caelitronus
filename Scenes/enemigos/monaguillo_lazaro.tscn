@@ -7,7 +7,7 @@
 [node name="Node2D" unique_id=1745865419 instance=ExtResource("1_m364l")]
 position = Vector2(0, 0)
 script = ExtResource("2_jhelr")
-incremento_por_ataque = 4
+incremento_por_ataque = 6
 porcentaje_curacion = 1.0
 
 [node name="Animador" parent="." index="3" unique_id=1767477017 node_paths=PackedStringArray("sprite")]

@@ -42,6 +42,7 @@ func actualizar_mensaje() -> void:
 func _on_btn_accion_pressed() -> void:
 	match tipo_final:
 		TipoFinal.DERROTA, TipoFinal.CONTINUARA:
+			GameManager.borrar_partida()
 			_volver_al_menu_principal()
 
 		TipoFinal.VICTORIA:

@@ -7,12 +7,14 @@
 
 [sub_resource type="Resource" id="Resource_20tst"]
 script = ExtResource("3_u5ler")
-max_hp = 90
-"daño" = 20
-esquive = 6
-velocidad = 0.9
+base_tiempo_ataque = 14.0
+max_hp = 70
+"daño" = 15
+defensa = 9
+esquive = 11
+velocidad = 5
 fe = 12
-poder = 5
+poder = 9
 metadata/_custom_type_script = "uid://3jdy5elvqaqm"
 
 [resource]

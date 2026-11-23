@@ -39,7 +39,6 @@ func activar_habilidad() -> void:
 func procesar_estados() -> void:
 	super.procesar_estados()
 	
-	
 	if turnos_restantes_cooldown > 0:
 		turnos_restantes_cooldown -= 1
 	if turnos_restantes_buff > 0:

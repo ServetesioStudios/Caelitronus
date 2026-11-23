@@ -45,6 +45,7 @@ func decidir_intencion() -> void:
 	intencion_actual = nueva_intencion
 	
 func actualizar_intencion_ui() -> void:
+	print("Valor recibido por la UI: ", intencion_actual.valor)
 	match intencion_actual.tipo:
 		IntentData.Tipo.ATACAR:
 			intencion_texto.text = "Ataque * %s" %str(intencion_actual.valor)

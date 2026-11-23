@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="Stats" load_steps=2 format=3 uid="uid://8k1t8bx3tm1w"]
+[gd_resource type="Resource" script_class="Stats" format=3 uid="uid://8k1t8bx3tm1w"]
 
 [ext_resource type="Script" uid="uid://3jdy5elvqaqm" path="res://Scripts/data/stats.gd" id="1_kkgvk"]
 
 [resource]
 script = ExtResource("1_kkgvk")
-max_hp = 85
+max_hp = 55
 esquive = 6
 velocidad = 0.9
 fe = 14

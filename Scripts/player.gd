@@ -26,7 +26,9 @@ func cargar_stats() -> void:
 		push_error("Player: no se pudieron cargar los stats")
 		return
 
+	print(stats.max_hp)
 	aplicar_stats(stats)
+	print(stats.max_hp)
 
 	if GameManager.player_data.hp_actual >= 0:
 		hp = GameManager.player_data.hp_actual

@@ -92,6 +92,7 @@ tamano_fuente = 20
 position = Vector2(33, 41)
 
 [node name="papelcombate" type="TextureRect" parent="CanvasLayer" unique_id=172119596]
+visible = false
 offset_left = 306.0
 offset_top = 460.0
 offset_right = 980.0
@@ -149,9 +150,9 @@ vertical_alignment = 1
 layout_mode = 3
 anchors_preset = 0
 offset_left = 332.0
-offset_top = 488.0
+offset_top = 467.0
 offset_right = 956.0
-offset_bottom = 712.0
+offset_bottom = 701.0
 script = ExtResource("12_wb0gu")
 
 [node name="AvisoCombate" type="Label" parent="CanvasLayer" unique_id=823369098]
