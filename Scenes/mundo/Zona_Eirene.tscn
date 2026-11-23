@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://e02oajuxw41y" path="res://Scripts/mundo/configuracion_enemigo.gd" id="3_hmd60"]
 [ext_resource type="Resource" uid="uid://cg2pwu86xrqqy" path="res://Data/enemigos/monaguillo_oscuro.tres" id="5_5ddtq"]
 [ext_resource type="Script" uid="uid://w4r2ux3er6j" path="res://Scripts/mundo/acceso_jefe.gd" id="6_74yx6"]
+[ext_resource type="Resource" uid="uid://c5frbhsbnmeve" path="res://Data/enemigos/monaguillo_lazaro.tres" id="6_sfj4h"]
+[ext_resource type="Resource" uid="uid://ldlpdqj8nje5" path="res://Data/enemigos/monaguillo_sagrado.tres" id="7_f18v7"]
 [ext_resource type="Script" uid="uid://c5gst7dpnavn2" path="res://Scripts/mundo/generador_jefes.gd" id="7_sfj4h"]
 [ext_resource type="PackedScene" uid="uid://b5jpshwmcylmy" path="res://Scenes/mundo/EnemigoMundo.tscn" id="8_f18v7"]
 [ext_resource type="PackedScene" uid="uid://rcw6wnl6s033" path="res://Scenes/mundo/MarcadorJefe.tscn" id="9_02r1i"]
@@ -655,6 +657,16 @@ sources/0 = SubResource("TileSetAtlasSource_kx6b5")
 
 [sub_resource type="Resource" id="Resource_f46mo"]
 script = ExtResource("3_hmd60")
+enemy_data = ExtResource("6_sfj4h")
+metadata/_custom_type_script = "uid://e02oajuxw41y"
+
+[sub_resource type="Resource" id="Resource_02r1i"]
+script = ExtResource("3_hmd60")
+enemy_data = ExtResource("7_f18v7")
+metadata/_custom_type_script = "uid://e02oajuxw41y"
+
+[sub_resource type="Resource" id="Resource_x5mex"]
+script = ExtResource("3_hmd60")
 enemy_data = ExtResource("5_5ddtq")
 metadata/_custom_type_script = "uid://e02oajuxw41y"
 
@@ -727,12 +739,12 @@ enemigos = Array[ExtResource("3_hmd60")]([SubResource("Resource_f46mo")])
 [node name="AreaB" parent="AreasAparicion" unique_id=1242136343 instance=ExtResource("2_c8rc3")]
 position = Vector2(911, 721)
 area_id = "zona_roja_area_b"
-enemigos = Array[ExtResource("3_hmd60")]([SubResource("Resource_grsv5")])
+enemigos = Array[ExtResource("3_hmd60")]([SubResource("Resource_02r1i")])
 
 [node name="AreaC" parent="AreasAparicion" unique_id=365563830 instance=ExtResource("2_c8rc3")]
 position = Vector2(1352, 1037)
 area_id = "zona_roja_area_c"
-enemigos = Array[ExtResource("3_hmd60")]([SubResource("Resource_grsv5")])
+enemigos = Array[ExtResource("3_hmd60")]([SubResource("Resource_x5mex")])
 
 [node name="AreaD" parent="AreasAparicion" unique_id=582345711 instance=ExtResource("2_c8rc3")]
 position = Vector2(1534, 637)

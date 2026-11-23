@@ -6,10 +6,6 @@ extends Enemy
 var contador: int = 0
 
 func decidir_intencion() -> void:
-	print("=== DEBUG MONAQUILLO LÁZARO ===")
-	print("Daño actual: ", daño)
-	print("Daño del recurso Stats: ", stats.daño if stats != null else "SIN STATS")
-
 	var nueva_intencion := IntentData.new()
 
 	if contador >= fe:
