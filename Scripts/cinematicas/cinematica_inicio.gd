@@ -8,7 +8,7 @@ func _ready():
 	audio.play()
 
 func _input(event):
-	if event.is_action_pressed("ui_accept") or event is InputEventMouseButton:
+	if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_cancel"):
 		_iniciar_Juego()
 
 func _on_inicio_finished() -> void:

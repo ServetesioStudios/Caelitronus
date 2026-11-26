@@ -123,11 +123,11 @@ region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wap26"]
 atlas = ExtResource("7_ikaco")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xmikv"]
 atlas = ExtResource("7_ikaco")
-region = Rect2(32, 0, 32, 32)
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fxucg"]
 atlas = ExtResource("7_ikaco")
@@ -135,15 +135,11 @@ region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nc38d"]
 atlas = ExtResource("7_ikaco")
-region = Rect2(96, 0, 32, 32)
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_reye6"]
 atlas = ExtResource("7_ikaco")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s4j03"]
-atlas = ExtResource("7_ikaco")
-region = Rect2(160, 0, 32, 32)
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dn0om"]
 atlas = ExtResource("8_c1d5m")
@@ -385,9 +381,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_reye6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s4j03")
 }],
 "loop": 0,
 "name": &"invo_right",

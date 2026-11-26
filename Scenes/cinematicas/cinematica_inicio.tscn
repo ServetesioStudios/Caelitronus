@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckj081pyarvnw"]
+[gd_scene format=3 uid="uid://ckj081pyarvnw"]
 
 [ext_resource type="Script" uid="uid://ra06n4r7mpyr" path="res://Scripts/cinematicas/cinematica_inicio.gd" id="1_n8gms"]
 [ext_resource type="VideoStream" uid="uid://5lpwgr52jgjv" path="res://Assets/Movie/inicio/prologo.ogv" id="2_rr063"]
 [ext_resource type="AudioStream" uid="uid://d2d8wn2a1ld8s" path="res://Assets/Movie/inicio/prologo.wav" id="3_8h8wc"]
 
-[node name="CinematicaInicio" type="Control"]
+[node name="CinematicaInicio" type="Control" unique_id=1612789450]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_n8gms")
 
-[node name="inicio" type="VideoStreamPlayer" parent="."]
+[node name="inicio" type="VideoStreamPlayer" parent="." unique_id=802352993]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -23,7 +23,7 @@ offset_bottom = 0.2399292
 stream = ExtResource("2_rr063")
 expand = true
 
-[node name="voces" type="AudioStreamPlayer" parent="."]
+[node name="voces" type="AudioStreamPlayer" parent="." unique_id=1156385583]
 stream = ExtResource("3_8h8wc")
 bus = &"Voces"
 
